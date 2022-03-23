@@ -1,0 +1,17 @@
+D:\01_dev\GIT_CeramWorkshop\Sources\src\Infrastructure\Repository\bin\Debug\net6.0\Repository.deps.json
+D:\01_dev\GIT_CeramWorkshop\Sources\src\Infrastructure\Repository\bin\Debug\net6.0\Repository.runtimeconfig.json
+D:\01_dev\GIT_CeramWorkshop\Sources\src\Infrastructure\Repository\bin\Debug\net6.0\Repository.dll
+D:\01_dev\GIT_CeramWorkshop\Sources\src\Infrastructure\Repository\bin\Debug\net6.0\ref\Repository.dll
+D:\01_dev\GIT_CeramWorkshop\Sources\src\Infrastructure\Repository\bin\Debug\net6.0\Repository.pdb
+D:\01_dev\GIT_CeramWorkshop\Sources\src\Infrastructure\Repository\bin\Debug\net6.0\Domain.dll
+D:\01_dev\GIT_CeramWorkshop\Sources\src\Infrastructure\Repository\bin\Debug\net6.0\Domain.pdb
+D:\01_dev\GIT_CeramWorkshop\Sources\src\Infrastructure\Repository\obj\Debug\net6.0\Repository.csproj.AssemblyReference.cache
+D:\01_dev\GIT_CeramWorkshop\Sources\src\Infrastructure\Repository\obj\Debug\net6.0\Repository.GeneratedMSBuildEditorConfig.editorconfig
+D:\01_dev\GIT_CeramWorkshop\Sources\src\Infrastructure\Repository\obj\Debug\net6.0\Repository.AssemblyInfoInputs.cache
+D:\01_dev\GIT_CeramWorkshop\Sources\src\Infrastructure\Repository\obj\Debug\net6.0\Repository.AssemblyInfo.cs
+D:\01_dev\GIT_CeramWorkshop\Sources\src\Infrastructure\Repository\obj\Debug\net6.0\Repository.csproj.CoreCompileInputs.cache
+D:\01_dev\GIT_CeramWorkshop\Sources\src\Infrastructure\Repository\obj\Debug\net6.0\Repository.csproj.CopyComplete
+D:\01_dev\GIT_CeramWorkshop\Sources\src\Infrastructure\Repository\obj\Debug\net6.0\Repository.dll
+D:\01_dev\GIT_CeramWorkshop\Sources\src\Infrastructure\Repository\obj\Debug\net6.0\ref\Repository.dll
+D:\01_dev\GIT_CeramWorkshop\Sources\src\Infrastructure\Repository\obj\Debug\net6.0\Repository.pdb
+D:\01_dev\GIT_CeramWorkshop\Sources\src\Infrastructure\Repository\obj\Debug\net6.0\Repository.genruntimeconfig.cache

@@ -1,0 +1,36 @@
+﻿@page "/fetchdata"
+
+<PageTitle>Weather forecast</PageTitle>
+
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from a service.</p>
+
+@if (Products == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Products)
+            {
+                <tr>
+                     <td><button @onclick="() => GoToProductDetail(product.Id)">@product.Id</button></td>
+                    <td>@product.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        <input @bind="Name" />
+        <button @onclick="AddProduct">Ajouter</button>
+    </div>
+}

@@ -1,4 +1,4 @@
-﻿using Domain.Interfaces;
+﻿using Domain.InterfacesWorker;
 using Domain.Models;
 using Microsoft.AspNetCore.Components;
 
@@ -9,27 +9,27 @@ namespace Client.Pages
         private IEnumerable<Product>? Products;
         private string? Name;
 
-        [Inject] private IUnitOfWork _unitOfWork { get; set; } = default!;
-        [Inject] private NavigationManager _navigationManager { get; set; } = default!;
+        [Inject] private IProductWork unitOfWork { get; set; } = default!;
+        [Inject] private NavigationManager navigationManager { get; set; } = default!;
 
         protected override async Task OnInitializedAsync()
         {
-            Products = await _unitOfWork.ProductRepository.GetAll();
+            Products = await unitOfWork.ProductRepository.GetAll();
         }
 
         public async Task AddProduct()
         {
             if (Name != null)
             {
-                await _unitOfWork.ProductRepository.Add(new Product(Name));
-                _unitOfWork.Completed();
+                await unitOfWork.ProductRepository.Add(new Product(Name));
+                unitOfWork.Completed();
             }
 
-            Products = await _unitOfWork.ProductRepository.GetAll();
+            Products = await unitOfWork.ProductRepository.GetAll();
         }
         public void GoToProductDetail(int id)
         {
-            _navigationManager.NavigateTo($"ProductDetail/{id}");
+            navigationManager.NavigateTo($"ProductDetail/{id}");
         }
     }
 }

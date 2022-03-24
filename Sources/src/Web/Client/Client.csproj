@@ -10,4 +10,8 @@
     <ProjectReference Include="..\..\Infrastructure\Repository\Repository.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Shared\Controls\" />
+  </ItemGroup>
+
 </Project>

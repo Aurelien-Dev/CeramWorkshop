@@ -1,13 +1,9 @@
 ﻿using Domain.Interfaces;
+using Domain.InterfacesWorker;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Repository.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Repository.Workers;
 
 namespace Repository
 {
@@ -15,9 +11,16 @@ namespace Repository
     {
         public static IServiceCollection AddRepository(this IServiceCollection services, string connectionStringName)
         {
+            //Repositories
             services.AddTransient<IProductRepository, ProductRepository>();
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IMaterialRepository, MaterialRepository>();
+            services.AddTransient<IFiringRepository, FiringRepository>();
+            services.AddTransient<IAccessoryRepository, AccessoryRepository>();
 
+            //Workers
+            services.AddTransient<IProductWork, ProductWork>();
+
+            //DbContext
             services.AddDbContext<ApplicationDbContext>(opt => opt.UseNpgsql(connectionStringName));
 
             return services;

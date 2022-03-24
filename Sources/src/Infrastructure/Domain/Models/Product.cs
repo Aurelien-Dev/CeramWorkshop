@@ -21,5 +21,6 @@ namespace Domain.Models
         public int MarginRate { get; set; }
 
         public ICollection<ProductMaterial> ProductMaterial { get; set; }
+        public ICollection<ProductFiring> ProductFiring { get; set; }
     }
 }

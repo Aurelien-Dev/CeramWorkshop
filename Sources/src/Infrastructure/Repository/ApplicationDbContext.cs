@@ -8,7 +8,7 @@ namespace Repository
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<Material> Materials { get; set; }
-        public DbSet<ProductMaterial> ProductMaterials{ get; set; }
+        public DbSet<ProductMaterial> ProductMaterials { get; set; }
 
         public ApplicationDbContext() { }
 
@@ -23,11 +23,9 @@ namespace Repository
         {
             ProductMap.Build(modelBuilder);
             MaterialMap.Build(modelBuilder);
+            FiringMap.Build(modelBuilder);
             ProductMaterialMap.Build(modelBuilder);
-
-            modelBuilder.Entity<ProductMaterial>().HasKey(bc => new { bc.IdProduct, bc.IdMaterial});
-            modelBuilder.Entity<ProductMaterial>().HasOne(bc => bc.Product).WithMany(b => b.ProductMaterial).HasForeignKey(bc => bc.IdProduct);
-            modelBuilder.Entity<ProductMaterial>().HasOne(bc => bc.Material).WithMany(c => c.ProductMaterial).HasForeignKey(bc => bc.IdMaterial);
+            ProductFiringMap.Build(modelBuilder);
         }
     }
 }

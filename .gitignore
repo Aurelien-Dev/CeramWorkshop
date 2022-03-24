@@ -9,6 +9,8 @@
 *.dll.config
 *.cache
 *.suo
+*.userosscache
+*.sln.docstates
 # Include dlls if they’re in the NuGet packages directory
 !/packages/*/lib/*.dll
 !/packages/*/lib/*/*.dll
@@ -25,7 +27,7 @@ _UpgradeReport_Files/
 bin/
 obj/
 TestResults/
-.vs/
+/.vs
 ###################
 # Web publish log #
 ###################

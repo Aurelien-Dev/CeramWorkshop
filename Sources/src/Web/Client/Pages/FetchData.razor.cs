@@ -8,8 +8,9 @@ namespace Client.Pages
     {
         private IEnumerable<Product>? Products;
         private string? Name;
-        [Inject] private IUnitOfWork _unitOfWork { get; set; }
-        [Inject] private NavigationManager _navigationManager { get; set; }
+
+        [Inject] private IUnitOfWork _unitOfWork { get; set; } = default!;
+        [Inject] private NavigationManager _navigationManager { get; set; } = default!;
 
         protected override async Task OnInitializedAsync()
         {

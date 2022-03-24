@@ -16,7 +16,6 @@ namespace Repository
         public static IServiceCollection AddRepository(this IServiceCollection services, string connectionStringName)
         {
             services.AddTransient<IProductRepository, ProductRepository>();
-            services.AddTransient<IWorkshopRepository, WorkshopRepository>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             services.AddDbContext<ApplicationDbContext>(opt => opt.UseNpgsql(connectionStringName));

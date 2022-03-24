@@ -1,5 +1,4 @@
 D:\01_dev\GIT_CeramWorkshop\Sources\src\Infrastructure\Domain\bin\Debug\net6.0\Domain.deps.json
-D:\01_dev\GIT_CeramWorkshop\Sources\src\Infrastructure\Domain\bin\Debug\net6.0\Domain.runtimeconfig.json
 D:\01_dev\GIT_CeramWorkshop\Sources\src\Infrastructure\Domain\bin\Debug\net6.0\Domain.dll
 D:\01_dev\GIT_CeramWorkshop\Sources\src\Infrastructure\Domain\bin\Debug\net6.0\ref\Domain.dll
 D:\01_dev\GIT_CeramWorkshop\Sources\src\Infrastructure\Domain\bin\Debug\net6.0\Domain.pdb
@@ -11,4 +10,3 @@ D:\01_dev\GIT_CeramWorkshop\Sources\src\Infrastructure\Domain\obj\Debug\net6.0\D
 D:\01_dev\GIT_CeramWorkshop\Sources\src\Infrastructure\Domain\obj\Debug\net6.0\Domain.dll
 D:\01_dev\GIT_CeramWorkshop\Sources\src\Infrastructure\Domain\obj\Debug\net6.0\ref\Domain.dll
 D:\01_dev\GIT_CeramWorkshop\Sources\src\Infrastructure\Domain\obj\Debug\net6.0\Domain.pdb
-D:\01_dev\GIT_CeramWorkshop\Sources\src\Infrastructure\Domain\obj\Debug\net6.0\Domain.genruntimeconfig.cache

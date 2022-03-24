@@ -30,6 +30,11 @@
       "ProjectGuid": "7fd2fac3-9b2b-4aab-accb-5c9754121cf6",
       "DisplayName": "Client",
       "ColorIndex": 5
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
     }
   },
   "NextColorIndex": 6

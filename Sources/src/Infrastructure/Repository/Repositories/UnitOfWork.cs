@@ -7,13 +7,10 @@ namespace Repository.Repositories
         private readonly ApplicationDbContext _context;
         public IProductRepository ProductRepository { get; }
 
-        public IWorkshopRepository WorkshopRepository { get; }
-
-        public UnitOfWork(ApplicationDbContext context, IProductRepository productRepository, IWorkshopRepository workshopRepository)
+        public UnitOfWork(ApplicationDbContext context, IProductRepository productRepository)
         {
             _context = context;
             ProductRepository = productRepository;
-            WorkshopRepository = workshopRepository;
         }
 
         public int Completed()

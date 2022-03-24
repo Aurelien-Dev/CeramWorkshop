@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Models
 {
@@ -14,14 +9,17 @@ namespace Domain.Models
             Name = name;
         }
 
-        [Key]
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string? Reference { get; set; }
+        public string Reference { get; set; } = default!;
+        public string Name { get; set; } = default!;
         public string? Description { get; set; }
-        public int? Width { get; set; }
         public int? Height { get; set; }
+        public int? TopDiameter{ get; set; }
+        public int? BottomDiameter { get; set; }
         public string? DesignInstruction { get; set; }
         public int? Status { get; set; }
+        public int MarginRate { get; set; }
+
+        public ICollection<ProductMaterial> ProductMaterial { get; set; }
     }
 }

@@ -24,8 +24,10 @@ namespace Repository
             ProductMap.Build(modelBuilder);
             MaterialMap.Build(modelBuilder);
             FiringMap.Build(modelBuilder);
+            AccessoryMap.Build(modelBuilder);
             ProductMaterialMap.Build(modelBuilder);
             ProductFiringMap.Build(modelBuilder);
+            ProductAccessoryMap.Build(modelBuilder);
         }
     }
 }

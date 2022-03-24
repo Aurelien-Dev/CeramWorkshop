@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Domain.Models
+﻿namespace Domain.Models
 {
     public class Product
     {
@@ -22,5 +20,6 @@ namespace Domain.Models
 
         public ICollection<ProductMaterial> ProductMaterial { get; set; }
         public ICollection<ProductFiring> ProductFiring { get; set; }
+        public ICollection<ProductAccessory> ProductAccessory { get; set; }
     }
 }

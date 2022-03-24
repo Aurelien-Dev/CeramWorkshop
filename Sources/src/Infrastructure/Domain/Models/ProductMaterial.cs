@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Domain.Models
+﻿namespace Domain.Models
 {
     public class ProductMaterial
     {
@@ -12,7 +10,5 @@ namespace Domain.Models
 
         public Material Material { get; set; } = default!;
         public Product Product { get; set; } = default!;
-
-
     }
 }

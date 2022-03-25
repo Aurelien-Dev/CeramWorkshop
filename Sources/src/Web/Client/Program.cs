@@ -1,12 +1,12 @@
 using Repository;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddRepository(builder.Configuration.GetConnectionString("ConnectionString"));
+builder.Services.AddRepository();
+
 
 var app = builder.Build();
 

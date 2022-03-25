@@ -1,4 +1,5 @@
-﻿using Domain.Interfaces;
+﻿using Common.Singletons;
+using Domain.Interfaces;
 using Domain.InterfacesWorker;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,7 +10,7 @@ namespace Repository
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddRepository(this IServiceCollection services, string connectionStringName)
+        public static IServiceCollection AddRepository(this IServiceCollection services)
         {
             //Repositories
             services.AddTransient<IProductRepository, ProductRepository>();
@@ -21,8 +22,8 @@ namespace Repository
             services.AddTransient<IProductWork, ProductWork>();
 
             //DbContext
-            services.AddDbContext<ApplicationDbContext>(opt => opt.UseNpgsql(connectionStringName));
-
+            services.AddDbContext<ApplicationDbContext>();
+            
             return services;
         }
     }

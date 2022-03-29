@@ -1,9 +1,53 @@
 ﻿@page "/"
+@using Component.CommonControls
+@using Component.ProductControls
 
-<PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12 col-sm-7">
+                    <Textbox Label="Name" Value="@ProductDetail.Name" Readonly=IsReadonly />
+                    <Textarea Label="Description" Value="@ProductDetail.Description" Readonly=IsReadonly />
+                    <Textarea Label="Instruction de construction" Value="@ProductDetail.DesignInstruction" Placeholder="test" Readonly=IsReadonly />
 
-Welcome to your new app.
+                    <button @onclick=ReadonlyCmd>readonly</button>
+                </div>
+                <div class="col-12 col-sm-5">
+                    <CardCarousel />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+@*<div class="container mt-5">
+    <div class="row">
+    <div class="col-3 col-sm-3 pb-4">
+    <CardPhoto PhotoURL="assets/IMG_1892.jpg" />
+    </div>
+    <div class="col-3 col-sm-3 pb-4">
+    <CardPhoto PhotoURL="assets/IMG_1892.jpg" />
+    </div>
+    <div class="col-3 col-sm-3 pb-4">
+    <CardPhoto PhotoURL="assets/IMG_1892.jpg" />
+    </div>
+    <div class="col-3 col-sm-3 pb-4">
+    <CardPhoto PhotoURL="assets/IMG_1892.jpg" />
+    </div>
+    <div class="col-3 col-sm-3 pb-4">
+    <CardPhoto PhotoURL="assets/IMG_1892.jpg" />
+    </div>
+    <div class="col-3 col-sm-3 pb-4">
+    <CardPhoto PhotoURL="assets/IMG_1892.jpg" />
+    </div>
+    <div class="col-3 col-sm-3 pb-4">
+    <CardPhoto PhotoURL="assets/IMG_1892.jpg" />
+    </div>
+    </div>
+    </div>*@

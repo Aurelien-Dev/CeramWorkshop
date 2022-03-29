@@ -1,6 +1,4 @@
-﻿using System.Configuration;
-
-namespace Common.Singletons
+﻿namespace Common.Singletons
 {
     public sealed class EnvironementSingleton
     {

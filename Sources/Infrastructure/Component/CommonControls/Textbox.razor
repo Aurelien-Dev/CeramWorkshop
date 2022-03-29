@@ -1,0 +1,22 @@
+﻿@if (Readonly.HasValue && Readonly.Value)
+{
+    <div class="form-floating mb-2">
+        <input type="tel" readonly class="form-control" id="@Label" placeholder=@Placeholder value=@Value>
+        <label for="@Label">@Label</label>
+    </div>
+}
+else
+{
+    <div class="form-floating mb-2">
+        <input type="tel" class="form-control" id="@Label" placeholder=@Placeholder value=@Value>
+        <label for="@Label">@Label</label>
+    </div>
+}
+
+
+@code {
+    [Parameter] public string? Label { get; set; }
+    [Parameter] public string? Placeholder { get; set; }
+    [Parameter] public string? Value { get; set; }
+    [Parameter] public bool? Readonly { get; set; }
+}

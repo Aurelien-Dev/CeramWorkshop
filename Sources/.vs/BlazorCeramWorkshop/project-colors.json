@@ -43,9 +43,24 @@
     },
     "da1cc884-900c-4b64-9215-38f66a74e660": {
       "ProjectGuid": "da1cc884-900c-4b64-9215-38f66a74e660",
-      "DisplayName": "Component",
+      "DisplayName": "Common",
       "ColorIndex": 7
+    },
+    "9b37e7a5-5974-4d2e-8b6f-a6abb418eeb9": {
+      "ProjectGuid": "9b37e7a5-5974-4d2e-8b6f-a6abb418eeb9",
+      "DisplayName": "Helpers",
+      "ColorIndex": 8
+    },
+    "774ff75a-012b-4d82-b4aa-e733548aadf8": {
+      "ProjectGuid": "774ff75a-012b-4d82-b4aa-e733548aadf8",
+      "DisplayName": "Utils",
+      "ColorIndex": 9
+    },
+    "d3fda048-c51f-476c-9c92-8f7f2f6d1994": {
+      "ProjectGuid": "d3fda048-c51f-476c-9c92-8f7f2f6d1994",
+      "DisplayName": "Helpers",
+      "ColorIndex": 10
     }
   },
-  "NextColorIndex": 8
+  "NextColorIndex": 11
 }

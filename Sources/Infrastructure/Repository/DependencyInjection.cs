@@ -1,7 +1,6 @@
-﻿using Common.Singletons;
+﻿using Common.Utils.Singletons;
 using Domain.Interfaces;
 using Domain.InterfacesWorker;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Repository.Repositories;
 using Repository.Workers;

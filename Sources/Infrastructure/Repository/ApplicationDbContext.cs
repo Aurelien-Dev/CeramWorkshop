@@ -1,4 +1,4 @@
-﻿using Common.Singletons;
+﻿using Common.Utils.Singletons;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Repository.Maps;

@@ -18,15 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Infrastructure\Component\Component.csproj" />
-    <ProjectReference Include="..\..\Infrastructure\Repository\Repository.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\assets\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="compilerconfig.json" />
     <None Include="wwwroot\css\bootstrap-icons\bootstrap-icons.svg" />
     <None Include="wwwroot\css\bootstrap-icons\font\bootstrap-icons.scss" />
@@ -1701,6 +1692,12 @@
     <None Include="wwwroot\css\bootstrap-icons\icons\zoom-out.svg" />
     <None Include="wwwroot\css\bootstrap-icons\LICENSE.md" />
     <None Include="wwwroot\css\bootstrap-icons\README.md" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Helpers\Helpers.csproj" />
+    <ProjectReference Include="..\..\Common\Utils\Utils.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Repository\Repository.csproj" />
   </ItemGroup>
 
 </Project>

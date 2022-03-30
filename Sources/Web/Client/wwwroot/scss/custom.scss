@@ -29,6 +29,21 @@ $input-border-width: 0;
     border: hidden;
 }
 
+/*#region Carousel */
+.carousel-control-prev, .carousel-control-next {
+    position: absolute;
+    top: 170px;
+    bottom: unset;
+}
+
+.carousel-indicators {
+    top: 0;
+    margin-top: 1rem;
+}
+
+/*#endregion */
+
+
 /*.card-body p {
     color: #c2c2c2;
 }*/

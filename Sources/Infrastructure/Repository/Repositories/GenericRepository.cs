@@ -12,7 +12,7 @@ namespace Repository.Repositories
             _context = context;
         }
 
-        public async Task<T> Get(object id)
+        public virtual async Task<T> Get(object id)
         {
             return await _context.Set<T>().FindAsync(id);
         }

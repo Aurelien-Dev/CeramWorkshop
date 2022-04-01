@@ -1,5 +1,6 @@
 ﻿using Domain.Interfaces;
 using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repository.Repositories
 {
@@ -8,6 +9,14 @@ namespace Repository.Repositories
         public ProductRepository(ApplicationDbContext context) : base(context)
         {
 
+        }
+
+        public override async Task<Product> Get(object id)
+        {
+            return await _context.Products
+                                 .Where(p => p.Id == (int)id)
+                                 .Include(p => p.ProductImageInstruction)
+                                 .FirstAsync();
         }
     }
 }

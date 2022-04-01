@@ -1701,4 +1701,8 @@
     <ProjectReference Include="..\..\Infrastructure\Repository\Repository.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\js\" />
+  </ItemGroup>
+
 </Project>

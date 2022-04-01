@@ -1,6 +1,4 @@
 using Common.Utils.Singletons;
-using ExternalServices.ServicesUploadImage;
-using ExternalServices.ServicesUploadImage.Model;
 using Repository;
 
 var builder = WebApplication.CreateBuilder(args);

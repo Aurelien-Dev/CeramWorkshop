@@ -2,6 +2,8 @@
 {
     public class Product
     {
+        public Product() { }
+
         public Product(string name)
         {
             Name = name;
@@ -18,9 +20,9 @@
         public int? Status { get; set; }
         public int MarginRate { get; set; }
 
-        public ICollection<ImageInstruction> ProductImageInstruction { get; set; }
-        public ICollection<ProductMaterial> ProductMaterial { get; set; }
-        public ICollection<ProductFiring> ProductFiring { get; set; }
-        public ICollection<ProductAccessory> ProductAccessory { get; set; }
+        public ICollection<ImageInstruction> ProductImageInstruction { get; set; } = new List<ImageInstruction>();
+        public ICollection<ProductMaterial> ProductMaterial { get; set; } = new List<ProductMaterial>();
+        public ICollection<ProductFiring> ProductFiring { get; set; } = new List<ProductFiring>();
+        public ICollection<ProductAccessory> ProductAccessory { get; set; } = new List<ProductAccessory>();
     }
 }

@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helpers", "Common\Helpers\H
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utils", "Common\Utils\Utils.csproj", "{774FF75A-012B-4D82-B4AA-E733548AADF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalServices", "Infrastructure\ExternalServices\ExternalServices.csproj", "{5CA1B6E6-8C80-4E66-AA9A-75A490AA3F9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExternalServices", "Infrastructure\ExternalServices\ExternalServices.csproj", "{5CA1B6E6-8C80-4E66-AA9A-75A490AA3F9D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

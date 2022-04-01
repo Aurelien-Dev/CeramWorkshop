@@ -7,15 +7,28 @@ using Utils.Exception;
 
 namespace ExternalServices.ServicesUploadImage
 {
+    /// <summary>
+    /// Documentation of API Service : https://api.imgbb.com/
+    /// </summary>
     public class ImgBBService
     {
         private RestClient _client;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public ImgBBService(  )
         {
             _client = new RestClient("https://api.imgbb.com/1/upload?key=76ae7a6cb9d11a5c4a253cfe66942a61");
         }
 
+        /// <summary>
+        /// Upload image on imgBB services
+        /// </summary>
+        /// <param name="filePath">Path of original image</param>
+        /// <returns>Return image object with all URL</returns>
+        /// <exception cref="UploadFileException">Exception when not able to convert image to base64 string</exception>
+        /// <exception cref="ApiCallErrorEsception">Exception after calling API, depending status</exception>
         public async Task<ImageInstruction> UploadFile(string filePath)
         {
             try

@@ -1,4 +1,4 @@
-﻿namespace Client.Utils
+﻿namespace Utils.Converters
 {
     public class Base64Converter
     {

@@ -4,6 +4,7 @@ using Domain.Models;
 using ExternalServices.ServicesUploadImage;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Utils.Exception;
 
 namespace Client.Pages
 {
@@ -20,9 +21,7 @@ namespace Client.Pages
         private ImgBBService _service;
         
         public Index()
-        {
-
-            
+        {            
             _service = new ImgBBService();
             ProductDetail = new Product("Vase");
             ProductDetail.Id = 1;
@@ -39,18 +38,14 @@ namespace Client.Pages
         {
             try
             {
-                string filePathLoaded = await LoadFile.LoadFileInput(e, "AtelierCremazie");
+                string filePathLoaded = await LoadFileFromInputFile.LoadFileInput(e, "AtelierCremazie");
 
-                string b64String = await Base64Converter.ConvertFileToBase64(filePathLoaded);
-
-
-                ImageInstruction result = await _service.UploadFile(b64String);
-                ProductImages.Add(new CardCarouselItem(result.Url, "test !"));
+                ImageInstruction result = await _service.UploadFile(filePathLoaded);
+                ProductImages.Add(new CardCarouselItem(filePathLoaded, "test !"));
             }
             catch (Exception ex)
             {
-                //Logger.LogError("File: {Filename} Error: {Error}",
-                //    file.Name, ex.Message);
+                throw new UploadFileException("Error uploadeding file for AtelierCremazie", ex);
             }
         }
 

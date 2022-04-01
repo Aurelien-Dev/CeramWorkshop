@@ -12,12 +12,13 @@
         public string Name { get; set; } = default!;
         public string? Description { get; set; }
         public int? Height { get; set; }
-        public int? TopDiameter{ get; set; }
+        public int? TopDiameter { get; set; }
         public int? BottomDiameter { get; set; }
         public string? DesignInstruction { get; set; }
         public int? Status { get; set; }
         public int MarginRate { get; set; }
 
+        public ICollection<ImageInstruction> ProductImageInstruction { get; set; }
         public ICollection<ProductMaterial> ProductMaterial { get; set; }
         public ICollection<ProductFiring> ProductFiring { get; set; }
         public ICollection<ProductAccessory> ProductAccessory { get; set; }

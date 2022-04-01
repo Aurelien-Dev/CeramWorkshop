@@ -16,10 +16,18 @@
                     <Textarea Label="Description" Value="@ProductDetail.Description" Readonly=IsReadonly />
                     <Textarea Label="Instruction de construction" Value="@ProductDetail.DesignInstruction" Placeholder="test" Readonly=IsReadonly />
 
+                    @*<input id="file-loader" type="file" @ref=inputElement @onchange="UploadSimulationFile" style="display:none;" />*@
+
+                    <InputFile OnChange="@LoadFiles" />
+
+
                     <button @onclick=ReadonlyCmd>readonly</button>
                 </div>
                 <div class="col-12 col-sm-5">
-                    <CardCarousel />
+                    @if (ProductImages.Any())
+                    {
+                        <CardCarousel CarouselItem=ProductImages />
+                    }
                 </div>
             </div>
         </div>

@@ -8,14 +8,14 @@
         private EnvironementSingleton() { }
 
 
+        public static string WebRootPath { get; set; }
+        public static string ContentRootPath { get; set; }
 
         public static bool IsInDev()
         {
             string environement = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
             
-            if (string.IsNullOrEmpty(environement))
-                return false;
-            else if (environement == "Development")
+            if (string.IsNullOrEmpty(environement) || environement == "Development")
                 return true;
 
             return false;

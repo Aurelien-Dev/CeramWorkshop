@@ -1,3 +1,6 @@
+using Common.Utils.Singletons;
+using ExternalServices.ServicesUploadImage;
+using ExternalServices.ServicesUploadImage.Model;
 using Repository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,8 +10,10 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddRepository();
 
-
 var app = builder.Build();
+
+EnvironementSingleton.WebRootPath = app.Environment.WebRootPath;
+EnvironementSingleton.ContentRootPath = app.Environment.ContentRootPath;
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

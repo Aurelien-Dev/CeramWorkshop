@@ -27,6 +27,7 @@ namespace Repository
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             ProductMap.Build(modelBuilder);
+            ImageInstructionMap.Build(modelBuilder);
             MaterialMap.Build(modelBuilder);
             FiringMap.Build(modelBuilder);
             AccessoryMap.Build(modelBuilder);

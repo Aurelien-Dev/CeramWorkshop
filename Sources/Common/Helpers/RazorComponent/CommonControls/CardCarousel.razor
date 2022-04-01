@@ -2,20 +2,20 @@
 
 <div id="carouselExampleDark" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
-        @for (int i = 0; i < Carousel.Count; i++)
+        @for (int i = 0; i < CarouselItem.Count; i++)
         {
             <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="@i" class="@(i==0? "active":"")" aria-current="true" aria-label="Slide @i"></button>
         }
     </div>
     <div class="carousel-inner">
-        @for (int i = 0; i < Carousel.Count; i++)
+        @for (int i = 0; i < CarouselItem.Count; i++)
         {
             <div class="carousel-item @(i==0? "active":"")" data-bs-interval="@Interval">
                 <div class="card">
-                    <img src="@Carousel[i].ImageUrl" class="card-img-top" alt="...">
+                    <img src="@CarouselItem[i].ImageUrl" class="card-img-top" alt="...">
                     <div class="card-body p-3 rounded-bottom">
                         <p class="card-text fw-bold mt-1 mb-1">Commentaire:</p>
-                        <p class="card-text fw-light">@Carousel[i].Comment</p>
+                        <p class="card-text fw-light">@CarouselItem[i].Comment</p>
                     </div>
                 </div>
             </div>

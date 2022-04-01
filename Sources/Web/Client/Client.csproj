@@ -1697,6 +1697,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Helpers\Helpers.csproj" />
     <ProjectReference Include="..\..\Common\Utils\Utils.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\ExternalServices\ExternalServices.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Repository\Repository.csproj" />
   </ItemGroup>
 

@@ -60,7 +60,12 @@
       "ProjectGuid": "d3fda048-c51f-476c-9c92-8f7f2f6d1994",
       "DisplayName": "Helpers",
       "ColorIndex": 10
+    },
+    "5ca1b6e6-8c80-4e66-aa9a-75a490aa3f9d": {
+      "ProjectGuid": "5ca1b6e6-8c80-4e66-aa9a-75a490aa3f9d",
+      "DisplayName": "ExternalServices",
+      "ColorIndex": 11
     }
   },
-  "NextColorIndex": 11
+  "NextColorIndex": 12
 }

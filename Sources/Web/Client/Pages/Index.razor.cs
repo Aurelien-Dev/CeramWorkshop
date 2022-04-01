@@ -40,7 +40,7 @@ namespace Client.Pages
             {
                 string filePathLoaded = await LoadFileFromInputFile.LoadFileInput(e, "AtelierCremazie");
 
-                ImageInstruction result = await _service.UploadFile(filePathLoaded);
+                //ImageInstruction result = await _service.UploadFile(filePathLoaded);
                 ProductImages.Add(new CardCarouselItem(filePathLoaded, "test !"));
             }
             catch (Exception ex)

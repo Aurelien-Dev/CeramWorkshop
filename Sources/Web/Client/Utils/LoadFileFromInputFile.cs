@@ -14,13 +14,15 @@ namespace Client.Utils
         /// <returns>Return path of uploaded img</returns>
         public static async Task<string> LoadFileInput(InputFileChangeEventArgs e, string workshopName)
         {
-            string path = CreateUriTempFile(workshopName, Path.GetExtension(e.File.Name));
-            
-            await using FileStream fs = new(path, FileMode.Create);
+            string fileName = CreateTempFileName(workshopName, Path.GetExtension(e.File.Name));
+
+            string pathToCopy = Path.Combine(EnvironementSingleton.WebRootPath, "assets", fileName);
+            await using FileStream fs = new(pathToCopy, FileMode.Create);
             await e.File.OpenReadStream(maxFileSize).CopyToAsync(fs);
             fs.Close();
 
-            return path;
+            string shortPath = Path.Combine("assets", fileName);
+            return shortPath;
         }
 
         /// <summary>
@@ -29,12 +31,11 @@ namespace Client.Utils
         /// <param name="workshopName">Name of workshop</param>
         /// <param name="extension">Original extension file</param>
         /// <returns>Return completed path for asset folder on server</returns>
-        private static string CreateUriTempFile(string workshopName, string extension)
+        private static string CreateTempFileName(string workshopName, string extension)
         {
             var trustedFileNameForFileStorage = $"{workshopName}-{Path.GetRandomFileName()}";
-            var path = Path.Combine(EnvironementSingleton.WebRootPath, "assets", trustedFileNameForFileStorage);
-            path = Path.ChangeExtension(path, extension);
-            return path;
+            trustedFileNameForFileStorage = Path.ChangeExtension(trustedFileNameForFileStorage, extension);
+            return trustedFileNameForFileStorage;
         }
     }
 }

@@ -1,0 +1,56 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+
+@namespace Common.Helpers.RazorComponent.Product
+
+@if (!Read.Value)
+{
+    <div class="row">
+        <div class="col-2 col-sm-2">
+            <img src="/assets/sizing.png" style="height:65px" />
+        </div>
+        <div class="col">
+            <div class="form-floating">
+                <InputNumber id="d1" @bind-Value=DiameterTop class="form-control" />
+                <label for="d1">D1</label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-floating mb-2">
+                <InputNumber id="d2" @bind-Value=DiameterBot class="form-control" />
+                <label for="d2">D2</label>
+            </div>
+        </div>
+        <div class="col p-0">
+            <div class="form-floating mb-2">
+                <InputNumber id="h" @bind-Value=Height class="form-control" />
+                <label for="h">Height</label>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-2 col-sm-2">
+            <img src="/assets/sizing.png" style="height:65px" />
+        </div>
+        <div class="col">
+            <label for="d1">Ø 1 : @DiameterTop</label>
+        </div>
+        <div class="col">
+            <label for="d1">Ø 2 : @DiameterBot</label>
+        </div>
+        <div class="col">
+            <label for="d1">Ø 2 : @Height</label>
+        </div>
+    </div>
+}
+
+
+
+@code {
+    [Parameter] public double? DiameterTop { get; set; }
+    [Parameter] public double? DiameterBot { get; set; }
+    [Parameter] public double? Height { get; set; }
+    [Parameter] public bool? Read { get; set; } = false;
+}

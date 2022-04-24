@@ -2,6 +2,7 @@
 
 @using Common.Helpers.RazorComponent
 @using Common.Helpers.RazorComponent.CommonControls
+@using Common.Helpers.RazorComponent.Product
 
 @inherits PageComponentBase
 
@@ -16,6 +17,11 @@
                         <div class="col-12 col-sm-12">
                             <Text TextStr="@ProductDetail.Description" Label="Description" />
                             <Text TextStr="@ProductDetail.DesignInstruction" Label="Design instruction" />
+
+
+                            <div style="padding:0 12px">
+                                <Sizing Height="@ProductDetail.Height" DiameterTop="@ProductDetail.TopDiameter" DiameterBot="@ProductDetail.BottomDiameter" Read="true" />
+                            </div>
                         </div>
                     </div>
                     <div class="row">

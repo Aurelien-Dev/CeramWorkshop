@@ -2,6 +2,7 @@
 
 @using Common.Helpers.RazorComponent
 @using Common.Helpers.RazorComponent.CommonControls
+@using Common.Helpers.RazorComponent.Product
 
 @inherits PageComponentBase
 
@@ -10,72 +11,81 @@
     <DataAnnotationsValidator />
 
     <div class="row">
-        <div class="col-6">
-            <div class="card    ">
-                <div class="card-header ">
-                    <div class="row">
-                        <h5 class="m-0 ps-3 pt-2 pb-1">@ProductDetail.Reference - @ProductDetail.Name</h5>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="row ms-2">
-                        <ValidationSummary />
-                    </div>
-                    <div class="row">
-                        <div class="col-12 col-sm-12">
-                            <div class="form-floating mb-3">
-                                <InputText id="Name" @bind-Value=ProductDetail.Name class="form-control" />
-                                <label for="Name">Nom</label>
-                            </div>
+        <div class="card">
 
-                            <div class="form-floating mb-3">
-                                <InputTextArea id="Description" @bind-Value="ProductDetail.Description" class="form-control" />
-                                <label for="Description">Description</label>
-                            </div>
+            <div class="row no-gutters">
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <div class="row ms-2">
+                            <ValidationSummary />
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-sm-12">
+                                <div class="form-floating mb-3">
+                                    <InputText id="Name" @bind-Value=ProductDetail.Name class="form-control" />
+                                    <label for="Name">Nom</label>
+                                </div>
 
-                            <div class="form-floating mb-3">
-                                <InputTextArea id="Description" @bind-Value="ProductDetail.DesignInstruction" class="form-control" />
-                                <label for="Description">Instruction de construction</label>
-                            </div>
+                                <div class="form-floating mb-3">
+                                    <InputTextArea id="Description" @bind-Value="ProductDetail.Description" class="form-control" />
+                                    <label for="Description">Description</label>
+                                </div>
 
-                            <div class="form-floating mb-3">
-                                <InputTextArea id="Reference" @bind-Value="ProductDetail.Reference" class="form-control" />
-                                <label for="Reference">Référence</label>
-                            </div>
+                                <div class="form-floating mb-3">
+                                    <InputTextArea id="Description" @bind-Value="ProductDetail.DesignInstruction" class="form-control" />
+                                    <label for="Description">Instruction de construction</label>
+                                </div>
 
-                            <div class="mb-3">
-                                <InputFile id="formFileSm" OnChange="@UploadFile" class="form-control form-control-sm" />
+                                <div class="form-floating mb-3">
+                                    <InputTextArea id="Reference" @bind-Value="ProductDetail.Reference" class="form-control" />
+                                    <label for="Reference">Référence</label>
+                                </div>
+
+                                <div class="form-floating mb-3" style="padding:0 12px">
+                                    <Sizing Height="ProductDetail.Height" DiameterTop="ProductDetail.TopDiameter" DiameterBot="ProductDetail.BottomDiameter" />
+                                </div>
+
+                                <div class="mb-3">
+                                    <InputFile id="formFileSm" OnChange="@UploadFile" class="form-control form-control-sm" />
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <button class="btn btn-outline-blue" type="submit">
-                        <i class="fas fa-save"></i>
-                        Enregistrer
-                    </button>
-                    <button type="button" class="btn btn-danger" @onclick="UndoCmd">
-                        Annuler
-                    </button>
+                <div class="col-md-4 p-0">
+                    @if (ProductImages.Any())
+                    {
+                        <img class="img-fluid rounded-end" src="@ProductImages[0].ImageUrl" />
+                        @*<CarouselCard CarouselItem=ProductImages OnDeleteCard=DeleteImageCmd ShowDeleteButton=true />*@
+                    }
                 </div>
             </div>
+            <div class="card-footer">
+                <button class="btn btn-outline-blue" type="submit">
+                    <i class="fas fa-save"></i>
+                    Enregistrer
+                </button>
+                <button type="button" class="btn btn-danger" @onclick="UndoCmd">
+                    Annuler
+                </button>
+            </div>
         </div>
-        <div class="col-6">
+        @*<div class="col-6">
             <div class="card">
-                <div class="card-header">
-                    <div class="row align-content-end">
-                        <h5 class="m-0 ps-3 pt-2 pb-1">@ProductDetail.Reference - @ProductDetail.Name</h5>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        @if (ProductImages.Any())
-                        {
-                            <CarouselCard CarouselItem=ProductImages OnDeleteCard=DeleteImageCmd ShowDeleteButton=true />
-                        }
-                    </div>
-                </div>
+            <div class="card-header">
+            <div class="row align-content-end">
+            <h5 class="m-0 ps-3 pt-2 pb-1">@ProductDetail.Reference - @ProductDetail.Name</h5>
             </div>
-        </div>
+            </div>
+            <div class="card-body">
+            <div class="row">
+            @if (ProductImages.Any())
+            {
+            <CarouselCard CarouselItem=ProductImages OnDeleteCard=DeleteImageCmd ShowDeleteButton=true />
+            }
+            </div>
+            </div>
+            </div>
+            </div>*@
     </div>
 </EditForm>

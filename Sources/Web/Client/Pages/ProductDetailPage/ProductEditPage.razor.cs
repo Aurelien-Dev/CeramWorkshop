@@ -75,6 +75,7 @@ namespace Client.Pages.ProductDetailPage
                     int result = productWorker.Completed();
                 }
             }
+            NavigationManager.NavigateTo("/");
         }
 
         private async Task UploadFile(InputFileChangeEventArgs e)

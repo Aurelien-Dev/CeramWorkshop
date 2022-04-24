@@ -2,7 +2,7 @@
 
 namespace Common.Helpers.RazorComponent.CommonControls
 {
-    public partial class CarouselCard : ComponentBase
+    public partial class CarouselCard : PageComponentBase
     {
         [Parameter]
         public IList<CarouselCardItem> CarouselItem { get; set; } = new List<CarouselCardItem>();
@@ -10,33 +10,40 @@ namespace Common.Helpers.RazorComponent.CommonControls
         [Parameter]
         public int Interval { get; set; } = 5000;
 
-        public CarouselCard()
+        [Parameter]
+        public EventCallback<CarouselCardItem> OnDeleteCard { get; set; }
+
+        [Parameter]
+        public bool ShowDeleteButton { get; set; } = false;
+
+        protected override void OnInitialized()
         {
-            //CarouselItem.Add(new CardCarouselItem("assets/IMG_1892.jpg", "plein de de  blab lade  blab lade  blab lade  blab lade  blab lade  blab lade  blab lade  blab lade  blab lade  blab lade  blab lade  blab lade  blab lade  blab lade  blab lablabla;"));
-            //CarouselItem.Add(new CardCarouselItem("assets/IMG_1680.jpg", "plein de blde  blab laabla;"));
-            //CarouselItem.Add(new CardCarouselItem("assets/IMG_1892.jpg", "plein de blade  blab lab  lablablapl ein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blablaplein de blabla;"));
-            //CarouselItem.Add(new CardCarouselItem("assets/IMG_1892.jpg", "plein de  blade  blab lab lade  blab lade  blab lade  blab lade  blab lade  blab lade  blab lade  blab lade  blab la;"));
-            //CarouselItem.Add(new CardCarouselItem("assets/IMG_1680.jpg", "plein de blabla;"));
-            //CarouselItem.Add(new CardCarouselItem("assets/IMG_1892.jpg", "plein de blablde  blab lade  blab lade  blab lade  blab lade  blab laa;"));
-            //CarouselItem.Add(new CardCarouselItem("assets/IMG_1892.jpg", "plde  blab lade  blab lde  blab laade  blab laeinde  blab la de blabla;"));
+            JSRuntime.InvokeAsync<string>("SetFirstActiveCarouselItem", null);
         }
 
-        public void AddItem(CarouselCardItem item)
+
+        private async Task DeleteCmd(CarouselCardItem item)
         {
-            CarouselItem.Add(item);
+            _ = await JSRuntime.InvokeAsync<string>("SetFirstActiveCarouselItem", null);
+
+            await OnDeleteCard.InvokeAsync(item);
         }
 
     }
 
     public class CarouselCardItem
     {
+        public int? Id { get; set; } = null;
         public string ImageUrl { get; set; } = string.Empty;
         public string Comment { get; set; } = string.Empty;
+        public object ObjectMapped { get; set; }
 
-        public CarouselCardItem(string imageUrl, string comment)
+        public CarouselCardItem(int? id, string imageUrl, string comment, object objectMapped)
         {
+            Id = id;
             ImageUrl = imageUrl;
             Comment = comment;
+            ObjectMapped = objectMapped;
         }
     }
 }

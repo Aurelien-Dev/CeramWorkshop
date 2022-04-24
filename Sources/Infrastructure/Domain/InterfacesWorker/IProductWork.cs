@@ -9,5 +9,6 @@ namespace Domain.InterfacesWorker
         IFiringRepository FiringRepository { get; }
         IAccessoryRepository AccessoryRepository { get; }
         int Completed();
+        void Rollback();
     }
 }

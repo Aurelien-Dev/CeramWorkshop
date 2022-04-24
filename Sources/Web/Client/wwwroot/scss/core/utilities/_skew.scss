@@ -1,0 +1,22 @@
+.content-skewed {
+    perspective: 1500px !important;
+    transform-style: preserve-3d !important;
+}
+
+.content-skewed-right {
+    perspective-origin: right center !important;
+
+    .content-skewed-item {
+        transform: rotateY(30deg) rotateX(15deg) !important;
+        backface-visibility: hidden !important;
+    }
+}
+
+.content-skewed-left {
+    perspective-origin: left center !important;
+
+    .content-skewed-item {
+        transform: rotateY(-30deg) rotateX(15deg) !important;
+        backface-visibility: hidden !important;
+    }
+}

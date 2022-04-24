@@ -1,0 +1,9 @@
+// Force the cursor to be a show a pointer on hover
+.pointer {
+    cursor: pointer !important;
+}
+
+// Removes highlighting when an element with this class is clicked
+.no-highlight {
+    user-select: none !important;
+}

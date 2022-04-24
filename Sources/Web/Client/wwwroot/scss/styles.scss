@@ -1,0 +1,28 @@
+// * * * * * * * * * * * * * *
+// * * Import core styles  * *
+// * * * * * * * * * * * * * *
+
+// Includes Bootstrap and styling shared across
+// all themes using the Start Bootstrap Pro
+// design language
+
+@import './core/styles';
+
+// * * * * * * * * * * * * * * * * * *
+// * * Import SB Admin Pro styles  * *
+// * * * * * * * * * * * * * * * * * *
+
+// Includes styling specific to the SB Admin Pro
+// theme - must load after core styles
+
+@import './admin/styles';
+
+// * * * * * * * * * * * * * * *
+// * * Import project styles * *
+// * * * * * * * * * * * * * * *
+
+// Styling specific to your project
+// The below file is intentionally blank and should
+// be used to create styling specific to your project
+
+@import './project';

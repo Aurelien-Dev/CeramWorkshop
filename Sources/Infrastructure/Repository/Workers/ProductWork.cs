@@ -35,6 +35,11 @@ namespace Repository.Workers
             return _context.SaveChanges();
         }
 
+        public void Rollback()
+        {
+            _context.ChangeTracker.Clear();
+        }
+
         public void Dispose()
         {
             Dispose(true);

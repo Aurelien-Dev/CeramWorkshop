@@ -1,0 +1,32 @@
+// Spacing
+//
+// Control the default styling of most Bootstrap elements by modifying these
+// variables. Mostly focused on spacing.
+// You can add more entries to the $spacers map, should you need more variation.
+
+$spacer: 1rem;
+$spacers: (0: 0,
+    1: $spacer * .25,
+    2: $spacer * .5,
+    3: $spacer,
+    4: $spacer * 1.5,
+    5: $spacer * 2.5,
+    10: $spacer * 6,
+    15: $spacer * 9);
+
+// Sidebar expanded width variable
+//
+// The base default width of the sidebar - you can adjust this value
+// in order to increase or decrease the width of the sidebar component
+
+$sidenav-base-width: 15rem;
+
+// Topnav fixed height variable
+//
+// The fixed height of the topnav
+
+$topnav-base-height: 3.625rem;
+
+// Footer base height
+
+$footer-base-height: 5rem;

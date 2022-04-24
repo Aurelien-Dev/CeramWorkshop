@@ -1,0 +1,21 @@
+﻿@namespace Common.Helpers.RazorComponent.CommonControls
+
+<p class="m-0">
+    <strong>@Label</strong>
+</p>
+<p class="mb-3">
+    @if (string.IsNullOrEmpty(TextStr))
+    {
+        <span class="fw-lighter fst-italic">Aucune information</span>
+    }
+    else
+    {
+        <span>@TextStr</span>
+    }
+</p>
+
+
+@code {
+    [Parameter] public string? Label { get; set; }
+    [Parameter] public string? TextStr { get; set; }
+}

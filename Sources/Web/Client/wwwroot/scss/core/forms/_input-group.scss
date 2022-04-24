@@ -1,0 +1,44 @@
+.input-group-joined {
+    border-color: $input-border-color;
+    border-width: $input-border-width;
+    border-style: solid;
+    border-radius: 0.4375rem;
+    transition: $input-transition;
+
+    &:focus-within {
+        border-color: $input-focus-border-color;
+        box-shadow: $input-btn-focus-box-shadow;
+    }
+
+    .form-control {
+        border: none;
+
+        &:focus {
+            box-shadow: none;
+            outline: none;
+        }
+    }
+
+    .input-group-text,
+    .input-group-text {
+        border: none;
+        background-color: $input-bg;
+    }
+}
+
+.input-group-joined-xl {
+    .form-control {
+        height: 4rem;
+        font-size: 1.25rem;
+    }
+}
+
+.input-group-joined.input-group-solid {
+    border: 0;
+    background-color: $input-solid-bg;
+
+    .form-control,
+    .input-group-text {
+        background-color: transparent;
+    }
+}

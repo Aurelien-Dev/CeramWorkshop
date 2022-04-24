@@ -1,8 +1,24 @@
-﻿@inherits LayoutComponentBase
+﻿@using Common.Helpers.RazorComponent
+@inherits PageLayoutComponentBase
 
 <PageTitle>BlazorApp1</PageTitle>
 
 <Header />
 
-@Body
+
+
+<div id="layoutSidenav">
+    <div id="layoutSidenav_nav">
+        <Sidebar />
+    </div>
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4 mt-3">
+                @Body
+            </div>
+        </main>
+    </div>
+</div>
+
+
 

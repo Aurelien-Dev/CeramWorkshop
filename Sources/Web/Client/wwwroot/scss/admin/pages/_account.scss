@@ -1,0 +1,33 @@
+.img-account-profile {
+    height: 10rem;
+}
+
+.cc-color-visa {
+    color: #1a1f71;
+}
+
+.cc-color-mastercard {
+    color: #cc0000;
+}
+
+.cc-color-amex {
+    color: #002663;
+}
+
+.table-billing-history {
+    font-size: 0.85rem;
+
+    thead {
+        th {
+            border-top: none;
+        }
+    }
+
+    th,
+    td {
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+        padding-left: 1.375rem;
+        padding-right: 1.375rem;
+    }
+}

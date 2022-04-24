@@ -1,0 +1,67 @@
+// Soft color variations
+
+$red-soft: mix($gray-100, $red, 90%);
+$orange-soft: mix($gray-100, $orange, 90%);
+$yellow-soft: mix($gray-100, $yellow, 90%);
+$green-soft: mix($gray-100, $green, 90%);
+$teal-soft: mix($gray-100, $teal, 90%);
+$cyan-soft: mix($gray-100, $cyan, 90%);
+$blue-soft: mix($gray-100, $blue, 90%);
+$indigo-soft: mix($gray-100, $indigo, 90%);
+$purple-soft: mix($gray-100, $purple, 90%);
+$pink-soft: mix($gray-100, $pink, 90%);
+
+$primary-soft: mix($gray-100, $primary, 90%);
+$secondary-soft: mix($gray-100, $secondary, 90%);
+$success-soft: mix($gray-100, $success, 90%);
+$info-soft: mix($gray-100, $info, 90%);
+$warning-soft: mix($gray-100, $warning, 90%);
+$danger-soft: mix($gray-100, $danger, 90%);
+
+// scss-docs-start theme-colors-map
+$theme-colors: ("primary": $primary,
+    "secondary": $secondary,
+    "success": $success,
+    "info": $info,
+    "warning": $warning,
+    "danger": $danger,
+    "light": $light,
+    "dark": $dark);
+// scss-docs-end theme-colors-map
+
+$expanded-colors: ('black': $black,
+    'white': $white,
+    'red': $red,
+    'orange': $orange,
+    'yellow': $yellow,
+    'green': $green,
+    'teal': $teal,
+    'cyan': $cyan,
+    'blue': $blue,
+    'indigo': $indigo,
+    'purple': $purple,
+    'pink': $pink,
+    'red-soft': $red-soft,
+    'orange-soft': $orange-soft,
+    'yellow-soft': $yellow-soft,
+    'green-soft': $green-soft,
+    'teal-soft': $teal-soft,
+    'cyan-soft': $cyan-soft,
+    'blue-soft': $blue-soft,
+    'indigo-soft': $indigo-soft,
+    'purple-soft': $purple-soft,
+    'pink-soft': $pink-soft,
+    'primary-soft': $primary-soft,
+    'secondary-soft': $secondary-soft,
+    'success-soft': $success-soft,
+    'info-soft': $info-soft,
+    'warning-soft': $warning-soft,
+    'danger-soft': $danger-soft,
+);
+
+// Merge the maps
+$theme-colors: map-merge($theme-colors, $expanded-colors);
+
+// The contrast ratio to reach against white, to determine if color changes from "light" to "dark". Acceptable values for WCAG 2.0 are 3, 4.5 and 7.
+// See https://www.w3.org/TR/WCAG20/#visual-audio-contrast-contrast
+$min-contrast-ratio: 1.9;

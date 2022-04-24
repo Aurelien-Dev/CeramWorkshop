@@ -77,6 +77,9 @@ namespace Repository.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("FileLocation")
+                        .HasColumnType("integer");
+
                     b.Property<int>("IdProduct")
                         .HasColumnType("integer");
 

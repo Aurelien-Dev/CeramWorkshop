@@ -1,0 +1,227 @@
+// 
+// Global resets for all cards
+// 
+
+.card {
+    box-shadow: $box-shadow;
+
+    .card-header {
+        font-weight: 500;
+    }
+
+    // Sets the color of the card header to primary unless a background utility class is being used
+    &:not([class*='bg-']) {
+        .card-header {
+            color: $primary;
+        }
+    }
+}
+
+.card.bg-dark {
+
+    .card-header,
+    .card-footer {
+        border-color: fade-out($white, 0.85);
+    }
+}
+
+// Override styling
+.card .card-header .card-header-tabs .nav-link.active {
+    background-color: $white;
+    border-bottom-color: $white;
+}
+
+// 
+// Advanced cards with actions within card header
+// 
+
+.card-header-actions {
+    .card-header {
+        height: 3.5625rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 0.5625rem;
+        padding-bottom: 0.5625rem;
+
+        .dropdown-menu {
+            margin-top: 0;
+            top: 0.5625rem !important;
+        }
+    }
+}
+
+// 
+// Collapsible card variation
+// 
+
+.card-collapsable {
+    .card-header[data-bs-toggle='collapse'],
+    .card-header[data-toggle='collapse'] {
+        display: flex;
+        text-decoration: none;
+        position: relative;
+        align-items: center;
+        justify-content: space-between;
+
+        .card-collapsable-arrow {
+            height: 0.9rem;
+            width: 0.9rem;
+            display: inline-flex;
+            font-size: 0.9rem;
+            transition: transform 0.1s ease-in-out;
+
+            svg,
+            i,
+            .feather {
+                height: 0.9rem;
+                width: 0.9rem;
+            }
+        }
+
+        &.collapsed {
+            border-radius: $card-border-radius;
+
+            .card-collapsable-arrow {
+                transform: rotate(-90deg);
+            }
+        }
+    }
+}
+
+// 
+// Card icon variant
+// 
+
+.card-icon {
+    overflow: hidden;
+
+    .card-icon-aside {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        padding: 2rem;
+
+        i,
+        svg,
+        .feather {
+            height: 3rem;
+            width: 3rem;
+        }
+    }
+}
+
+// 
+// Card link modifications
+// 
+
+.card-link {
+    text-decoration: none !important;
+    color: inherit !important;
+
+    &:hover {
+        color: inherit !important;
+    }
+}
+
+// 
+// Card progress variant
+// 
+
+.card-progress {
+    .progress {
+        height: 0.5rem;
+        background-color: $card-cap-bg;
+    }
+}
+
+// 
+// Card scrollable variant
+// 
+
+.card-scrollable {
+    .card-body {
+        max-height: $card-scrollable-max-height;
+        overflow-y: auto;
+    }
+}
+
+// 
+// Card styled variations
+// 
+
+.card-waves,
+.card-angles {
+    .card-body {
+        background-size: 100% auto;
+        background-repeat: no-repeat;
+        background-position: center bottom;
+    }
+}
+
+.card-waves {
+    .card-body {
+        background-image: url("/assets/img/backgrounds/bg-waves.svg");
+    }
+}
+
+.card-angles {
+    .card-body {
+        background-image: url("/assets/img/backgrounds/bg-angles.svg");
+    }
+}
+
+// 
+// Card flag variations
+// 
+
+.card-flag {
+    position: absolute;
+    font-size: 0.7rem;
+    padding: 0.3rem 0.5rem;
+    line-height: 1;
+}
+
+.card-flag-dark {
+    background-color: fade-out($gray-900, 0.3);
+    color: $white;
+}
+
+.card-flag-light {
+    background-color: fade-out($white, 0.3);
+    color: $gray-600;
+}
+
+.card-flag-lg {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.65rem;
+}
+
+.card-flag-top-right {
+    border-top-left-radius: $border-radius-sm;
+    border-bottom-left-radius: $border-radius-sm;
+    top: 0.5rem;
+    right: 0;
+}
+
+.card-flag-top-left {
+    border-top-right-radius: $border-radius-sm;
+    border-bottom-right-radius: $border-radius-sm;
+    top: 0.5rem;
+    left: 0;
+}
+
+.card-flag-bottom-right {
+    border-top-left-radius: $border-radius-sm;
+    border-bottom-left-radius: $border-radius-sm;
+    bottom: 0.5rem;
+    right: 0;
+}
+
+.card-flag-bottom-left {
+    border-top-right-radius: $border-radius-sm;
+    border-bottom-right-radius: $border-radius-sm;
+    bottom: 0.5rem;
+    left: 0;
+}

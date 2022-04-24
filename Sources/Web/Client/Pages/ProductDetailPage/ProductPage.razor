@@ -1,0 +1,42 @@
+﻿@page "/Product/{id:int?}"
+
+@using Common.Helpers.RazorComponent
+@using Common.Helpers.RazorComponent.CommonControls
+
+@inherits PageComponentBase
+
+
+<div class="row">
+    <div class="card">
+        <div class="row no-gutters">
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">@ProductDetail.Reference - @ProductDetail.Name</h5>
+                    <div class="row">
+                        <div class="col-12 col-sm-12">
+                            <Text TextStr="@ProductDetail.Description" Label="Description" />
+                            <Text TextStr="@ProductDetail.DesignInstruction" Label="Design instruction" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <a href="/Product/Edit/@ProductDetail.Id" class="col-2 btn btn-github m-1">
+                            <i data-feather="bar-chart"></i>
+                            Modifier
+                        </a>
+                        <a class="col-2 btn btn-github m-1">
+                            <i data-feather="edit-2"></i>
+                            Supprimer
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 p-0">
+                @if (ProductImages.Any())
+                {
+                    <img class="img-fluid rounded-end" src="@ProductImages[0].ImageUrl" />
+                    @*<CarouselCard CarouselItem=ProductImages OnDeleteCard=DeleteImageCmd ShowDeleteButton=true />*@
+                }
+            </div>
+        </div>
+    </div>
+</div>

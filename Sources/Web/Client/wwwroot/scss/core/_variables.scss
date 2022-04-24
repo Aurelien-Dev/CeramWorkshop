@@ -1,0 +1,52 @@
+// * * * * * * * * * * * * * * * *
+// * * Import color variables  * *
+// * * * * * * * * * * * * * * * *
+
+@import './variables/colors';
+
+// * * * * * * * * * * * * * * * * * * *
+// * * Import custom color variables * *
+// * * * * * * * * * * * * * * * * * * *
+
+// Add color overrides in this file, or replace this file with a file exported from the customizer
+@import '../variables-colors-overrides';
+
+// Define the color map and contrast
+@import './variables/color-map';
+
+// * * * * * * * * * * * * * * * *
+// * * Import global variables * *
+// * * * * * * * * * * * * * * * *
+
+@import './variables/spacing';
+@import './variables/body';
+@import './variables/grid';
+@import './variables/components';
+@import './variables/typography';
+
+// * * * * * * * * * * * * * * * * * *
+// * * Import component variables  * *
+// * * * * * * * * * * * * * * * * * *
+
+// Toggle Bootstrap options
+@import './variables/options';
+
+@import './variables/accordion';
+@import './variables/alerts';
+@import './variables/badges';
+@import './variables/body';
+@import './variables/buttons-forms';
+@import './variables/cards';
+@import './variables/code';
+@import './variables/dropdowns';
+@import './variables/error';
+@import './variables/navigation';
+@import './variables/tables';
+@import './variables/timeline';
+@import './variables/step';
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+// * * Import custom styles - add your own custom variables here!  * *
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+@import '../variables-overrides';

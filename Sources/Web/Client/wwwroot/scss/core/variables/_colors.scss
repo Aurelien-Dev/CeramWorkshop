@@ -1,0 +1,57 @@
+// Override Bootstrap color system
+
+$red: #e81500;
+$orange: #f76400;
+$yellow: #f4a100;
+$green: #00ac69;
+$teal: #00ba94;
+$cyan: #00cfd5;
+$blue: #0061f2;
+$indigo: #5800e8;
+$purple: #6900c7;
+$pink: #e30059;
+
+// Custom grayscale base hue variable
+//
+// Changing this to adjusts the hue of the grayscale
+
+$grayscale-base-hue: $blue;
+
+// Override Bootstrap grayscale with custom adaptive grayscale
+//
+// Mixes the $grayscale-base-hue variable with a desaturated
+// black and white grayscale to produce a grayscale with slight color saturation
+
+$white: #fff;
+$gray-100: mix(#fcfcfc, $grayscale-base-hue, 96%);
+$gray-200: mix(#ececec, $grayscale-base-hue, 95%);
+$gray-300: mix(#e2e2e2, $grayscale-base-hue, 94%);
+$gray-400: mix(#d4d4d4, $grayscale-base-hue, 93%);
+$gray-500: mix(#b4b4b4, $grayscale-base-hue, 93%);
+$gray-600: mix(#717171, $grayscale-base-hue, 93%);
+$gray-700: mix(#505050, $grayscale-base-hue, 93%);
+$gray-800: mix(#3a3a3a, $grayscale-base-hue, 93%);
+$gray-900: mix(#242424, $grayscale-base-hue, 93%);
+$black: #000;
+
+// Override Bootstrap default state colors
+
+$primary: $blue;
+$secondary: $purple;
+$success: $green;
+$info: $cyan;
+$warning: $yellow;
+$danger: $red;
+$dark: $gray-900;
+$light: $gray-100;
+
+// Brand color variables
+//
+// Used to create custom button styles for popular brands
+// You can add more brand color variables below, a good place to
+// find official brand colors is https://brandcolors.net/
+
+$facebook: #3b5998;
+$twitter: #1da1f2;
+$github: #333333;
+$google: #ea4335;

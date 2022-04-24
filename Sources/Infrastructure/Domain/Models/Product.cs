@@ -1,4 +1,6 @@
-﻿namespace Domain.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Domain.Models
 {
     public class Product
     {
@@ -9,8 +11,11 @@
             Name = name;
         }
 
+        [Required]
         public int Id { get; set; }
+        [Required]
         public string Reference { get; set; } = default!;
+        [Required]
         public string Name { get; set; } = default!;
         public string? Description { get; set; }
         public int? Height { get; set; }

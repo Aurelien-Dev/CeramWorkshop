@@ -1,0 +1,68 @@
+// * * * * * * * * * * * * *
+// * * Import variables  * *
+// * * * * * * * * * * * * *
+
+@import './variables';
+
+// * * * * * * * * * * *
+// * * Import mixins * *
+// * * * * * * * * * * *
+
+@import './mixins';
+
+// * * * * * * * * * * * * *
+// * * Import Bootstrap  * *
+// * * * * * * * * * * * * *
+
+@import 'bootstrap/scss/bootstrap.scss';
+
+// * * * * * * * * * * * * * * *
+// * * Import global styling * *
+// * * * * * * * * * * * * * * *
+
+@import './global';
+
+// * * * * * * * * * * * *
+// * * Import layouts  * *
+// * * * * * * * * * * * *
+
+@import './layout/authentication';
+@import './layout/error';
+
+// * * * * * * * * * * * * *
+// * * Import utilities  * *
+// * * * * * * * * * * * * *
+
+@import './utilities/animation';
+@import './utilities/background';
+@import './utilities/border';
+@import './utilities/dropdown';
+@import './utilities/general';
+@import './utilities/lift';
+@import './utilities/overflow';
+@import './utilities/shadow';
+@import './utilities/skew';
+@import './utilities/text';
+@import './utilities/zindex';
+
+// * * * * * * * * * * * * * * * *
+// * * Import component styles * *
+// * * * * * * * * * * * * * * * *
+
+@import './components/alerts';
+@import './components/avatars';
+@import './components/buttons';
+@import './components/cards';
+@import './components/dropdowns';
+@import './components/icons';
+@import './components/badges';
+@import './components/timeline';
+@import './components/step';
+
+// * * * * * * * * * * * * * *
+// * * Import form styles  * *
+// * * * * * * * * * * * * * *
+
+@import './forms/checkboxes';
+@import './forms/form-control';
+@import './forms/input-group';

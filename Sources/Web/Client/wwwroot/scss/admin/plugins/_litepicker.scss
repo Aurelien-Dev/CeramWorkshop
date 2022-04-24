@@ -1,0 +1,264 @@
+// * * * * * * * * * *
+// * * Litepicker  * * 
+// * * * * * * * * * *
+
+// 
+// Litepicker is a third party plugin included with this
+// theme to create date and date range pickers. The styling
+// Has been modified to match Material Design's specs for
+// date range pickers.
+// 
+// Plugin docs: https://wakirin.github.io/Litepicker/
+// 
+
+// 
+// Custom styling for the Litepicker plugin
+// 
+
+:root {
+    --litepicker-month-header-color: #{$gray-700};
+    --litepicker-button-prev-month-color: #{$gray-600};
+    --litepicker-button-next-month-color: #{$gray-600};
+    --litepicker-button-prev-month-color-hover: #{$gray-900};
+    --litepicker-button-next-month-color-hover: #{$gray-900};
+    --litepicker-month-weekday-color: #{$gray-600};
+    --litepicker-month-week-number-color: #{$gray-600};
+    --litepicker-day-width: 34px;
+    --litepicker-day-color: #{$gray-800};
+    --litepicker-day-color-hover: #{$primary};
+    --litepicker-is-today-color: #{$body-color};
+    --litepicker-is-in-range-color: #{fade-out($primary, 0.85)};
+    --litepicker-is-start-color: #{$white};
+    --litepicker-is-start-color-bg: #{$primary};
+    --litepicker-is-end-color: #{$white};
+    --litepicker-is-end-color-bg: #{$primary};
+    --litepicker-button-apply-color-bg: #{$primary};
+    --litepicker-button-reset-color-hover: #{$primary};
+    --litepicker-highlighted-day-color: #{$gray-800};
+    --litepicker-highlighted-day-color-bg: #{fade-out($primary, 0.85)};
+}
+
+.show-week-numbers {
+    --litepicker-month-width: calc(var(--litepicker-day-width) * 8);
+}
+
+.litepicker {
+    font-family: $font-family-sans-serif !important;
+    font-size: $font-size-sm !important;
+
+    .container {
+
+        &__months {
+            box-shadow: none !important;
+            border-radius: $border-radius-sm !important;
+
+            &.columns-2 {
+                @media(max-width: 709px) {
+                    width: calc(var(--litepicker-month-width) + 10px) !important;
+                }
+            }
+
+            .month-item {
+
+                &-header {
+                    font-weight: normal !important;
+                    padding-top: 0.5rem !important;
+                    padding-bottom: 0.75rem !important;
+                    color: var(--litepicker-month-header-color) !important;
+
+                    div {
+
+                        >.month-item-name {
+                            margin-right: 0.25rem !important;
+                            font-weight: 500 !important;
+                        }
+
+                        >.month-item-year {
+                            font-weight: 500 !important;
+                        }
+                    }
+
+                    .button-previous-month,
+                    .button-next-month {
+                        transition: none !important;
+                        cursor: pointer !important;
+
+                        >svg,
+                        >img {
+                            transform: scale(0.75);
+                        }
+                    }
+
+                    .button-previous-month {
+                        color: var(--litepicker-button-prev-month-color) !important;
+
+                        >svg,
+                        >img {
+                            fill: var(--litepicker-button-prev-month-color) !important;
+                        }
+
+                        &:hover {
+                            color: var(--litepicker-button-prev-month-color-hover) !important;
+
+                            >svg {
+                                fill: var(--litepicker-button-prev-month-color-hover) !important;
+                            }
+                        }
+                    }
+
+                    .button-next-month {
+                        color: var(--litepicker-button-next-month-color) !important;
+
+                        >svg,
+                        >img {
+                            fill: var(--litepicker-button-next-month-color) !important;
+                        }
+
+                        &:hover {
+                            color: var(--litepicker-button-next-month-color-hover) !important;
+
+                            >svg {
+                                fill: var(--litepicker-button-next-month-color-hover) !important;
+                            }
+                        }
+                    }
+                }
+
+                &-weekdays-row {
+                    color: var(--litepicker-month-weekday-color) !important;
+                }
+            }
+        }
+
+        &__days {
+
+            >div,
+            >a {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0 !important;
+                margin: 2px;
+                width: var(--litepicker-day-width) !important;
+                height: var(--litepicker-day-width) !important;
+            }
+
+            .day-item {
+                color: var(--litepicker-day-color) !important;
+                border-radius: 100% !important;
+                transition: none !important;
+                cursor: pointer !important;
+
+                &:hover {
+                    color: var(--litepicker-day-color-hover) !important;
+                    box-shadow: inset 0 0 0 1px var(--litepicker-day-color-hover) !important;
+                }
+
+                &.is-today {
+                    box-shadow: inset 0 0 0 1px $body-color;
+                    color: var(--litepicker-is-today-color) !important;
+                }
+
+                &.is-in-range {
+                    position: relative;
+                    background-color: transparent !important;
+
+                    &:after {
+                        content: "";
+                        display: block;
+                        height: 100%;
+                        width: calc(100% + 4px);
+                        position: absolute;
+                        background-color: var(--litepicker-is-in-range-color);
+                    }
+                }
+
+                &.is-start-date {
+                    color: var(--litepicker-is-start-color) !important;
+                    background-color: var(--litepicker-is-start-color-bg) !important;
+                    position: relative;
+
+                    &:after {
+                        content: "";
+                        display: block;
+                        height: 100%;
+                        width: calc(50% + 2px);
+                        position: absolute;
+                        left: auto;
+                        right: -2px;
+                        background-color: var(--litepicker-is-in-range-color);
+                    }
+
+                    &.is-flipped {
+                        &:after {
+                            right: auto;
+                            left: -2px;
+                        }
+                    }
+                }
+
+                &.is-end-date {
+                    color: var(--litepicker-is-end-color) !important;
+                    background-color: var(--litepicker-is-end-color-bg) !important;
+                    position: relative;
+
+                    &:after {
+                        content: "";
+                        display: block;
+                        height: 100%;
+                        width: calc(50% + 2px);
+                        position: absolute;
+                        left: -2px;
+                        right: auto;
+                        background-color: var(--litepicker-is-in-range-color);
+                    }
+
+                    &.is-flipped {
+                        &:after {
+                            right: -2px;
+                            left: auto;
+                        }
+                    }
+                }
+
+                &.is-start-date.is-end-date {
+                    &:after {
+                        display: none;
+                    }
+                }
+
+                &.is-highlighted {
+                    color: var(--litepicker-highlighted-day-color) !important;
+                    background-color: var(--litepicker-highlighted-day-color-bg) !important;
+                }
+            }
+        }
+    }
+
+    &[data-plugins='ranges'] {
+        .container__main {
+            margin-top: 0.25rem;
+            box-shadow: $box-shadow;
+            overflow: hidden;
+            border-radius: $border-radius;
+
+            .container__predefined-ranges {
+                box-shadow: none !important;
+                border-radius: $border-radius !important;
+                border-top-right-radius: 0 !important;
+                border-bottom-right-radius: 0 !important;
+                padding-top: 0.5rem;
+                border-right: 1px solid $border-color;
+
+                button {
+                    cursor: pointer !important;
+                }
+            }
+
+            .container__months {
+                border-top-left-radius: 0 !important;
+                border-bottom-left-radius: 0 !important;
+            }
+        }
+    }
+}

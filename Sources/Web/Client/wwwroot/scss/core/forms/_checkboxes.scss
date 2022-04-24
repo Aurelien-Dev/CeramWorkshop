@@ -1,0 +1,15 @@
+// Custom control style - solid
+//
+// Append the .form-check-solid class to any .form-check element
+// to get a custom control style
+
+.form-check.form-check-solid {
+    .form-check-input {
+        background-color: $input-solid-bg;
+        border-color: $input-solid-bg;
+
+        &:checked {
+            background-color: $form-check-input-checked-bg-color;
+        }
+    }
+}

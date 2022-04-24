@@ -1,0 +1,53 @@
+// * * * * * * * * * * * *
+// * * Import layouts  * *
+// * * * * * * * * * * * *
+
+@import './layout/dashboard-default';
+@import './layout/dashboard-fixed';
+@import './layout/dashboard-rtl';
+
+// * * * * * * * * * * * * * * * *
+// * * Import component styles * *
+// * * * * * * * * * * * * * * * *
+
+@import './components/dropdowns';
+
+@import './components/footer';
+
+// -- Navigation
+@import './components/navigation/nav';
+@import './components/navigation/nav-borders';
+@import './components/navigation/navbar';
+@import './components/navigation/topnav';
+@import './components/navigation/nav-sticky';
+@import './components/navigation/sidenav/sidenav';
+@import './components/navigation/sidenav/sidenav-dark';
+@import './components/navigation/sidenav/sidenav-light';
+
+// -- Page header
+@import './components/page-header/page-header';
+@import './components/page-header/page-header-compact';
+@import './components/page-header/page-header-dark';
+@import './components/page-header/page-header-light';
+
+// * * * * * * * * * * * * * *
+// * * Import page styles  * *
+// * * * * * * * * * * * * * *
+
+@import './pages/account';
+@import './pages/auth-organizations';
+@import './pages/invoice';
+@import './pages/pricing';
+@import './pages/wizard';
+
+// * * * * * * * * * * * * * * *
+// * * Import plugin styles  * *
+// * * * * * * * * * * * * * * *
+
+@import './plugins/litepicker';
+@import './plugins/chartjs';
+@import './plugins/simple-datatables';
+
+// Demo
+
+@import './demo/style-reference';

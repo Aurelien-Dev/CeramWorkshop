@@ -1,0 +1,264 @@
+// 
+// Global button resets
+// 
+
+// Vertically centers content within buttons if content is different heights
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+// 
+// Icon button styling
+// 
+
+// Creates the .btn-icon variant - append the
+// .btn-icon class to any .btn and add an icon to
+// the inner content of the element you are using
+// - works with both feather icons and font awesome icons
+
+.btn-icon {
+    padding: 0;
+
+    justify-content: center;
+    overflow: hidden;
+
+    border-radius: 100%;
+
+    flex-shrink: 0;
+
+    height: calc((#{$btn-font-size} * #{$btn-line-height}) + (#{$btn-padding-y} * 2) + (#{$btn-border-width * 2})) !important;
+    width: calc((#{$btn-font-size} * #{$btn-line-height}) + (#{$btn-padding-y} * 2) + (#{$btn-border-width * 2})) !important;
+
+    .feather {
+        margin-top: 0 !important;
+    }
+
+    &.btn-xl {
+        height: calc((#{$btn-font-size-xl} * #{$btn-line-height}) + (#{$btn-padding-y-xl} * 2) + (#{$btn-border-width * 2})) !important;
+        width: calc((#{$btn-font-size-xl} * #{$btn-line-height}) + (#{$btn-padding-y-xl} * 2) + (#{$btn-border-width * 2})) !important;
+        border-radius: 100%;
+    }
+
+    &.btn-lg {
+        height: calc((#{$btn-font-size-lg} * #{$btn-line-height}) + (#{$btn-padding-y-lg} * 2) + (#{$btn-border-width * 2})) !important;
+        width: calc((#{$btn-font-size-lg} * #{$btn-line-height}) + (#{$btn-padding-y-lg} * 2) + (#{$btn-border-width * 2})) !important;
+    }
+
+    &.btn-sm {
+        height: calc((#{$btn-font-size-sm} * #{$btn-line-height}) + (#{$btn-padding-y-sm} * 2) + (#{$btn-border-width * 2})) !important;
+        width: calc((#{$btn-font-size-sm} * #{$btn-line-height}) + (#{$btn-padding-y-sm} * 2) + (#{$btn-border-width * 2})) !important;
+    }
+
+    &.btn-xs {
+        height: calc((#{$btn-font-size-xs} * #{$btn-line-height}) + (#{$btn-padding-y-xs} * 2) + (#{$btn-border-width * 2})) !important;
+        width: calc((#{$btn-font-size-xs} * #{$btn-line-height}) + (#{$btn-padding-y-xs} * 2) + (#{$btn-border-width * 2})) !important;
+        border-radius: 100%;
+    }
+
+    &.btn-link {
+        text-decoration: none;
+    }
+
+}
+
+// Adjust feather icons for usage within .btn component
+.btn {
+    .feather {
+        margin-top: -1px;
+        height: $btn-font-size;
+        width: $btn-font-size;
+    }
+}
+
+.btn-lg {
+    .feather {
+        height: $btn-font-size-lg;
+        width: $btn-font-size-lg;
+    }
+}
+
+.btn-sm {
+    .feather {
+        height: $btn-font-size-sm;
+        width: $btn-font-size-sm;
+    }
+}
+
+.btn-xs {
+    .feather {
+        height: $btn-font-size-xs;
+        width: $btn-font-size-xs;
+    }
+}
+
+.btn-xl {
+    .feather {
+        height: $btn-font-size-xl;
+        width: $btn-font-size-xl;
+    }
+}
+
+// 
+// Button sizing extension
+// 
+
+.btn-xs {
+    padding: $btn-padding-y-xs $btn-padding-x-xs;
+    font-size: $btn-font-size-xs;
+    border-radius: $btn-border-radius-xs;
+    line-height: $line-height-xs;
+}
+
+.btn-xl {
+    padding: $btn-padding-y-xl $btn-padding-x-xl;
+    font-size: $btn-font-size-xl;
+    border-radius: $btn-border-radius-xl;
+}
+
+// 
+// Social button options
+// 
+
+// Use Bootstrap button variant mixin to create branded button styles
+//
+// Utilizes the brand colors declared in variables/colors.scss
+
+.btn-facebook {
+    @include button-variant($facebook, $facebook);
+}
+
+.btn-github {
+    @include button-variant($github, $github);
+}
+
+.btn-google {
+    @include button-variant($google, $google);
+}
+
+.btn-twitter {
+    @include button-variant($twitter, $twitter);
+}
+
+// 
+// Transparent button styling
+// 
+
+// Use Bootstrap button variant mixin to create .btn-transparent-dark button style
+
+.btn-transparent-dark {
+    @include button-variant( // background
+        transparent,
+        // border
+        transparent,
+        // color
+        fade-out($gray-900, 0.5),
+
+        // hover background
+        fade-out($gray-900, 0.9),
+        // hover border
+        transparent,
+        // hover color
+        fade-out($gray-900, 0.5),
+
+        // active background
+        fade-out($gray-900, 0.8),
+        // active border
+        transparent,
+        // active color
+        fade-out($gray-900, 0.5),
+
+        // disabled background
+        fade-out($gray-900, 0.9),
+        // disabled border
+        transparent,
+        // disabled color
+        fade-out($gray-900, 0.65),
+
+    );
+
+    color: fade-out($gray-900, 0.5) !important;
+
+    &:focus {
+        box-shadow: 0 0 0 $btn-focus-width fade-out($gray-900, 0.75) !important;
+    }
+}
+
+// Use Bootstrap button variant mixin to create .btn-transparent-light button style
+
+.btn-transparent-light {
+    @include button-variant( // background
+        transparent,
+        // border
+        transparent,
+        // color
+        fade-out($white, 0.5),
+
+        // hover background
+        fade-out($white, 0.9),
+        // hover border
+        transparent,
+        // hover color
+        fade-out($white, 0.5),
+
+        // active background
+        fade-out($white, 0.8),
+        // active border
+        transparent,
+        // active color
+        fade-out($white, 0.5),
+
+        // disabled background
+        fade-out($white, 0.9),
+        // disabled border
+        transparent,
+        // disabled color
+        fade-out($white, 0.65),
+    );
+
+    color: fade-out($white, 0.5) !important;
+
+    &:focus {
+        box-shadow: 0 0 0 $btn-focus-width fade-out($white, 0.75) !important;
+    }
+}
+
+// Use Bootstrap button variant mixin to create .btn-white-10 button style
+
+.btn-white-10 {
+    @include button-variant( // background
+        fade-out($white, 0.9),
+        // border
+        transparent,
+        // color
+        fade-out($white, 0.5),
+
+        // hover background
+        fade-out($white, 0.85),
+        // hover border
+        transparent,
+        // hover color
+        fade-out($white, 0.5),
+
+        // active background
+        fade-out($white, 0.8),
+        // active border
+        transparent,
+        // active color
+        fade-out($white, 0.5),
+
+        // disabled background
+        fade-out($white, 0.9),
+        // disabled border
+        transparent,
+        // disabled color
+        fade-out($white, 0.65),
+    );
+
+    color: fade-out($white, 0.5) !important;
+
+    &:focus {
+        box-shadow: 0 0 0 $btn-focus-width fade-out($white, 0.75) !important;
+    }
+}

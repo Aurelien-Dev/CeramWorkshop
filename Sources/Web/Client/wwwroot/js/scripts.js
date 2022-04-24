@@ -1,3 +1,6 @@
+function FeatherInit() {
+    feather.replace();
+}
 class MainInit {
 
     init() {

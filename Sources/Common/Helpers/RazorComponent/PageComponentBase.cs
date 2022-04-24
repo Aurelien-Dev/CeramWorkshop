@@ -11,5 +11,13 @@ namespace Common.Helpers.RazorComponent
         [Inject] public NavigationManager NavigationManager { get; set; }
 
         public PageMode Mode { get; set; }
+
+        protected override Task OnAfterRenderAsync(bool firstRender)
+        {
+            JSRuntime.InvokeVoidAsync("FeatherInit");
+
+
+            return base.OnAfterRenderAsync(firstRender);
+        }
     }
 }

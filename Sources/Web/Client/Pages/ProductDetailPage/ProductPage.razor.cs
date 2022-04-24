@@ -31,5 +31,7 @@ namespace Client.Pages.ProductDetailPage
                 ProductImages.Add(new CarouselCardItem(item.Id, item.Url, item.Comment, item));
             }
         }
+
+        public void GoToEdit() => NavigationManager.NavigateTo($"/Product/Edit/{Id}");
     }
 }

@@ -12,8 +12,8 @@
         <div class="row no-gutters">
             <div class="col-md-8">
                 <div class="card-body">
-                    <h5 class="card-title">@ProductDetail.Reference - @ProductDetail.Name</h5>
-                    <div class="row">
+                    <h5 class="card-title">#@ProductDetail.Reference - @ProductDetail.Name</h5>
+                    <div class="row mb-3">
                         <div class="col-12 col-sm-12">
                             <Text TextStr="@ProductDetail.Description" Label="Description" />
                             <Text TextStr="@ProductDetail.DesignInstruction" Label="Design instruction" />
@@ -24,16 +24,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <a href="/Product/Edit/@ProductDetail.Id" class="col-2 btn btn-github m-1">
-                            <i data-feather="bar-chart"></i>
-                            Modifier
-                        </a>
-                        <a class="col-2 btn btn-github m-1">
-                            <i data-feather="edit-2"></i>
-                            Supprimer
-                        </a>
-                    </div>
                 </div>
             </div>
             <div class="col-md-4 p-0">
@@ -42,6 +32,12 @@
                     <img class="img-fluid rounded-end" src="@ProductImages[0].ImageUrl" />
                     @*<CarouselCard CarouselItem=ProductImages OnDeleteCard=DeleteImageCmd ShowDeleteButton=true />*@
                 }
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-outline-green " @onclick="GoToEdit">
+                    <i data-feather="edit-2" class="me-2"></i>
+                    Modifier
+                </button>
             </div>
         </div>
     </div>

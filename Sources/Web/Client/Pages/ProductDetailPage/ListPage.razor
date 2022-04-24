@@ -15,17 +15,12 @@
                             <th>Images</th>
                         </tr>
                     </thead>
-                    @foreach (var item in Products)
+                    @foreach (var item in ProductsVM)
                     {
                         <tr>
                             <td><a href="Product/@item.Id">@item.Reference</a></td>
                             <td>@item.Name</td>
-                            <td>@item.ProductImageInstruction.Count()</td>
-                            <td>
-                                <a class="btn btn-green btn-icon" href="Product/edit/@item.Id">
-                                    <i data-feather="edit-2"></i>
-                                </a>
-                            </td>
+                            <td>@item.CountImg</td>
                         </tr>
                     }
                 </table>

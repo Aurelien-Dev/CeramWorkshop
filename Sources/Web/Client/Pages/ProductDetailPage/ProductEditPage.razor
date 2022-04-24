@@ -16,6 +16,7 @@
             <div class="row no-gutters">
                 <div class="col-md-8">
                     <div class="card-body">
+                        <h5 class="card-title">#@ProductDetail.Reference - @ProductDetail.Name</h5>
                         <div class="row ms-2">
                             <ValidationSummary />
                         </div>
@@ -27,22 +28,22 @@
                                 </div>
 
                                 <div class="form-floating mb-3">
-                                    <InputTextArea id="Description" @bind-Value="ProductDetail.Description" class="form-control" />
-                                    <label for="Description">Description</label>
-                                </div>
-
-                                <div class="form-floating mb-3">
-                                    <InputTextArea id="Description" @bind-Value="ProductDetail.DesignInstruction" class="form-control" />
-                                    <label for="Description">Instruction de construction</label>
-                                </div>
-
-                                <div class="form-floating mb-3">
                                     <InputTextArea id="Reference" @bind-Value="ProductDetail.Reference" class="form-control" />
                                     <label for="Reference">Référence</label>
                                 </div>
 
+                                <div class="form-floating mb-3">
+                                    <InputTextArea id="Description" @bind-Value="ProductDetail.Description" class="form-control" style="height: 150px" />
+                                    <label for="Description">Description</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <InputTextArea id="Description" @bind-Value="ProductDetail.DesignInstruction" class="form-control" style="height: 150px" />
+                                    <label for="Description">Instruction de construction</label>
+                                </div>
+
                                 <div class="form-floating mb-3" style="padding:0 12px">
-                                    <Sizing Height="ProductDetail.Height" DiameterTop="ProductDetail.TopDiameter" DiameterBot="ProductDetail.BottomDiameter" />
+                                    <Sizing @bind-Height="ProductDetail.Height" @bind-DiameterTop="ProductDetail.TopDiameter" @bind-DiameterBot="ProductDetail.BottomDiameter" />
                                 </div>
 
                                 <div class="mb-3">
@@ -55,19 +56,19 @@
                 <div class="col-md-4 p-0">
                     @if (ProductImages.Any())
                     {
-                        <img class="img-fluid rounded-end" src="@ProductImages[0].ImageUrl" />
+                        <img class="img-fluid" src="@ProductImages[0].ImageUrl" />
                         @*<CarouselCard CarouselItem=ProductImages OnDeleteCard=DeleteImageCmd ShowDeleteButton=true />*@
                     }
                 </div>
-            </div>
-            <div class="card-footer">
-                <button class="btn btn-outline-blue" type="submit">
-                    <i class="fas fa-save"></i>
-                    Enregistrer
-                </button>
-                <button type="button" class="btn btn-danger" @onclick="UndoCmd">
-                    Annuler
-                </button>
+                <div class="card-footer">
+                    <button class="btn btn-outline-green" type="submit">
+                        <i data-feather="edit-2" class="me-2"></i>
+                        Enregistrer
+                    </button>
+                    <button type="button" class="btn btn-danger" @onclick="UndoCmd">
+                        Annuler
+                    </button>
+                </div>
             </div>
         </div>
         @*<div class="col-6">

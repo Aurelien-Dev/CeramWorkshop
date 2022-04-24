@@ -51,7 +51,7 @@ namespace Client.Pages.ProductDetailPage
             ProductImages.Remove(item);
         }
 
-        public async Task UndoCmd()
+        public void UndoCmd()
         {
             productWorker.Rollback();
             NavigationManager.NavigateTo("/");
@@ -74,8 +74,8 @@ namespace Client.Pages.ProductDetailPage
                     productWorker.ProductRepository.Update(ProductDetail);
                     int result = productWorker.Completed();
                 }
+                NavigationManager.NavigateTo("/");
             }
-            NavigationManager.NavigateTo("/");
         }
 
         private async Task UploadFile(InputFileChangeEventArgs e)

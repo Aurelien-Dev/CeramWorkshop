@@ -1,3 +1,4 @@
+using Client.ViewModel.ProductDetailViewModel;
 using Domain.InterfacesWorker;
 using Domain.Models;
 using Microsoft.AspNetCore.Components;
@@ -19,22 +20,8 @@ namespace Client.Pages.ProductDetailPage
             {
                 int imgCount = unitOfWork.ProductRepository.CountImage(product.Id);
 
-                ProductsVM.Add(new ProductViewModel()
-                {
-                    Id = product.Id,
-                    Name = product.Name,
-                    Reference = product.Reference,
-                    CountImg = imgCount
-                });
+                ProductsVM.Add(new ProductViewModel(product));
             }
         }
-    }
-
-    public class ProductViewModel
-    {
-        public int Id { get; set; }
-        public string? Reference { get; set; }
-        public string? Name { get; set; }
-        public int CountImg { get; set; }
     }
 }

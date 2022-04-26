@@ -2,7 +2,7 @@
 
 @using Common.Helpers.RazorComponent
 @using Common.Helpers.RazorComponent.CommonControls
-@using Common.Helpers.RazorComponent.Product
+@using Common.Helpers.RazorComponent.ProductControls
 
 @inherits PageComponentBase
 
@@ -12,15 +12,19 @@
         <div class="row no-gutters">
             <div class="col-md-8">
                 <div class="card-body">
-                    <h5 class="card-title">#@ProductDetail.Reference - @ProductDetail.Name</h5>
+                    <h5 class="card-title">#@ProductDetailVM.Reference - @ProductDetailVM.Name</h5>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <StatusDisplay Status="@ProductDetailVM.Status" />
+                        </div>
+                    </div>
                     <div class="row mb-3">
                         <div class="col-12 col-sm-12">
-                            <Text TextStr="@ProductDetail.Description" Label="Description" />
-                            <Text TextStr="@ProductDetail.DesignInstruction" Label="Design instruction" />
-
+                            <Text TextStr="@ProductDetailVM.Description" Label="Description" />
+                            <Text TextStr="@ProductDetailVM.DesignInstruction" Label="Design instruction" />
 
                             <div style="padding:0 12px">
-                                <Sizing Height="@ProductDetail.Height" DiameterTop="@ProductDetail.TopDiameter" DiameterBot="@ProductDetail.BottomDiameter" Read="true" />
+                                <SizingDisplay Height="@ProductDetailVM.Height" DiameterTop="@ProductDetailVM.TopDiameter" DiameterBot="@ProductDetailVM.BottomDiameter" />
                             </div>
                         </div>
                     </div>
@@ -34,11 +38,20 @@
                 }
             </div>
             <div class="card-footer">
-                <button class="btn btn-outline-green " @onclick="GoToEdit">
+                <button class="btn btn-outline-green" @onclick="GoToEdit">
                     <i data-feather="edit-2" class="me-2"></i>
                     Modifier
+                </button>
+                <button class="btn btn-outline-red" @onclick="() => OpenDeleteDialog()">
+                    <i data-feather="edit-2" class="me-2"></i>
+                    Supprimer
                 </button>
             </div>
         </div>
     </div>
 </div>
+
+
+<Modal OnClose="@OnDeleteDialogClose">
+    <h5>Coucou</h5>
+</Modal>

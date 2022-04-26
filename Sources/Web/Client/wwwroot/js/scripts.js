@@ -1,6 +1,12 @@
+function OpenModal(id) {
+    var myModal = new bootstrap.Modal(document.getElementById(id), {})
+    myModal.show()
+}
+
 function FeatherInit() {
     feather.replace();
 }
+
 class MainInit {
 
     init() {

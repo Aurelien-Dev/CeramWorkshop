@@ -1,0 +1,24 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+
+@namespace Common.Helpers.RazorComponent.ProductControls
+
+<div class="row">
+    <div class="col-12 col-sm-1 mb-2 p-0">
+        <img src="/assets/sizing.png" style="height:65px" />
+    </div>
+    <div class="col-12 col-sm-4 align-self-center p-0">
+        <label for="d1">Ø Top : @DiameterTop cm</label>
+    </div>
+    <div class="col-12 col-sm-4 align-self-center p-0">
+        <label for="d1">Ø Bottom : @DiameterBot cm</label>
+    </div>
+    <div class="col-12 col-sm-3 align-self-center p-0">
+        <label for="d1">Height : @Height cm</label>
+    </div>
+</div>
+
+@code {
+    [Parameter] public string DiameterTop { get; set; } = string.Empty;
+    [Parameter] public string DiameterBot { get; set; } = string.Empty;
+    [Parameter] public string Height { get; set; } = string.Empty;
+}

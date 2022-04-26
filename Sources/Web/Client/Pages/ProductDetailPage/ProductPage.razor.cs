@@ -1,4 +1,5 @@
-﻿using Common.Helpers.RazorComponent;
+﻿using Client.ViewModel.ProductDetailViewModel;
+using Common.Helpers.RazorComponent;
 using Common.Helpers.RazorComponent.CommonControls;
 using Domain.InterfacesWorker;
 using Domain.Models;
@@ -13,8 +14,19 @@ namespace Client.Pages.ProductDetailPage
         [Parameter] public int? Id { get; set; }
         [Inject] private IProductWork productWorker { get; set; }
 
-        public Product ProductDetail { get; set; } = new();
+        public ProductViewModel ProductDetailVM { get; set; } = new();
         public List<CarouselCardItem> ProductImages = new();
+
+        private void OnDeleteDialogClose(bool accepted)
+        {
+            
+        }
+
+        private void OpenDeleteDialog()
+        {
+            OpenModal("exampleModal");
+        }
+
 
         protected override async Task OnInitializedAsync()
         {
@@ -23,10 +35,12 @@ namespace Client.Pages.ProductDetailPage
 
         private async Task LoadData(int id)
         {
-            ProductDetail = await productWorker.ProductRepository.Get(id);
+            Product product = await productWorker.ProductRepository.Get(id);
+            ProductDetailVM = new(product);
+
             ProductImages = new();
 
-            foreach (var item in ProductDetail.ProductImageInstruction)
+            foreach (var item in product.ProductImageInstruction)
             {
                 ProductImages.Add(new CarouselCardItem(item.Id, item.Url, item.Comment, item));
             }

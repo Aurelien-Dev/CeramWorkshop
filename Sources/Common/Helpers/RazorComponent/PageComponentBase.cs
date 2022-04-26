@@ -19,5 +19,11 @@ namespace Common.Helpers.RazorComponent
 
             return base.OnAfterRenderAsync(firstRender);
         }
+
+
+        public void OpenModal(string idModal)
+        {
+            JSRuntime.InvokeAsync<string>("OpenModal", new string[] { idModal });
+        }
     }
 }

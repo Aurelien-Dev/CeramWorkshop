@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-12">
                 <a href="Product">NewProduct</a>
-                <table class="table">
+                <table class="table dataTable-table">
                     <thead>
                         <tr>
                             <th>Ref.</th>
@@ -15,14 +15,16 @@
                             <th>Images</th>
                         </tr>
                     </thead>
-                    @foreach (var item in ProductsVM)
-                    {
-                        <tr>
-                            <td><a href="Product/@item.Id">@item.Reference</a></td>
-                            <td>@item.Name</td>
-                            <td>@item.CountImg</td>
-                        </tr>
-                    }
+                    <tbody>
+                        @foreach (var item in ProductsVM)
+                        {
+                            <tr>
+                                <td><a href="Product/@item.Id">@item.Reference</a></td>
+                                <td>@item.Name</td>
+                                <td>@item.CountImg</td>
+                            </tr>
+                        }
+                    </tbody>
                 </table>
             </div>
         </div>

@@ -2,6 +2,8 @@
 
 namespace Domain.Models
 {
+    public enum ProductStatus { Test = 1, Abandoned = 2, Production = 3, Discontinued  = 4}
+
     public class Product
     {
         public Product() { }
@@ -22,8 +24,7 @@ namespace Domain.Models
         public double? TopDiameter { get; set; }
         public double? BottomDiameter { get; set; }
         public string? DesignInstruction { get; set; }
-        public int? Status { get; set; }
-        public int MarginRate { get; set; }
+        public ProductStatus? Status { get; set; }
 
         public ICollection<ImageInstruction> ProductImageInstruction { get; set; } = new List<ImageInstruction>();
         public ICollection<ProductMaterial> ProductMaterial { get; set; } = new List<ProductMaterial>();

@@ -2,7 +2,7 @@
 
 @using Common.Helpers.RazorComponent
 @using Common.Helpers.RazorComponent.CommonControls
-@using Common.Helpers.RazorComponent.Product
+@using Common.Helpers.RazorComponent.ProductControls
 
 @inherits PageComponentBase
 
@@ -21,16 +21,22 @@
                             <ValidationSummary />
                         </div>
                         <div class="row">
-                            <div class="col-12 col-sm-12">
-                                <div class="form-floating mb-3">
-                                    <InputText id="Name" @bind-Value=ProductDetail.Name class="form-control" />
-                                    <label for="Name">Nom</label>
-                                </div>
-
+                            <div class="col-12 col-sm-4">
                                 <div class="form-floating mb-3">
                                     <InputTextArea id="Reference" @bind-Value="ProductDetail.Reference" class="form-control" />
                                     <label for="Reference">Référence</label>
                                 </div>
+                            </div>
+                            <div class="col-12 col-sm-8">
+                                <div class="form-floating mb-3">
+                                    <InputText id="Name" @bind-Value=ProductDetail.Name class="form-control" />
+                                    <label for="Name">Nom</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-sm-12">
+
 
                                 <div class="form-floating mb-3">
                                     <InputTextArea id="Description" @bind-Value="ProductDetail.Description" class="form-control" style="height: 150px" />
@@ -43,7 +49,17 @@
                                 </div>
 
                                 <div class="form-floating mb-3" style="padding:0 12px">
-                                    <Sizing @bind-Height="ProductDetail.Height" @bind-DiameterTop="ProductDetail.TopDiameter" @bind-DiameterBot="ProductDetail.BottomDiameter" />
+                                    <SizingEditor @bind-Height="ProductDetail.Height" @bind-DiameterTop="ProductDetail.TopDiameter" @bind-DiameterBot="ProductDetail.BottomDiameter" />
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <InputSelect id="floatingSelect" @bind-Value="ProductDetail.Status" class="form-select">
+                                        <option value="1">Test</option>
+                                        <option value="2">Abandoned</option>
+                                        <option value="3">Production</option>
+                                        <option value="4">Discontinued</option>
+                                    </InputSelect>
+                                    <label for="floatingSelect">Statut</label>
                                 </div>
 
                                 <div class="mb-3">

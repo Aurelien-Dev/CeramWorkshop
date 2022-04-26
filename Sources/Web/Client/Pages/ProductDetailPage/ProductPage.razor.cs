@@ -15,35 +15,28 @@ namespace Client.Pages.ProductDetailPage
         [Inject] private IProductWork productWorker { get; set; }
 
         public ProductViewModel ProductDetailVM { get; set; } = new();
-        public List<CarouselCardItem> ProductImages = new();
+        public List<ImageInstruction> ProductImages = new();
 
-        private void OnDeleteDialogClose(bool accepted)
-        {
-            
-        }
-
-        private void OpenDeleteDialog()
-        {
-            OpenModal("exampleModal");
-        }
-
+        private Product _product;
 
         protected override async Task OnInitializedAsync()
         {
             await LoadData(Id.Value);
         }
 
+        private void ModalConfirmDelete()
+        {
+            productWorker.ProductRepository.Delete(_product);
+            int nbr = productWorker.Completed();
+            NavigationManager.NavigateTo($"/");
+        }
+
         private async Task LoadData(int id)
         {
-            Product product = await productWorker.ProductRepository.Get(id);
-            ProductDetailVM = new(product);
+            _product = await productWorker.ProductRepository.Get(id);
+            ProductDetailVM = new(_product);
+            ProductImages = new(_product.ImageInstructions);
 
-            ProductImages = new();
-
-            foreach (var item in product.ProductImageInstruction)
-            {
-                ProductImages.Add(new CarouselCardItem(item.Id, item.Url, item.Comment, item));
-            }
         }
 
         public void GoToEdit() => NavigationManager.NavigateTo($"/Product/Edit/{Id}");

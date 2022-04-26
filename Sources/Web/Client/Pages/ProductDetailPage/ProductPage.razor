@@ -33,16 +33,20 @@
             <div class="col-md-4 p-0">
                 @if (ProductImages.Any())
                 {
-                    <img class="img-fluid rounded-end" src="@ProductImages[0].ImageUrl" />
-                    @*<CarouselCard CarouselItem=ProductImages OnDeleteCard=DeleteImageCmd ShowDeleteButton=true />*@
+                    <Carousel>
+                        @for (var i = 0; i < ProductImages.Count; i++)
+                        {
+                            <ImageCarousel Image="ProductImages[i]" IsFirstElement="@(i==0)" />
+                        }
+                    </Carousel>
                 }
             </div>
-            <div class="card-footer">
+            <div class="modal-footer justify-content-between">
                 <button class="btn btn-outline-green" @onclick="GoToEdit">
                     <i data-feather="edit-2" class="me-2"></i>
                     Modifier
                 </button>
-                <button class="btn btn-outline-red" @onclick="() => OpenDeleteDialog()">
+                <button class="btn btn-warning" @onclick='() => OpenModal("DeleteModal")'>
                     <i data-feather="edit-2" class="me-2"></i>
                     Supprimer
                 </button>
@@ -52,6 +56,12 @@
 </div>
 
 
-<Modal OnClose="@OnDeleteDialogClose">
-    <h5>Coucou</h5>
+<Modal id="DeleteModal" Title="Suppression du produit">
+    <ChildContent>
+        <p>Voulez-vous supprimer le produit ? suppression définitive.</p>
+    </ChildContent>
+    <ButtonsContent>
+        <button type="button" class="btn btn-outline-green" data-bs-dismiss="modal" @onclick="ModalConfirmDelete">Oui</button>
+        <button type="button" class="btn btn-warning mr-auto" data-bs-dismiss="modal">Annuler</button>
+    </ButtonsContent>
 </Modal>

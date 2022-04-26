@@ -3,22 +3,22 @@
 @namespace Common.Helpers.RazorComponent.ProductControls
 
 <div class="row">
-    <div class="col-2 col-sm-2">
+    <div class="col-2 col-sm-1 mb-3">
         <img src="/assets/sizing.png" style="height:65px" />
     </div>
-    <div class="col">
+    <div class="col-12 col-sm-4 mb-3">
         <div class="form-floating">
-            <InputNumber id="d1" @bind-Value=DiameterTop class="form-control" />
+            <InputNumber id="d1 " @bind-Value=DiameterTop class="form-control" />
             <label for="d1">Ø Top</label>
         </div>
     </div>
-    <div class="col">
+    <div class="col-12 col-sm-4 mb-3">
         <div class="form-floating mb-2">
             <InputNumber id="d2" @bind-Value=DiameterBot class="form-control" />
             <label for="d2">Ø Bottom</label>
         </div>
     </div>
-    <div class="col p-0">
+    <div class="col-12 col-sm-3 mb-3">
         <div class="form-floating mb-2">
             <InputNumber id="h" @bind-Value=Height class="form-control" />
             <label for="h">Height</label>

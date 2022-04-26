@@ -1,3 +1,8 @@
+function InitCarrousel() {
+    var myCarousel = document.getElementById("carouselExampleDark")
+    var carousel = new bootstrap.Carousel(myCarousel)
+}
+
 function OpenModal(id) {
     var myModal = new bootstrap.Modal(document.getElementById(id), {})
     myModal.show()

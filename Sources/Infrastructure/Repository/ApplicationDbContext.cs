@@ -12,6 +12,8 @@ namespace Repository
         public DbSet<Firing> Firings { get; set; }
         public DbSet<Accessory> Accessories { get; set; }
 
+        public DbSet<ImageInstruction> ImageInstruction { get; set; }
+
         public DbSet<ProductMaterial> ProductMaterials { get; set; }
         public DbSet<ProductFiring> ProductFirings { get; set; }
         public DbSet<ProductAccessory> ProductAccessories { get; set; }

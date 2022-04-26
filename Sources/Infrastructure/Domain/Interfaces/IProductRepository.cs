@@ -4,6 +4,6 @@ namespace Domain.Interfaces
 {
     public interface IProductRepository: IGenericRepository<Product>
     {
-        int CountImage(object id);
+        Task<int> CountImage(int id);
     }
 }

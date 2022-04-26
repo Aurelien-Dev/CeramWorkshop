@@ -18,7 +18,6 @@ namespace Client.Pages.ProductDetailPage
         [Inject] private NavigationManager NavigationManager { get; set; }
 
         public Product ProductDetail { get; set; } = new();
-        public List<CarouselCardItem> ProductImages = new();
 
         protected override async Task OnInitializedAsync()
         {
@@ -37,24 +36,23 @@ namespace Client.Pages.ProductDetailPage
         private async Task LoadData(int id)
         {
             ProductDetail = await productWorker.ProductRepository.Get(id);
-            ProductImages = new();
-
-            foreach (var item in ProductDetail.ProductImageInstruction)
-            {
-                ProductImages.Add(new CarouselCardItem(item.Id, item.Url, item.Comment, item));
-            }
         }
 
-        public void DeleteImageCmd(CarouselCardItem item)
-        {
-            ProductDetail.ProductImageInstruction.Remove((ImageInstruction)item.ObjectMapped);
-            ProductImages.Remove(item);
-        }
+        //public void DeleteImageCmd(CarouselCardItem item)
+        //{
+        //    ProductDetail.ProductImageInstruction.Remove((ImageInstruction)item.ObjectMapped);
+        //    ProductImages.Remove(item);
+        //}
 
         public void UndoCmd()
         {
+            if (!Id.HasValue)
+            {
+                NavigationManager.NavigateTo($"/");
+                return;
+            }
             productWorker.Rollback();
-            NavigationManager.NavigateTo("/");
+            NavigationManager.NavigateTo($"/Product/{Id}");
         }
 
 
@@ -74,7 +72,8 @@ namespace Client.Pages.ProductDetailPage
                     productWorker.ProductRepository.Update(ProductDetail);
                     int result = productWorker.Completed();
                 }
-                NavigationManager.NavigateTo("/");
+                if (Id.HasValue) NavigationManager.NavigateTo($"/Product/{Id}");
+                else NavigationManager.NavigateTo("/");
             }
         }
 
@@ -86,8 +85,7 @@ namespace Client.Pages.ProductDetailPage
 
                 ImageInstruction result = new(filePathLoaded, filePathLoaded, filePathLoaded);
 
-                ProductImages.Add(new(null, filePathLoaded, "test !", result));
-                ProductDetail.ProductImageInstruction.Add(result);
+                ProductDetail.ImageInstructions.Add(result);
             }
             catch (Exception ex)
             {

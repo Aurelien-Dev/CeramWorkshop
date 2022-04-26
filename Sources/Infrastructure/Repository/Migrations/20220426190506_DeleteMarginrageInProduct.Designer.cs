@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Repository;
@@ -11,9 +12,10 @@ using Repository;
 namespace Repository.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220426190506_DeleteMarginrageInProduct")]
+    partial class DeleteMarginrageInProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,7 +41,7 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Accessories", (string)null);
+                    b.ToTable("Accessories");
                 });
 
             modelBuilder.Entity("Domain.Models.Firing", b =>
@@ -62,7 +64,7 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Firings", (string)null);
+                    b.ToTable("Firings");
                 });
 
             modelBuilder.Entity("Domain.Models.ImageInstruction", b =>
@@ -99,7 +101,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("IdProduct");
 
-                    b.ToTable("ImageInstruction", (string)null);
+                    b.ToTable("ImageInstruction");
                 });
 
             modelBuilder.Entity("Domain.Models.Material", b =>
@@ -131,7 +133,7 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Materials", (string)null);
+                    b.ToTable("Materials");
                 });
 
             modelBuilder.Entity("Domain.Models.Product", b =>
@@ -170,7 +172,7 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Domain.Models.ProductAccessory", b =>
@@ -188,7 +190,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("IdAccessory");
 
-                    b.ToTable("ProductAccessories", (string)null);
+                    b.ToTable("ProductAccessories");
                 });
 
             modelBuilder.Entity("Domain.Models.ProductFiring", b =>
@@ -209,7 +211,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("IdFiring");
 
-                    b.ToTable("ProductFirings", (string)null);
+                    b.ToTable("ProductFirings");
                 });
 
             modelBuilder.Entity("Domain.Models.ProductMaterial", b =>
@@ -230,7 +232,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("IdMaterial");
 
-                    b.ToTable("ProductMaterials", (string)null);
+                    b.ToTable("ProductMaterials");
                 });
 
             modelBuilder.Entity("Domain.Models.ImageInstruction", b =>

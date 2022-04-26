@@ -1,0 +1,22 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+@using Domain.Models
+
+@namespace Common.Helpers.RazorComponent.ProductControls
+
+<div class="carousel-item @(IsFirstElement? "active":"")">
+    <div class="bg-img-cover" style="background-image: url('@Url'); height:500px;">
+    </div>
+    <div>
+        <strong>Commentaire:</strong>
+        <br>
+        @Image.Comment
+    </div>
+</div>
+
+@code {
+    [Parameter] public ImageInstruction Image { get; set; }
+    [Parameter] public bool IsFirstElement { get; set; }
+
+    public string Url { get => Image.Url.Replace(@"\", "/"); }
+
+}

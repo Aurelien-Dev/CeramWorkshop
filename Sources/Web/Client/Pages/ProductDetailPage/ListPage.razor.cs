@@ -18,9 +18,9 @@ namespace Client.Pages.ProductDetailPage
 
             foreach (var product in Products)
             {
-                int imgCount = unitOfWork.ProductRepository.CountImage(product.Id);
+                int imgCount = await unitOfWork.ProductRepository.CountImage(product.Id);
 
-                ProductsVM.Add(new ProductViewModel(product));
+                ProductsVM.Add(new ProductViewModel(product) { CountImg = imgCount });
             }
         }
     }

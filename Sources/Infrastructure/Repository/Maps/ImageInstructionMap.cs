@@ -11,7 +11,7 @@ namespace Repository.Maps
 
             modelBuilder.Entity<ImageInstruction>()
                 .HasOne(s => s.ProductAssociate)
-                .WithMany(g => g.ProductImageInstruction)
+                .WithMany(g => g.ImageInstructions)
                 .HasForeignKey(s => s.IdProduct);
         }
     }

@@ -11,19 +11,17 @@ namespace Repository.Repositories
 
         }
 
-
         public override async Task<Product> Get(object id)
         {
             return await _context.Products
                                  .Where(p => p.Id == (int)id)
-                                 .Include(p => p.ProductImageInstruction)
+                                 .Include(p => p.ImageInstructions)
                                  .FirstAsync();
         }
-        public int CountImage(object id)
+
+        public async Task<int> CountImage(int id)
         {
-            return _context.Products
-                                 .Where(p => p.Id == (int)id)
-                                 .Include(p => p.ProductImageInstruction).Select(p => p.ProductImageInstruction.Count()).FirstOrDefault();
+            return await _context.ImageInstruction.CountAsync();
         }
     }
 }

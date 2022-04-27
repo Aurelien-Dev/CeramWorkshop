@@ -11,7 +11,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - dotnet-packages-v1-{{ checksum "demoDotnet.csproj" }}
+            - dotnet-packages-v1-{{ checksum "Sources/Web/Client/Client.csproj" }}
       - run:
           name: "Install project dependencies"
           command: dotnet.exe restore

@@ -17,8 +17,10 @@ namespace Client.Utils
         public static async Task<string> LoadFileInput(InputFileChangeEventArgs e, string workshopName)
         {
             string fileName = CreateTempFileName(workshopName, Path.GetExtension(e.File.Name));
-
             string workshopFolder = Path.Combine(ProductFolderFullPath, workshopName, fileName);
+
+            if (!Directory.Exists(workshopFolder))
+                Directory.CreateDirectory(workshopFolder);
 
             await using FileStream fs = new(workshopFolder, FileMode.Create);
             await e.File.OpenReadStream(maxFileSize).CopyToAsync(fs);

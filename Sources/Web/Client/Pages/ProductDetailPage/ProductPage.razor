@@ -10,9 +10,11 @@
 <div class="row">
     <div class="card">
         <div class="row no-gutters">
+            <div class="card-header">
+                <h5 class="card-title">#@ProductDetailVM.Reference - @ProductDetailVM.Name</h5>
+            </div>
             <div class="col-md-8">
                 <div class="card-body">
-                    <h5 class="card-title">#@ProductDetailVM.Reference - @ProductDetailVM.Name</h5>
                     <div class="row mb-3">
                         <div class="col">
                             <StatusDisplay Status="@ProductDetailVM.Status" />
@@ -31,23 +33,27 @@
                 </div>
             </div>
             <div class="col-md-4 p-0">
-                @if (ProductImages.Any())
-                {
-                    <Carousel>
-                        @for (var i = 0; i < ProductImages.Count; i++)
-                        {
-                            <ImageCarousel Image="ProductImages[i]" IsFirstElement="@(i==0)" />
-                        }
-                    </Carousel>
-                }
+                <Carousel>
+                    @for (var i = 0; i < ProductImages.Count; i++)
+                    {
+                        <ImageCarousel Image="ProductImages[i]" IsFirstElement="@(i==0)" />
+                    }
+                    @if (!ProductImages.Any())
+                    {
+                        <div class="bg-img-cover d-flex justify-content-center p-3" style="background-image: url('assets/img/gallery.png'); height:500px;opacity:0.05"></div>
+                    }
+                </Carousel>
             </div>
-            <div class="modal-footer justify-content-between">
+            <div class="card-footer justify-content-between">
+                <button type="button" class="btn btn-warning" @onclick='(()=>NavigationManager.NavigateTo("/"))'>
+                    Retour
+                </button>
                 <button class="btn btn-outline-green" @onclick="GoToEdit">
                     <i data-feather="edit-2" class="me-2"></i>
                     Modifier
                 </button>
-                <button class="btn btn-warning" @onclick='() => OpenModal("DeleteModal")'>
-                    <i data-feather="edit-2" class="me-2"></i>
+                <button class="btn btn-danger" @onclick='() => OpenModal("DeleteModal")'>
+                    <i data-feather="trash-2" class="me-2"></i>
                     Supprimer
                 </button>
             </div>

@@ -17,6 +17,7 @@
 
         public Product? ProductAssociate { get; set; }
 
+        public ImageInstruction() { }
         public ImageInstruction(string url, string thumbUrl, string mediumUrl)
         {
             Url = url;

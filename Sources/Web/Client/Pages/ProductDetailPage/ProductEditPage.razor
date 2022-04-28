@@ -15,9 +15,11 @@
         <div class="card">
 
             <div class="row no-gutters">
+                <div class="card-header">
+                    <h5 class="card-title">#@ProductDetail.Reference - @ProductDetail.Name</h5>
+                </div>
                 <div class="col-md-8">
                     <div class="card-body">
-                        <h5 class="card-title">#@ProductDetail.Reference - @ProductDetail.Name</h5>
                         <div class="row ms-2">
                             <ValidationSummary />
                         </div>
@@ -63,34 +65,59 @@
                                     <label for="floatingSelect">Statut</label>
                                 </div>
 
-                                <div class="mb-3">
-                                    <InputFile id="formFileSm" OnChange="@UploadFile" class="form-control form-control-sm" />
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4 p-0">
-                    @if (ProductDetail.ImageInstructions.Any())
-                    {
+                    <div class="row">
                         <Carousel>
                             @for (var i = 0; i < ProductDetail.ImageInstructions.Count; i++)
                             {
-                                <ImageCarousel Image="ProductDetail.ImageInstructions.ElementAt(i)" IsFirstElement="@(i==0)" />
+                                <ImageCarousel Image="ProductDetail.ImageInstructions.ElementAt(i)" IsFirstElement="@(i==0)" ShowIcons="true" OnDeleteImageCallback="DeleteImageCmd" />
+                            }
+                            @if (!ProductDetail.ImageInstructions.Any())
+                            {
+                                <div class="bg-img-cover d-flex justify-content-center p-3" style="background-image: url('assets/img/gallery.png'); height:500px;opacity:0.05"></div>
                             }
                         </Carousel>
-                    }
+                    </div>
+                    <div class="row p-0 m-2">
+                        <button type="button" class="btn btn-outline-green" @onclick='() => OpenModal("AddImageModal")'>
+                            Nouvelle image
+                        </button>
+                    </div>
                 </div>
                 <div class="card-footer">
+                    <button type="button" class="btn btn-warning" @onclick="UndoCmd">
+                        Retour
+                    </button>
                     <button class="btn btn-outline-green" type="submit">
                         <i data-feather="edit-2" class="me-2"></i>
                         Enregistrer
-                    </button>
-                    <button type="button" class="btn btn-warning" @onclick="UndoCmd">
-                        Annuler
                     </button>
                 </div>
             </div>
         </div>
     </div>
+</EditForm>
+
+
+
+<EditForm Model="ImageInstruction" OnSubmit="AddImageEventHandler">
+    <Modal id="AddImageModal" Title="Ajouter uen image">
+        <ChildContent>
+            <div class="mb-3">
+                <ImageUpload OnChange="@UploadFile" ImageUrl=@ImageInstruction.Url />
+            </div>
+            <div class="form-floating mb-3">
+                <InputTextArea id="CommentaireImg" class="form-control" style="height: 150px" @bind-Value=ImageInstruction.Comment />
+                <label for="CommentaireImg">Commentaire</label>
+            </div>
+        </ChildContent>
+        <ButtonsContent>
+            <button type="submit" class="btn btn-outline-green" data-bs-dismiss="modal">Ajouter</button>
+            <button type="button" class="btn btn-warning mr-auto" data-bs-dismiss="modal" @onclick="(() => ImageInstruction = new())">Annuler</button>
+        </ButtonsContent>
+    </Modal>
 </EditForm>

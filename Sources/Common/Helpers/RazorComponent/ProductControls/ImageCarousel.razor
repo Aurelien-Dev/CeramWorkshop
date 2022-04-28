@@ -1,12 +1,18 @@
-﻿@using Microsoft.AspNetCore.Components.Forms
+﻿@using Microsoft.AspNetCore.Components.Web
 @using Domain.Models
 
 @namespace Common.Helpers.RazorComponent.ProductControls
 
 <div class="carousel-item @(IsFirstElement? "active":"")">
-    <div class="bg-img-cover" style="background-image: url('@Url'); height:500px;">
+    <div class="bg-img-cover d-flex justify-content-center p-3 rounded-right" style="background-image: url('@Url'); height:500px;">
+        @if (ShowIcons)
+        {
+            <button class="btn btn-danger btn-icon" type="button" @onclick=OnDeleteEvent>
+                <i data-feather="trash-2"></i>
+            </button>
+        }
     </div>
-    <div>
+    <div class="p-1">
         <strong>Commentaire:</strong>
         <br>
         @Image.Comment
@@ -16,7 +22,13 @@
 @code {
     [Parameter] public ImageInstruction Image { get; set; }
     [Parameter] public bool IsFirstElement { get; set; }
+    [Parameter] public bool ShowIcons { get; set; } = false;
+    [Parameter] public EventCallback<int> OnDeleteImageCallback { get; set; }
 
     public string Url { get => Image.Url.Replace(@"\", "/"); }
 
+    public async Task OnDeleteEvent()
+    {
+        await OnDeleteImageCallback.InvokeAsync(Image.Id);
+    }
 }

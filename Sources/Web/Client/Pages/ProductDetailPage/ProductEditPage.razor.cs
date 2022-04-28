@@ -18,6 +18,7 @@ namespace Client.Pages.ProductDetailPage
         [Inject] private NavigationManager NavigationManager { get; set; }
 
         public Product ProductDetail { get; set; } = new();
+        public ImageInstruction ImageInstruction { get; set; } = new();
 
         protected override async Task OnInitializedAsync()
         {
@@ -38,11 +39,14 @@ namespace Client.Pages.ProductDetailPage
             ProductDetail = await productWorker.ProductRepository.Get(id);
         }
 
-        //public void DeleteImageCmd(CarouselCardItem item)
-        //{
-        //    ProductDetail.ProductImageInstruction.Remove((ImageInstruction)item.ObjectMapped);
-        //    ProductImages.Remove(item);
-        //}
+        public void DeleteImageCmd(int idImage)
+        {
+            ImageInstruction deleteImage = ProductDetail.ImageInstructions.Where(i => i.Id == idImage).FirstOrDefault();
+            if (deleteImage != null)
+            {
+                ProductDetail.ImageInstructions.Remove(deleteImage);
+            }
+        }
 
         public void UndoCmd()
         {
@@ -55,6 +59,11 @@ namespace Client.Pages.ProductDetailPage
             NavigationManager.NavigateTo($"/Product/{Id}");
         }
 
+        public void AddImageEventHandler(EditContext context)
+        {
+            ProductDetail.ImageInstructions.Add(ImageInstruction);
+            ImageInstruction = new();
+        }
 
         public void SaveProductEventHandler(EditContext context)
         {
@@ -82,10 +91,9 @@ namespace Client.Pages.ProductDetailPage
             try
             {
                 string filePathLoaded = await LoadFileFromInputFile.LoadFileInput(e, "AtelierCremazie");
-
-                ImageInstruction result = new(filePathLoaded, filePathLoaded, filePathLoaded);
-
-                ProductDetail.ImageInstructions.Add(result);
+                ImageInstruction.Url = filePathLoaded;
+                ImageInstruction.ThumbUrl = filePathLoaded;
+                ImageInstruction.MediumUrl = filePathLoaded;
             }
             catch (Exception ex)
             {

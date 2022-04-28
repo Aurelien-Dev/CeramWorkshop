@@ -7,12 +7,15 @@
     <div class="bg-img-cover d-flex justify-content-center p-3 rounded-right" style="background-image: url('@Url'); height:500px;">
         @if (ShowIcons)
         {
-            <button class="btn btn-danger btn-icon" type="button" @onclick=OnDeleteEvent>
+            <button class="btn btn-danger btn-icon m-1" type="button" @onclick=OnDeleteImageEvent>
                 <i data-feather="trash-2"></i>
+            </button>
+            <button class="btn btn-green btn-icon m-1" type="button" @onclick=OnEditImageEvent>
+                <i data-feather="edit-2"></i>
             </button>
         }
     </div>
-    <div class="p-1">
+    <div class="p-1 mb-3">
         <strong>Commentaire:</strong>
         <br>
         @Image.Comment
@@ -24,11 +27,17 @@
     [Parameter] public bool IsFirstElement { get; set; }
     [Parameter] public bool ShowIcons { get; set; } = false;
     [Parameter] public EventCallback<int> OnDeleteImageCallback { get; set; }
+    [Parameter] public EventCallback<int> OnEditImageCallback { get; set; }
 
-    public string Url { get => Image.Url.Replace(@"\", "/"); }
-
-    public async Task OnDeleteEvent()
+    public string Url { get => Image.Url; }
+    
+    public async Task OnDeleteImageEvent()
     {
         await OnDeleteImageCallback.InvokeAsync(Image.Id);
+    }
+
+    public async Task OnEditImageEvent()
+    {
+        await OnEditImageCallback.InvokeAsync(Image.Id);
     }
 }

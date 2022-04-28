@@ -1,0 +1,37 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+
+@namespace Common.Helpers.RazorComponent.CommonControls
+@typeparam TValue
+
+<div class="form-floating mb-3">
+    <InputSelect id="floatingSelect" @bind-Value=Value class="form-select">
+        @ChildContent
+    </InputSelect>
+    <label for="floatingSelect">@Label</label>
+</div>
+
+
+@code {
+
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public string? Label { get; set; }
+
+    [Parameter]
+    public TValue? Value
+    {
+        get => _value;
+        set
+        {
+            if (_value.Equals(value)) return;
+            _value = value;
+            ValueChanged.InvokeAsync(value);
+        }
+    }
+    private TValue? _value;
+
+    [Parameter]
+    public EventCallback<TValue> ValueChanged { get; set; }
+
+
+    public string UniqueId { get => Guid.NewGuid().ToString(); }
+}

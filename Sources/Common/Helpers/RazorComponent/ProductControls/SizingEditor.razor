@@ -29,10 +29,6 @@
 
 
 @code {
-    private double? _diameterTop;
-    private double? _diameterBot;
-    private double? _height;
-
     [Parameter]
     public double? DiameterTop
     {
@@ -44,6 +40,7 @@
             DiameterTopChanged.InvokeAsync(value);
         }
     }
+    private double? _diameterTop;
 
     [Parameter]
     public double? DiameterBot
@@ -56,6 +53,7 @@
             DiameterBotChanged.InvokeAsync(value);
         }
     }
+    private double? _diameterBot;
 
     [Parameter]
     public double? Height
@@ -68,8 +66,7 @@
             HeightChanged.InvokeAsync(value);
         }
     }
-
-    [Parameter] public bool? Read { get; set; } = false;
+    private double? _height;
 
     [Parameter]
     public EventCallback<double?> DiameterBotChanged { get; set; }

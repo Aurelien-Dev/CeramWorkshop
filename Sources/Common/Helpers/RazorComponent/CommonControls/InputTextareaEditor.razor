@@ -1,0 +1,32 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+
+@namespace Common.Helpers.RazorComponent.CommonControls
+
+<div class="form-floating mb-3">
+    <InputTextArea id="@UniqueId" @bind-Value="Value" class="form-control" style="@(Height)" />
+    <label for="@UniqueId">@Label</label>
+</div>
+
+@code {
+    [Parameter] public string? Label { get; set; }
+    [Parameter] public int? Rows { get; set; } = 5;
+
+    [Parameter]
+    public string? Value
+    {
+        get => _value;
+        set
+        {
+            if (_value == value) return;
+            _value = value;
+            ValueChanged.InvokeAsync(value);
+        }
+    }
+    private string? _value;
+
+    [Parameter]
+    public EventCallback<string?> ValueChanged { get; set; }
+
+    public string Height { get => $"height: {Rows.Value * 22}px"; }
+    public string UniqueId { get => Guid.NewGuid().ToString(); }
+}

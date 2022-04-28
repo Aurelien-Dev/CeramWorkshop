@@ -4,6 +4,7 @@
 @using Common.Helpers.RazorComponent
 @using Common.Helpers.RazorComponent.CommonControls
 @using Common.Helpers.RazorComponent.ProductControls
+@using Domain.Models
 
 @inherits PageComponentBase
 
@@ -25,46 +26,37 @@
                         </div>
                         <div class="row">
                             <div class="col-12 col-sm-4">
-                                <div class="form-floating mb-3">
-                                    <InputTextArea id="Reference" @bind-Value="ProductDetail.Reference" class="form-control" />
-                                    <label for="Reference">Référence</label>
-                                </div>
+                                <InputTextEditor @bind-Value="ProductDetail.Reference" Label="Référence" />
                             </div>
                             <div class="col-12 col-sm-8">
-                                <div class="form-floating mb-3">
-                                    <InputText id="Name" @bind-Value=ProductDetail.Name class="form-control" />
-                                    <label for="Name">Nom</label>
-                                </div>
+                                <InputTextEditor @bind-Value="ProductDetail.Name" Label="Nom" />
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-12 col-sm-12">
 
+                                <InputTextareaEditor @bind-Value="ProductDetail.Description" Label="Description" Rows=7 />
+                                <InputTextareaEditor @bind-Value="ProductDetail.DesignInstruction" Label="Instruction de construction" Rows=7 />
+                                <SizingEditor @bind-Height="ProductDetail.Height" @bind-DiameterTop="ProductDetail.TopDiameter" @bind-DiameterBot="ProductDetail.BottomDiameter" />
 
-                                <div class="form-floating mb-3">
-                                    <InputTextArea id="Description" @bind-Value="ProductDetail.Description" class="form-control" style="height: 150px" />
-                                    <label for="Description">Description</label>
-                                </div>
+                                <InputSelectEditor @bind-Value="ProductDetail.Status" Label="Statut" TValue=ProductStatus?>
+                                    <option value="@ProductStatus.Test">Test</option>
+                                    <option value="@ProductStatus.Abandoned">Abandoned</option>
+                                    <option value="@ProductStatus.Production">Production</option>
+                                    <option value="@ProductStatus.Discontinued">Discontinued</option>
+                                </InputSelectEditor>
+                            </div>
+                        </div>
 
-                                <div class="form-floating mb-3">
-                                    <InputTextArea id="Description" @bind-Value="ProductDetail.DesignInstruction" class="form-control" style="height: 150px" />
-                                    <label for="Description">Instruction de construction</label>
-                                </div>
-
-                                <div class="form-floating mb-3" style="padding:0 12px">
-                                    <SizingEditor @bind-Height="ProductDetail.Height" @bind-DiameterTop="ProductDetail.TopDiameter" @bind-DiameterBot="ProductDetail.BottomDiameter" />
-                                </div>
-
-                                <div class="form-floating mb-3">
-                                    <InputSelect id="floatingSelect" @bind-Value="ProductDetail.Status" class="form-select">
-                                        <option value="1">Test</option>
-                                        <option value="2">Abandoned</option>
-                                        <option value="3">Production</option>
-                                        <option value="4">Discontinued</option>
-                                    </InputSelect>
-                                    <label for="floatingSelect">Statut</label>
-                                </div>
-
+                        <div class="row">
+                            <div class="col">
+                                <button class="btn btn-outline-green" type="submit">
+                                    <i data-feather="edit-2" class="me-2"></i>
+                                    Enregistrer
+                                </button>
+                                <button type="button" class="btn btn-warning" @onclick="UndoCmd">
+                                    Retour
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -74,7 +66,9 @@
                         <Carousel>
                             @for (var i = 0; i < ProductDetail.ImageInstructions.Count; i++)
                             {
-                                <ImageCarousel Image="ProductDetail.ImageInstructions.ElementAt(i)" IsFirstElement="@(i==0)" ShowIcons="true" OnDeleteImageCallback="DeleteImageCmd" />
+                                <ImageCarousel Image="ProductDetail.ImageInstructions.ElementAt(i)" IsFirstElement="@(i==0)" ShowIcons="true"
+                                           OnDeleteImageCallback="DeleteImageCmd"
+                                           OnEditImageCallback="EditImageCmd" />
                             }
                             @if (!ProductDetail.ImageInstructions.Any())
                             {
@@ -83,19 +77,9 @@
                         </Carousel>
                     </div>
                     <div class="row p-0 m-2">
-                        <button type="button" class="btn btn-outline-green" @onclick='() => OpenModal("AddImageModal")'>
-                            Nouvelle image
-                        </button>
+
+                        <Button Text="Nouvelle image" TypeButton=Button.ButtonType.Safe Onclick='(() => OpenModal("AddImageModal"))' />
                     </div>
-                </div>
-                <div class="card-footer">
-                    <button type="button" class="btn btn-warning" @onclick="UndoCmd">
-                        Retour
-                    </button>
-                    <button class="btn btn-outline-green" type="submit">
-                        <i data-feather="edit-2" class="me-2"></i>
-                        Enregistrer
-                    </button>
                 </div>
             </div>
         </div>
@@ -111,13 +95,17 @@
                 <ImageUpload OnChange="@UploadFile" ImageUrl=@ImageInstruction.Url />
             </div>
             <div class="form-floating mb-3">
-                <InputTextArea id="CommentaireImg" class="form-control" style="height: 150px" @bind-Value=ImageInstruction.Comment />
-                <label for="CommentaireImg">Commentaire</label>
+                <InputTextareaEditor @bind-Value="ImageInstruction.Comment" Label="Commentaire" Rows=7 />
             </div>
         </ChildContent>
         <ButtonsContent>
-            <button type="submit" class="btn btn-outline-green" data-bs-dismiss="modal">Ajouter</button>
-            <button type="button" class="btn btn-warning mr-auto" data-bs-dismiss="modal" @onclick="(() => ImageInstruction = new())">Annuler</button>
+
+            <Button Text="Ajouter" data-bs-dismiss="modal" type="submit" TypeButton=Button.ButtonType.Safe />
+
+            <Button Text="Modifier" data-bs-dismiss="modal" Onclick=ModifierImageCmd TypeButton=Button.ButtonType.Safe />
+
+
+            <Button Onclick=ResetImageClick Text="Annuler" data-bs-dismiss="modal" TypeButton=Button.ButtonType.Warning />
         </ButtonsContent>
     </Modal>
 </EditForm>

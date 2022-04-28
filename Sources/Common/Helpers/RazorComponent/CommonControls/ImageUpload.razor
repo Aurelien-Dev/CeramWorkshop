@@ -18,5 +18,5 @@
     [Parameter] public string ImageUrl { get; set; } = string.Empty;
     [Parameter] public EventCallback<InputFileChangeEventArgs> OnChange { get; set; }
 
-    public string Url { get => ImageUrl.Replace(@"\", "/"); }
+    public string Url { get => ImageUrl; }
 }

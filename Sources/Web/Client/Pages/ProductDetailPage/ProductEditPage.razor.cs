@@ -15,7 +15,7 @@ namespace Client.Pages.ProductDetailPage
     {
         [Parameter] public int? Id { get; set; }
         [Inject] private IProductWork productWorker { get; set; }
-        [Inject] private NavigationManager NavigationManager { get; set; }
+
 
         public Product ProductDetail { get; set; } = new();
         public ImageInstruction ImageInstruction { get; set; } = new();
@@ -39,14 +39,6 @@ namespace Client.Pages.ProductDetailPage
             ProductDetail = await productWorker.ProductRepository.Get(id);
         }
 
-        public void DeleteImageCmd(int idImage)
-        {
-            ImageInstruction deleteImage = ProductDetail.ImageInstructions.Where(i => i.Id == idImage).FirstOrDefault();
-            if (deleteImage != null)
-            {
-                ProductDetail.ImageInstructions.Remove(deleteImage);
-            }
-        }
 
         public void UndoCmd()
         {
@@ -59,11 +51,46 @@ namespace Client.Pages.ProductDetailPage
             NavigationManager.NavigateTo($"/Product/{Id}");
         }
 
+        #region Image
         public void AddImageEventHandler(EditContext context)
         {
             ProductDetail.ImageInstructions.Add(ImageInstruction);
+            ResetImageClick();
+        }
+        public void ModifierImageCmd()
+        {
+            ProductDetail.ImageInstructions.Where(i => i.Id == ImageInstruction.Id).First().Comment = ImageInstruction.Comment;
+            ResetImageClick();
+        }
+
+        public void DeleteImageCmd(int idImage)
+        {
+            ImageInstruction deleteImage = ProductDetail.ImageInstructions.Where(i => i.Id == idImage).FirstOrDefault();
+            if (deleteImage != null)
+            {
+                ProductDetail.ImageInstructions.Remove(deleteImage);
+            }
+        }
+
+        public void EditImageCmd(int idImage)
+        {
+            ImageInstruction editImage = ProductDetail.ImageInstructions.Where(i => i.Id == idImage).FirstOrDefault();
+            if (editImage != null)
+            {
+                ImageInstruction.Id = editImage.Id;
+                ImageInstruction.Url = editImage.Url;
+                ImageInstruction.MediumUrl = editImage.MediumUrl;
+                ImageInstruction.ThumbUrl = editImage.ThumbUrl;
+                ImageInstruction.Comment = editImage.Comment;
+                OpenModal("AddImageModal");
+            }
+        }
+
+        public void ResetImageClick()
+        {
             ImageInstruction = new();
         }
+        #endregion
 
         public void SaveProductEventHandler(EditContext context)
         {
@@ -91,6 +118,8 @@ namespace Client.Pages.ProductDetailPage
             try
             {
                 string filePathLoaded = await LoadFileFromInputFile.LoadFileInput(e, "AtelierCremazie");
+                filePathLoaded = filePathLoaded.Replace(@"\", "/");
+
                 ImageInstruction.Url = filePathLoaded;
                 ImageInstruction.ThumbUrl = filePathLoaded;
                 ImageInstruction.MediumUrl = filePathLoaded;

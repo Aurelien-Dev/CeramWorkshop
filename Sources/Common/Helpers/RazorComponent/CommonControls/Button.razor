@@ -1,0 +1,41 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Web
+
+@namespace Common.Helpers.RazorComponent.CommonControls
+
+<button type="button" class="btn @ClasseType" @attributes=AdditionalAttributes @onclick="Onclick">@Text</button>
+
+@code { 
+    public enum ButtonType { Warning, Danger, Safe }
+
+    [Parameter]
+    public ButtonType? TypeButton { get; set; } = ButtonType.Safe;
+
+    [Parameter]
+    public string? Text { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object> AdditionalAttributes { get; set; }
+
+    [Parameter]
+    public EventCallback<MouseEventArgs> Onclick { get; set; }
+
+        [Parameter]
+    public Action ActionOnclick { get; set; }
+
+
+    public string UniqueId { get => Guid.NewGuid().ToString(); }
+    public string ClasseType
+    {
+        get
+        {
+            switch (TypeButton)
+            {
+                case ButtonType.Danger: return "btn-danger";
+                case ButtonType.Safe: return "btn-green";
+                case ButtonType.Warning: return "btn-warning";
+                default: return "btn-green";
+            }
+        }
+    }
+}

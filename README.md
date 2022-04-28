@@ -8,4 +8,9 @@ $env:ASPNETCORE_ENVIRONMENT="Development"
 https://www.entityframeworktutorial.net/efcore/entity-framework-core-migration.aspx
 
 heroku-buildpack:
+
 https://github.com/heroku-softtrends/heroku-buildpack-dotnetcore.git
+
+Deploy:
+
+https://app.circleci.com/

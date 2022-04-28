@@ -19,8 +19,8 @@ namespace Client.Utils
             string fileName = CreateTempFileName(workshopName, Path.GetExtension(e.File.Name));
             string workshopFolder = Path.Combine(ProductFolderFullPath, workshopName, fileName);
 
-            if (!Directory.Exists(workshopFolder))
-                Directory.CreateDirectory(workshopFolder);
+            if (!Directory.Exists(Path.Combine(ProductFolderFullPath, workshopName)))
+                Directory.CreateDirectory(Path.Combine(ProductFolderFullPath, workshopName));
 
             await using FileStream fs = new(workshopFolder, FileMode.Create);
             await e.File.OpenReadStream(maxFileSize).CopyToAsync(fs);

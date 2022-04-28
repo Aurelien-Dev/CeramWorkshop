@@ -67,7 +67,7 @@
                             @for (var i = 0; i < ProductDetail.ImageInstructions.Count; i++)
                             {
                                 <ImageCarousel Image="ProductDetail.ImageInstructions.ElementAt(i)" IsFirstElement="@(i==0)" ShowIcons="true"
-                                           OnDeleteImageCallback="DeleteImageCmd"
+                                           OnDeleteImageCallback='((id) => { OpenModal("ConfirmDeleteImageModal"); _selectedImageId = id;})'
                                            OnEditImageCallback="EditImageCmd" />
                             }
                             @if (!ProductDetail.ImageInstructions.Any())
@@ -109,3 +109,15 @@
         </ButtonsContent>
     </Modal>
 </EditForm>
+
+<Modal id="ConfirmDeleteImageModal" Title="Ajouter uen image">
+    <ChildContent>
+        <div class="mb-3">
+            Confirmer la suppression de l'image
+        </div>
+    </ChildContent>
+    <ButtonsContent>
+        <Button Text="Ok" data-bs-dismiss="modal" Onclick='(() => DeleteImageCmd())' TypeButton=Button.ButtonType.Danger />
+        <Button Text="Annuler" data-bs-dismiss="modal" TypeButton=Button.ButtonType.Warning />
+    </ButtonsContent>
+</Modal>

@@ -16,6 +16,7 @@ namespace Client.Pages.ProductDetailPage
         [Parameter] public int? Id { get; set; }
         [Inject] private IProductWork productWorker { get; set; }
 
+        private int _selectedImageId;
 
         public Product ProductDetail { get; set; } = new();
         public ImageInstruction ImageInstruction { get; set; } = new();
@@ -63,9 +64,9 @@ namespace Client.Pages.ProductDetailPage
             ResetImageClick();
         }
 
-        public void DeleteImageCmd(int idImage)
+        public void DeleteImageCmd()
         {
-            ImageInstruction deleteImage = ProductDetail.ImageInstructions.Where(i => i.Id == idImage).FirstOrDefault();
+            ImageInstruction deleteImage = ProductDetail.ImageInstructions.Where(i => i.Id == _selectedImageId).FirstOrDefault();
             if (deleteImage != null)
             {
                 ProductDetail.ImageInstructions.Remove(deleteImage);

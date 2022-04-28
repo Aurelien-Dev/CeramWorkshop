@@ -34,6 +34,7 @@
 
   <ItemGroup>
     <Folder Include="Pages\ProductDetailPage\Components\" />
+    <Folder Include="wwwroot\ProductImages\" />
   </ItemGroup>
 
 </Project>

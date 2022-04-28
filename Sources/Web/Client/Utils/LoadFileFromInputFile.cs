@@ -6,6 +6,8 @@ namespace Client.Utils
     public static class LoadFileFromInputFile
     {
         private static long maxFileSize = 1024 * 1024 * 15;
+        private static string ProductFolderFullPath = Path.Combine(EnvironementSingleton.WebRootPath, "ProductImages");
+        private static string ProductFolderShort = Path.Combine("ProductImages");
 
         /// <summary>
         /// Upload file into server
@@ -16,12 +18,13 @@ namespace Client.Utils
         {
             string fileName = CreateTempFileName(workshopName, Path.GetExtension(e.File.Name));
 
-            string pathToCopy = Path.Combine(EnvironementSingleton.WebRootPath, "assets", fileName);
-            await using FileStream fs = new(pathToCopy, FileMode.Create);
+            string workshopFolder = Path.Combine(ProductFolderFullPath, workshopName, fileName);
+
+            await using FileStream fs = new(workshopFolder, FileMode.Create);
             await e.File.OpenReadStream(maxFileSize).CopyToAsync(fs);
             fs.Close();
 
-            string shortPath = Path.Combine("assets", fileName);
+            string shortPath = Path.Combine(ProductFolderShort, workshopName, fileName);
             return shortPath;
         }
 

@@ -3,9 +3,9 @@
 
 @namespace Common.Helpers.RazorComponent.CommonControls
 
-<button type="button" class="btn @ClasseType" @attributes=AdditionalAttributes @onclick="Onclick">@Text</button>
+<button type="button" class="btn @ClasseType" @attributes=AdditionalAttributes @onclick="click">@Text</button>
 
-@code { 
+@code {
     public enum ButtonType { Warning, Danger, Safe }
 
     [Parameter]
@@ -18,7 +18,12 @@
     public Dictionary<string, object> AdditionalAttributes { get; set; }
 
     [Parameter]
-    public EventCallback<MouseEventArgs> Onclick { get; set; }
+    public EventCallback<int> Onclick { get; set; }
+
+    public async Task click()
+    {
+        await Onclick.InvokeAsync();
+    }
 
         [Parameter]
     public Action ActionOnclick { get; set; }

@@ -7,7 +7,7 @@ namespace Client.Pages.ProductDetailPage
 {
     public partial class ListPage : ComponentBase
     {
-        [Inject] private IProductWork unitOfWork { get; set; }
+        [Inject] private IProductWork unitOfWork { get; set; } = default!;
 
         public IList<ProductViewModel> ProductsVM { get; set; } = new List<ProductViewModel>();
 

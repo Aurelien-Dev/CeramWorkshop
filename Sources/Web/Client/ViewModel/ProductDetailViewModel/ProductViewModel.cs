@@ -12,9 +12,9 @@ namespace Client.ViewModel.ProductDetailViewModel
         public string StatusText { get; set; } = string.Empty;
         public string? Description { get; set; }
         public string? DesignInstruction { get; set; }
-        public string Height { get; set; }
-        public string TopDiameter { get; set; }
-        public string BottomDiameter { get; set; }
+        public string Height { get; set; } = default!;
+        public string TopDiameter { get; set; } = default!;
+        public string BottomDiameter { get; set; } = default!;
 
         public ProductViewModel()
         {

@@ -5,6 +5,7 @@ using Domain.InterfacesWorker;
 using Domain.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using System.Diagnostics.CodeAnalysis;
 using Utils.Exception;
 
 
@@ -14,11 +15,12 @@ namespace Client.Pages.ProductDetailPage
     public partial class ProductEditPage : PageComponentBase
     {
         [Parameter] public int? Id { get; set; }
-        [Inject] private IProductWork productWorker { get; set; }
+        [Inject] private IProductWork productWorker { get; set; } = default!;
 
         private int _selectedImageId;
+        private bool _editedPhoto = false;
 
-        public Product ProductDetail { get; set; } = new();
+        [NotNull] public Product ProductDetail { get; set; } = new();
         public ImageInstruction ImageInstruction { get; set; } = new();
 
         protected override async Task OnInitializedAsync()
@@ -58,23 +60,31 @@ namespace Client.Pages.ProductDetailPage
             ProductDetail.ImageInstructions.Add(ImageInstruction);
             ResetImageClick();
         }
-        public void ModifierImageCmd()
-        {
-            ProductDetail.ImageInstructions.Where(i => i.Id == ImageInstruction.Id).First().Comment = ImageInstruction.Comment;
-            ResetImageClick();
-        }
 
         public void DeleteImageCmd()
         {
-            ImageInstruction deleteImage = ProductDetail.ImageInstructions.Where(i => i.Id == _selectedImageId).FirstOrDefault();
+            ImageInstruction deleteImage = ProductDetail.ImageInstructions.FirstOrDefault(i => i.Id == _selectedImageId);
             if (deleteImage != null)
             {
                 ProductDetail.ImageInstructions.Remove(deleteImage);
             }
         }
 
-        public void EditImageCmd(int idImage)
+        public void EditImageCmd()
         {
+            ProductDetail.ImageInstructions.Where(i => i.Id == ImageInstruction.Id).First().Comment = ImageInstruction.Comment;
+            ResetImageClick();
+        }
+
+        #region Modales
+        public void OpenDeleteImageModal(int idImage)
+        {
+            _selectedImageId = idImage;
+            OpenModal("ConfirmDeleteImageModal");
+        }
+        public void OpenEditImageModal(int idImage)
+        {
+            _editedPhoto = true;
             ImageInstruction editImage = ProductDetail.ImageInstructions.Where(i => i.Id == idImage).FirstOrDefault();
             if (editImage != null)
             {
@@ -86,6 +96,7 @@ namespace Client.Pages.ProductDetailPage
                 OpenModal("AddImageModal");
             }
         }
+        #endregion
 
         public void ResetImageClick()
         {

@@ -4,11 +4,11 @@ using Microsoft.JSInterop;
 namespace Common.Helpers.RazorComponent
 {
     public enum PageMode { New, Edit, Show }
-    
+
     public abstract class PageComponentBase : ComponentBase
     {
-        [Inject] public IJSRuntime JSRuntime { get; set; }
-        [Inject] public NavigationManager NavigationManager { get; set; }
+        [Inject] public IJSRuntime JSRuntime { get; set; } = default!;
+        [Inject] public NavigationManager NavigationManager { get; set; } = default!;
 
         public PageMode Mode { get; set; }
 
@@ -21,7 +21,7 @@ namespace Common.Helpers.RazorComponent
         }
 
 
-        public void OpenModal(string idModal)
+        public void OpenModal(string idModal, params object?[] args)
         {
             JSRuntime.InvokeAsync<string>("OpenModal", new string[] { idModal });
         }

@@ -1,26 +1,28 @@
 ﻿using Client.ViewModel.ProductDetailViewModel;
 using Common.Helpers.RazorComponent;
-using Common.Helpers.RazorComponent.CommonControls;
 using Domain.InterfacesWorker;
 using Domain.Models;
 using Microsoft.AspNetCore.Components;
-
+using System.Diagnostics.CodeAnalysis;
 
 namespace Client.Pages.ProductDetailPage
 {
 
     public partial class ProductPage : PageComponentBase
     {
-        [Parameter] public int? Id { get; set; }
-        [Inject] private IProductWork productWorker { get; set; }
+        [Parameter] public int? Id { get; set; } = default!;
+        [Inject] private IProductWork productWorker { get; set; } = default!;
 
         public ProductViewModel ProductDetailVM { get; set; } = new();
         public List<ImageInstruction> ProductImages = new();
 
-        private Product _product;
+        [NotNull] private Product _product = new();
 
         protected override async Task OnInitializedAsync()
         {
+            if (!Id.HasValue)
+                throw new ArgumentNullException(nameof(Id));
+
             await LoadData(Id.Value);
         }
 
@@ -36,7 +38,6 @@ namespace Client.Pages.ProductDetailPage
             _product = await productWorker.ProductRepository.Get(id);
             ProductDetailVM = new(_product);
             ProductImages = new(_product.ImageInstructions);
-
         }
 
         public void GoToEdit() => NavigationManager.NavigateTo($"/Product/Edit/{Id}");

@@ -67,8 +67,8 @@
                             @for (var i = 0; i < ProductDetail.ImageInstructions.Count; i++)
                             {
                                 <ImageCarousel Image="ProductDetail.ImageInstructions.ElementAt(i)" IsFirstElement="@(i==0)" ShowIcons="true"
-                                           OnDeleteImageCallback='((id) => { OpenModal("ConfirmDeleteImageModal"); _selectedImageId = id;})'
-                                           OnEditImageCallback="EditImageCmd" />
+                                           OnDeleteImageCallback='OpenDeleteImageModal'
+                                           OnEditImageCallback="OpenEditImageModal" />
                             }
                             @if (!ProductDetail.ImageInstructions.Any())
                             {
@@ -78,7 +78,7 @@
                     </div>
                     <div class="row p-0 m-2">
 
-                        <Button Text="Nouvelle image" TypeButton=Button.ButtonType.Safe Onclick='(() => OpenModal("AddImageModal"))' />
+                        <Button Text="Nouvelle image" TypeButton=Button.ButtonType.Safe Onclick='(() => {OpenModal("AddImageModal"); _editedPhoto = false;} )' />
                     </div>
                 </div>
             </div>
@@ -99,12 +99,14 @@
             </div>
         </ChildContent>
         <ButtonsContent>
-
-            <Button Text="Ajouter" data-bs-dismiss="modal" type="submit" TypeButton=Button.ButtonType.Safe />
-
-            <Button Text="Modifier" data-bs-dismiss="modal" Onclick=ModifierImageCmd TypeButton=Button.ButtonType.Safe />
-
-
+            @if (!_editedPhoto)
+            {
+                <Button Text="Ajouter" data-bs-dismiss="modal" type="submit" TypeButton=Button.ButtonType.Safe />
+            }
+            else
+            {
+                <Button Text="Modifier" data-bs-dismiss="modal" Onclick=EditImageCmd TypeButton=Button.ButtonType.Safe />
+            }
             <Button Onclick=ResetImageClick Text="Annuler" data-bs-dismiss="modal" TypeButton=Button.ButtonType.Warning />
         </ButtonsContent>
     </Modal>

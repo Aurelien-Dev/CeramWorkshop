@@ -5,6 +5,6 @@ namespace Common.Helpers.RazorComponent
 {
     public abstract class PageLayoutComponentBase : LayoutComponentBase
     {
-        [Inject] public IJSRuntime JSRuntime { get; set; }
+        [Inject] public IJSRuntime JSRuntime { get; set; } = default!;
     }
 }

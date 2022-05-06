@@ -15,13 +15,11 @@ namespace Common.Helpers.RazorComponent
         protected override Task OnAfterRenderAsync(bool firstRender)
         {
             JSRuntime.InvokeVoidAsync("FeatherInit");
-
-
             return base.OnAfterRenderAsync(firstRender);
         }
 
 
-        public void OpenModal(string idModal, params object?[] args)
+        public void OpenModal(string idModal)
         {
             JSRuntime.InvokeAsync<string>("OpenModal", new string[] { idModal });
         }

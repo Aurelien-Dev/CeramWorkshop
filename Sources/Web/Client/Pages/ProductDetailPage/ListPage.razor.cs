@@ -1,4 +1,3 @@
-using Client.ViewModel.ProductDetailViewModel;
 using Domain.InterfacesWorker;
 using Domain.Models;
 using Microsoft.AspNetCore.Components;
@@ -15,13 +14,32 @@ namespace Client.Pages.ProductDetailPage
         protected override async Task OnInitializedAsync()
         {
             IEnumerable<Product> Products = await unitOfWork.ProductRepository.GetAll();
-
-            foreach (var product in Products)
-            {
-                int imgCount = await unitOfWork.ProductRepository.CountImage(product.Id);
-
-                ProductsVM.Add(new ProductViewModel(product) { CountImg = imgCount });
-            }
+            ProductsVM = new List<ProductViewModel>(Products.Select(p => new ProductViewModel(p)).ToList());
         }
     }
+
+    public class ProductViewModel
+    {
+        public int Id { get; set; }
+        public string? Name { get; set; }
+        public string UrlImageThumb { get; set; }
+        public ProductStatus? Status { get; set; }
+        public string StatusText { get; set; } = string.Empty;
+
+
+        public ProductViewModel()
+        {
+
+        }
+        public ProductViewModel(Product product)
+        {
+            Id = product.Id;
+            Name = $"#{product.Reference} {product.Name}";
+            if (product.ImageInstructions.Any())
+                UrlImageThumb = product.ImageInstructions.ElementAt(0).ThumbUrl;
+            else
+                UrlImageThumb = "assets/img/gallery.png";
+        }
+    }
+
 }

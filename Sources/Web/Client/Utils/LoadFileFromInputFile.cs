@@ -5,9 +5,9 @@ namespace Client.Utils
 {
     public static class LoadFileFromInputFile
     {
-        private static long maxFileSize = 1024 * 1024 * 15;
-        private static string ProductFolderFullPath = Path.Combine(EnvironementSingleton.WebRootPath, "ProductImages");
-        private static string ProductFolderShort = Path.Combine("ProductImages");
+        private static readonly long maxFileSize = 1024 * 1024 * 15;
+        private static readonly string ProductFolderFullPath = Path.Combine(EnvironementSingleton.WebRootPath, "ProductImages");
+        private static readonly string ProductFolderShort = Path.Combine("ProductImages");
 
         /// <summary>
         /// Upload file into server

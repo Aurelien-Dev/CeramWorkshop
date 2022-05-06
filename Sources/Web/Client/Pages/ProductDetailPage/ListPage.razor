@@ -1,34 +1,24 @@
 ﻿@page "/"
 
-
-<div class="card mb-4">
-    <div class="card-header">Extended DataTables</div>
-    <div class="card-body">
-        <div class="row">
-            <div class="col-12">
-                <a href="Product/Create" class="btn btn-outline-green mb-3">                    
-                    Nouveau produit
-                </a>
-                <table class="table dataTable-table">
-                    <thead>
-                        <tr>
-                            <th>Ref.</th>
-                            <th>Name</th>
-                            <th>Images</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in ProductsVM)
-                        {
-                            <tr>
-                                <td><a href="Product/@item.Id">#@item.Reference</a></td>
-                                <td>@item.Name</td>
-                                <td>@item.CountImg</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+<div class="row row-cols-1 row-cols-md-3 row-cols-xxl-5 g-4 m-2">
+    @foreach (var item in ProductsVM)
+    {
+        <div class="col">
+            <div class="card">
+                <img src="@item.UrlImageThumb" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <p class="card-text">
+                        This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">
+                        <a href="Product/@item.Id">Voir</a> - 
+                        Last updated 3 mins ago
+                    </small>
+                </div>
             </div>
         </div>
-    </div>
+    }
 </div>

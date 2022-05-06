@@ -3,63 +3,96 @@
 @using Common.Helpers.RazorComponent
 @using Common.Helpers.RazorComponent.CommonControls
 @using Common.Helpers.RazorComponent.ProductControls
+@using Domain.Models
 
 @inherits PageComponentBase
 
 
-<div class="row">
-    <div class="card">
-        <div class="row no-gutters">
-            <div class="card-header">
-                <h5 class="card-title">#@ProductDetailVM.Reference - @ProductDetailVM.Name</h5>
-            </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <div class="row mb-3">
-                        <div class="col">
-                            <StatusDisplay Status="@ProductDetailVM.Status" />
+<div class="row mt-3">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="row g-0">
+                <div class="card-header">
+                    #@ProductDetail.Reference - @ProductDetail.Name
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col">
+                                <StatusDisplay Status="@ProductDetail.Status" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-12 col-sm-12">
-                            <Text TextStr="@ProductDetailVM.Description" Label="Description" />
-                            <Text TextStr="@ProductDetailVM.DesignInstruction" Label="Design instruction" />
+                        <div class="row mb-3">
+                            <div class="col-12 col-sm-12">
+                                <Text TextStr="@ProductDetail.Description" Label="Description" />
+                                <Text TextStr="@ProductDetail.DesignInstruction" Label="Design instruction" />
 
-                            <div style="padding:0 12px">
-                                <SizingDisplay Height="@ProductDetailVM.Height" DiameterTop="@ProductDetailVM.TopDiameter" DiameterBot="@ProductDetailVM.BottomDiameter" />
+                                <div style="padding:0 12px">
+                                    <SizingDisplay Height="@ProductDetail.Height.ToString()" DiameterTop="@ProductDetail.TopDiameter.ToString()" DiameterBot="@ProductDetail.BottomDiameter.ToString()" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col">
+                                <button class="btn btn-outline-green" @onclick='(() => OpenModal("EditDetails"))'>
+                                    <i data-feather="edit-2" class="me-2"></i>
+                                    Modifier les détails
+                                </button>
+                                <button class="btn btn-danger" @onclick='() => OpenModal("DeleteModal")'>
+                                    <i data-feather="trash-2" class="me-2"></i>
+                                    Supprimer
+                                </button>
                             </div>
                         </div>
                     </div>
-                    <div class="row ">
-                        <div class="col">
-                            <button class="btn btn-outline-green" @onclick="GoToEdit">
-                                <i data-feather="edit-2" class="me-2"></i>
-                                Modifier
-                            </button>
-                            <button class="btn btn-danger" @onclick='() => OpenModal("DeleteModal")'>
-                                <i data-feather="trash-2" class="me-2"></i>
-                                Supprimer
-                            </button>
-                        </div>
+                </div>
+                <div class="col-md-4 p-0">
+                    <div class="row">
+                        <Carousel>
+                            @for (var i = 0; i < ProductDetail.ImageInstructions.Count; i++)
+                            {
+                                <ImageCarousel Image="ProductDetail.ImageInstructions.ElementAt(i)" IsFirstElement="@(i==0)" ShowIcons="true"
+                                           OnDeleteImageCallback='OpenDeleteImageModal'
+                                           OnEditImageCallback="OpenEditImageModal" />
+                            }
+                            @if (!ProductDetail.ImageInstructions.Any())
+                            {
+                                <div class="bg-img-cover d-flex justify-content-center p-3" style="background-image: url('assets/img/gallery.png'); height:500px;opacity:0.05"></div>
+                            }
+                        </Carousel>
+                    </div>
+                    <div class="row p-0 m-2">
+                        <Button Text="Nouvelle image" TypeButton=Button.ButtonType.Safe Onclick='(() => {OpenModal("AddImageModal"); _editedPhoto = false;} )' />
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4 p-0">
-                <Carousel>
-                    @for (var i = 0; i < ProductImages.Count; i++)
-                    {
-                        <ImageCarousel Image="ProductImages[i]" IsFirstElement="@(i==0)" />
-                    }
-                    @if (!ProductImages.Any())
-                    {
-                        <div class="bg-img-cover d-flex justify-content-center p-3" style="background-image: url('assets/img/gallery.png'); height:500px;opacity:0.05"></div>
-                    }
-                </Carousel>
             </div>
         </div>
     </div>
 </div>
 
+<div class="row mt-3 mb-15">
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-header">
+                Matières
+            </div>
+            <div class="card-body">
+                
+
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-header">
+                -
+            </div>
+            <div class="card-body">
+                
+            </div>
+        </div>
+    </div>
+</div>
 
 <Modal id="DeleteModal" Title="Suppression du produit">
     <ChildContent>
@@ -70,3 +103,80 @@
         <button type="button" class="btn btn-warning mr-auto" data-bs-dismiss="modal">Annuler</button>
     </ButtonsContent>
 </Modal>
+
+<Modal id="ConfirmDeleteImageModal" Title="Ajouter uen image">
+    <ChildContent>
+        <div class="mb-3">
+            Confirmer la suppression de l'image
+        </div>
+    </ChildContent>
+    <ButtonsContent>
+        <Button Text="Ok" data-bs-dismiss="modal" Onclick='(() => DeleteImageCmd())' TypeButton=Button.ButtonType.Danger />
+        <Button Text="Annuler" data-bs-dismiss="modal" TypeButton=Button.ButtonType.Warning />
+    </ButtonsContent>
+</Modal>
+
+
+
+<EditForm Model="ProductDetail" OnSubmit="SaveProductEventHandler">
+    <DataAnnotationsValidator />
+    <Modal id="EditDetails" Title="Suppression du produit">
+        <ChildContent>
+            <div class="card-body">
+                <div class="row ms-2">
+                    <ValidationSummary />
+                </div>
+                <div class="row">
+                    <div class="col-12 col-sm-4">
+                        <InputTextEditor @bind-Value="ProductDetail.Reference" Label="Référence" />
+                    </div>
+                    <div class="col-12 col-sm-8">
+                        <InputTextEditor @bind-Value="ProductDetail.Name" Label="Nom" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-sm-12">
+                        <InputTextareaEditor @bind-Value="ProductDetail.Description" Label="Description" Rows=7 />
+                        <InputTextareaEditor @bind-Value="ProductDetail.DesignInstruction" Label="Instruction de construction" Rows=7 />
+                        <SizingEditor @bind-Height="ProductDetail.Height" @bind-DiameterTop="ProductDetail.TopDiameter" @bind-DiameterBot="ProductDetail.BottomDiameter" />
+
+                        <InputSelectEditor @bind-Value="ProductDetail.Status" Label="Statut" TValue=ProductStatus?>
+                            <option value="@ProductStatus.Test">Test</option>
+                            <option value="@ProductStatus.Abandoned">Abandoned</option>
+                            <option value="@ProductStatus.Production">Production</option>
+                            <option value="@ProductStatus.Discontinued">Discontinued</option>
+                        </InputSelectEditor>
+                    </div>
+                </div>
+            </div>
+        </ChildContent>
+        <ButtonsContent>
+            <button type="submit" class="btn btn-outline-green" data-bs-dismiss="modal">Enregistrer</button>
+            <button type="button" class="btn btn-warning mr-auto" data-bs-dismiss="modal" @onclick="UndoEditProductDetail">Annuler</button>
+        </ButtonsContent>
+    </Modal>
+</EditForm>
+
+<EditForm Model="ImageInstruction" OnSubmit="AddImageEventHandler">
+    <Modal id="AddImageModal" Title="Ajouter uen image">
+        <ChildContent>
+            <div class="mb-3">
+                <ImageUpload OnChange="@OnInputFileChanged" ImageUrl=@ImageInstruction.Url />
+            </div>
+            <div class="form-floating mb-3">
+                <InputTextareaEditor @bind-Value="ImageInstruction.Comment" Label="Commentaire" Rows=7 />
+            </div>
+        </ChildContent>
+        <ButtonsContent>
+            @if (!_editedPhoto)
+            {
+                <Button Text="Ajouter" data-bs-dismiss="modal" type="submit" TypeButton=Button.ButtonType.Safe />
+            }
+            else
+            {
+                <Button Text="Modifier" data-bs-dismiss="modal" Onclick=EditImageCmd TypeButton=Button.ButtonType.Safe />
+            }
+            <Button Onclick=ResetImageClick Text="Annuler" data-bs-dismiss="modal" TypeButton=Button.ButtonType.Warning />
+        </ButtonsContent>
+    </Modal>
+</EditForm>

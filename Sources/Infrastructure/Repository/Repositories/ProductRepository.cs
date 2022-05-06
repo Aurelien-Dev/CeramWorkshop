@@ -19,6 +19,13 @@ namespace Repository.Repositories
                                  .FirstAsync();
         }
 
+        public override async Task<IEnumerable<Product>> GetAll()
+        {
+            return await _context.Products
+                                 .Include(p => p.ImageInstructions)
+                                 .ToListAsync();
+        }
+
         public async Task<int> CountImage(int idProduct)
         {
             return await _context.ImageInstruction.Where(i => i.IdProduct == idProduct).CountAsync();

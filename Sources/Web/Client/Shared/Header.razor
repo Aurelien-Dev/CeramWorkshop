@@ -1,4 +1,10 @@
-﻿<nav class="topnav navbar navbar-expand shadow justify-content-between justify-content-sm-start navbar-light bg-white" id="sidenavAccordion">
+﻿@using Common.Helpers.RazorComponent
+@using Common.Helpers.RazorComponent.CommonControls
+@using Microsoft.AspNetCore.Components.Web
+
+@inherits PageLayoutComponentBase
+
+<nav class="topnav navbar navbar-expand shadow justify-content-between justify-content-sm-start navbar-light bg-white" id="sidenavAccordion">
     <!-- Sidenav Toggle Button-->
     <button class="btn btn-icon btn-transparent-dark order-1 order-lg-0 me-2 ms-lg-2 me-lg-0" id="sidebarToggle">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
@@ -10,9 +16,24 @@
     <!-- * * * * * * Dimensions: Maximum height: 32px, maximum width: 240px-->
     <a class="navbar-brand pe-3 ps-4 ps-lg-2" href="/">Céram - Workshop</a>
 
+    <ul class="navbar-nav">
+        <li class="align-middle ">
+            <a class="nav-link hstack" href="#">
+                <div class="nav-link-icon me-1"><i data-feather="plus"></i></div>
+                Nouveau produit
+            </a>
+        </li>
+    </ul>
+
+    <form class="form-inline me-auto d-none d-lg-block me-3">
+        <div class="input-group input-group-joined input-group-solid">
+            <input class="form-control pe-0" type="search" placeholder="Search" aria-label="Search">
+            <div class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div>
+        </div>
+    </form>
     <!-- Navbar Items-->
     <ul class="navbar-nav align-items-center ms-auto">
-       
+
         <!-- User Dropdown-->
         <li class="nav-item dropdown no-caret dropdown-user me-3 me-lg-4">
             <a class="btn btn-icon btn-transparent-dark dropdown-toggle" id="navbarDropdownUserImage" href="javascript:void(0);" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="img-fluid" src="assets/img/illustrations/profiles/profile-1.png" /></a>
@@ -37,3 +58,18 @@
         </li>
     </ul>
 </nav>
+
+
+<EditForm Model="ProductDetail" id="NewProduct" OnSubmit="AddImageEventHandler">
+    <Modal id="AddImageModal" Title="Ajouter uen image">
+        <ChildContent>
+            <div class="form-floating mb-3">
+                <InputTextEditor @bind-Value="ProductDetail.Name" Label="Name" />
+            </div>
+        </ChildContent>
+        <ButtonsContent>
+            <Button Text="Ajouter" data-bs-dismiss="modal" type="submit" TypeButton=Button.ButtonType.Safe />
+            <Button Text="Annuler" data-bs-dismiss="modal" TypeButton=Button.ButtonType.Warning />
+        </ButtonsContent>
+    </Modal>
+</EditForm>

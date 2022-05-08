@@ -22,7 +22,7 @@ namespace Client.Pages.ProductDetailPage
     {
         public int Id { get; set; }
         public string? Name { get; set; }
-        public string UrlImageThumb { get; set; }
+        public string UrlImageThumb { get; set; } = null;
         public ProductStatus? Status { get; set; }
         public string StatusText { get; set; } = string.Empty;
 
@@ -36,9 +36,7 @@ namespace Client.Pages.ProductDetailPage
             Id = product.Id;
             Name = $"#{product.Reference} {product.Name}";
             if (product.ImageInstructions.Any())
-                UrlImageThumb = product.ImageInstructions.ElementAt(0).ThumbUrl;
-            else
-                UrlImageThumb = "assets/img/gallery.png";
+                UrlImageThumb = product.ImageInstructions.First().ThumbUrl;
         }
     }
 

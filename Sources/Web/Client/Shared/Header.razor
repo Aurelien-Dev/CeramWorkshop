@@ -1,6 +1,9 @@
-﻿@using Common.Helpers.RazorComponent
+﻿@using Domain.Models
+@using Common.Helpers.RazorComponent
 @using Common.Helpers.RazorComponent.CommonControls
+@using Common.Helpers.RazorComponent.ProductControls
 @using Microsoft.AspNetCore.Components.Web
+
 
 @inherits PageLayoutComponentBase
 
@@ -16,12 +19,13 @@
     <!-- * * * * * * Dimensions: Maximum height: 32px, maximum width: 240px-->
     <a class="navbar-brand pe-3 ps-4 ps-lg-2" href="/">Céram - Workshop</a>
 
-    <ul class="navbar-nav">
+    <ul class="navbar-nav me-3">
         <li class="align-middle ">
-            <a class="nav-link hstack" href="#">
-                <div class="nav-link-icon me-1"><i data-feather="plus"></i></div>
+
+            <button class="btn btn-outline-green" @onclick='(() => OpenModal("AddNewProductModal"))'>
+                <i data-feather="plus" class="me-2"></i>
                 Nouveau produit
-            </a>
+            </button>
         </li>
     </ul>
 
@@ -60,8 +64,8 @@
 </nav>
 
 
-<EditForm Model="ProductDetail" id="NewProduct" OnSubmit="AddImageEventHandler">
-    <Modal id="AddImageModal" Title="Ajouter uen image">
+<EditForm Model="ProductDetail" OnSubmit="AddImageEventHandler">
+    <Modal id="AddNewProductModal" Title="Ajouter un nouveu produit">
         <ChildContent>
             <div class="form-floating mb-3">
                 <InputTextEditor @bind-Value="ProductDetail.Name" Label="Name" />

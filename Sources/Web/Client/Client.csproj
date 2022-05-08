@@ -33,7 +33,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\ProductDetailPage\Components\" />
     <Folder Include="ViewModel\ProductDetailViewModel\" />
     <Folder Include="wwwroot\ProductImages\" />
   </ItemGroup>

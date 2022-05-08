@@ -7,17 +7,17 @@ namespace Common.Helpers.RazorComponent
 
     public abstract class PageComponentBase : ComponentBase
     {
-        [Inject] public IJSRuntime JSRuntime { get; set; } = default!;
         [Inject] public NavigationManager NavigationManager { get; set; } = default!;
+        [Inject] public IJSRuntime JSRuntime { get; set; } = default!;
 
         public PageMode Mode { get; set; }
+
 
         protected override Task OnAfterRenderAsync(bool firstRender)
         {
             JSRuntime.InvokeVoidAsync("FeatherInit");
             return base.OnAfterRenderAsync(firstRender);
         }
-
 
         public void OpenModal(string idModal)
         {

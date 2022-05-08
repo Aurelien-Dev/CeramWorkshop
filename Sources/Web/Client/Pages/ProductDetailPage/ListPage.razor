@@ -5,7 +5,18 @@
     {
         <div class="col">
             <div class="card">
-                <img src="@item.UrlImageThumb" class="card-img-top" alt="...">
+                @if (string.IsNullOrEmpty(item.UrlImageThumb))
+                {
+                    <div class="card-img-top bg-img-cover"
+                         style="background-image: url('assets/img/gallery.png'); height:200px;">
+                    </div>
+                }
+                else
+                {
+                    <div class="card-img-top bg-img-cover"
+                         style="background-image: url('@item.UrlImageThumb'); height:200px;">
+                    </div>
+                }
                 <div class="card-body">
                     <h5 class="card-title">@item.Name</h5>
                     <p class="card-text">
@@ -14,7 +25,7 @@
                 </div>
                 <div class="card-footer">
                     <small class="text-muted">
-                        <a href="Product/@item.Id">Voir</a> - 
+                        <a href="Product/@item.Id">Voir</a> -
                         Last updated 3 mins ago
                     </small>
                 </div>

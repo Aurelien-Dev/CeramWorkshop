@@ -7,19 +7,18 @@ namespace Client.Shared
 {
     public partial class Header : PageLayoutComponentBase
     {
-        //[Inject] private IProductWork productWorker { get; set; } = default!;
+        [Inject] private IProductWork productWorker { get; set; } = default!;
 
-        public Product ProductDetail { get; set; }
+        public Product ProductDetail { get; set; } = new();
 
         public void AddImageEventHandler()
         {
-            //productWorker.ProductRepository.Add(new Product(ProductName));
-        }
+            ProductDetail.Reference = "New";
+            productWorker.ProductRepository.Add(ProductDetail);
+            productWorker.Completed();
 
-        public void test()
-        {
-            //OpenModal("NewProduct");
+            NavigationManager.NavigateTo($"/Product/{ProductDetail.Id}", true);
+            ProductDetail = new();
         }
-
     }
 }

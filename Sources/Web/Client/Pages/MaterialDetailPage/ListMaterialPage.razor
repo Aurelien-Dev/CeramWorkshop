@@ -1,0 +1,73 @@
+﻿
+@page "/Materials"
+@using Common.Helpers.RazorComponent
+@using Common.Helpers.RazorComponent.CommonControls
+@using Domain.Models
+
+@inherits PageComponentBase
+<div class="row">
+    <div class="col-12">
+        <div class="card mb-4">
+            <div class="card-header">Mat.</div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Reference</th>
+                            <th>Est commercial</th>
+                            <th>Cost</th>
+                            <th>Comment</th>
+                            <th>link</th>
+                            <th>Type</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>ID</th>
+                            <th>Reference</th>
+                            <th>Est commercial</th>
+                            <th>Cost</th>
+                            <th>Comment</th>
+                            <th>link</th>
+                            <th>Type</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach (var mat in Materials)
+                        {
+                            <tr>
+                                <td> <a href="/Material/@mat.Id" /> </td>
+                                <td>@mat.Reference</td>
+                                <td>@mat.IsCommercial</td>
+                                <td>@mat.Cost</td>
+                                <td>@mat.Comment</td>
+                                <td>@mat.Link</td>
+                                <td>@mat.Type</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*<EditForm Model=MaterialForm OnSubmit=SaveMaterialEventHandler>
+    <DataAnnotationsValidator />
+    <Modal id="EditDetails" Title="Suppression du produit">
+        <ChildContent>
+            <div class="card-body">
+                <div class="row ms-2">
+                    <ValidationSummary />
+                </div>
+                
+            </div>
+        </ChildContent>
+        <ButtonsContent>
+            <button type="submit" class="btn btn-outline-green" data-bs-dismiss="modal">Enregistrer</button>
+            <button type="button" class="btn btn-warning mr-auto" data-bs-dismiss="modal">Annuler</button>
+        </ButtonsContent>
+    </Modal>
+</EditForm>*@

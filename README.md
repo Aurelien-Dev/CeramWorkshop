@@ -1,3 +1,6 @@
+[![Aurelien-Dev](https://circleci.com/gh/Aurelien-Dev/CeramWorkshop.svg?style=svg)](<LINK>)
+
+
 # CeramWorkshop
 
 **Dont forget to add environement variable for developper station :**

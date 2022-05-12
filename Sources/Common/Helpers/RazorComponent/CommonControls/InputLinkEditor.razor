@@ -1,0 +1,32 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+
+@namespace Common.Helpers.RazorComponent.CommonControls
+
+<div class="form-floating mb-3">
+    <InputText type="link" id="@UniqueId" @bind-Value=Value class="form-control" />
+    <label for="@UniqueId">@Label</label>
+</div>
+
+@code {
+
+    [Parameter] public string? Label { get; set; }
+
+    [Parameter]
+    public string? Value
+    {
+        get => _value;
+        set
+        {
+            if (_value == value) return;
+            _value = value;
+            ValueChanged.InvokeAsync(value);
+        }
+    }
+    private string? _value;
+
+    [Parameter]
+    public EventCallback<string?> ValueChanged { get; set; }
+
+
+    public string UniqueId { get => Guid.NewGuid().ToString(); }
+}

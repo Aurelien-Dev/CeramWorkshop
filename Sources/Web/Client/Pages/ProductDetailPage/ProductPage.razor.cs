@@ -1,5 +1,6 @@
 ﻿using Client.Utils;
 using Common.Helpers.RazorComponent;
+using Domain.Interfaces;
 using Domain.InterfacesWorker;
 using Domain.Models;
 using Microsoft.AspNetCore.Components;
@@ -13,10 +14,10 @@ namespace Client.Pages.ProductDetailPage
     {
         [Parameter] public int? Id { get; set; } = default!;
         [Inject] private IProductWork productWorker { get; set; } = default!;
-
-        public List<ImageInstruction> ProductImages = new();
+        [Inject] private IMaterialRepository MaterialRepository { get; set; } = default!;
 
         [NotNull] public Product ProductDetail = new();
+        [NotNull] public Material MaterialDetail = new();
 
         private int _selectedImageId;
         private bool _editedPhoto = false;
@@ -41,7 +42,6 @@ namespace Client.Pages.ProductDetailPage
         private async Task LoadData(int id)
         {
             ProductDetail = await productWorker.ProductRepository.Get(id);
-            ProductImages = new(ProductDetail.ImageInstructions);
         }
 
 
@@ -74,7 +74,7 @@ namespace Client.Pages.ProductDetailPage
 
             productWorker.Rollback();
             await LoadData(Id.Value);
-        } 
+        }
         #endregion
 
 
@@ -126,6 +126,7 @@ namespace Client.Pages.ProductDetailPage
             _selectedImageId = idImage;
             OpenModal("ConfirmDeleteImageModal");
         }
+
         public void OpenEditImageModal(int idImage)
         {
             _editedPhoto = true;
@@ -145,6 +146,13 @@ namespace Client.Pages.ProductDetailPage
         public void ResetImageClick()
         {
             ImageInstruction = new();
+        }
+        #endregion
+
+        #region Material
+        public async Task AddMaterialEventHandler(EditContext context)
+        {
+            MaterialRepository.AddAndLinkMaterial(MaterialDetail, ProductDetail);
         }
         #endregion
     }

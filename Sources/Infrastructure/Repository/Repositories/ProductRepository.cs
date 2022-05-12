@@ -16,6 +16,8 @@ namespace Repository.Repositories
             return await _context.Products
                                  .Where(p => p.Id == (int)id)
                                  .Include(p => p.ImageInstructions)
+                                 .Include(p => p.ProductMaterial)
+                                 .ThenInclude(x => x.Material)
                                  .FirstAsync();
         }
 

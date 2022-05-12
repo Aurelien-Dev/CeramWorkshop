@@ -1,4 +1,5 @@
 ﻿using Common.Helpers.RazorComponent;
+using Domain.Interfaces;
 using Domain.InterfacesWorker;
 using Domain.Models;
 using Microsoft.AspNetCore.Components;
@@ -8,7 +9,7 @@ namespace Client.Pages.MaterialDetailPage
 {
     public partial class ListMaterialPage : PageComponentBase
     {
-        [Inject] private IProductWork unitOfWork { get; set; } = default!;
+        [Inject] private IMaterialRepository MaterialRepository { get; set; } = default!;
 
         public IEnumerable<Material> Materials { get; set; } = new List<Material>();
 
@@ -18,8 +19,7 @@ namespace Client.Pages.MaterialDetailPage
 
         protected override async Task OnInitializedAsync()
         {
-            Materials = await unitOfWork.MaterialRepository.GetAll();
-
+            Materials = await MaterialRepository.GetAll();
         }
 
         #region Material editing

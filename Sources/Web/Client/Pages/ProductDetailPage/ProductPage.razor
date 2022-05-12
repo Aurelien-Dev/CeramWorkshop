@@ -77,8 +77,14 @@
                 Matières
             </div>
             <div class="card-body">
-                
-
+                <div class="row ">
+                    <div class="col">
+                        <button class="btn btn-outline-green" @onclick='(() => OpenModal("AddMaterialModal"))'>
+                            <i data-feather="plus" class="me-2"></i>
+                            New mat.
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -88,7 +94,6 @@
                 -
             </div>
             <div class="card-body">
-                
             </div>
         </div>
     </div>
@@ -101,18 +106,6 @@
     <ButtonsContent>
         <button type="button" class="btn btn-outline-green" data-bs-dismiss="modal" @onclick="ModalConfirmDelete">Oui</button>
         <button type="button" class="btn btn-warning mr-auto" data-bs-dismiss="modal">Annuler</button>
-    </ButtonsContent>
-</Modal>
-
-<Modal id="ConfirmDeleteImageModal" Title="Ajouter uen image">
-    <ChildContent>
-        <div class="mb-3">
-            Confirmer la suppression de l'image
-        </div>
-    </ChildContent>
-    <ButtonsContent>
-        <Button Text="Ok" data-bs-dismiss="modal" Onclick='(() => DeleteImageCmd())' TypeButton=Button.ButtonType.Danger />
-        <Button Text="Annuler" data-bs-dismiss="modal" TypeButton=Button.ButtonType.Warning />
     </ButtonsContent>
 </Modal>
 
@@ -157,8 +150,20 @@
     </Modal>
 </EditForm>
 
+<Modal id="ConfirmDeleteImageModal" Title="Ajouter une image">
+    <ChildContent>
+        <div class="mb-3">
+            Confirmer la suppression de l'image
+        </div>
+    </ChildContent>
+    <ButtonsContent>
+        <Button Text="Ok" data-bs-dismiss="modal" Onclick='(() => DeleteImageCmd())' TypeButton=Button.ButtonType.Danger />
+        <Button Text="Annuler" data-bs-dismiss="modal" TypeButton=Button.ButtonType.Warning />
+    </ButtonsContent>
+</Modal>
+
 <EditForm Model="ImageInstruction" OnSubmit="AddImageEventHandler">
-    <Modal id="AddImageModal" Title="Ajouter uen image">
+    <Modal id="AddImageModal" Title="Ajouter une image">
         <ChildContent>
             <div class="mb-3">
                 <ImageUpload OnChange="@OnInputFileChanged" ImageUrl=@ImageInstruction.Url />
@@ -177,6 +182,29 @@
                 <Button Text="Modifier" data-bs-dismiss="modal" Onclick=EditImageCmd TypeButton=Button.ButtonType.Safe />
             }
             <Button Onclick=ResetImageClick Text="Annuler" data-bs-dismiss="modal" TypeButton=Button.ButtonType.Warning />
+        </ButtonsContent>
+    </Modal>
+</EditForm>
+
+
+<EditForm Model="MaterialDetail" OnSubmit="AddMaterialEventHandler">
+    <Modal id="AddMaterialModal" Title="Ajouter une nouvelle matière">
+        <ChildContent>
+            <div class="row">
+                <div class="col-12 col-sm-6">
+                    <InputTextEditor @bind-Value="MaterialDetail.Reference" Label="Référence" />
+                </div>
+                <div class="col-12 col-sm-6">
+                    <InputNumberEditor @bind-Value="MaterialDetail.Cost" Label="Coût" />
+                </div>
+            </div>
+            <div class="form-floating mb-3">
+                <InputLinkEditor @bind-Value="MaterialDetail.Link" Label="Link" />
+            </div>
+        </ChildContent>
+        <ButtonsContent>
+            <Button Text="Ajouter" data-bs-dismiss="modal" type="submit" TypeButton=Button.ButtonType.Safe />
+            <Button Text="Annuler" data-bs-dismiss="modal" TypeButton=Button.ButtonType.Warning />
         </ButtonsContent>
     </Modal>
 </EditForm>

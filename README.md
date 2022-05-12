@@ -1,4 +1,4 @@
-Dev environement : [![Aurelien-Dev](https://circleci.com/gh/Aurelien-Dev/CeramWorkshop.svg?style=svg)](<LINK>)  [CeramWorkshop heroku instance](https://ceramworkshop.herokuapp.com/).
+Dev environement : [![Aurelien-Dev](https://circleci.com/gh/Aurelien-Dev/CeramWorkshop.svg?style=svg)](https://ceramworkshop.herokuapp.com/)
 
 # CeramWorkshop
 

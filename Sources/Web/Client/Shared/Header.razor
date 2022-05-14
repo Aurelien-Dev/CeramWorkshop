@@ -64,7 +64,7 @@
 
 
 <EditForm Model="ProductDetail" OnSubmit="AddImageEventHandler">
-    <Modal id="AddNewProductModal" Title="Ajouter un nouveu produit">
+    <Modal IdModal="AddNewProductModal" Title="Ajouter un nouveu produit">
         <ChildContent>
             <div class="form-floating mb-3">
                 <InputTextEditor @bind-Value="ProductDetail.Name" Label="Name" />

@@ -100,7 +100,7 @@
     </div>
 </div>
 
-<Modal id="DeleteModal" Title="Suppression du produit">
+<Modal IdModal="DeleteModal" Title="Suppression du produit">
     <ChildContent>
         <p>Voulez-vous supprimer le produit ? suppression définitive.</p>
     </ChildContent>
@@ -111,7 +111,7 @@
 </Modal>
 
 
-<Modal id="ConfirmDeleteImageModal" Title="Ajouter une image">
+<Modal IdModal="ConfirmDeleteImageModal" Title="Ajouter une image">
     <ChildContent>
         <div class="mb-3">
             Confirmer la suppression de l'image
@@ -124,7 +124,7 @@
 </Modal>
 
 <EditForm Model="ImageInstruction" OnSubmit="AddImageEventHandler">
-    <Modal id="AddImageModal" Title="Ajouter une image">
+    <Modal IdModal="AddImageModal" Title="Ajouter une image">
         <ChildContent>
             <div class="mb-3">
                 <ImageUpload OnChange="@OnInputFileChanged" ImageUrl=@ImageInstruction.Url />
@@ -149,7 +149,7 @@
 
 
 <EditForm Model="MaterialDetail" OnSubmit="AddMaterialEventHandler">
-    <Modal id="AddMaterialModal" Title="Ajouter une nouvelle matière">
+    <Modal IdModal="AddMaterialModal" Title="Ajouter une nouvelle matière">
         <ChildContent>
             <div class="row">
                 <div class="col-12 col-sm-6">

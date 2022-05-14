@@ -7,7 +7,7 @@
 
 <EditForm Model="ProductDetailVM" OnSubmit="SaveProductEventHandler">
     <DataAnnotationsValidator />
-    <Modal id="@IdModal" Title="Modifier les détails du produit" CloseModalEvent="(() => Close(false))">
+    <Modal IdModal="@IdModal" Title="Modifier les détails du produit" CloseModalEvent="(() => Close(false))">
         <ChildContent>
             <div class="card-body">
                 <div class="row ms-2">

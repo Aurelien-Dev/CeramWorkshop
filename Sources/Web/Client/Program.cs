@@ -1,3 +1,4 @@
+using Client.Utils;
 using Common.Utils.Singletons;
 using Repository;
 
@@ -7,6 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddRepository();
+
+builder.Services.AddScoped<IModalService, ModalService>();
 
 var app = builder.Build();
 

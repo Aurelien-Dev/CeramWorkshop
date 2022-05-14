@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace Common.Helpers.RazorComponent
+namespace Client.Utils
 {
     public enum PageMode { New, Edit, Show }
 
@@ -9,6 +9,7 @@ namespace Common.Helpers.RazorComponent
     {
         [Inject] public NavigationManager NavigationManager { get; set; } = default!;
         [Inject] public IJSRuntime JSRuntime { get; set; } = default!;
+        [Inject] public IModalService ModalService { get; set; } = default!;
 
         public PageMode Mode { get; set; }
 
@@ -19,9 +20,19 @@ namespace Common.Helpers.RazorComponent
             return base.OnAfterRenderAsync(firstRender);
         }
 
-        public void OpenModal(string idModal)
+        public async Task OpenModal(string idModal)
         {
-            JSRuntime.InvokeAsync<string>("OpenModal", new string[] { idModal });
+            await JSRuntime.InvokeAsync<string>("OpenModal", new string[] { idModal });
+        }
+
+        public async Task JSCloseModal(string idModal)
+        {
+            await JSRuntime.InvokeAsync<string>("CloseModal", new string[] { idModal });
+        }
+
+        public async Task InvokeStateHasChanged()
+        {
+            await InvokeAsync(StateHasChanged);
         }
     }
 }

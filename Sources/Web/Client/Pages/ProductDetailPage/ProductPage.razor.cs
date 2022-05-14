@@ -1,5 +1,5 @@
-﻿using Client.Utils;
-using Common.Helpers.RazorComponent;
+﻿using Client.Pages.ProductDetailPage.Modals;
+using Client.Utils;
 using Domain.Interfaces;
 using Domain.InterfacesWorker;
 using Domain.Models;
@@ -16,8 +16,8 @@ namespace Client.Pages.ProductDetailPage
         [Inject] private IProductWork productWorker { get; set; } = default!;
         [Inject] private IMaterialRepository MaterialRepository { get; set; } = default!;
 
-        [NotNull] public Product ProductDetail = new();
-        [NotNull] public Material MaterialDetail = new();
+        [NotNull] public Product ProductDetail { get; set; } = new();
+        [NotNull] public Material MaterialDetail { get; set; } = new();
 
         private int _selectedImageId;
         private bool _editedPhoto = false;
@@ -45,37 +45,22 @@ namespace Client.Pages.ProductDetailPage
         }
 
 
-
-        #region Edit product details
-        public void SaveProductEventHandler(EditContext context)
+        public async Task OpenModal()
         {
-            bool isValid = context.Validate();
-            if (isValid)
+            Dictionary<string, object> data = new Dictionary<string, object>();
+            data.Add("IdProduct", Id.Value);
+
+            ModalInstance instance = ModalService.OpenModal<ProductDetailModal>("Edit", data);
+
+            instance.ModalClosed = (confirm) =>
             {
-                if (Mode == PageMode.New)
+                if (confirm)
                 {
-                    productWorker.ProductRepository.Add(ProductDetail);
-                    int result = productWorker.Completed();
+                    StateHasChanged();
                 }
-
-                if (Mode == PageMode.Edit)
-                {
-                    productWorker.ProductRepository.Update(ProductDetail);
-                    int result = productWorker.Completed();
-                }
-                if (Id.HasValue) NavigationManager.NavigateTo($"/Product/{Id}");
-                else NavigationManager.NavigateTo("/");
-            }
+            };
         }
-        public async Task UndoEditProductDetail()
-        {
-            if (!Id.HasValue)
-                throw new ArgumentNullException(nameof(Id));
 
-            productWorker.Rollback();
-            await LoadData(Id.Value);
-        }
-        #endregion
 
 
         #region Image

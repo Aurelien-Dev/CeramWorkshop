@@ -21,6 +21,13 @@ namespace Repository.Repositories
                                  .FirstAsync();
         }
 
+        public async Task<Product> GetLight(object id)
+        {
+            return await _context.Products
+                                 .Where(p => p.Id == (int)id)
+                                 .FirstAsync();
+        }
+
         public override async Task<IEnumerable<Product>> GetAll()
         {
             return await _context.Products

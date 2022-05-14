@@ -1,5 +1,6 @@
 ﻿@page "/Product/{id:int?}"
 
+@using Client.Utils
 @using Common.Helpers.RazorComponent
 @using Common.Helpers.RazorComponent.CommonControls
 @using Common.Helpers.RazorComponent.ProductControls
@@ -34,7 +35,7 @@
                         </div>
                         <div class="row ">
                             <div class="col">
-                                <button class="btn btn-outline-green" @onclick='(() => OpenModal("EditDetails"))'>
+                                <button class="btn btn-outline-green" @onclick='OpenModal'>
                                     <i data-feather="edit-2" class="me-2"></i>
                                     Modifier les détails
                                 </button>
@@ -109,46 +110,6 @@
     </ButtonsContent>
 </Modal>
 
-
-
-<EditForm Model="ProductDetail" OnSubmit="SaveProductEventHandler">
-    <DataAnnotationsValidator />
-    <Modal id="EditDetails" Title="Suppression du produit">
-        <ChildContent>
-            <div class="card-body">
-                <div class="row ms-2">
-                    <ValidationSummary />
-                </div>
-                <div class="row">
-                    <div class="col-12 col-sm-4">
-                        <InputTextEditor @bind-Value="ProductDetail.Reference" Label="Référence" />
-                    </div>
-                    <div class="col-12 col-sm-8">
-                        <InputTextEditor @bind-Value="ProductDetail.Name" Label="Nom" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-sm-12">
-                        <InputTextareaEditor @bind-Value="ProductDetail.Description" Label="Description" Rows=7 />
-                        <InputTextareaEditor @bind-Value="ProductDetail.DesignInstruction" Label="Instruction de construction" Rows=7 />
-                        <SizingEditor @bind-Height="ProductDetail.Height" @bind-DiameterTop="ProductDetail.TopDiameter" @bind-DiameterBot="ProductDetail.BottomDiameter" />
-
-                        <InputSelectEditor @bind-Value="ProductDetail.Status" Label="Statut" TValue=ProductStatus?>
-                            <option value="@ProductStatus.Test">Test</option>
-                            <option value="@ProductStatus.Abandoned">Abandoned</option>
-                            <option value="@ProductStatus.Production">Production</option>
-                            <option value="@ProductStatus.Discontinued">Discontinued</option>
-                        </InputSelectEditor>
-                    </div>
-                </div>
-            </div>
-        </ChildContent>
-        <ButtonsContent>
-            <button type="submit" class="btn btn-outline-green" data-bs-dismiss="modal">Enregistrer</button>
-            <button type="button" class="btn btn-warning mr-auto" data-bs-dismiss="modal" @onclick="UndoEditProductDetail">Annuler</button>
-        </ButtonsContent>
-    </Modal>
-</EditForm>
 
 <Modal id="ConfirmDeleteImageModal" Title="Ajouter une image">
     <ChildContent>

@@ -4,8 +4,11 @@ function InitCarrousel() {
 }
 
 function OpenModal(id) {
-    var myModal = new bootstrap.Modal(document.getElementById(id), {})
-    myModal.show()
+    $('#' + id).modal('show')
+}
+
+function CloseModal(id) {
+    $('#' + id).modal('hide')
 }
 
 function FeatherInit() {

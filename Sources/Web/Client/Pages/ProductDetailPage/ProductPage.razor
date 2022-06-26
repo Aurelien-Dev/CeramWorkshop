@@ -75,15 +75,28 @@
     <div class="col-sm-6">
         <div class="card">
             <div class="card-header">
-                Matières
-            </div>
-            <div class="card-body">
-                <div class="row ">
-                    <div class="col">
-                        <button class="btn btn-outline-green" @onclick='(() => OpenModal("AddMaterialModal"))'>
+                <div class="row">
+                    <div class="col-10">
+                        Matières
+                    </div><div class="col-2">
+                        <button class="btn btn-outline-green m-0 p-1" @onclick='(() => OpenModal("AddMaterialModal"))'>
                             <i data-feather="plus" class="me-2"></i>
                             New mat.
                         </button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <DataTable TItem="ProductMaterial" Datas="ProductDetail.ProductMaterial">
+                            <DataTableTextColumn TItem="ProductMaterial" Name="Référence" Field="(d=>d.Material.Reference)" />
+                            <DataTableColumn TItem="ProductMaterial" Name="Name" Field="d=>d.Material.Name" />
+                            <DataTableBoolColumn TItem="ProductMaterial" Name="Est commercial" Field="d=>d.Material.IsCommercial" />
+                            <DataTableMonetaryColumn TItem="ProductMaterial" Name="Cost" Field="d=>d.Cost" />
+                            <DataTableColumn TItem="ProductMaterial" Name="Comment" Field="d=>d.Material.Comment" />
+                            <DataTableColumn TItem="ProductMaterial" Name="Type" Field="d=>d.Material.Type" />
+                        </DataTable>
                     </div>
                 </div>
             </div>
@@ -158,6 +171,9 @@
                 <div class="col-12 col-sm-6">
                     <InputNumberEditor @bind-Value="MaterialDetail.Cost" Label="Coût" />
                 </div>
+            </div>
+            <div class="form-floating mb-3">
+                <InputLinkEditor @bind-Value="MaterialDetail.Name" Label="Link" />
             </div>
             <div class="form-floating mb-3">
                 <InputLinkEditor @bind-Value="MaterialDetail.Link" Label="Link" />

@@ -69,6 +69,8 @@ namespace Client.Pages.ProductDetailPage
             ProductDetail.ImageInstructions.Add(ImageInstruction);
             productWorker.Completed();
             ResetImageClick();
+            JSRuntime.InvokeAsync<string>("ToLastImage", new string[] { "carouselExampleControls" });
+
         }
 
         private async Task OnInputFileChanged(InputFileChangeEventArgs e)

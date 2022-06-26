@@ -17,7 +17,7 @@ namespace Repository.Repositories
             return await _context.Set<T>().FindAsync(id);
         }
 
-        public virtual async Task<IEnumerable<T>> GetAll()
+        public virtual async Task<ICollection<T>> GetAll()
         {
             return await _context.Set<T>().ToListAsync();
         }

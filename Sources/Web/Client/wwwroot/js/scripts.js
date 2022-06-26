@@ -1,14 +1,26 @@
+
+
 function InitCarrousel() {
     var myCarousel = document.getElementById("carouselExampleDark")
     var carousel = new bootstrap.Carousel(myCarousel)
 }
 
 function OpenModal(id) {
-    $('#' + id).modal('show')
+    var myModal = new bootstrap.Modal(document.getElementById(id), {
+        keyboard: false,
+        backdrop: "static"
+    });
+
+    myModal.show();
 }
 
 function CloseModal(id) {
     $('#' + id).modal('hide')
+}
+function ToLastImage(id) {
+    var element = document.getElementById("carouselExampleControls");
+    var myCarousel = bootstrap.Carousel.getInstance(element);
+
 }
 
 function FeatherInit() {

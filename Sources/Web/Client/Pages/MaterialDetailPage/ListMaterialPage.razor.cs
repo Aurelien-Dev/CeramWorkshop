@@ -10,7 +10,7 @@ namespace Client.Pages.MaterialDetailPage
     {
         [Inject] private IMaterialRepository MaterialRepository { get; set; } = default!;
 
-        public IEnumerable<Material> Materials { get; set; } = new List<Material>();
+        public ICollection<Material> Materials { get; set; } = new List<Material>();
 
         public Material MaterialForm { get; set; } = default!;
 

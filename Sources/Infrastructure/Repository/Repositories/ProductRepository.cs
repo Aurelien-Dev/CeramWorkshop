@@ -28,7 +28,7 @@ namespace Repository.Repositories
                                  .FirstAsync();
         }
 
-        public override async Task<IEnumerable<Product>> GetAll()
+        public override async Task<ICollection<Product>> GetAll()
         {
             return await _context.Products
                                  .Include(p => p.ImageInstructions)

@@ -13,7 +13,7 @@
             <div class="card-body">
                 <DataTable TItem="Material" Datas="Materials">
                     <DataTableLinkColumn TItem="Material" Field="m=>m.Link" TextLinkLambda="m=>m.Reference" Name=Référence /> 
-                    <DataTableBoolColumn TItem="Material" Field="m=>m.IsCommercial" Name=Commercialisé /> 
+                    <DataTableIsCommercialColumn TItem="Material" Field="m=>m.IsHomeMade" Name=Commercialisé /> 
                     <DataTableMonetaryColumn TItem="Material" Field="m=>m.Cost" Name=Coût /> 
                     <DataTableTextColumn TItem="Material" Field="m=>m.Comment" Name=Commentaire /> 
                     <DataTableTextColumn TItem="Material" Field="m=>m.Type" Name=Type /> 

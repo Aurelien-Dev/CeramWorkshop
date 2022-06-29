@@ -14,7 +14,7 @@ namespace Client.Pages.ProductDetailPage
         [Parameter] public int? Id { get; set; } = default!;
         [Inject] private IProductWork productWorker { get; set; } = default!;
         [Inject] private IMaterialRepository MaterialRepository { get; set; } = default!;
-        [Inject] private IDialogService DialogService { get; set; }
+        [Inject] private IDialogService DialogService { get; set; } = default!;
 
         [NotNull] public Product ProductDetail { get; set; } = new();
         [NotNull] public Material MaterialDetail { get; set; } = new();
@@ -33,7 +33,6 @@ namespace Client.Pages.ProductDetailPage
             if (!Id.HasValue)
                 throw new ArgumentNullException(nameof(Id));
 
-            Mode = PageMode.Edit;
             await LoadData(Id.Value);
 
             RefreshCarouselInfo();
@@ -61,8 +60,6 @@ namespace Client.Pages.ProductDetailPage
 
             var dialog = DialogService.Show<ProductImageEdit>("Modifier le commentaire de l'image", parameters, options);
 
-            var result = await dialog.Result;
-
             RefreshCarouselInfo();
         }
 
@@ -72,8 +69,6 @@ namespace Client.Pages.ProductDetailPage
             var parameters = new DialogParameters { ["ProductDetail"] = this.ProductDetail };
 
             var dialog = DialogService.Show<ProductImageAdd>("Ajouter une photo", parameters, options);
-
-            var result = await dialog.Result;
 
             CarouselSelectedIndex = ProductDetail.ImageInstructions.Count - 1;
             RefreshCarouselInfo();
@@ -114,8 +109,6 @@ namespace Client.Pages.ProductDetailPage
             var parameters = new DialogParameters { ["ProductDetail"] = this.ProductDetail };
 
             var dialog = DialogService.Show<ProductEditDetail>("Modifier les détails du produit", parameters, options);
-
-            var result = await dialog.Result;
         }
         #endregion
     }

@@ -20,7 +20,6 @@ namespace Client.Utils
             }
             catch (Exception)
             {
-
             }
         }
 

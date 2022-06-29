@@ -1,4 +1,6 @@
 [![CircleCI](https://img.shields.io/circleci/build/gh/Aurelien-Dev/CeramWorkshop?style=flat)](https://ceramworkshop.herokuapp.com/)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Aurelien-Dev_CeramWorkshop&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Aurelien-Dev_CeramWorkshop)
+
 # CeramWorkshop
 
 **Dont forget to add environement variable for developper station :**

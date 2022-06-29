@@ -19,6 +19,7 @@ jobs:
       - run:
           name: "Build Application according to some given configuration"
           command: dotnet.exe build --configuration Release
+      - sonarcloud/scan
 workflows:
   heroku_deploy:
     jobs:

@@ -8,8 +8,8 @@
         private EnvironementSingleton() { }
 
 
-        public static string WebRootPath { get; set; }
-        public static string ContentRootPath { get; set; }
+        public static string WebRootPath { get; set; } = default!;
+        public static string ContentRootPath { get; set; } = default!;
 
         public static bool IsInDev()
         {

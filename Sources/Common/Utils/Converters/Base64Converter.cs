@@ -1,6 +1,6 @@
 ﻿namespace Utils.Converters
 {
-    public class Base64Converter
+    public static class Base64Converter
     {
         public static async Task<string> ConvertFileToBase64(string path)
         {

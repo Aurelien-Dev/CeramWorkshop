@@ -28,7 +28,7 @@ namespace ExternalServices.ServicesUploadImage
         /// <param name="filePath">Path of original image</param>
         /// <returns>Return image object with all URL</returns>
         /// <exception cref="UploadFileException">Exception when not able to convert image to base64 string</exception>
-        /// <exception cref="ApiCallErrorEsception">Exception after calling API, depending status</exception>
+        /// <exception cref="ApiCallErrorException">Exception after calling API, depending status</exception>
         public async Task<ImageInstruction> UploadFile(string filePath)
         {
             try
@@ -43,17 +43,17 @@ namespace ExternalServices.ServicesUploadImage
                 request.AddParameter(Parameter.CreateParameter("image", b64String, ParameterType.RequestBody));
                 RestResponse response = await _client.ExecuteAsync(request);
 
-                if (response.StatusCode != System.Net.HttpStatusCode.OK) throw new ApiCallErrorEsception("Errr500: Erreur à l'appel de l'API");
+                if (response.StatusCode != System.Net.HttpStatusCode.OK) throw new ApiCallErrorException("Errr500: Erreur à l'appel de l'API");
 
                 var apiResponse = JsonSerializer.Deserialize<ImgBBResponse>(response.Content);
 
-                if (!apiResponse.success) throw new ApiCallErrorEsception($"Erreur au résultat de l'API : {apiResponse.status}");
+                if (!apiResponse.success) throw new ApiCallErrorException($"Erreur au résultat de l'API : {apiResponse.status}");
                 
                 return new ImageInstruction(apiResponse.data.image.url, apiResponse.data.thumb.url, apiResponse.data.medium.url);
             }
             catch (Exception ex)
             {
-                throw new ApiCallErrorEsception("ApiError", ex);
+                throw new ApiCallErrorException("ApiError", ex);
             }
         }
     }

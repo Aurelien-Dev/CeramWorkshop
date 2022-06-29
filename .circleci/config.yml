@@ -2,6 +2,7 @@ version: 2.1
 orbs:
   heroku: circleci/heroku@1.2.6
   windows: circleci/windows@2.4.1
+  sonarcloud: sonarsource/sonarcloud@1.0.3
 jobs:
   build:
     description: Build application with Release configuration
@@ -18,9 +19,6 @@ jobs:
       - run:
           name: "Build Application according to some given configuration"
           command: dotnet.exe build --configuration Release
-orbs:
-  sonarcloud: sonarsource/sonarcloud@1.0.3
-
 workflows:
   heroku_deploy:
     jobs:

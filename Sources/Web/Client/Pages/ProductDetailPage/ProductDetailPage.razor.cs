@@ -52,22 +52,22 @@ namespace Client.Pages.ProductDetailPage
 
 
         #region Image traitement
-        private async Task OpenEditImageProductDialog()
+        private void OpenEditImageProductDialog()
         {
             var options = new DialogOptions { CloseOnEscapeKey = true };
             var parameters = new DialogParameters { ["ProductDetail"] = this.ProductDetail, ["ImageInstruction"] = this.ProductDetail.ImageInstructions.ElementAt(CarouselSelectedIndex) };
 
-            var dialog = DialogService.Show<ProductImageEdit>("Modifier le commentaire de l'image", parameters, options);
+            DialogService.Show<ProductImageEdit>("Modifier le commentaire de l'image", parameters, options);
 
             RefreshCarouselInfo();
         }
 
-        private async Task OpenAddImageProductDialog()
+        private void OpenAddImageProductDialog()
         {
             var options = new DialogOptions { CloseOnEscapeKey = true };
             var parameters = new DialogParameters { ["ProductDetail"] = this.ProductDetail };
 
-            var dialog = DialogService.Show<ProductImageAdd>("Ajouter une photo", parameters, options);
+            DialogService.Show<ProductImageAdd>("Ajouter une photo", parameters, options);
 
             CarouselSelectedIndex = ProductDetail.ImageInstructions.Count - 1;
             RefreshCarouselInfo();
@@ -102,12 +102,12 @@ namespace Client.Pages.ProductDetailPage
             NavigationManager.NavigateTo($"/");
         }
 
-        private async Task OpenEditProductDialog()
+        private void OpenEditProductDialog()
         {
             var options = new DialogOptions { CloseOnEscapeKey = true };
             var parameters = new DialogParameters { ["ProductDetail"] = this.ProductDetail };
 
-            var dialog = DialogService.Show<ProductEditDetail>("Modifier les détails du produit", parameters, options);
+            DialogService.Show<ProductEditDetail>("Modifier les détails du produit", parameters, options);
         }
         #endregion
     }

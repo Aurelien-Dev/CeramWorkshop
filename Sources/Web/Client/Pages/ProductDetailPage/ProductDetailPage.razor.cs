@@ -13,7 +13,6 @@ namespace Client.Pages.ProductDetailPage
     {
         [Parameter] public int? Id { get; set; } = default!;
         [Inject] private IProductWork productWorker { get; set; } = default!;
-        [Inject] private IMaterialRepository MaterialRepository { get; set; } = default!;
         [Inject] private IDialogService DialogService { get; set; } = default!;
 
         [NotNull] public Product ProductDetail { get; set; } = new();

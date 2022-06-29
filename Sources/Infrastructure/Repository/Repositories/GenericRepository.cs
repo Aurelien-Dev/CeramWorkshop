@@ -12,29 +12,14 @@ namespace Repository.Repositories
             _context = context;
         }
 
-        public virtual async Task<T> Get(object id)
-        {
-            return await _context.Set<T>().FindAsync(id);
-        }
+        public virtual async Task<T> Get(object id) => await _context.Set<T>().FindAsync(id);
 
-        public virtual async Task<ICollection<T>> GetAll()
-        {
-            return await _context.Set<T>().ToListAsync();
-        }
+        public virtual async Task<ICollection<T>> GetAll() => await _context.Set<T>().ToListAsync();
 
-        public async Task Add(T entity)
-        {
-            await _context.Set<T>().AddAsync(entity);
-        }
+        public async Task Add(T entity) => await _context.Set<T>().AddAsync(entity);
 
-        public void Delete(T entity)
-        {
-            _context.Set<T>().Remove(entity);
-        }
+        public void Delete(T entity) => _context.Set<T>().Remove(entity);
 
-        public void Update(T entity)
-        {
-            _context.Set<T>().Update(entity);
-        }
+        public void Update(T entity) => _context.Set<T>().Update(entity);
     }
 }

@@ -17,6 +17,6 @@
         public string? Link { get; set; }
         public MaterialType Type { get; set; } = default;
 
-        public ICollection<ProductMaterial> ProductMaterial { get; set; }
+        public ICollection<ProductMaterial> ProductMaterial { get; set; } = new List<ProductMaterial>();
     }
 }

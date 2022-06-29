@@ -7,16 +7,16 @@ namespace Repository
 {
     public class ApplicationDbContext : DbContext
     {
-        public DbSet<Product> Products { get; set; }
-        public DbSet<Material> Materials { get; set; }
-        public DbSet<Firing> Firings { get; set; }
-        public DbSet<Accessory> Accessories { get; set; }
+        public DbSet<Product> Products { get; set; } = default!;
+        public DbSet<Material> Materials { get; set; } = default!;
+        public DbSet<Firing> Firings { get; set; } = default!;
+        public DbSet<Accessory> Accessories { get; set; } = default!;
 
-        public DbSet<ImageInstruction> ImageInstruction { get; set; }
+        public DbSet<ImageInstruction> ImageInstruction { get; set; } = default!;
 
-        public DbSet<ProductMaterial> ProductMaterials { get; set; }
-        public DbSet<ProductFiring> ProductFirings { get; set; }
-        public DbSet<ProductAccessory> ProductAccessories { get; set; }
+        public DbSet<ProductMaterial> ProductMaterials { get; set; } = default!;
+        public DbSet<ProductFiring> ProductFirings { get; set; } = default!;
+        public DbSet<ProductAccessory> ProductAccessories { get; set; } = default!;
 
         public ApplicationDbContext() { }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }

@@ -13,7 +13,7 @@ namespace ExternalServices.ServicesUploadImage
     /// </summary>
     public class ImgBBService
     {
-        private RestClient _client;
+        private readonly RestClient _client;
 
         /// <summary>
         /// Constructor
@@ -44,10 +44,12 @@ namespace ExternalServices.ServicesUploadImage
                 request.AddParameter(Parameter.CreateParameter("image", b64String, ParameterType.RequestBody));
                 RestResponse response = await _client.ExecuteAsync(request);
 
-                if (response.StatusCode != System.Net.HttpStatusCode.OK) throw new ApiCallErrorException("Errr500: Erreur à l'appel de l'API");
+                if (response.StatusCode != System.Net.HttpStatusCode.OK) throw new ApiCallErrorException("Error500: Erreur à l'appel de l'API");
+                if (string.IsNullOrEmpty(response.Content)) throw new ApiCallErrorException("No data return");
 
                 var apiResponse = JsonSerializer.Deserialize<ImgBBResponse>(response.Content);
 
+                if (apiResponse == null) throw new DeserializationException(null, new Exception("Unable to deserialize result"));
                 if (!apiResponse.success) throw new ApiCallErrorException($"Erreur au résultat de l'API : {apiResponse.status}");
 
                 return new ImageInstruction(apiResponse.data.image.url, apiResponse.data.thumb.url, apiResponse.data.medium.url);

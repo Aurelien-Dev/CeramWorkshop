@@ -11,17 +11,12 @@ namespace Client.Pages.ProductDetailPage.Dialogs
     public partial class ProductImageAdd
     {
         [Inject] private IProductWork productWorker { get; set; } = default!;
-        [Inject] ISnackbar Snackbar { get; set; }
-        [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+        [CascadingParameter] MudDialogInstance MudDialog { get; set; } = default!;
         [Parameter] public Product ProductDetail { get; set; } = new();
-
-        MudForm form;
 
         private bool Clearing = false;
         private static string DefaultDragClass = "relative rounded-lg border-2 border-dashed pa-4 mt-4 mud-width-full mud-height-full";
         private string DragClass = DefaultDragClass;
-
-        private string fileName = string.Empty;
 
         public ImageInstruction ImageInstruction { get; set; } = new();
 
@@ -44,7 +39,7 @@ namespace Client.Pages.ProductDetailPage.Dialogs
             }
         }
 
-        private async Task OnValidSubmit()
+        private void OnValidSubmit()
         {
             if (ImageInstruction != null && !string.IsNullOrEmpty(ImageInstruction.Url))
             {
@@ -67,10 +62,10 @@ namespace Client.Pages.ProductDetailPage.Dialogs
             DragClass = DefaultDragClass;
         }
 
-        void Cancel()
+        private void Cancel()
         {
             LoadFileFromInputFile.RemoveFileInput(ImageInstruction.Url);
-            ImageInstruction = null;
+            ImageInstruction = default!;
             MudDialog.Cancel();
         }
     }

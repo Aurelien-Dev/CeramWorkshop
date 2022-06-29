@@ -11,15 +11,11 @@ namespace Client.Pages.ProductDetailPage.Dialogs
     public partial class ProductImageEdit
     {
         [Inject] private IProductWork productWorker { get; set; } = default!;
-        [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+        [CascadingParameter] MudDialogInstance MudDialog { get; set; } = default!;
         [Parameter] public Product ProductDetail { get; set; } = new();
         [Parameter] public ImageInstruction ImageInstruction { get; set; } = new();
 
-        MudForm form;
-
-
-
-        private async Task OnValidSubmit()
+        private void OnValidSubmit()
         {
             if (ImageInstruction != null && !string.IsNullOrEmpty(ImageInstruction.Url))
             {
@@ -31,11 +27,10 @@ namespace Client.Pages.ProductDetailPage.Dialogs
             }
         }
 
-
-        void Cancel()
+        private void Cancel()
         {
             LoadFileFromInputFile.RemoveFileInput(ImageInstruction.Url);
-            ImageInstruction = null;
+            ImageInstruction = default!;
             MudDialog.Cancel();
         }
     }

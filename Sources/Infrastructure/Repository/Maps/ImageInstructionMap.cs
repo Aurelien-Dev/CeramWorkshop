@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Repository.Maps
 {
-    public class ImageInstructionMap
+    public static class ImageInstructionMap
     {
         public static void Build(ModelBuilder modelBuilder)
         {

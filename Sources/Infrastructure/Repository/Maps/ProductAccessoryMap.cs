@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Repository.Maps
 {
-    public class ProductAccessoryMap
+    public static class ProductAccessoryMap
     {
         public static void Build(ModelBuilder modelBuilder)
         {

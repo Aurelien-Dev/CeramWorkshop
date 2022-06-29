@@ -1,5 +1,10 @@
-﻿namespace ExternalServices.ServicesUploadImage.Model
+﻿/// <summary>
+/// Auto generated code by VisualStudio to request ImgBB service
+/// </summary>
+namespace ExternalServices.ServicesUploadImage.Model
 {
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+#pragma warning disable IDE1006 // Naming Styles
     public class ImgBBResponse
     {
         public Data data { get; set; }
@@ -51,4 +56,6 @@
         public string url { get; set; }
     }
 
+#pragma warning restore IDE1006 // Naming Styles
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 }

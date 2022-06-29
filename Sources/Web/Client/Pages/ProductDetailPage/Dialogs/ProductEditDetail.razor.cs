@@ -8,11 +8,11 @@ namespace Client.Pages.ProductDetailPage.Dialogs
     public partial class ProductEditDetail
     {
         [Inject] private IProductWork productWorker { get; set; } = default!;
-        [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+        [CascadingParameter] MudDialogInstance MudDialog { get; set; } = default!;
         [Parameter] public Product ProductDetail { get; set; } = new();
         [Parameter] public bool? InsertMode { get; set; } = new();
 
-        MudForm form;
+        MudForm form = new();
         bool success;
         string[] errors = { };
 
@@ -30,7 +30,7 @@ namespace Client.Pages.ProductDetailPage.Dialogs
 
                 productWorker.Completed();
 
-                MudDialog.Close(DialogResult.Ok<int>(ProductDetail.Id)); // DialogResult.Ok(true));
+                MudDialog.Close(DialogResult.Ok<int>(ProductDetail.Id));
             }
         }
 

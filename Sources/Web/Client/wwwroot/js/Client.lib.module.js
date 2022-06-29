@@ -1,5 +1,5 @@
 ﻿
-export async function beforeStart(options) {
+export async function beforeStart(_options) {
     console.log("beforeStart");
 }
 

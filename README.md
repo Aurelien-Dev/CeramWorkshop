@@ -2,6 +2,7 @@
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Aurelien-Dev_CeramWorkshop&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Aurelien-Dev_CeramWorkshop)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=Aurelien-Dev_CeramWorkshop&metric=bugs)](https://sonarcloud.io/summary/new_code?id=Aurelien-Dev_CeramWorkshop)
+
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Aurelien-Dev_CeramWorkshop&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=Aurelien-Dev_CeramWorkshop)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=Aurelien-Dev_CeramWorkshop&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=Aurelien-Dev_CeramWorkshop)
 

@@ -1,25 +1,21 @@
 ﻿@page "/"
+@using Client.Components
 
 <MudGrid Class="mt-2">
     @foreach (var item in ProductsVM)
     {
         <MudItem xs="12" md="4" lg="2">
             <MudCard>
-                <MudCardHeader>
-                    @if (string.IsNullOrEmpty(item.UrlImageThumb))
-                    {
-                        <MudImage Src="assets/img/gallery.png" Fluid="true" />
-                    }
-                    else
-                    {
-                        <MudImage Src="@item.UrlImageThumb" Fluid="true" />
-                    }
+                <MudCardHeader Class="pa-0">
+                    <MudImage Src="@item.Image" Class="rounded-t" ObjectPosition=ObjectPosition.Center ObjectFit=ObjectFit.Cover Style="width:100%;" Height=200
+                          Alt="Preview of product" />
                 </MudCardHeader>
                 <MudCardContent>
-                    <MudText Typo="Typo.h5">@item.Name</MudText>
-                    <MudText Typo="Typo.body2">
-                        This photo was taken in a small village in Istra Croatia.
-                    </MudText>
+                    <MudText Typo="Typo.body2" Class="pa-0 ma-0" Inline=true>#@item.Reference</MudText>
+                    <MudText Typo="Typo.h6" Class="pa-0 ma-0" Inline=true>@item.Name</MudText>
+
+                    <ProductStatusChip Status=@item.Status />
+
                 </MudCardContent>
                 <MudCardActions>
                     <MudStack AlignItems="AlignItems.End" Justify="Justify.FlexEnd">

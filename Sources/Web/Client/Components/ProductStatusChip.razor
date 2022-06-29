@@ -1,0 +1,38 @@
+﻿@using Domain.Models
+
+<MudChip Color="@ChipColor" Size="Size.Small">@Status</MudChip>
+
+@code {
+
+    [Parameter]
+    public ProductStatus Status
+    {
+        get => status;
+        set
+        {
+            status = value;
+            switch (Status)
+            {
+                case ProductStatus.Abandoned:
+                    ChipColor = Color.Error;
+                    break;
+                case ProductStatus.Discontinued:
+                    ChipColor = Color.Warning;
+                    break;
+                case ProductStatus.None:
+                    ChipColor = Color.Dark;
+                    break;
+                case ProductStatus.Production:
+                    ChipColor = Color.Success;
+                    break;
+                case ProductStatus.Test:
+                    ChipColor = Color.Secondary;
+                    break;
+            }
+        }
+    }
+    private ProductStatus status;
+
+    private Color ChipColor { get; set; }
+
+}

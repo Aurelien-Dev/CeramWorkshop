@@ -1,6 +1,7 @@
 ﻿@page "/Product/{id:int?}"
 
 @using Client.Utils
+@using Client.Components
 @using Domain.Models
 
 @inherits PageComponentBase
@@ -12,7 +13,7 @@
                 <MudPaper Width="100%" Elevation="0">
                     <MudStack Row="true" Justify="Justify.SpaceBetween">
                         <MudText Typo="Typo.h5">#@ProductDetail.Reference - @ProductDetail.Name</MudText>
-                        <MudChip Color="Color.Info" Size="Size.Small">@ProductDetail.Status</MudChip>
+                        <ProductStatusChip Status=@ProductDetail.Status />
                     </MudStack>
                 </MudPaper>
             </MudCardHeader>
@@ -63,11 +64,11 @@
                                 Ajouter
                             </MudButton>
                             <MudButton Variant="Variant.Outlined" Color="Color.Tertiary" Class="mt-2" StartIcon="@Icons.Material.Filled.Edit"
-                                       OnClick="OpenEditImageProductDialog">
+                                       OnClick="OpenEditImageProductDialog" Disabled="ShowEditingImageButtons">
                                 Modifier
                             </MudButton>
                             <MudButton Variant="Variant.Filled" Color="Color.Error" Class="mt-2" StartIcon="@Icons.Material.Filled.Delete"
-                                       OnClick="OpenDeleteImageProductDialog" Disabled="ShowDeleteImageButton">
+                                       OnClick="OpenDeleteImageProductDialog" Disabled="ShowEditingImageButtons">
                                 Supprimer
                             </MudButton>
                         </MudStack>

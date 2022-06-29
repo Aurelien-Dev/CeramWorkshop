@@ -10,7 +10,6 @@ namespace Client.Pages.ProductDetailPage
 
         public IList<ProductViewModel> ProductsVM { get; set; } = new List<ProductViewModel>();
 
-
         protected override async Task OnInitializedAsync()
         {
             IEnumerable<Product> Products = await unitOfWork.ProductRepository.GetAll();
@@ -21,9 +20,10 @@ namespace Client.Pages.ProductDetailPage
     public class ProductViewModel
     {
         public int Id { get; set; }
-        public string? Name { get; set; }
-        public string UrlImageThumb { get; set; } = default!;
-        public ProductStatus? Status { get; set; }
+        public string? Reference { get; set; }
+        public string Name { get; set; }
+        public string Image { get; set; } = default!;
+        public ProductStatus Status { get; set; }
         public string StatusText { get; set; } = string.Empty;
 
 
@@ -32,9 +32,14 @@ namespace Client.Pages.ProductDetailPage
         public ProductViewModel(Product product)
         {
             Id = product.Id;
-            Name = $"#{product.Reference} {product.Name}";
+            Reference = product.Reference;
+            Name = product.Name;
+            Status = product.Status;
+
             if (product.ImageInstructions.Any())
-                UrlImageThumb = product.ImageInstructions.First().ThumbUrl;
+                Image = product.ImageInstructions.First().ThumbUrl;
+            else
+                Image = "assets/img/gallery.png";
         }
     }
 

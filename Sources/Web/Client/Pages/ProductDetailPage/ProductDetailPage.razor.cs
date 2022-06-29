@@ -1,6 +1,5 @@
 ﻿using Client.Pages.ProductDetailPage.Dialogs;
 using Client.Utils;
-using Domain.Interfaces;
 using Domain.InterfacesWorker;
 using Domain.Models;
 using Microsoft.AspNetCore.Components;
@@ -22,7 +21,7 @@ namespace Client.Pages.ProductDetailPage
         public ImageInstruction ImageInstruction { get; set; } = new();
 
         public bool ShowCarouselNavigation { get; set; } = false;
-        public bool ShowDeleteImageButton { get; set; } = true;
+        public bool ShowEditingImageButtons { get; set; } = true;
 
         public int CarouselSelectedIndex { get; set; } = 0;
 
@@ -40,8 +39,7 @@ namespace Client.Pages.ProductDetailPage
         public void RefreshCarouselInfo()
         {
             ShowCarouselNavigation = ProductDetail.ImageInstructions.Count > 1;
-            ShowDeleteImageButton = !ProductDetail.ImageInstructions.Any();
-            StateHasChanged();
+            ShowEditingImageButtons = !ProductDetail.ImageInstructions.Any();
         }
 
         private async Task LoadData(int id)
@@ -52,22 +50,28 @@ namespace Client.Pages.ProductDetailPage
 
 
         #region Image traitement
-        private void OpenEditImageProductDialog()
+        private async Task OpenEditImageProductDialog()
         {
             var options = new DialogOptions { CloseOnEscapeKey = true };
             var parameters = new DialogParameters { ["ProductDetail"] = this.ProductDetail, ["ImageInstruction"] = this.ProductDetail.ImageInstructions.ElementAt(CarouselSelectedIndex) };
 
-            DialogService.Show<ProductImageEdit>("Modifier le commentaire de l'image", parameters, options);
+            var dialog = DialogService.Show<ProductImageEdit>("Modifier le commentaire de l'image", parameters, options);
+            var result = await dialog.Result;
+
+            if (result.Cancelled) return;
 
             RefreshCarouselInfo();
         }
 
-        private void OpenAddImageProductDialog()
+        private async Task OpenAddImageProductDialog()
         {
             var options = new DialogOptions { CloseOnEscapeKey = true };
             var parameters = new DialogParameters { ["ProductDetail"] = this.ProductDetail };
 
-            DialogService.Show<ProductImageAdd>("Ajouter une photo", parameters, options);
+            var dialog = DialogService.Show<ProductImageAdd>("Ajouter une photo", parameters, options);
+            var result = await dialog.Result;
+
+            if (result.Cancelled) return;
 
             CarouselSelectedIndex = ProductDetail.ImageInstructions.Count - 1;
             RefreshCarouselInfo();
@@ -86,6 +90,10 @@ namespace Client.Pages.ProductDetailPage
             productWorker.ProductRepository.Update(ProductDetail);
             productWorker.Completed();
 
+            if (ProductDetail.ImageInstructions.Any())
+                CarouselSelectedIndex = ProductDetail.ImageInstructions.Count - 1;
+
+            StateHasChanged();
             RefreshCarouselInfo();
         }
         #endregion
@@ -102,12 +110,17 @@ namespace Client.Pages.ProductDetailPage
             NavigationManager.NavigateTo($"/");
         }
 
-        private void OpenEditProductDialog()
+        private async Task OpenEditProductDialog()
         {
             var options = new DialogOptions { CloseOnEscapeKey = true };
             var parameters = new DialogParameters { ["ProductDetail"] = this.ProductDetail };
 
-            DialogService.Show<ProductEditDetail>("Modifier les détails du produit", parameters, options);
+            var dialog = DialogService.Show<ProductEditDetail>("Modifier les détails du produit", parameters, options);
+
+            var result = await dialog.Result;
+            if (result.Cancelled) return;
+
+            StateHasChanged();
         }
         #endregion
     }

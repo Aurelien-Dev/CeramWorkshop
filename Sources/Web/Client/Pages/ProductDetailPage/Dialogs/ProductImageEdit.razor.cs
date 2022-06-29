@@ -2,9 +2,7 @@
 using Domain.InterfacesWorker;
 using Domain.Models;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
 using MudBlazor;
-using Utils.Exception;
 
 namespace Client.Pages.ProductDetailPage.Dialogs
 {

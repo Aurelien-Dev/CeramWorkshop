@@ -11,12 +11,9 @@ namespace Client.Pages.MaterialDetailPage
 
         public ICollection<Material> Materials { get; set; } = new List<Material>();
 
-
-
         protected override async Task OnInitializedAsync()
         {
             Materials = await MaterialRepository.GetAll();
         }
-
     }
 }

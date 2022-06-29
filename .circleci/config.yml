@@ -18,7 +18,12 @@ jobs:
       - run:
           name: "Build Application according to some given configuration"
           command: dotnet.exe build --configuration Release
+orbs:
+  sonarcloud: sonarsource/sonarcloud@1.0.3
+
 workflows:
   heroku_deploy:
     jobs:
+      - build:
+          context: SonarCloud
       - heroku/deploy-via-git

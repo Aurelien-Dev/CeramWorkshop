@@ -21,8 +21,10 @@ jobs:
           command: dotnet.exe build --configuration Release
       - sonarcloud/scan
 workflows:
+  main:
+    jobs:
+      - build:
+          context: SonarCloud
   heroku_deploy:
     jobs:
       - heroku/deploy-via-git
-      - build:
-          context: SonarCloud

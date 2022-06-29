@@ -1,5 +1,5 @@
-using Client.Utils;
 using Common.Utils.Singletons;
+using MudBlazor.Services;
 using Repository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +9,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddRepository();
 
-builder.Services.AddScoped<IModalService, ModalService>();
+builder.Services.AddMudServices();
 
 var app = builder.Build();
 

@@ -1,21 +1,29 @@
 ﻿@using Client.Utils
+
 @inherits PageLayoutComponentBase
 
 <PageTitle>BlazorApp1</PageTitle>
 
-<Header />
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
 
-<div id="layoutSidenav">
-    <div id="layoutSidenav_nav">
+<MudLayout>
+    <MudAppBar>
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+        <MudText>Ceram-Workshop</MudText>
+
+        <MudSpacer />
+
+        <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Inherit" OnClick="NewProduct" />
+    </MudAppBar>
+
+    <MudDrawer @bind-Open="@_drawerOpen" ClipMode="DrawerClipMode.Always">
         <Sidebar />
-    </div>
-    <div id="layoutSidenav_content">
-        <main>
-            <div class="container-fluid">
-                @Body
-            </div>
-        </main>
-    </div>
-</div>
-
-<ModalContainer />
+    </MudDrawer>
+    <MudMainContent>
+        <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge">
+            @Body
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>

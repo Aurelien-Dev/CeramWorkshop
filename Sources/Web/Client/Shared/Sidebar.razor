@@ -1,26 +1,4 @@
-﻿<nav class="sidenav shadow-right sidenav-light">
-    <div class="sidenav-menu">
-        <div class="nav accordion" id="accordionSidenav">
-
-            <!-- Sidenav Heading (Addons)-->
-            <div class="sidenav-menu-heading">Plugins</div>
-            <!-- Sidenav Link (Charts)-->
-            <a class="nav-link" href="#">
-                <div class="nav-link-icon"><i data-feather="bar-chart"></i></div>
-                Mes produits
-            </a>
-            <!-- Sidenav Link (Charts)-->
-            <a class="nav-link" href="/Materials">
-                <div class="nav-link-icon"><i data-feather="bar-chart"></i></div>
-                Mes Matériaux
-            </a>
-        </div>
-    </div>
-    @* <!-- Sidenav Footer-->
-        <div class="sidenav-footer">
-        <div class="sidenav-footer-content">
-        <div class="sidenav-footer-subtitle">Logged in as:</div>
-        <div class="sidenav-footer-title">Valerie Luna</div>
-        </div>
-        </div>*@
-</nav>
+﻿<MudNavMenu>
+    <MudNavLink Href="/" Match="NavLinkMatch.Prefix">Mes produits</MudNavLink>
+    <MudNavLink Href="/Materials" Match="NavLinkMatch.Prefix">Mes Matériaux</MudNavLink>
+</MudNavMenu>

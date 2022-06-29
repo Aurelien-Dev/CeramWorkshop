@@ -2,7 +2,7 @@
 
 namespace Domain.Models
 {
-    public enum ProductStatus { Test = 1, Abandoned = 2, Production = 3, Discontinued  = 4}
+    public enum ProductStatus { None = 0, Test = 1, Abandoned = 2, Production = 3, Discontinued = 4 }
 
     public class Product
     {
@@ -24,7 +24,7 @@ namespace Domain.Models
         public double? TopDiameter { get; set; }
         public double? BottomDiameter { get; set; }
         public string? DesignInstruction { get; set; }
-        public ProductStatus? Status { get; set; }
+        public ProductStatus Status { get; set; }
 
         public ICollection<ImageInstruction> ImageInstructions { get; set; } = new List<ImageInstruction>();
         public ICollection<ProductMaterial> ProductMaterial { get; set; } = new List<ProductMaterial>();

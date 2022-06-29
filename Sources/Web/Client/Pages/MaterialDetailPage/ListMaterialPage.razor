@@ -1,24 +1,27 @@
 ﻿@page "/Materials"
 @using Client.Utils
-@using Common.Helpers.RazorComponent
-@using Common.Helpers.RazorComponent.CommonControls
 @using Domain.Models
 
 @inherits PageComponentBase
 
-<div class="row mt-3">
-    <div class="col-12">
-        <div class="card mb-4">
-            <div class="card-header">Mat.</div>
-            <div class="card-body">
-                <DataTable TItem="Material" Datas="Materials">
-                    <DataTableLinkColumn TItem="Material" Field="m=>m.Link" TextLinkLambda="m=>m.Reference" Name=Référence /> 
-                    <DataTableIsCommercialColumn TItem="Material" Field="m=>m.IsHomeMade" Name=Commercialisé /> 
-                    <DataTableMonetaryColumn TItem="Material" Field="m=>m.Cost" Name=Coût /> 
-                    <DataTableTextColumn TItem="Material" Field="m=>m.Comment" Name=Commentaire /> 
-                    <DataTableTextColumn TItem="Material" Field="m=>m.Type" Name=Type /> 
-                </DataTable>
-            </div>
-        </div>
-    </div>
-</div>
+
+<MudTable Class="mt-5" Items="@Materials" Dense="true" Striped="true">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Mats.</MudText>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Référence</MudTh>
+        <MudTh>Coût</MudTh>
+        <MudTh>Commentaire</MudTh>
+        <MudTh>Type</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Référence">@context.Reference</MudTd>
+        <MudTd DataLabel="Coût">@context.Cost</MudTd>
+        <MudTd DataLabel="Commentaire">@context.Comment</MudTd>
+        <MudTd DataLabel="Type">@context.Type</MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager HideRowsPerPage="true" />
+    </PagerContent>
+</MudTable>

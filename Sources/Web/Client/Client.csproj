@@ -26,7 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\Helpers\Helpers.csproj" />
     <ProjectReference Include="..\..\Common\Utils\Utils.csproj" />
     <ProjectReference Include="..\..\Infrastructure\ExternalServices\ExternalServices.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Repository\Repository.csproj" />
@@ -34,6 +33,11 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\ProductImages\" />
+    <Folder Include="wwwroot\ProductImages\AtelierCremazie\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MudBlazor" Version="6.0.10" />
   </ItemGroup>
 
 </Project>

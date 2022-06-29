@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using MudBlazor;
 
 namespace Client.Utils
 {
@@ -7,11 +8,7 @@ namespace Client.Utils
     {
         [Inject] public NavigationManager NavigationManager { get; set; } = default!;
         [Inject] public IJSRuntime JSRuntime { get; set; } = default!;
-        [Inject] public IModalService ModalService { get; set; } = default!;
+        [Inject] public IDialogService DialogService { get; set; }
 
-        public void OpenModal(string idModal)
-        {
-            JSRuntime.InvokeAsync<string>("OpenModal", new string[] { idModal });
-        }
     }
 }

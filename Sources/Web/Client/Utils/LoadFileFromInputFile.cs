@@ -6,8 +6,23 @@ namespace Client.Utils
     public static class LoadFileFromInputFile
     {
         private static readonly long maxFileSize = 1024 * 1024 * 15;
-        private static readonly string ProductFolderFullPath = Path.Combine(EnvironementSingleton.WebRootPath, "ProductImages");
+        private static readonly string RootPath = EnvironementSingleton.WebRootPath;
+        private static readonly string ProductFolderFullPath = Path.Combine(RootPath, "ProductImages");
         private static readonly string ProductFolderShort = Path.Combine("ProductImages");
+
+        public static void RemoveFileInput(string path)
+        {
+            if (string.IsNullOrEmpty(path)) return;
+
+            try
+            {
+                File.Delete(Path.Combine(RootPath, path));
+            }
+            catch (Exception)
+            {
+
+            }
+        }
 
         /// <summary>
         /// Upload file into server

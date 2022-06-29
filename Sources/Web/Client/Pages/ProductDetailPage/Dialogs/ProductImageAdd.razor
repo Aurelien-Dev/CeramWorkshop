@@ -1,0 +1,21 @@
+﻿
+<MudForm>
+    <MudDialog>
+        <DialogContent>
+
+            <MudPaper @ondragenter="@SetDragClass" @ondragleave="@ClearDragClass" @ondragend="@ClearDragClass" Outlined="true" Class="@DragClass">
+                @if (!Clearing)
+                {
+                    <InputFile OnChange="OnInputFileChanged" class="absolute mud-width-full mud-height-full overflow-hidden z-2" style="opacity:0;" />
+                }
+                <MudText Typo="Typo.h6">Drag and drop files here or click</MudText>
+                <MudImage Src="@ImageInstruction.Url" ObjectFit="ObjectFit.Contain" ObjectPosition="ObjectPosition.Center" Height="300" Width="300"  Elevation="25" Class="rounded-lg" />
+            </MudPaper>
+            <MudTextField Label="Instruction de construction" @bind-Value="ImageInstruction.Comment" For="@(() => ImageInstruction.Comment)" Lines="5" />
+        </DialogContent>
+        <DialogActions>
+            <MudButton OnClick="Cancel">Cancel</MudButton>
+                <MudButton Color="Color.Primary" OnClick="@(async () => await OnValidSubmit())">Ok</MudButton>
+        </DialogActions>
+    </MudDialog>
+</MudForm>

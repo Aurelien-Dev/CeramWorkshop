@@ -1,0 +1,84 @@
+﻿@page "/Product/{id:int?}"
+
+@using Client.Utils
+@using Domain.Models
+
+@inherits PageComponentBase
+
+<MudGrid Class="mt-2">
+    <MudItem xs="12" md="12" lg="12">
+        <MudCard>
+            <MudCardHeader>
+                <MudPaper Width="100%" Elevation="0">
+                    <MudStack Row="true" Justify="Justify.SpaceBetween">
+                        <MudText Typo="Typo.h5">#@ProductDetail.Reference - @ProductDetail.Name</MudText>
+                        <MudChip Color="Color.Info" Size="Size.Small">@ProductDetail.Status</MudChip>
+                    </MudStack>
+                </MudPaper>
+            </MudCardHeader>
+            <MudCardContent>
+
+                <MudGrid Justify="Justify.SpaceBetween">
+                    <MudItem xs="12" sm="6" lg="8">
+                        <MudText Typo="Typo.subtitle1" Class="mt-4" GutterBottom="true">Description</MudText>
+                        <MudText Typo="Typo.body2">@ProductDetail.Description</MudText>
+
+                        <MudText Typo="Typo.subtitle1" Class="mt-4" GutterBottom="true">Design insctructions</MudText>
+                        <MudText Typo="Typo.body2">@ProductDetail.DesignInstruction</MudText>
+
+                        <MudStack Row="true" Class="mt-3" AlignItems="AlignItems.Center" Justify="Justify.SpaceAround">
+                            <MudImage Src="/assets/img/sizing.png" Height="65" Class="ms-3" />
+                            <MudText Typo="Typo.body2"><b>Ø Top :</b> @ProductDetail.TopDiameter cm</MudText>
+                            <MudText Typo="Typo.body2"><b>Ø Bottom :</b> @ProductDetail.BottomDiameter cm</MudText>
+                            <MudText Typo="Typo.body2"><b>Height :</b> @ProductDetail.Height cm</MudText>
+                        </MudStack>
+
+                        <MudStack Row="true" Class="mt-5">
+                            <MudButton Variant="Variant.Outlined" Color="Color.Tertiary" Class="mt-2" StartIcon="@Icons.Material.Filled.Edit" OnClick="OpenEditProductDialog">
+                                Modifier
+                            </MudButton>
+                            <MudButton Variant="Variant.Filled" Color="Color.Error" Class="mt-2" StartIcon="@Icons.Material.Filled.Delete" OnClick="OpenDeleteProductDialog">
+                                Supprimer
+                            </MudButton>
+                        </MudStack>
+                    </MudItem>
+                    <MudItem xs="12" sm="6" lg="4">
+                        <MudCarousel Class="mud-width-full" Style="height:500px;" ShowArrows="@ShowCarouselNavigation" ShowBullets="@ShowCarouselNavigation"
+                                     AutoCycle="false" TData="object" @bind-SelectedIndex="CarouselSelectedIndex">
+                            @foreach (var item in ProductDetail.ImageInstructions)
+                            {
+                                <MudCarouselItem Transition="Transition.Slide">
+                                    <MudStack AlignItems="AlignItems.Center">
+                                        <MudImage Src="@item.Url" ObjectFit="ObjectFit.Contain" ObjectPosition="ObjectPosition.Center"
+                                              Height="400" Width="500" Class="rounded-lg" />
+                                        <MudText Typo="Typo.caption">@item.Comment</MudText>
+                                    </MudStack>
+                                </MudCarouselItem>
+                            }
+                        </MudCarousel>
+
+                        <MudStack Row="true" Justify="Justify.Center">
+                            <MudButton Variant="Variant.Outlined" Color="Color.Tertiary" Class="mt-2" StartIcon="@Icons.Material.Filled.AddAPhoto"
+                                       OnClick="OpenAddImageProductDialog">
+                                Ajouter
+                            </MudButton>
+                            <MudButton Variant="Variant.Outlined" Color="Color.Tertiary" Class="mt-2" StartIcon="@Icons.Material.Filled.Edit"
+                                       OnClick="OpenEditImageProductDialog">
+                                Modifier
+                            </MudButton>
+                            <MudButton Variant="Variant.Filled" Color="Color.Error" Class="mt-2" StartIcon="@Icons.Material.Filled.Delete"
+                                       OnClick="OpenDeleteImageProductDialog" Disabled="ShowDeleteImageButton">
+                                Supprimer
+                            </MudButton>
+                        </MudStack>
+                    </MudItem>
+                </MudGrid>
+
+            </MudCardContent>
+            <MudCardActions>
+
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+</MudGrid>
+

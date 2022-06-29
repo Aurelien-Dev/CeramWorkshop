@@ -1,0 +1,32 @@
+﻿@page "/"
+
+<MudGrid Class="mt-2">
+    @foreach (var item in ProductsVM)
+    {
+        <MudItem xs="12" md="4" lg="2">
+            <MudCard>
+                <MudCardHeader>
+                    @if (string.IsNullOrEmpty(item.UrlImageThumb))
+                    {
+                        <MudImage Src="assets/img/gallery.png" Fluid="true" />
+                    }
+                    else
+                    {
+                        <MudImage Src="@item.UrlImageThumb" Fluid="true" />
+                    }
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText Typo="Typo.h5">@item.Name</MudText>
+                    <MudText Typo="Typo.body2">
+                        This photo was taken in a small village in Istra Croatia.
+                    </MudText>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudStack AlignItems="AlignItems.End" Justify="Justify.FlexEnd">
+                        <MudButton Variant="Variant.Text" Color="Color.Primary" Href="@($"Product/{item.Id}")">Voir</MudButton>
+                    </MudStack>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    }
+</MudGrid>

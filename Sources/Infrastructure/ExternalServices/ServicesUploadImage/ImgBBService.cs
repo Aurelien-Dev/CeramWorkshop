@@ -1,5 +1,6 @@
 ﻿using Domain.Models;
 using ExternalServices.ServicesUploadImage.Model;
+using Microsoft.Extensions.Configuration;
 using RestSharp;
 using System.Text.Json;
 using Utils.Converters;
@@ -17,9 +18,9 @@ namespace ExternalServices.ServicesUploadImage
         /// <summary>
         /// Constructor
         /// </summary>
-        public ImgBBService(  )
+        public ImgBBService(IConfiguration configuration)
         {
-            _client = new RestClient("https://api.imgbb.com/1/upload?key=76ae7a6cb9d11a5c4a253cfe66942a61");
+            _client = new RestClient(configuration.GetConnectionString("imgbbURL"));
         }
 
         /// <summary>
@@ -48,7 +49,7 @@ namespace ExternalServices.ServicesUploadImage
                 var apiResponse = JsonSerializer.Deserialize<ImgBBResponse>(response.Content);
 
                 if (!apiResponse.success) throw new ApiCallErrorException($"Erreur au résultat de l'API : {apiResponse.status}");
-                
+
                 return new ImageInstruction(apiResponse.data.image.url, apiResponse.data.thumb.url, apiResponse.data.medium.url);
             }
             catch (Exception ex)

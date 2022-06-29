@@ -35,9 +35,9 @@ namespace Repository.Repositories
                                  .ToListAsync();
         }
 
-        public async Task<int> CountImage(int idProduct)
+        public async Task<int> CountImage(int id)
         {
-            return await _context.ImageInstruction.Where(i => i.IdProduct == idProduct).CountAsync();
+            return await _context.ImageInstruction.Where(i => i.IdProduct == id).CountAsync();
         }
     }
 }

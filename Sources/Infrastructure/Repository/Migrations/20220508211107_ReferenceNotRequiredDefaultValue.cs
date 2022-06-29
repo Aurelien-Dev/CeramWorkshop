@@ -8,12 +8,12 @@ namespace Repository.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-
+            // Correction de model DB qui na généré aucune modifications
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-
+            // Correction de model DB qui na généré aucune modifications
         }
     }
 }

@@ -24,6 +24,4 @@ orbs:
 workflows:
   heroku_deploy:
     jobs:
-      - build:
-          context: SonarCloud
       - heroku/deploy-via-git

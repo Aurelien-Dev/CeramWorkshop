@@ -1,10 +1,13 @@
 ﻿using Common.Utils.Singletons;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 
 namespace Client.Utils
 {
     public static class LoadFileFromInputFile
     {
+        [Inject] private static ILogger Logger { get; set; } = default!;
+       
         private static readonly long maxFileSize = 1024 * 1024 * 15;
         private static readonly string RootPath = EnvironementSingleton.WebRootPath;
         private static readonly string ProductFolderFullPath = Path.Combine(RootPath, "ProductImages");
@@ -18,8 +21,9 @@ namespace Client.Utils
             {
                 File.Delete(Path.Combine(RootPath, path));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Logger.LogError(ex.Message);
             }
         }
 

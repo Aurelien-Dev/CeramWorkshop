@@ -14,7 +14,7 @@ namespace Client.Pages.ProductDetailPage.Dialogs
 
         MudForm form = new();
         bool success;
-        string[] errors = { };
+        string[] errors = Array.Empty<string>();
 
         private async Task OnValidSubmit()
         {

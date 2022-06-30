@@ -11,8 +11,7 @@ namespace Client.Pages.ProductDetailPage
     public partial class ProductDetailPage : PageComponentBase
     {
         [Parameter] public int? Id { get; set; } = default!;
-        [Inject] private IProductWork productWorker { get; set; } = default!;
-        [Inject] private IDialogService DialogService { get; set; } = default!;
+        [Inject] private IProductWork worker { get; set; } = default!;
 
         [NotNull] public Product ProductDetail { get; set; } = new();
         [NotNull] public Material MaterialDetail { get; set; } = new();
@@ -44,7 +43,7 @@ namespace Client.Pages.ProductDetailPage
 
         private async Task LoadData(int id)
         {
-            ProductDetail = await productWorker.ProductRepository.Get(id);
+            ProductDetail = await worker.ProductRepository.Get(id);
         }
 
 
@@ -85,8 +84,8 @@ namespace Client.Pages.ProductDetailPage
             LoadFileFromInputFile.RemoveFileInput(image.Url);
 
             ProductDetail.ImageInstructions.Remove(image);
-            productWorker.ProductRepository.Update(ProductDetail);
-            productWorker.Completed();
+            worker.ProductRepository.Update(ProductDetail);
+            worker.Completed();
 
             if (ProductDetail.ImageInstructions.Any())
                 CarouselSelectedIndex = ProductDetail.ImageInstructions.Count - 1;
@@ -103,8 +102,8 @@ namespace Client.Pages.ProductDetailPage
 
             if (!result.HasValue) return;
 
-            productWorker.ProductRepository.Delete(ProductDetail);
-            productWorker.Completed();
+            worker.ProductRepository.Delete(ProductDetail);
+            worker.Completed();
             NavigationManager.NavigateTo($"/");
         }
 

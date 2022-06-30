@@ -1,0 +1,23 @@
+﻿
+
+<MudCard>
+    <MudCardHeader>
+        <MudText Typo="Typo.h5">Composition</MudText>
+        <MudSpacer />
+        <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Inherit" />
+    </MudCardHeader>
+    <MudCardContent>
+        <MudTable Class="mt-5" Items="@ProductDetail.ProductMaterial" Dense="true" Striped="true">
+            <HeaderContent>
+                <MudTh>Référence</MudTh>
+                <MudTh>Nom</MudTh>
+                <MudTh>Type</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Référence">@context.Material.Reference</MudTd>
+                <MudTd DataLabel="Nom">@context.Material.Name</MudTd>
+                <MudTd DataLabel="Type">@context.Material.Type</MudTd>
+            </RowTemplate>
+        </MudTable>
+    </MudCardContent>
+</MudCard>

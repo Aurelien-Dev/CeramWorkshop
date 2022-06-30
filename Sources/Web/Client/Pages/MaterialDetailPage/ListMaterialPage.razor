@@ -9,7 +9,7 @@
     <ToolBarContent>
         <MudText Typo="Typo.h6">Mats.</MudText>
         <MudSpacer />
-        <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Inherit" OnClick="AddMaterialDialog"/>
+        <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Inherit" OnClick="AddMaterialDialog" />
     </ToolBarContent>
     <HeaderContent>
         <MudTh>Référence</MudTh>
@@ -17,6 +17,7 @@
         <MudTh>Coût</MudTh>
         <MudTh>Commentaire</MudTh>
         <MudTh>Type</MudTh>
+        <MudTh></MudTh>
     </HeaderContent>
     <RowTemplate>
         <MudTd DataLabel="Référence">@context.Reference</MudTd>
@@ -24,6 +25,12 @@
         <MudTd DataLabel="Coût">@context.Cost</MudTd>
         <MudTd DataLabel="Commentaire">@context.Comment</MudTd>
         <MudTd DataLabel="Type">@context.Type</MudTd>
+        <MudTd DataLabel="">
+            <MudStack Row=true>
+                @*<MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" Size="Size.Small" />*@
+                <MudFab Color="Color.Error" StartIcon="@Icons.Material.Filled.DeleteForever" Size="Size.Small" OnClick="@(async () => await DeleteMat(context))" />
+            </MudStack>
+        </MudTd>
     </RowTemplate>
     <PagerContent>
         <MudTablePager />

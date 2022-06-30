@@ -53,7 +53,7 @@ namespace Client.Pages.ProductDetailPage
         {
             var parameters = new DialogParameters { ["ProductDetail"] = this.ProductDetail, ["ImageInstruction"] = this.ProductDetail.ImageInstructions.ElementAt(CarouselSelectedIndex) };
 
-            var dialog = DialogService.Show<ProductImageEditDialog>("Modifier le commentaire de l'image", parameters, this.commonOptionDialog);
+            var dialog = DialogService.Show<ProductImageEditDialog>("Modifier le commentaire de l'image", parameters, this.CommonOptionDialog);
             var result = await dialog.Result;
 
             if (result.Cancelled) return;
@@ -65,7 +65,7 @@ namespace Client.Pages.ProductDetailPage
         {
             var parameters = new DialogParameters { ["ProductDetail"] = this.ProductDetail };
 
-            var dialog = DialogService.Show<ProductImageAddDialog>("Ajouter une photo", parameters, this.commonOptionDialog);
+            var dialog = DialogService.Show<ProductImageAddDialog>("Ajouter une photo", parameters, this.CommonOptionDialog);
             var result = await dialog.Result;
 
             if (result.Cancelled) return;
@@ -111,7 +111,7 @@ namespace Client.Pages.ProductDetailPage
         {
             var parameters = new DialogParameters { ["ProductDetail"] = this.ProductDetail };
 
-            var dialog = DialogService.Show<ProductEditDetailDialog>("Modifier les détails du produit", parameters, this.commonOptionDialog);
+            var dialog = DialogService.Show<ProductEditDetailDialog>("Modifier les détails du produit", parameters, this.CommonOptionDialog);
 
             var result = await dialog.Result;
             if (result.Cancelled) return;

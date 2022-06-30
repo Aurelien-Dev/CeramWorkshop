@@ -32,7 +32,7 @@ namespace Client.Pages.MaterialDetailPage
 
         private async Task AddMaterialDialog()
         {
-            var dialog = DialogService.Show<AddMaterialDialog>("Ajouter une nouvelle matière", this.commonOptionDialog);
+            var dialog = DialogService.Show<AddMaterialDialog>("Ajouter une nouvelle matière", this.CommonOptionDialog);
             var result = await dialog.Result;
 
             if (result.Cancelled) return;

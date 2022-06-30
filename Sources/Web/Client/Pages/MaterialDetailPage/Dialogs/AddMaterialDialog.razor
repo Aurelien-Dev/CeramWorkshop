@@ -1,0 +1,42 @@
+﻿@using Domain.Models
+
+<MudForm @ref="form" @bind-IsValid="@success" @bind-Errors="@errors">
+    <MudDialog>
+        <DialogContent>
+
+            <MudStack Row="true">
+                <MudTextField Label="Référence" Variant="Variant.Outlined" Class="mx-1"
+                              @bind-Value="Material.Reference" For="@(() => Material.Reference)" />
+                <MudTextField Label="Nom" Variant="Variant.Outlined" Class="mx-1"
+                              @bind-Value="Material.Name" For="@(() => Material.Name)" />
+            </MudStack>
+
+
+            <MudStack Class="mt-3">
+                <MudCheckBox @bind-Checked="Material.IsHomeMade" Label="Est produit sois même" Color="Color.Primary"></MudCheckBox>
+            </MudStack>
+
+            <MudStack>
+                <MudTextField Label="Prix" Variant="Variant.Outlined" Class="mx-1" Adornment="Adornment.End" AdornmentText="€"
+                              @bind-Value="Material.Cost" For="@(() => Material.Cost)" />
+                <MudTextField Label="Commentaire" Variant="Variant.Outlined" Class="mx-1" Lines=5
+                              @bind-Value="Material.Comment" For="@(() => Material.Comment)" />
+                <MudTextField Label="Lien du produit" Variant="Variant.Outlined" Class="mx-1"
+                              @bind-Value="Material.Link" For="@(() => Material.Link)" />
+
+                <MudSelect T="MaterialType" Label="Statut" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter"
+                           @bind-Value="Material.Type">
+                    @foreach (MaterialType item in Enum.GetValues(typeof(MaterialType)))
+                    {
+                        <MudSelectItem Value="@item">@item</MudSelectItem>
+                    }
+                </MudSelect>
+            </MudStack>
+
+        </DialogContent>
+        <DialogActions>
+            <MudButton OnClick="Cancel">Cancel</MudButton>
+            <MudButton Color="Color.Primary" OnClick="@(async () => await OnValidSubmit())">Ok</MudButton>
+        </DialogActions>
+    </MudDialog>
+</MudForm>

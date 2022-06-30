@@ -1,4 +1,6 @@
-﻿namespace Domain.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Domain.Models
 {
     public enum MaterialType
     {
@@ -9,9 +11,11 @@
     public class Material
     {
         public int Id { get; set; }
+        [Required]
         public string Reference { get; set; } = default!;
+        [Required]
         public string Name { get; set; } = default!;
-        public bool IsHomeMade { get; set; } = default!;
+        public bool? IsHomeMade { get; set; }
         public double? Cost { get; set; }
         public string? Comment { get; set; }
         public string? Link { get; set; }

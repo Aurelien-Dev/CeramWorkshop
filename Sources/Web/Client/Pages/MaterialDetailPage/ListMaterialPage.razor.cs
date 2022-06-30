@@ -1,4 +1,5 @@
-﻿using Client.Utils;
+﻿using Client.Pages.MaterialDetailPage.Dialogs;
+using Client.Utils;
 using Domain.Interfaces;
 using Domain.Models;
 using Microsoft.AspNetCore.Components;
@@ -14,6 +15,16 @@ namespace Client.Pages.MaterialDetailPage
         protected override async Task OnInitializedAsync()
         {
             Materials = await MaterialRepository.GetAll();
+        }
+
+        private async Task AddMaterialDialog()
+        {
+            var dialog = DialogService.Show<AddMaterialDialog>("Ajouter une nouvelle matière", this.commonOptionDialog);
+            var result = await dialog.Result;
+
+            if (result.Cancelled) return;
+
+            Materials.Add((Material)result.Data);
         }
     }
 }

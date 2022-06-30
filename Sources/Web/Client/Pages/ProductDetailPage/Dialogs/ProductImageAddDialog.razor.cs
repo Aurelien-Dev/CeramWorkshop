@@ -8,7 +8,7 @@ using Utils.Exception;
 
 namespace Client.Pages.ProductDetailPage.Dialogs
 {
-    public partial class ProductImageAdd
+    public partial class ProductImageAddDialog
     {
         [Inject] private IProductWork productWorker { get; set; } = default!;
         [CascadingParameter] MudDialogInstance MudDialog { get; set; } = default!;

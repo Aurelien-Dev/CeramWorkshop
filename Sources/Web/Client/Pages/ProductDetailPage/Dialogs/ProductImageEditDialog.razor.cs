@@ -6,7 +6,7 @@ using MudBlazor;
 
 namespace Client.Pages.ProductDetailPage.Dialogs
 {
-    public partial class ProductImageEdit
+    public partial class ProductImageEditDialog
     {
         [Inject] private IProductWork productWorker { get; set; } = default!;
         [CascadingParameter] MudDialogInstance MudDialog { get; set; } = default!;

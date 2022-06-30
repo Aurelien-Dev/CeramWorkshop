@@ -52,10 +52,9 @@ namespace Client.Pages.ProductDetailPage
         #region Image traitement
         private async Task OpenEditImageProductDialog()
         {
-            var options = new DialogOptions { CloseOnEscapeKey = true };
             var parameters = new DialogParameters { ["ProductDetail"] = this.ProductDetail, ["ImageInstruction"] = this.ProductDetail.ImageInstructions.ElementAt(CarouselSelectedIndex) };
 
-            var dialog = DialogService.Show<ProductImageEdit>("Modifier le commentaire de l'image", parameters, options);
+            var dialog = DialogService.Show<ProductImageEditDialog>("Modifier le commentaire de l'image", parameters, this.commonOptionDialog);
             var result = await dialog.Result;
 
             if (result.Cancelled) return;
@@ -65,10 +64,9 @@ namespace Client.Pages.ProductDetailPage
 
         private async Task OpenAddImageProductDialog()
         {
-            var options = new DialogOptions { CloseOnEscapeKey = true };
             var parameters = new DialogParameters { ["ProductDetail"] = this.ProductDetail };
 
-            var dialog = DialogService.Show<ProductImageAdd>("Ajouter une photo", parameters, options);
+            var dialog = DialogService.Show<ProductImageAddDialog>("Ajouter une photo", parameters, this.commonOptionDialog);
             var result = await dialog.Result;
 
             if (result.Cancelled) return;
@@ -112,10 +110,9 @@ namespace Client.Pages.ProductDetailPage
 
         private async Task OpenEditProductDialog()
         {
-            var options = new DialogOptions { CloseOnEscapeKey = true };
             var parameters = new DialogParameters { ["ProductDetail"] = this.ProductDetail };
 
-            var dialog = DialogService.Show<ProductEditDetail>("Modifier les détails du produit", parameters, options);
+            var dialog = DialogService.Show<ProductEditDetailDialog>("Modifier les détails du produit", parameters, this.commonOptionDialog);
 
             var result = await dialog.Result;
             if (result.Cancelled) return;

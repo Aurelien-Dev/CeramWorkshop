@@ -7,6 +7,7 @@ namespace Repository.Workers
     {
         private readonly ApplicationDbContext _context;
         public IProductRepository ProductRepository { get; }
+        public IMaterialRepository MaterialRepository { get; }
 
         /// <summary>
         /// Constructor
@@ -14,12 +15,11 @@ namespace Repository.Workers
         /// <param name="context">Db Context</param>
         /// <param name="productRepository">Product Repository</param>
         /// <param name="materialRepository">Material Repository</param>
-        /// <param name="firingRepository">Firing Repository</param>
-        /// <param name="accessoryRepository">Accessory Repository</param>
-        public ProductWork(ApplicationDbContext context, IProductRepository productRepository)
+        public ProductWork(ApplicationDbContext context, IProductRepository productRepository, IMaterialRepository materialRepository)
         {
             _context = context;
             ProductRepository = productRepository;
+            MaterialRepository = materialRepository;
         }
 
         public int Completed()

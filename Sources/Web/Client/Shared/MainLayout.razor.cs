@@ -20,7 +20,7 @@ namespace Client.Shared
             var options = new DialogOptions { CloseOnEscapeKey = true };
             var parameters = new DialogParameters { ["ProductDetail"] = new Product(), ["InsertMode"] = true };
 
-            var dialog = DialogService.Show<ProductEditDetail>("Nouveau produit", parameters, options);
+            var dialog = DialogService.Show<ProductEditDetailDialog>("Nouveau produit", parameters, options);
 
             var result = await dialog.Result;
 

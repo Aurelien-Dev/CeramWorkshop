@@ -21,13 +21,10 @@ namespace Client.Pages.ProductDetailPage
     {
         public int Id { get; set; }
         public string? Reference { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } = default!;
         public string Image { get; set; } = default!;
         public ProductStatus Status { get; set; }
         public string StatusText { get; set; } = string.Empty;
-
-
-        public ProductViewModel() { }
 
         public ProductViewModel(Product product)
         {

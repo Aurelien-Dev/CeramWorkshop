@@ -1,23 +1,37 @@
-﻿
+﻿@using Domain.Models
+@using Utils
+
+@inherits PageComponentBase
 
 <MudCard>
     <MudCardHeader>
         <MudText Typo="Typo.h5">Composition</MudText>
-        <MudSpacer />
-        <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Inherit" />
     </MudCardHeader>
     <MudCardContent>
-        <MudTable Class="mt-5" Items="@ProductDetail.ProductMaterial" Dense="true" Striped="true">
+        <MudTable Items="@ProductDetail.ProductMaterial" Dense="true" Striped="true">
             <HeaderContent>
                 <MudTh>Référence</MudTh>
                 <MudTh>Nom</MudTh>
+                <MudTh>Coût</MudTh>
+                <MudTh>Quantité</MudTh>
                 <MudTh>Type</MudTh>
             </HeaderContent>
             <RowTemplate>
                 <MudTd DataLabel="Référence">@context.Material.Reference</MudTd>
                 <MudTd DataLabel="Nom">@context.Material.Name</MudTd>
+                <MudTd DataLabel="Coût">
+                    <MudTextField Variant="Variant.Text" Adornment="Adornment.End" AdornmentText="€" AdornmentColor="Color.Info" Margin="Margin.Dense"
+                                  Style="width:75px; margin:0;" ValueChanged="@(async (e) => await CostChanged(e, context.Id))" T=double Value=@context.Cost />
+                </MudTd>
+                <MudTd DataLabel="Quantité">
+                    <MudTextField Variant="Variant.Text" Adornment="Adornment.End" AdornmentText="g" AdornmentColor="Color.Info" Margin="Margin.Dense"
+                                  Style="width:75px; margin:0;"  ValueChanged="@(async (e) => await QuantityChanged(e, context.Id))" T=double Value=@context.Quantity />
+                </MudTd>
                 <MudTd DataLabel="Type">@context.Material.Type</MudTd>
             </RowTemplate>
         </MudTable>
+        <MudAutocomplete @ref="AutocompleteBox" Class="ma-5" T="Material" Label="Mat." ToStringFunc="@(e=> e==null?null : e.Name)" SearchFunc="@Search1"
+                         ResetValueOnEmptyText="true" ValueChanged=SelectedValueChanged />
+
     </MudCardContent>
 </MudCard>

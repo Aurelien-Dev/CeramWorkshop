@@ -6,5 +6,6 @@ namespace Domain.Interfaces
     {
         Task<Product> GetLight(object id);
         Task<int> CountImage(int id);
+        Task UpdateProductMaterial(ProductMaterial productMaterial);
     }
 }

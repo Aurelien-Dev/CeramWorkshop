@@ -9,8 +9,8 @@ namespace Client.Pages.MaterialDetailPage.Dialogs
     {
         [Inject] private IProductWork productWorker { get; set; } = default!;
         [CascadingParameter] MudDialogInstance MudDialog { get; set; } = default!;
-        [Parameter] public Material Material { get; set; } = new();
-
+        [Parameter] public Material MaterialDetail { get; set; } = new();
+        [Parameter] public bool? InsertMode { get; set; } = new();
 
         MudForm form = new();
         bool success;
@@ -22,11 +22,15 @@ namespace Client.Pages.MaterialDetailPage.Dialogs
 
             if (form.IsValid)
             {
-                await productWorker.MaterialRepository.Add(Material);
+                if (InsertMode.HasValue && InsertMode.Value)
+                    await productWorker.MaterialRepository.Add(MaterialDetail);
+                else
+                    productWorker.MaterialRepository.Update(MaterialDetail);
+
                 productWorker.Completed();
 
                 StateHasChanged();
-                MudDialog.Close(DialogResult.Ok(Material));
+                MudDialog.Close(DialogResult.Ok(MaterialDetail));
             }
         }
 
@@ -34,6 +38,7 @@ namespace Client.Pages.MaterialDetailPage.Dialogs
         void Cancel()
         {
             productWorker.Rollback();
+            StateHasChanged();
             MudDialog.Cancel();
         }
     }

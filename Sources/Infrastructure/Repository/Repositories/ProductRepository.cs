@@ -11,6 +11,7 @@ namespace Repository.Repositories
 
         }
 
+        #region override
         public override async Task<Product> Get(object id)
         {
             return await _context.Products
@@ -21,6 +22,15 @@ namespace Repository.Repositories
                                  .FirstAsync();
         }
 
+        public override async Task<ICollection<Product>> GetAll()
+        {
+            return await _context.Products
+                                 .Include(p => p.ImageInstructions)
+                                 .ToListAsync();
+        } 
+        #endregion
+
+
         public async Task<Product> GetLight(object id)
         {
             return await _context.Products
@@ -28,16 +38,18 @@ namespace Repository.Repositories
                                  .FirstAsync();
         }
 
-        public override async Task<ICollection<Product>> GetAll()
-        {
-            return await _context.Products
-                                 .Include(p => p.ImageInstructions)
-                                 .ToListAsync();
-        }
-
         public async Task<int> CountImage(int id)
         {
             return await _context.ImageInstruction.Where(i => i.IdProduct == id).CountAsync();
+        }
+
+        public async Task UpdateProductMaterial(ProductMaterial productMaterial)
+        {
+            if (productMaterial == null) return;
+
+            ProductMaterial pMaterial = await _context.ProductMaterials.FindAsync(productMaterial.Id);
+            pMaterial = productMaterial;
+            _context.SaveChanges();
         }
     }
 }

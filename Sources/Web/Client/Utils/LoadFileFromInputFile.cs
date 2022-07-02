@@ -1,6 +1,7 @@
 ﻿using Common.Utils.Singletons;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using System.Diagnostics;
 
 namespace Client.Utils
 {
@@ -15,6 +16,8 @@ namespace Client.Utils
 
         public static void RemoveFileInput(string path)
         {
+            Debug.Assert(false, "Attention suppression en cours !");
+
             if (string.IsNullOrEmpty(path)) return;
 
             try

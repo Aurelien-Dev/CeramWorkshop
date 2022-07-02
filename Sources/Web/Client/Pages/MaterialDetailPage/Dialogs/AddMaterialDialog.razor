@@ -6,26 +6,26 @@
 
             <MudStack Row="true">
                 <MudTextField Label="Référence" Variant="Variant.Outlined" Class="mx-1"
-                              @bind-Value="Material.Reference" For="@(() => Material.Reference)" />
+                              @bind-Value="MaterialDetail.Reference" For="@(() => MaterialDetail.Reference)" />
                 <MudTextField Label="Nom" Variant="Variant.Outlined" Class="mx-1"
-                              @bind-Value="Material.Name" For="@(() => Material.Name)" />
+                              @bind-Value="MaterialDetail.Name" For="@(() => MaterialDetail.Name)" />
             </MudStack>
 
 
             <MudStack Class="mt-3">
-                <MudCheckBox @bind-Checked="Material.IsHomeMade" Label="Est produit sois même" Color="Color.Primary"></MudCheckBox>
+                <MudCheckBox @bind-Checked="MaterialDetail.IsHomeMade" Label="Est produit sois même" Color="Color.Primary"></MudCheckBox>
             </MudStack>
 
             <MudStack>
                 <MudTextField Label="Prix" Variant="Variant.Outlined" Class="mx-1" Adornment="Adornment.End" AdornmentText="€"
-                              @bind-Value="Material.Cost" For="@(() => Material.Cost)" />
+                              @bind-Value="MaterialDetail.Cost" For="@(() => MaterialDetail.Cost)" />
                 <MudTextField Label="Commentaire" Variant="Variant.Outlined" Class="mx-1" Lines=5
-                              @bind-Value="Material.Comment" For="@(() => Material.Comment)" />
+                              @bind-Value="MaterialDetail.Comment" For="@(() => MaterialDetail.Comment)" />
                 <MudTextField Label="Lien du produit" Variant="Variant.Outlined" Class="mx-1"
-                              @bind-Value="Material.Link" For="@(() => Material.Link)" />
+                              @bind-Value="MaterialDetail.Link" For="@(() => MaterialDetail.Link)" />
 
                 <MudSelect T="MaterialType" Label="Statut" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter"
-                           @bind-Value="Material.Type">
+                           @bind-Value="MaterialDetail.Type">
                     @foreach (MaterialType item in Enum.GetValues(typeof(MaterialType)))
                     {
                         <MudSelectItem Value="@item">@item</MudSelectItem>

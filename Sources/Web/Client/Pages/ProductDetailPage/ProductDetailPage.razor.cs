@@ -15,6 +15,7 @@ namespace Client.Pages.ProductDetailPage
 
         [NotNull] public Product ProductDetail { get; set; } = new();
         [NotNull] public Material MaterialDetail { get; set; } = new();
+        private ICollection<Material> Materials { get; set; } = default!;
 
 
         public ImageInstruction ImageInstruction { get; set; } = new();
@@ -44,6 +45,7 @@ namespace Client.Pages.ProductDetailPage
         private async Task LoadData(int id)
         {
             ProductDetail = await worker.ProductRepository.Get(id);
+            Materials = await worker.MaterialRepository.GetAll();
         }
 
 
@@ -56,7 +58,11 @@ namespace Client.Pages.ProductDetailPage
             var dialog = DialogService.Show<ProductImageEditDialog>("Modifier le commentaire de l'image", parameters, this.CommonOptionDialog);
             var result = await dialog.Result;
 
-            if (result.Cancelled) return;
+            if (result.Cancelled)
+            {
+                await LoadData(Id.Value);
+                return;
+            }
 
             RefreshCarouselInfo();
         }
@@ -114,7 +120,11 @@ namespace Client.Pages.ProductDetailPage
             var dialog = DialogService.Show<ProductEditDetailDialog>("Modifier les détails du produit", parameters, this.CommonOptionDialog);
 
             var result = await dialog.Result;
-            if (result.Cancelled) return;
+            if (result.Cancelled)
+            {
+                await LoadData(Id.Value);
+                return;
+            }
 
             StateHasChanged();
         }

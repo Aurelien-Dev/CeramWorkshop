@@ -16,9 +16,9 @@ namespace Client.Utils
 
         public static void RemoveFileInput(string path)
         {
-            Debug.Assert(false, "Attention suppression en cours !");
-
             if (string.IsNullOrEmpty(path)) return;
+
+            Debug.Assert(false, "Attention suppression en cours !");
 
             try
             {

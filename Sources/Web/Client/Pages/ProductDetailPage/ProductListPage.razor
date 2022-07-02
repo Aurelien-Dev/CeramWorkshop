@@ -11,11 +11,10 @@
                           Alt="Preview of product" />
                 </MudCardHeader>
                 <MudCardContent Style="height:100px;">
-                    <MudText Typo="Typo.body2" Class="pa-0 ma-0" Inline=true>#@item.Reference</MudText>
                     <MudText Typo="Typo.h6" Class="pa-0 ma-0" Inline=true>@item.Name</MudText>
+                    <MudText Typo="Typo.body2" Class="pa-0 ma-0" Inline=true>#@item.Reference</MudText>
 
                     <ProductStatusChip Status=@item.Status />
-
                 </MudCardContent>
                 <MudCardActions>
                     <MudStack AlignItems="AlignItems.End" Justify="Justify.FlexEnd">

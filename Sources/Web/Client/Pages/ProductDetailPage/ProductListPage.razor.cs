@@ -13,7 +13,7 @@ namespace Client.Pages.ProductDetailPage
         protected override async Task OnInitializedAsync()
         {
             IEnumerable<Product> Products = await unitOfWork.ProductRepository.GetAll();
-            ProductsVM = new List<ProductViewModel>(Products.Select(p => new ProductViewModel(p)).ToList());
+            ProductsVM = new List<ProductViewModel>(Products.Select(p => new ProductViewModel(p)).OrderBy(p => p.Name).ToList());
         }
     }
 
@@ -22,7 +22,7 @@ namespace Client.Pages.ProductDetailPage
         public int Id { get; set; }
         public string? Reference { get; set; }
         public string Name { get; set; }
-        public string Image { get; set; } 
+        public string Image { get; set; }
         public ProductStatus Status { get; set; }
 
         public ProductViewModel(Product product)

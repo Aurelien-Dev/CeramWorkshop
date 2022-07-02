@@ -30,7 +30,7 @@
                 <MudTd DataLabel="Type">@context.Material.Type</MudTd>
             </RowTemplate>
         </MudTable>
-        <MudAutocomplete @ref="AutocompleteBox" Class="ma-5" T="Material" Label="Mat." ToStringFunc="@(e=> e==null?null : e.Name)" SearchFunc="@Search1"
+        <MudAutocomplete @ref="AutocompleteBox" Class="ma-5" T="Material" Label="Mat." ToStringFunc="@(e=> e==null?null : $"{e.Reference} - {e.Name}")" SearchFunc="@Search1"
                          ResetValueOnEmptyText="true" ValueChanged=SelectedValueChanged />
 
     </MudCardContent>

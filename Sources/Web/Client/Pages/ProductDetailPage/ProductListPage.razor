@@ -1,6 +1,23 @@
 ﻿@page "/"
 @using Client.Components
 
+<MudPaper Elevation="0">
+    <MudToolBar Dense=true Class="mt-4" DisableGutters=true>
+        <MudSelect T="OrderingPage" Label="Trier par" Margin="Margin.Dense" ValueChanged="@((e) => RaiseOrdering(e))"
+                   MultiSelection=false>
+            @foreach (OrderingPage item in Enum.GetValues(typeof(OrderingPage)))
+            {
+                <MudSelectItem Value="@item">@item</MudSelectItem>
+            }
+        </MudSelect>
+
+        <MudSpacer />
+
+        <MudTextField ValueChanged="@((e) => RaisFilter(e))" T=string
+                      Clearable=true KeyUpPreventDefault=true Label="Recherche" Variant="Variant.Outlined" Adornment="Adornment.End" Margin="Margin.Dense"
+                      AdornmentIcon="@Icons.Filled.Search" AdornmentColor="Color.Secondary" />
+    </MudToolBar>
+</MudPaper>
 <MudGrid Class="mt-2">
     @foreach (var item in ProductsVM)
     {

@@ -33,7 +33,7 @@ namespace Client.Pages.ProductDetailPage
             StateHasChanged();
         }
 
-        public async Task CostChanged(double cost, int id)
+        public void CostChanged(double cost, int id)
         {
             ProductMaterial pmToUpdate = ProductDetail.ProductMaterial.FirstOrDefault(p => p.Id == id);
 
@@ -41,10 +41,10 @@ namespace Client.Pages.ProductDetailPage
             if (cost == pmToUpdate.Cost) return;
 
             pmToUpdate.Cost = cost;
-            await Worker.ProductRepository.UpdateProductMaterial(pmToUpdate);
+            Worker.ProductRepository.UpdateProductMaterial(pmToUpdate);
         }
 
-        public async Task QuantityChanged(double quantity, int id)
+        public void QuantityChanged(double quantity, int id)
         {
             ProductMaterial pmToUpdate = ProductDetail.ProductMaterial.FirstOrDefault(p => p.Id == id);
 
@@ -52,7 +52,7 @@ namespace Client.Pages.ProductDetailPage
             if (quantity == pmToUpdate.Quantity) return;
 
             pmToUpdate.Quantity = quantity;
-            await Worker.ProductRepository.UpdateProductMaterial(pmToUpdate);
+            Worker.ProductRepository.UpdateProductMaterial(pmToUpdate);
         }
 
         private async Task<IEnumerable<Material>> Search1(string value)

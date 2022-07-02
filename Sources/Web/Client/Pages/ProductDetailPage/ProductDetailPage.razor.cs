@@ -60,7 +60,8 @@ namespace Client.Pages.ProductDetailPage
 
             if (result.Cancelled)
             {
-                await LoadData(Id.Value);
+                if (Id.HasValue)
+                    await LoadData(Id.Value);
                 return;
             }
 
@@ -122,7 +123,8 @@ namespace Client.Pages.ProductDetailPage
             var result = await dialog.Result;
             if (result.Cancelled)
             {
-                await LoadData(Id.Value);
+                if (Id.HasValue)
+                    await LoadData(Id.Value);
                 return;
             }
 

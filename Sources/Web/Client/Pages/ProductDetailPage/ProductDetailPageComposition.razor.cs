@@ -44,14 +44,14 @@ namespace Client.Pages.ProductDetailPage
             await Worker.ProductRepository.UpdateProductMaterial(pmToUpdate);
         }
 
-        public async Task QuantityChanged(double cost, int id)
+        public async Task QuantityChanged(double quantity, int id)
         {
             ProductMaterial pmToUpdate = ProductDetail.ProductMaterial.FirstOrDefault(p => p.Id == id);
 
             if (pmToUpdate == null) return;
-            if (cost == pmToUpdate.Cost) return;
+            if (quantity == pmToUpdate.Quantity) return;
 
-            pmToUpdate.Cost = cost;
+            pmToUpdate.Quantity = quantity;
             await Worker.ProductRepository.UpdateProductMaterial(pmToUpdate);
         }
 

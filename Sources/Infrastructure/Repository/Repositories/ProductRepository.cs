@@ -27,7 +27,7 @@ namespace Repository.Repositories
             return await _context.Products
                                  .Include(p => p.ImageInstructions)
                                  .ToListAsync();
-        } 
+        }
         #endregion
 
 
@@ -43,11 +43,11 @@ namespace Repository.Repositories
             return await _context.ImageInstruction.Where(i => i.IdProduct == id).CountAsync();
         }
 
-        public async Task UpdateProductMaterial(ProductMaterial productMaterial)
+        public void UpdateProductMaterial(ProductMaterial productMaterial)
         {
             if (productMaterial == null) return;
 
-            ProductMaterial pMaterial = await _context.ProductMaterials.FindAsync(productMaterial.Id);
+            ProductMaterial pMaterial = _context.ProductMaterials.First(p => p.Id == productMaterial.Id);
             pMaterial = productMaterial;
             _context.SaveChanges();
         }

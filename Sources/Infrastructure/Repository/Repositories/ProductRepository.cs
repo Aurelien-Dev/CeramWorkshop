@@ -48,7 +48,10 @@ namespace Repository.Repositories
             if (productMaterial == null) return;
 
             ProductMaterial pMaterial = _context.ProductMaterials.First(p => p.Id == productMaterial.Id);
-            pMaterial = productMaterial;
+
+            pMaterial.Cost = productMaterial.Cost;
+            pMaterial.Quantity = productMaterial.Quantity;
+
             _context.SaveChanges();
         }
     }

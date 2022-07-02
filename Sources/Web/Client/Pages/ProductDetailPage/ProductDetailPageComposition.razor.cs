@@ -19,17 +19,14 @@ namespace Client.Pages.ProductDetailPage
         {
             if (mat == null) return;
 
-            var parameters = new DialogParameters { ["MaterialDetail"] = mat };
-
-            var dialog = DialogService.Show<ProductMaterialLinkDialog>("Add link", parameters, this.CommonOptionDialog);
-            var result = await dialog.Result;
-
             await AutocompleteBox.Clear();
 
-            if (result.Cancelled) return;
+            var pMat = new ProductMaterial() { Material = mat };
+            if (mat.Cost.HasValue) pMat.Cost = mat.Cost.Value;
 
-            ProductDetail.ProductMaterial.Add((ProductMaterial)result.Data);
+            ProductDetail.ProductMaterial.Add(pMat);
             Worker.Completed();
+            
             StateHasChanged();
         }
 

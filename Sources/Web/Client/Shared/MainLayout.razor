@@ -1,4 +1,5 @@
 ﻿@using Client.Utils
+@using Client.Services
 
 @inherits PageLayoutComponentBase
 
@@ -12,6 +13,7 @@
     <MudAppBar>
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
         <MudText>Ceram-Workshop</MudText>
+        <MudText>@AuthenticationServiceSingleton.LoginInfo.Workshop?.Name</MudText>
 
         <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Inherit" OnClick="NewProduct" />
 
@@ -21,7 +23,7 @@
             <MudMenu Icon="@Icons.Custom.Uncategorized.Radioactive" Color="Color.Dark" ActivationEvent="@MouseEvent.MouseOver" AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopRight"  >
                 <MudMenuItem>Profile</MudMenuItem>
                 <MudMenuItem>My account</MudMenuItem>
-                <MudMenuItem>Logout</MudMenuItem>
+                <MudMenuItem OnClick="@(() => AuthenticationServiceSingleton.Logout(authenticationprovider))">Logout</MudMenuItem>
             </MudMenu>
         </MudAvatar>
     </MudAppBar>

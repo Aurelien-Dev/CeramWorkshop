@@ -1,4 +1,6 @@
 using Common.Utils.Singletons;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.Server;
 using MudBlazor.Services;
 using Repository;
 
@@ -11,6 +13,19 @@ builder.Services.AddRepository();
 
 builder.Services.AddMudServices();
 
+#region Auth
+//builder.Services.AddRazorPages(options =>
+//{
+//    options.Conventions.AllowAnonymousToFolder("/Authentification");
+//    options.Conventions.AuthorizeFolder("/MaterialDetailPage");
+//    options.Conventions.AuthorizeFolder("/ProductDetailPage");
+//});
+builder.Services.AddScoped<IHostEnvironmentAuthenticationStateProvider>(sp =>
+{
+    return (ServerAuthenticationStateProvider)sp.GetRequiredService<AuthenticationStateProvider>();
+});
+
+#endregion
 var app = builder.Build();
 
 EnvironementSingleton.WebRootPath = app.Environment.WebRootPath;
@@ -29,6 +44,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/Layout/_Host");

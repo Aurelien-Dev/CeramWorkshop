@@ -1,5 +1,11 @@
-[![CircleCI](https://img.shields.io/circleci/build/gh/Aurelien-Dev/CeramWorkshop?style=flat)](https://app.circleci.com/dashboard)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Aurelien-Dev_CeramWorkshop&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Aurelien-Dev_CeramWorkshop)
+<a href="https://app.circleci.com/dashboard" target="_blank">
+<img src="https://img.shields.io/circleci/build/gh/Aurelien-Dev/CeramWorkshop?style=flat"/>
+</a>
+<a href="https://sonarcloud.io/summary/new_code?id=Aurelien-Dev_CeramWorkshop" target="_blank">
+<img src="https://sonarcloud.io/api/project_badges/measure?project=Aurelien-Dev_CeramWorkshop&metric=alert_status"/>
+</a>
+
+
 
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=Aurelien-Dev_CeramWorkshop&metric=bugs)](https://sonarcloud.io/summary/new_code?id=Aurelien-Dev_CeramWorkshop)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=Aurelien-Dev_CeramWorkshop&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=Aurelien-Dev_CeramWorkshop)

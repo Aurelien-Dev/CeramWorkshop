@@ -10,9 +10,9 @@ namespace Client.Pages.ProductDetailPage
     {
         [Inject] private IProductWork unitOfWork { get; set; } = default!;
 
-        public IEnumerable<Product> Products { get; set; }
+        public IEnumerable<Product> Products { get; set; } = new List<Product>();
         public IList<ProductViewModel> ProductsVM { get; set; } = new List<ProductViewModel>();
-        public string Search { get; set; }
+        public string Search { get; set; } = string.Empty;
         public OrderingPage SelectedOrder { get; set; } = OrderingPage.NameAsc;
 
         protected override async Task OnInitializedAsync()

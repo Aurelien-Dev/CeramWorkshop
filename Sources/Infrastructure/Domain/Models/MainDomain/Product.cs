@@ -1,7 +1,7 @@
 ﻿using Domain.Models.WorkshopDomaine;
 using System.ComponentModel.DataAnnotations;
 
-namespace Domain.Models
+namespace Domain.Models.MainDomain
 {
     public enum ProductStatus { None = 0, Test = 1, Abandoned = 2, Production = 3, Discontinued = 4 }
 

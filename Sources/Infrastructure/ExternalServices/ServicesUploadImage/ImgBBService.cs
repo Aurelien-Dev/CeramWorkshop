@@ -1,4 +1,4 @@
-﻿using Domain.Models;
+﻿using Domain.Models.MainDomain;
 using ExternalServices.ServicesUploadImage.Model;
 using Microsoft.Extensions.Configuration;
 using RestSharp;

@@ -1,6 +1,6 @@
 ﻿using Client.Utils;
 using Domain.InterfacesWorker;
-using Domain.Models;
+using Domain.Models.MainDomain;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using MudBlazor;

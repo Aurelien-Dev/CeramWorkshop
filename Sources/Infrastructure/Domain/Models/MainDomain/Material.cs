@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Domain.Models
+namespace Domain.Models.MainDomain
 {
     public enum MaterialType { Email = 0, Argile = 1, Engobe = 2, }
 

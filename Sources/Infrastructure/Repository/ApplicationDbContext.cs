@@ -1,5 +1,5 @@
 ﻿using Common.Utils.Singletons;
-using Domain.Models;
+using Domain.Models.MainDomain;
 using Microsoft.EntityFrameworkCore;
 using Repository.Maps;
 

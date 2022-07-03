@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Domain.Models
+namespace Domain.Models.MainDomain
 {
     public enum Location { Server, ImgBB }
     public class ImageInstruction

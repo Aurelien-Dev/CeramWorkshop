@@ -1,7 +1,7 @@
 ﻿using Client.Pages.MaterialDetailPage.Dialogs;
 using Client.Utils;
 using Domain.InterfacesWorker;
-using Domain.Models;
+using Domain.Models.MainDomain;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Domain.Models.MainDomain;
+using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Models.WorkshopDomaine
 {

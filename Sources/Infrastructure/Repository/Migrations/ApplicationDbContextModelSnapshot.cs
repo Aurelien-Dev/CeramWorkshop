@@ -22,7 +22,7 @@ namespace Repository.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Domain.Models.Accessory", b =>
+            modelBuilder.Entity("Domain.Models.MainDomain.Accessory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -42,7 +42,7 @@ namespace Repository.Migrations
                     b.ToTable("Accessories");
                 });
 
-            modelBuilder.Entity("Domain.Models.Firing", b =>
+            modelBuilder.Entity("Domain.Models.MainDomain.Firing", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -65,7 +65,7 @@ namespace Repository.Migrations
                     b.ToTable("Firings");
                 });
 
-            modelBuilder.Entity("Domain.Models.ImageInstruction", b =>
+            modelBuilder.Entity("Domain.Models.MainDomain.ImageInstruction", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -102,7 +102,7 @@ namespace Repository.Migrations
                     b.ToTable("ImageInstruction");
                 });
 
-            modelBuilder.Entity("Domain.Models.Material", b =>
+            modelBuilder.Entity("Domain.Models.MainDomain.Material", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -138,7 +138,7 @@ namespace Repository.Migrations
                     b.ToTable("Materials");
                 });
 
-            modelBuilder.Entity("Domain.Models.Product", b =>
+            modelBuilder.Entity("Domain.Models.MainDomain.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -182,7 +182,7 @@ namespace Repository.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Domain.Models.ProductAccessory", b =>
+            modelBuilder.Entity("Domain.Models.MainDomain.ProductAccessory", b =>
                 {
                     b.Property<int>("IdProduct")
                         .HasColumnType("integer");
@@ -200,7 +200,7 @@ namespace Repository.Migrations
                     b.ToTable("ProductAccessories");
                 });
 
-            modelBuilder.Entity("Domain.Models.ProductFiring", b =>
+            modelBuilder.Entity("Domain.Models.MainDomain.ProductFiring", b =>
                 {
                     b.Property<int>("IdProduct")
                         .HasColumnType("integer");
@@ -221,7 +221,7 @@ namespace Repository.Migrations
                     b.ToTable("ProductFirings");
                 });
 
-            modelBuilder.Entity("Domain.Models.ProductMaterial", b =>
+            modelBuilder.Entity("Domain.Models.MainDomain.ProductMaterial", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -311,9 +311,9 @@ namespace Repository.Migrations
                     b.ToTable("WorkshopParameter");
                 });
 
-            modelBuilder.Entity("Domain.Models.ImageInstruction", b =>
+            modelBuilder.Entity("Domain.Models.MainDomain.ImageInstruction", b =>
                 {
-                    b.HasOne("Domain.Models.Product", "ProductAssociate")
+                    b.HasOne("Domain.Models.MainDomain.Product", "ProductAssociate")
                         .WithMany("ImageInstructions")
                         .HasForeignKey("IdProduct")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -322,7 +322,7 @@ namespace Repository.Migrations
                     b.Navigation("ProductAssociate");
                 });
 
-            modelBuilder.Entity("Domain.Models.Product", b =>
+            modelBuilder.Entity("Domain.Models.MainDomain.Product", b =>
                 {
                     b.HasOne("Domain.Models.WorkshopDomaine.Workshop", "Workshop")
                         .WithMany("Products")
@@ -333,15 +333,15 @@ namespace Repository.Migrations
                     b.Navigation("Workshop");
                 });
 
-            modelBuilder.Entity("Domain.Models.ProductAccessory", b =>
+            modelBuilder.Entity("Domain.Models.MainDomain.ProductAccessory", b =>
                 {
-                    b.HasOne("Domain.Models.Accessory", "Accessory")
+                    b.HasOne("Domain.Models.MainDomain.Accessory", "Accessory")
                         .WithMany("ProductAccessory")
                         .HasForeignKey("IdAccessory")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Models.Product", "Product")
+                    b.HasOne("Domain.Models.MainDomain.Product", "Product")
                         .WithMany("ProductAccessory")
                         .HasForeignKey("IdProduct")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -352,15 +352,15 @@ namespace Repository.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Domain.Models.ProductFiring", b =>
+            modelBuilder.Entity("Domain.Models.MainDomain.ProductFiring", b =>
                 {
-                    b.HasOne("Domain.Models.Firing", "Firing")
+                    b.HasOne("Domain.Models.MainDomain.Firing", "Firing")
                         .WithMany("ProductFiring")
                         .HasForeignKey("IdFiring")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Models.Product", "Product")
+                    b.HasOne("Domain.Models.MainDomain.Product", "Product")
                         .WithMany("ProductFiring")
                         .HasForeignKey("IdProduct")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -371,15 +371,15 @@ namespace Repository.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Domain.Models.ProductMaterial", b =>
+            modelBuilder.Entity("Domain.Models.MainDomain.ProductMaterial", b =>
                 {
-                    b.HasOne("Domain.Models.Material", "Material")
+                    b.HasOne("Domain.Models.MainDomain.Material", "Material")
                         .WithMany("ProductMaterial")
                         .HasForeignKey("IdMaterial")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Models.Product", "Product")
+                    b.HasOne("Domain.Models.MainDomain.Product", "Product")
                         .WithMany("ProductMaterial")
                         .HasForeignKey("IdProduct")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -401,22 +401,22 @@ namespace Repository.Migrations
                     b.Navigation("Worksĥop");
                 });
 
-            modelBuilder.Entity("Domain.Models.Accessory", b =>
+            modelBuilder.Entity("Domain.Models.MainDomain.Accessory", b =>
                 {
                     b.Navigation("ProductAccessory");
                 });
 
-            modelBuilder.Entity("Domain.Models.Firing", b =>
+            modelBuilder.Entity("Domain.Models.MainDomain.Firing", b =>
                 {
                     b.Navigation("ProductFiring");
                 });
 
-            modelBuilder.Entity("Domain.Models.Material", b =>
+            modelBuilder.Entity("Domain.Models.MainDomain.Material", b =>
                 {
                     b.Navigation("ProductMaterial");
                 });
 
-            modelBuilder.Entity("Domain.Models.Product", b =>
+            modelBuilder.Entity("Domain.Models.MainDomain.Product", b =>
                 {
                     b.Navigation("ImageInstructions");
 

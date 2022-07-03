@@ -12,8 +12,8 @@ using Repository;
 namespace Repository.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220426190506_DeleteMarginrageInProduct")]
-    partial class DeleteMarginrageInProduct
+    [Migration("20220703124846_InitialDB")]
+    partial class InitialDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,7 +24,7 @@ namespace Repository.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Domain.Models.Accessory", b =>
+            modelBuilder.Entity("Domain.Models.MainDomain.Accessory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -44,7 +44,7 @@ namespace Repository.Migrations
                     b.ToTable("Accessories");
                 });
 
-            modelBuilder.Entity("Domain.Models.Firing", b =>
+            modelBuilder.Entity("Domain.Models.MainDomain.Firing", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -67,7 +67,7 @@ namespace Repository.Migrations
                     b.ToTable("Firings");
                 });
 
-            modelBuilder.Entity("Domain.Models.ImageInstruction", b =>
+            modelBuilder.Entity("Domain.Models.MainDomain.ImageInstruction", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -104,7 +104,7 @@ namespace Repository.Migrations
                     b.ToTable("ImageInstruction");
                 });
 
-            modelBuilder.Entity("Domain.Models.Material", b =>
+            modelBuilder.Entity("Domain.Models.MainDomain.Material", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -118,10 +118,14 @@ namespace Repository.Migrations
                     b.Property<double?>("Cost")
                         .HasColumnType("double precision");
 
-                    b.Property<bool>("IsCommercial")
+                    b.Property<bool?>("IsHomeMade")
                         .HasColumnType("boolean");
 
                     b.Property<string>("Link")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Reference")
@@ -136,7 +140,7 @@ namespace Repository.Migrations
                     b.ToTable("Materials");
                 });
 
-            modelBuilder.Entity("Domain.Models.Product", b =>
+            modelBuilder.Entity("Domain.Models.MainDomain.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -156,6 +160,9 @@ namespace Repository.Migrations
                     b.Property<double?>("Height")
                         .HasColumnType("double precision");
 
+                    b.Property<int>("IdWorkshop")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
@@ -164,7 +171,7 @@ namespace Repository.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("Status")
+                    b.Property<int>("Status")
                         .HasColumnType("integer");
 
                     b.Property<double?>("TopDiameter")
@@ -172,10 +179,12 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("IdWorkshop");
+
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Domain.Models.ProductAccessory", b =>
+            modelBuilder.Entity("Domain.Models.MainDomain.ProductAccessory", b =>
                 {
                     b.Property<int>("IdProduct")
                         .HasColumnType("integer");
@@ -193,7 +202,7 @@ namespace Repository.Migrations
                     b.ToTable("ProductAccessories");
                 });
 
-            modelBuilder.Entity("Domain.Models.ProductFiring", b =>
+            modelBuilder.Entity("Domain.Models.MainDomain.ProductFiring", b =>
                 {
                     b.Property<int>("IdProduct")
                         .HasColumnType("integer");
@@ -214,31 +223,100 @@ namespace Repository.Migrations
                     b.ToTable("ProductFirings");
                 });
 
-            modelBuilder.Entity("Domain.Models.ProductMaterial", b =>
+            modelBuilder.Entity("Domain.Models.MainDomain.ProductMaterial", b =>
                 {
-                    b.Property<int>("IdProduct")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    b.Property<int>("IdMaterial")
-                        .HasColumnType("integer");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<double>("Cost")
                         .HasColumnType("double precision");
 
+                    b.Property<int>("IdMaterial")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("IdProduct")
+                        .HasColumnType("integer");
+
                     b.Property<double>("Quantity")
                         .HasColumnType("double precision");
 
-                    b.HasKey("IdProduct", "IdMaterial");
+                    b.HasKey("Id");
 
                     b.HasIndex("IdMaterial");
+
+                    b.HasIndex("IdProduct");
 
                     b.ToTable("ProductMaterials");
                 });
 
-            modelBuilder.Entity("Domain.Models.ImageInstruction", b =>
+            modelBuilder.Entity("Domain.Models.WorkshopDomaine.Workshop", b =>
                 {
-                    b.HasOne("Domain.Models.Product", "ProductAssociate")
-                        .WithMany("ProductImageInstruction")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Logo")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Workshop");
+                });
+
+            modelBuilder.Entity("Domain.Models.WorkshopDomaine.WorkshopParameter", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("IdWorkshop")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Key")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("WorksĥopId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WorksĥopId");
+
+                    b.ToTable("WorkshopParameter");
+                });
+
+            modelBuilder.Entity("Domain.Models.MainDomain.ImageInstruction", b =>
+                {
+                    b.HasOne("Domain.Models.MainDomain.Product", "ProductAssociate")
+                        .WithMany("ImageInstructions")
                         .HasForeignKey("IdProduct")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -246,15 +324,26 @@ namespace Repository.Migrations
                     b.Navigation("ProductAssociate");
                 });
 
-            modelBuilder.Entity("Domain.Models.ProductAccessory", b =>
+            modelBuilder.Entity("Domain.Models.MainDomain.Product", b =>
                 {
-                    b.HasOne("Domain.Models.Accessory", "Accessory")
+                    b.HasOne("Domain.Models.WorkshopDomaine.Workshop", "Workshop")
+                        .WithMany("Products")
+                        .HasForeignKey("IdWorkshop")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Workshop");
+                });
+
+            modelBuilder.Entity("Domain.Models.MainDomain.ProductAccessory", b =>
+                {
+                    b.HasOne("Domain.Models.MainDomain.Accessory", "Accessory")
                         .WithMany("ProductAccessory")
                         .HasForeignKey("IdAccessory")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Models.Product", "Product")
+                    b.HasOne("Domain.Models.MainDomain.Product", "Product")
                         .WithMany("ProductAccessory")
                         .HasForeignKey("IdProduct")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -265,15 +354,15 @@ namespace Repository.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Domain.Models.ProductFiring", b =>
+            modelBuilder.Entity("Domain.Models.MainDomain.ProductFiring", b =>
                 {
-                    b.HasOne("Domain.Models.Firing", "Firing")
+                    b.HasOne("Domain.Models.MainDomain.Firing", "Firing")
                         .WithMany("ProductFiring")
                         .HasForeignKey("IdFiring")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Models.Product", "Product")
+                    b.HasOne("Domain.Models.MainDomain.Product", "Product")
                         .WithMany("ProductFiring")
                         .HasForeignKey("IdProduct")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -284,15 +373,15 @@ namespace Repository.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Domain.Models.ProductMaterial", b =>
+            modelBuilder.Entity("Domain.Models.MainDomain.ProductMaterial", b =>
                 {
-                    b.HasOne("Domain.Models.Material", "Material")
+                    b.HasOne("Domain.Models.MainDomain.Material", "Material")
                         .WithMany("ProductMaterial")
                         .HasForeignKey("IdMaterial")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Models.Product", "Product")
+                    b.HasOne("Domain.Models.MainDomain.Product", "Product")
                         .WithMany("ProductMaterial")
                         .HasForeignKey("IdProduct")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -303,30 +392,48 @@ namespace Repository.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Domain.Models.Accessory", b =>
+            modelBuilder.Entity("Domain.Models.WorkshopDomaine.WorkshopParameter", b =>
+                {
+                    b.HasOne("Domain.Models.WorkshopDomaine.Workshop", "Worksĥop")
+                        .WithMany("WorkshopParameters")
+                        .HasForeignKey("WorksĥopId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Worksĥop");
+                });
+
+            modelBuilder.Entity("Domain.Models.MainDomain.Accessory", b =>
                 {
                     b.Navigation("ProductAccessory");
                 });
 
-            modelBuilder.Entity("Domain.Models.Firing", b =>
+            modelBuilder.Entity("Domain.Models.MainDomain.Firing", b =>
                 {
                     b.Navigation("ProductFiring");
                 });
 
-            modelBuilder.Entity("Domain.Models.Material", b =>
+            modelBuilder.Entity("Domain.Models.MainDomain.Material", b =>
                 {
                     b.Navigation("ProductMaterial");
                 });
 
-            modelBuilder.Entity("Domain.Models.Product", b =>
+            modelBuilder.Entity("Domain.Models.MainDomain.Product", b =>
                 {
+                    b.Navigation("ImageInstructions");
+
                     b.Navigation("ProductAccessory");
 
                     b.Navigation("ProductFiring");
 
-                    b.Navigation("ProductImageInstruction");
-
                     b.Navigation("ProductMaterial");
+                });
+
+            modelBuilder.Entity("Domain.Models.WorkshopDomaine.Workshop", b =>
+                {
+                    b.Navigation("Products");
+
+                    b.Navigation("WorkshopParameters");
                 });
 #pragma warning restore 612, 618
         }

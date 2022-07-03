@@ -1,7 +1,6 @@
 using Domain.InterfacesWorker;
 using Domain.Models;
 using Microsoft.AspNetCore.Components;
-using System.Linq.Expressions;
 
 namespace Client.Pages.ProductDetailPage
 {

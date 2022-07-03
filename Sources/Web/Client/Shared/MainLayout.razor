@@ -13,9 +13,17 @@
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
         <MudText>Ceram-Workshop</MudText>
 
+        <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Inherit" OnClick="NewProduct" />
+
         <MudSpacer />
 
-        <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Inherit" OnClick="NewProduct" />
+        <MudAvatar Color="Color.Warning" Variant="Variant.Filled" >
+            <MudMenu Icon="@Icons.Custom.Uncategorized.Radioactive" Color="Color.Dark" ActivationEvent="@MouseEvent.MouseOver" AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopRight"  >
+                <MudMenuItem>Profile</MudMenuItem>
+                <MudMenuItem>My account</MudMenuItem>
+                <MudMenuItem>Logout</MudMenuItem>
+            </MudMenu>
+        </MudAvatar>
     </MudAppBar>
 
     <MudDrawer @bind-Open="@_drawerOpen" ClipMode="DrawerClipMode.Always">

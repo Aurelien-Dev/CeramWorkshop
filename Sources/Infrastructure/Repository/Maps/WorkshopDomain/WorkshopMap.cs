@@ -1,13 +1,14 @@
 ﻿using Domain.Models;
+using Domain.Models.WorkshopDomaine;
 using Microsoft.EntityFrameworkCore;
 
 namespace Repository.Maps
 {
-    public static class ProductMap
+    public static class WorkshopMap
     {
         public static void Build(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Product>().HasKey(p => p.Id);
+            modelBuilder.Entity<Workshop>().HasKey(p => p.Id);
         }
     }
 }

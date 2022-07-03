@@ -9,7 +9,7 @@ namespace Client.Pages.ProductDetailPage.Dialogs
     {
         [Inject] private IProductWork productWorker { get; set; } = default!;
         [CascadingParameter] MudDialogInstance MudDialog { get; set; } = default!;
-        [Parameter] public Product ProductDetail { get; set; } = new();
+        [Parameter] public Product ProductDetail { get; set; } = default!;
         [Parameter] public bool? InsertMode { get; set; } = new();
 
         MudForm form = new();

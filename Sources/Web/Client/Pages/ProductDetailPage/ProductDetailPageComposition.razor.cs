@@ -20,12 +20,11 @@ namespace Client.Pages.ProductDetailPage
 
             await AutocompleteBox.Clear();
 
-            var pMat = new ProductMaterial() { Material = mat };
-            if (mat.Cost.HasValue) pMat.Cost = mat.Cost.Value;
+            var pMat = new ProductMaterial(mat.Id, ProductDetail.Id, 0, mat.Cost) { Material = mat };
 
             ProductDetail.ProductMaterial.Add(pMat);
             Worker.Completed();
-            
+
             StateHasChanged();
         }
 

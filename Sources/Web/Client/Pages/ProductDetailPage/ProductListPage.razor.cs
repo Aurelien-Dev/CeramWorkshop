@@ -71,7 +71,7 @@ namespace Client.Pages.ProductDetailPage
             ProductsVM = ex.Select(p => new ProductViewModel(p)).ToList();
         }
 
-        private IQueryable<Product> Filterproducts(IQueryable<Product> query, string value)
+        private static IQueryable<Product> Filterproducts(IQueryable<Product> query, string value)
         {
             if (string.IsNullOrEmpty(value)) return query;
 

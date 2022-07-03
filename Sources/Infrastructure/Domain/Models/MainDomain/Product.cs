@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Domain.Models.WorkshopDomaine;
+using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Models
 {
@@ -6,19 +7,17 @@ namespace Domain.Models
 
     public class Product
     {
-        public Product() { }
-
-        public Product(string name)
-        {
-            Name = name;
-        }
-
         [Required]
         public int Id { get; set; }
+
         [Required]
-        public string Reference { get; set; } = default!;
+        public int IdWorkshop { get; set; }
+
         [Required]
-        public string Name { get; set; } = default!;
+        public string Reference { get; set; }
+
+        [Required]
+        public string Name { get; set; }
         public string? Description { get; set; }
         public double? Height { get; set; }
         public double? TopDiameter { get; set; }
@@ -30,5 +29,18 @@ namespace Domain.Models
         public ICollection<ProductMaterial> ProductMaterial { get; set; } = new List<ProductMaterial>();
         public ICollection<ProductFiring> ProductFiring { get; set; } = new List<ProductFiring>();
         public ICollection<ProductAccessory> ProductAccessory { get; set; } = new List<ProductAccessory>();
+        public Workshop Workshop { get; set; } = new();
+
+        public Product()
+        {
+            Name = string.Empty;
+            Reference = string.Empty;
+        }
+
+        public Product(string name, string reference)
+        {
+            Name = name;
+            Reference = reference;
+        }
     }
 }

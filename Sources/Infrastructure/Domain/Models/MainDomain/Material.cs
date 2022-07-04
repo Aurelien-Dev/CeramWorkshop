@@ -28,11 +28,7 @@ namespace Domain.Models.MainDomain
 
         public ICollection<ProductMaterial> ProductMaterial { get; set; } = new List<ProductMaterial>();
 
-        public Material()
-        {
-            Reference = string.Empty;
-            Name = string.Empty;
-        }
+        public Material() { }
 
         public Material(string reference, string name)
         {

@@ -1,3 +1,4 @@
+using Client.Services;
 using Domain.InterfacesWorker;
 using Domain.Models.MainDomain;
 using Microsoft.AspNetCore.Authorization;
@@ -19,7 +20,7 @@ namespace Client.Pages.ProductDetailPage
 
         protected override async Task OnInitializedAsync()
         {
-            Products = await unitOfWork.ProductRepository.GetAll();
+            Products = await unitOfWork.ProductRepository.GetAll(AuthenticationServiceSingleton.LoginInfo.Workshop.Id);
             ProductsVM = new List<ProductViewModel>(Products.Select(p => new ProductViewModel(p)).OrderBy(p => p.Name).ToList());
         }
 
@@ -92,7 +93,7 @@ namespace Client.Pages.ProductDetailPage
 
         public ProductViewModel(Product product)
         {
-            Id = product.Id;
+            Id = product.Id.Value;
             Reference = product.Reference;
             Name = product.Name;
             Status = product.Status;

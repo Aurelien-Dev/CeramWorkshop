@@ -12,10 +12,13 @@ namespace Domain.Models.WorkshopDomaine
         public string Email { get; set; }
 
         [Required]
-        public string UserName{ get; set; }
+        public string UserName { get; set; }
 
         [Required]
-        public string Password { get; set; }
+        public string PasswordHash { get; set; }
+
+        [Required]
+        public byte[] Salt { get; set; }
 
         [Required]
         public string Name { get; set; }
@@ -26,23 +29,16 @@ namespace Domain.Models.WorkshopDomaine
         public ICollection<Product> Products { get; set; } = new List<Product>();
         public ICollection<WorkshopParameter> WorkshopParameters { get; set; } = new List<WorkshopParameter>();
 
+        public Workshop() { }
 
-        public Workshop()
-        {
-            Name = string.Empty;
-            Logo = string.Empty;
-            Email = string.Empty;
-            UserName = string.Empty;
-            Password = string.Empty;
-        }
-
-        public Workshop(string name, string? logo, string email, string userName, string password)
+        public Workshop(string name, string? logo, string email, string userName, string password, byte[] salt)
         {
             Name = name;
             Logo = logo;
             Email = email;
             UserName = userName;
-            Password = password;
+            PasswordHash = password;
+            Salt = salt;
         }
     }
 }

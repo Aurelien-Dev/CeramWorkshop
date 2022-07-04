@@ -2,7 +2,7 @@
 
 namespace Domain.Interfaces
 {
-    public interface IMaterialRepository : IGenericRepository<Material>
+    public interface IMaterialRepository : IGenericRepository<Material, int>
     {
     }
 }

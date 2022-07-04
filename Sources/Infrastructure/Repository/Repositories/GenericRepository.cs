@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Repository.Repositories
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : class
+    public class GenericRepository<T, TId> : IGenericRepository<T, TId> where T : class
     {
         protected readonly ApplicationDbContext _context;
 
@@ -12,7 +12,7 @@ namespace Repository.Repositories
             _context = context;
         }
 
-        public virtual async Task<T> Get(object id) => await _context.Set<T>().FindAsync(id);
+        public virtual async Task<T> Get(TId id) => await _context.Set<T>().FindAsync(id);
 
         public virtual async Task<ICollection<T>> GetAll() => await _context.Set<T>().ToListAsync();
 

@@ -269,9 +269,13 @@ namespace Repository.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Password")
+                    b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<byte[]>("Salt")
+                        .IsRequired()
+                        .HasColumnType("bytea");
 
                     b.Property<string>("UserName")
                         .IsRequired()
@@ -279,7 +283,7 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Workshop", (string)null);
+                    b.ToTable("Workshops", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.WorkshopDomaine.WorkshopParameter", b =>
@@ -308,7 +312,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("WorksĥopId");
 
-                    b.ToTable("WorkshopParameter", (string)null);
+                    b.ToTable("WorkshopParameters", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.MainDomain.ImageInstruction", b =>

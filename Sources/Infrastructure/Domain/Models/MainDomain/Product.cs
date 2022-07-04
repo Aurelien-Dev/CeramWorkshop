@@ -8,7 +8,7 @@ namespace Domain.Models.MainDomain
     public class Product
     {
         [Required]
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         [Required]
         public int IdWorkshop { get; set; }
@@ -29,13 +29,9 @@ namespace Domain.Models.MainDomain
         public ICollection<ProductMaterial> ProductMaterial { get; set; } = new List<ProductMaterial>();
         public ICollection<ProductFiring> ProductFiring { get; set; } = new List<ProductFiring>();
         public ICollection<ProductAccessory> ProductAccessory { get; set; } = new List<ProductAccessory>();
-        public Workshop Workshop { get; set; } = new();
+        public Workshop Workshop { get; set; } = default!;
 
-        public Product()
-        {
-            Name = string.Empty;
-            Reference = string.Empty;
-        }
+        public Product() { }
 
         public Product(string name, string reference)
         {

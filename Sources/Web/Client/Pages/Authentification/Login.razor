@@ -4,7 +4,7 @@
 @layout LayoutLogin
 @inherits CustomLayoutComponentBase
 
-<MudForm @ref="form" @bind-IsValid="@success" @bind-Errors="@errors">
+<MudForm @ref="form" @bind-IsValid="@success">
     <MudStack Spacing=5 Justify="Justify.Center" Row=true>
         <MudButton Variant="Variant.Filled" Style="background-color: yellowgreen; color: white; width: 300px; height: 60px;"
                    OnClick=@(() => NavigationManager.NavigateTo("/register"))>
@@ -14,11 +14,11 @@
     <MudDivider Class="ma-10" />
     <MudStack Spacing=5>
         <MudTextField InputType="InputType.Email" Label="Email" FullWidth=true
-                      @bind-Value="WorkshopDetail.Email" For="@(() => WorkshopDetail.Email)" />
+                      @bind-Value="LoginInfo.Email" For="@(() => LoginInfo.Email)" />
 
         <MudTextField InputType="InputType.Password" Label="Mot de passe" FullWidth=true
-                      @bind-Value="WorkshopDetail.Password" For="@(() => WorkshopDetail.Password)" />
-
+                      @bind-Value="LoginInfo.Password" For="@(() => LoginInfo.Password)" />
+        <MudText Color="@Color.Error">@authError</MudText>
         <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Primary" OnClick="Authenticate">Login</MudButton>
     </MudStack>
 </MudForm>

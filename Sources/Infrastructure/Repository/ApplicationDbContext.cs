@@ -1,5 +1,6 @@
 ﻿using Common.Utils.Singletons;
 using Domain.Models.MainDomain;
+using Domain.Models.WorkshopDomaine;
 using Microsoft.EntityFrameworkCore;
 using Repository.Maps;
 
@@ -17,6 +18,9 @@ namespace Repository
         public DbSet<ProductMaterial> ProductMaterials { get; set; } = default!;
         public DbSet<ProductFiring> ProductFirings { get; set; } = default!;
         public DbSet<ProductAccessory> ProductAccessories { get; set; } = default!;
+
+        public DbSet<Workshop> Workshops { get; set; } = default!;
+        public DbSet<WorkshopParameter> WorkshopParameters { get; set; } = default!;
 
         public ApplicationDbContext() { }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }

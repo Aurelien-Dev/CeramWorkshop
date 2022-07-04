@@ -1,4 +1,5 @@
-﻿using Domain.InterfacesWorker;
+﻿using Client.Services;
+using Domain.InterfacesWorker;
 using Domain.Models.MainDomain;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
@@ -23,7 +24,7 @@ namespace Client.Pages.ProductDetailPage.Dialogs
 
             if (form.IsValid)
             {
-                ProductDetail.IdWorkshop = 0;
+                ProductDetail.IdWorkshop = AuthenticationServiceSingleton.LoginInfo.Workshop.Id;
                 if (InsertMode.HasValue && InsertMode.Value)
                     await productWorker.ProductRepository.Add(ProductDetail);
                 else
@@ -32,7 +33,7 @@ namespace Client.Pages.ProductDetailPage.Dialogs
                 StateHasChanged();
                 productWorker.Completed();
 
-                MudDialog.Close(DialogResult.Ok<int>(ProductDetail.Id));
+                MudDialog.Close(DialogResult.Ok<int>(ProductDetail.Id.Value));
             }
         }
 

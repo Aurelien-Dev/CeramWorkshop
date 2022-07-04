@@ -27,10 +27,7 @@ namespace Domain.Models.MainDomain
 
         public Product? ProductAssociate { get; set; }
 
-        public ImageInstruction()
-        {
-            Url = string.Empty;
-        }
+        public ImageInstruction() { }
 
         public ImageInstruction(string url, string thumbUrl, string mediumUrl)
         {

@@ -16,7 +16,7 @@ namespace Domain.Models.WorkshopDomaine
         [Required]
         public string Value { get; set; }
 
-        public Workshop Worksĥop { get; set; } = new();
+        public Workshop Worksĥop { get; set; } = default!;
 
         public WorkshopParameter()
         {

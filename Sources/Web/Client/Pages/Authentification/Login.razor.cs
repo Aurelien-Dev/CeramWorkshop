@@ -1,5 +1,6 @@
 using Client.Services;
 using Client.Utils;
+using Domain.InterfacesWorker;
 using Domain.Models.WorkshopDomaine;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.JSInterop;
 using MudBlazor;
+using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 
 namespace Client.Pages.Authentification
@@ -15,29 +17,47 @@ namespace Client.Pages.Authentification
     public partial class Login : CustomLayoutComponentBase
     {
         [Inject] public IHostEnvironmentAuthenticationStateProvider authenticationprovider { get; set; } = default!;
-        [Inject] public IDataProtectionProvider dataProtectionProvider { get; set; }
-        [Inject] public IJSRuntime JSRuntime { get; set; }
+        [Inject] public IDataProtectionProvider dataProtectionProvider { get; set; } = default!;
+        [Inject] public IJSRuntime JSRuntime { get; set; } = default!;
+        [Inject] public IWorkshopWorker worker { get; set; } = default!;
 
-        public Workshop WorkshopDetail { get; set; } = new();
+        public LoginInfo LoginInfo { get; set; } = new();
 
         MudForm form = new();
         bool success;
-        string[] errors = Array.Empty<string>();
-
+        string authError = string.Empty;
 
         private async Task Authenticate()
         {
+            authError = string.Empty;
+            await Task.Delay(5);
+
+
+
             StateHasChanged();
             await form.Validate();
 
             if (form.IsValid)
             {
-
                 //Check login before open authentication
+                Workshop? workshop = worker.WorkshopRepository.GetForLogin(LoginInfo.Email);
 
+                if (workshop == null)
+                {
+                    authError = "Invalid email.";
+                    return;
+                }
 
-                LoginInfo loginInfo = new LoginInfo();
-                loginInfo.Workshop = new Workshop("Atelier Crémazie", null, "", "", "");
+                bool userAuth = ProtectedDataService.IsEqual(workshop.Salt, workshop.PasswordHash, LoginInfo.Password);
+
+                if (!userAuth)
+                {
+                    authError = "Invalid email or password.";
+                    return;
+                }
+
+                AuthenticateInformation loginInfo = new AuthenticateInformation();
+                loginInfo.Workshop = workshop;
                 loginInfo.DiagPortalToken = EncryptCookie(loginInfo.ClaimsPrincipal, dataProtectionProvider);
 
                 authenticationprovider.SetAuthenticationState(Task.FromResult(new AuthenticationState(loginInfo.ClaimsPrincipal)));
@@ -62,5 +82,14 @@ namespace Client.Pages.Authentification
         }
 
 
+    }
+
+    public class LoginInfo
+    {
+        [Required]
+        public string Email { get; set; } = string.Empty;
+
+        [Required]
+        public string Password { get; set; } = string.Empty;
     }
 }

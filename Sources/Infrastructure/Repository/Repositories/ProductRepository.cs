@@ -4,32 +4,30 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Repository.Repositories
 {
-    public class ProductRepository : GenericRepository<Product>, IProductRepository
+    public class ProductRepository : GenericRepository<Product, int>, IProductRepository
     {
         public ProductRepository(ApplicationDbContext context) : base(context)
         {
 
         }
 
-        #region override
-        public override async Task<Product> Get(object id)
+        public async Task<Product> Get(int id, int idWorkshop)
         {
             return await _context.Products
-                                 .Where(p => p.Id == (int)id)
+                                 .Where(p => p.Id == id && p.IdWorkshop == idWorkshop)
                                  .Include(p => p.ImageInstructions)
                                  .Include(p => p.ProductMaterial)
                                  .ThenInclude(x => x.Material)
                                  .FirstAsync();
         }
 
-        public override async Task<ICollection<Product>> GetAll()
+        public async Task<ICollection<Product>> GetAll(int idWorkshop)
         {
             return await _context.Products
+                                 .Where(p => p.IdWorkshop == idWorkshop)
                                  .Include(p => p.ImageInstructions)
                                  .ToListAsync();
         }
-        #endregion
-
 
         public async Task<Product> GetLight(object id)
         {

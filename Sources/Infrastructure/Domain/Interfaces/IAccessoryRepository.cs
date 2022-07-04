@@ -2,7 +2,7 @@
 
 namespace Domain.Interfaces
 {
-    public interface IAccessoryRepository : IGenericRepository<Accessory>
+    public interface IAccessoryRepository : IGenericRepository<Accessory, int>
     {
     }
 }

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.JSInterop;
 using MudBlazor;
+using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 
 namespace Client.Pages.Authentification
@@ -20,25 +21,39 @@ namespace Client.Pages.Authentification
         [Inject] public IJSRuntime JSRuntime { get; set; } = default!;
         [Inject] public IWorkshopWorker worker { get; set; } = default!;
 
-        public Workshop WorkshopDetail { get; set; } = new();
+        RegisterInfo registerInfo = new();
 
         MudForm form = new();
         bool success;
-        string[] errors = Array.Empty<string>();
-
+        string registerError = string.Empty;
 
         private async Task RegisterWorkshop()
         {
+            registerError = string.Empty;
+            await Task.Delay(5);
+
             StateHasChanged();
             await form.Validate();
 
             if (form.IsValid)
             {
-                await worker.WorkshopRepository.Add(WorkshopDetail);
+                if(worker.WorkshopRepository.CheckIfEmailExists(registerInfo.Email))
+                {
+                    registerError = "Email already in use.";
+                    return;
+                }
+
+                var WorkshopSalt = ProtectedDataService.GetSalt();
+                var WorkshopPasswordHash = ProtectedDataService.HashPassword(registerInfo.Password, WorkshopSalt);
+
+                Workshop workshopDetail = new(registerInfo.Name, null, registerInfo.Email, registerInfo.UserName, WorkshopPasswordHash, WorkshopSalt);
+
+
+                await worker.WorkshopRepository.Add(workshopDetail);
                 worker.Completed();
 
-                LoginInfo loginInfo = new LoginInfo();
-                loginInfo.Workshop = WorkshopDetail;
+                AuthenticateInformation loginInfo = new AuthenticateInformation();
+                loginInfo.Workshop = workshopDetail;
                 loginInfo.DiagPortalToken = EncryptCookie(loginInfo.ClaimsPrincipal, dataProtectionProvider);
 
                 authenticationprovider.SetAuthenticationState(Task.FromResult(new AuthenticationState(loginInfo.ClaimsPrincipal)));
@@ -63,5 +78,20 @@ namespace Client.Pages.Authentification
         }
 
 
+    }
+
+    public class RegisterInfo
+    {
+        [Required]
+        public string Name { get; set; } = string.Empty;
+        [Required]
+        public string UserName { get; set; } = string.Empty;
+        [Required]
+        public string Email { get; set; } = string.Empty;
+        [Required]
+        public string Password { get; set; } = string.Empty;
+        [Required]
+        [Compare(nameof(Password))]
+        public string Password2 { get; set; } = string.Empty;
     }
 }

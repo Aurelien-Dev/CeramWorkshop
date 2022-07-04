@@ -2,7 +2,7 @@
 
 namespace Domain.Interfaces
 {
-    public interface IFiringRepository : IGenericRepository<Firing>
+    public interface IFiringRepository : IGenericRepository<Firing, int>
     {
     }
 }

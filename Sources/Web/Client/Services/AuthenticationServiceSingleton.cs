@@ -12,22 +12,22 @@ namespace Client.Services
         private AuthenticationServiceSingleton() { }
 
 
-        public static LoginInfo LoginInfo { get; set; } = new();
+        public static AuthenticateInformation LoginInfo { get; set; } = new();
 
         internal static void ClearSession()
         {
             LoginInfo = new();
         }
 
-        internal static void StartSession(LoginInfo loginInfo)
+        internal static void StartSession(AuthenticateInformation loginInfo)
         {
             LoginInfo = loginInfo;
         }
     }
 
-    public class LoginInfo
+    public class AuthenticateInformation
     {
-        public LoginInfo()
+        public AuthenticateInformation()
         {
             List<Claim> claims = new List<Claim>
                 {

@@ -4,19 +4,24 @@
 @layout LayoutLogin
 @inherits CustomLayoutComponentBase
 
-<MudForm @ref="form" @bind-IsValid="@success" @bind-Errors="@errors">
+<MudForm @ref="form" @bind-IsValid="@success">
     <MudStack Spacing=5>
         <MudTextField InputType="InputType.Text" Label="Nom de l'atelier" FullWidth=true
-                      @bind-Value="WorkshopDetail.Name" For="@(() => WorkshopDetail.Name)" />
+                      @bind-Value="registerInfo.Name" For="@(() => registerInfo.Name)" />
 
         <MudTextField InputType="InputType.Text" Label="Votre nom" FullWidth=true
-                      @bind-Value="WorkshopDetail.UserName" For="@(() => WorkshopDetail.UserName)" />
+                      @bind-Value="registerInfo.UserName" For="@(() => registerInfo.UserName)" />
 
         <MudTextField InputType="InputType.Email" Label="Email" FullWidth=true
-                      @bind-Value="WorkshopDetail.Email" For="@(() => WorkshopDetail.Email)" />
+                      @bind-Value="registerInfo.Email" For="@(() => registerInfo.Email)" />
 
         <MudTextField InputType="InputType.Password" Label="Mot de passe" FullWidth=true
-                      @bind-Value="WorkshopDetail.Password" For="@(() => WorkshopDetail.Password)" />
+                      @bind-Value="registerInfo.Password" For="@(() => registerInfo.Password)" />
+
+        <MudTextField InputType="InputType.Password" Label="Mot de passe" FullWidth=true
+                      @bind-Value="registerInfo.Password2" For="@(() => registerInfo.Password2)" />
+
+        <MudText Color="@Color.Error">@registerError</MudText>
 
         <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Primary" OnClick="RegisterWorkshop">Login</MudButton>
     </MudStack>

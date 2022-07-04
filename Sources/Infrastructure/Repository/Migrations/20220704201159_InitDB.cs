@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace Repository.Migrations
 {
-    public partial class InitialDB : Migration
+    public partial class InitDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -58,20 +59,21 @@ namespace Repository.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Workshop",
+                name: "Workshops",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Email = table.Column<string>(type: "text", nullable: false),
                     UserName = table.Column<string>(type: "text", nullable: false),
-                    Password = table.Column<string>(type: "text", nullable: false),
+                    PasswordHash = table.Column<string>(type: "text", nullable: false),
+                    Salt = table.Column<byte[]>(type: "bytea", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Logo = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Workshop", x => x.Id);
+                    table.PrimaryKey("PK_Workshops", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -94,15 +96,15 @@ namespace Repository.Migrations
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Products_Workshop_IdWorkshop",
+                        name: "FK_Products_Workshops_IdWorkshop",
                         column: x => x.IdWorkshop,
-                        principalTable: "Workshop",
+                        principalTable: "Workshops",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "WorkshopParameter",
+                name: "WorkshopParameters",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -114,11 +116,11 @@ namespace Repository.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_WorkshopParameter", x => x.Id);
+                    table.PrimaryKey("PK_WorkshopParameters", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_WorkshopParameter_Workshop_WorksĥopId",
+                        name: "FK_WorkshopParameters_Workshops_WorksĥopId",
                         column: x => x.WorksĥopId,
-                        principalTable: "Workshop",
+                        principalTable: "Workshops",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -257,8 +259,8 @@ namespace Repository.Migrations
                 column: "IdWorkshop");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WorkshopParameter_WorksĥopId",
-                table: "WorkshopParameter",
+                name: "IX_WorkshopParameters_WorksĥopId",
+                table: "WorkshopParameters",
                 column: "WorksĥopId");
         }
 
@@ -277,7 +279,7 @@ namespace Repository.Migrations
                 name: "ProductMaterials");
 
             migrationBuilder.DropTable(
-                name: "WorkshopParameter");
+                name: "WorkshopParameters");
 
             migrationBuilder.DropTable(
                 name: "Accessories");
@@ -292,7 +294,7 @@ namespace Repository.Migrations
                 name: "Products");
 
             migrationBuilder.DropTable(
-                name: "Workshop");
+                name: "Workshops");
         }
     }
 }

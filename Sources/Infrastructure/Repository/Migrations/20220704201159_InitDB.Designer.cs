@@ -12,8 +12,8 @@ using Repository;
 namespace Repository.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220703124846_InitialDB")]
-    partial class InitialDB
+    [Migration("20220704201159_InitDB")]
+    partial class InitDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -271,9 +271,13 @@ namespace Repository.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Password")
+                    b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<byte[]>("Salt")
+                        .IsRequired()
+                        .HasColumnType("bytea");
 
                     b.Property<string>("UserName")
                         .IsRequired()
@@ -281,7 +285,7 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Workshop");
+                    b.ToTable("Workshops");
                 });
 
             modelBuilder.Entity("Domain.Models.WorkshopDomaine.WorkshopParameter", b =>
@@ -310,7 +314,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("WorksĥopId");
 
-                    b.ToTable("WorkshopParameter");
+                    b.ToTable("WorkshopParameters");
                 });
 
             modelBuilder.Entity("Domain.Models.MainDomain.ImageInstruction", b =>

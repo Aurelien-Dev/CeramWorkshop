@@ -54,13 +54,13 @@ namespace Client.Pages.Authentification
 
                 AuthenticateInformation loginInfo = new AuthenticateInformation();
                 loginInfo.Workshop = workshopDetail;
-                loginInfo.DiagPortalToken = EncryptCookie(loginInfo.ClaimsPrincipal, dataProtectionProvider);
+                loginInfo.Token = EncryptCookie(loginInfo.ClaimsPrincipal, dataProtectionProvider);
 
                 authenticationprovider.SetAuthenticationState(Task.FromResult(new AuthenticationState(loginInfo.ClaimsPrincipal)));
 
                 AuthenticationServiceSingleton.StartSession(loginInfo);
 
-                _ = await JSRuntime.InvokeAsync<string>("setCookie", new object[] { ".AspNetCore.Cookies", loginInfo.DiagPortalToken, 1 });
+                _ = await JSRuntime.InvokeAsync<string>("setCookie", new object[] { ".AspNetCore.Cookies", loginInfo.Token, 1 });
 
                 NavigationManager.NavigateTo("/", forceLoad: false);
             }

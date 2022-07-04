@@ -49,7 +49,7 @@ namespace ExternalServices.ServicesUploadImage
 
                 var apiResponse = JsonSerializer.Deserialize<ImgBBResponse>(response.Content);
 
-                if (apiResponse == null) throw new DeserializationException(null, new Exception("Unable to deserialize result"));
+                if (apiResponse == null) throw new ApplicationException("Unable to deserialize result");
                 if (!apiResponse.success) throw new ApiCallErrorException($"Erreur au résultat de l'API : {apiResponse.status}");
 
                 return new ImageInstruction(apiResponse.data.image.url, apiResponse.data.thumb.url, apiResponse.data.medium.url);

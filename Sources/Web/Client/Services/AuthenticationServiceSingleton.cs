@@ -37,8 +37,8 @@ namespace Client.Services
         }
 
         public ClaimsPrincipal ClaimsPrincipal { get; internal set; }
-        public Workshop Workshop { get; internal set; }
+        public Workshop? Workshop { get; internal set; }
+        public string? Token { get; internal set; }
         public bool IsAuthenticate { get; set; } = false;
-        public string DiagPortalToken { get; internal set; }
     }
 }

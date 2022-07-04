@@ -8,5 +8,9 @@ namespace Utils.Exception
         public UploadFileException(string message) : base(message) { }
 
         public UploadFileException(string message, System.Exception exception) : base(message, exception) { }
+
+        protected UploadFileException(SerializationInfo serializationInfo, StreamingContext streamingContext)
+        {
+        }
     }
 }

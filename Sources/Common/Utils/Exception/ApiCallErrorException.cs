@@ -9,5 +9,9 @@ namespace Utils.Exception
 
         public ApiCallErrorException(string message, System.Exception exception) : base(message, exception) { }
 
+        protected ApiCallErrorException(SerializationInfo serializationInfo, StreamingContext streamingContext)
+        {
+            
+        }
     }
 }

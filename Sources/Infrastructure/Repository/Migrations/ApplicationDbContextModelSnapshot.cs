@@ -39,7 +39,7 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Accessories");
+                    b.ToTable("Accessories", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.MainDomain.Firing", b =>
@@ -62,7 +62,7 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Firings");
+                    b.ToTable("Firings", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.MainDomain.ImageInstruction", b =>
@@ -99,7 +99,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("IdProduct");
 
-                    b.ToTable("ImageInstruction");
+                    b.ToTable("ImageInstruction", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.MainDomain.Material", b =>
@@ -135,7 +135,7 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Materials");
+                    b.ToTable("Materials", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.MainDomain.Product", b =>
@@ -179,7 +179,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("IdWorkshop");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.MainDomain.ProductAccessory", b =>
@@ -197,7 +197,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("IdAccessory");
 
-                    b.ToTable("ProductAccessories");
+                    b.ToTable("ProductAccessories", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.MainDomain.ProductFiring", b =>
@@ -218,7 +218,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("IdFiring");
 
-                    b.ToTable("ProductFirings");
+                    b.ToTable("ProductFirings", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.MainDomain.ProductMaterial", b =>
@@ -247,7 +247,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("IdProduct");
 
-                    b.ToTable("ProductMaterials");
+                    b.ToTable("ProductMaterials", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.WorkshopDomaine.Workshop", b =>
@@ -279,7 +279,7 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Workshop");
+                    b.ToTable("Workshop", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.WorkshopDomaine.WorkshopParameter", b =>
@@ -308,7 +308,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("WorksĥopId");
 
-                    b.ToTable("WorkshopParameter");
+                    b.ToTable("WorkshopParameter", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.MainDomain.ImageInstruction", b =>

@@ -21,7 +21,7 @@ namespace Repository
             services.AddTransient<IProductWork, ProductWork>();
 
             //DbContext
-            services.AddDbContext<ApplicationDbContext>(ServiceLifetime.Transient);
+            services.AddDbContext<ApplicationDbContext>();
 
             return services;
         }

@@ -23,6 +23,7 @@ namespace Client.Pages.ProductDetailPage.Dialogs
 
             if (form.IsValid)
             {
+                ProductDetail.IdWorkshop = 0;
                 if (InsertMode.HasValue && InsertMode.Value)
                     await productWorker.ProductRepository.Add(ProductDetail);
                 else

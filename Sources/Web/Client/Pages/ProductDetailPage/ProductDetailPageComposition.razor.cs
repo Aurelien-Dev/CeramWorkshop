@@ -6,7 +6,7 @@ using MudBlazor;
 
 namespace Client.Pages.ProductDetailPage
 {
-    public partial class ProductDetailPageComposition : PageComponentBase
+    public partial class ProductDetailPageComposition : CustomComponentBase
     {
         [Inject] private IProductWork Worker { get; set; } = default!;
         [Parameter] public Product ProductDetail { get; set; } = new();

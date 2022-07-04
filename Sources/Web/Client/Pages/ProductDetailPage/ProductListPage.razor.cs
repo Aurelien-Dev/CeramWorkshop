@@ -1,10 +1,13 @@
 using Domain.InterfacesWorker;
 using Domain.Models.MainDomain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 
 namespace Client.Pages.ProductDetailPage
 {
     public enum OrderingPage { StatusAsc, StatusDesc, NameAsc, NameDesc }
+
+    //[Authorize]
     public partial class ProductListPage : ComponentBase
     {
         [Inject] private IProductWork unitOfWork { get; set; } = default!;
@@ -85,7 +88,7 @@ namespace Client.Pages.ProductDetailPage
         public string? Reference { get; set; }
         public string Name { get; set; }
         public string Image { get; set; }
-        public ProductStatus Status { get; set; }
+        public ProductStatus? Status { get; set; }
 
         public ProductViewModel(Product product)
         {

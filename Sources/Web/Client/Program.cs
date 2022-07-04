@@ -14,18 +14,14 @@ builder.Services.AddRepository();
 builder.Services.AddMudServices();
 
 #region Auth
-//builder.Services.AddRazorPages(options =>
-//{
-//    options.Conventions.AllowAnonymousToFolder("/Authentification");
-//    options.Conventions.AuthorizeFolder("/MaterialDetailPage");
-//    options.Conventions.AuthorizeFolder("/ProductDetailPage");
-//});
+
 builder.Services.AddScoped<IHostEnvironmentAuthenticationStateProvider>(sp =>
 {
     return (ServerAuthenticationStateProvider)sp.GetRequiredService<AuthenticationStateProvider>();
 });
 
 #endregion
+
 var app = builder.Build();
 
 EnvironementSingleton.WebRootPath = app.Environment.WebRootPath;

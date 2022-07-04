@@ -1,0 +1,22 @@
+﻿@using Client.Utils
+@using Client.Services
+
+@inherits CustomLayoutComponentBase
+
+<PageTitle>BlazorApp1</PageTitle>
+
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudMainContent>
+        <MudContainer MaxWidth="MaxWidth.Small">
+            @Body
+            <Footer />
+        </MudContainer>
+    </MudMainContent>
+    <MudScrollToTop>
+        <MudFab Color="Color.Tertiary" Icon="@Icons.Filled.ArrowCircleUp" />
+    </MudScrollToTop>
+</MudLayout>

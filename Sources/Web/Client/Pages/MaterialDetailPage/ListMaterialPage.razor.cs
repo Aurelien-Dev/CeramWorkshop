@@ -2,12 +2,14 @@
 using Client.Utils;
 using Domain.InterfacesWorker;
 using Domain.Models.MainDomain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
 namespace Client.Pages.MaterialDetailPage
 {
-    public partial class ListMaterialPage : PageComponentBase
+    [Authorize]
+    public partial class ListMaterialPage : CustomComponentBase
     {
         [Inject] private IProductWork worker { get; set; } = default!;
 

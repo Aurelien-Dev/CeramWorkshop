@@ -2,12 +2,15 @@
 using Client.Utils;
 using Domain.Models.MainDomain;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using MudBlazor;
 
 namespace Client.Shared
 {
-    public partial class MainLayout : PageLayoutComponentBase
+    public partial class MainLayout : CustomLayoutComponentBase
     {
+        [Inject] public IHostEnvironmentAuthenticationStateProvider authenticationprovider { get; set; } = default!;
+
         bool _drawerOpen = true;
 
         void DrawerToggle()

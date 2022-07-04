@@ -1,7 +1,17 @@
-﻿@page "/Login"
+﻿@page "/login"
 @using Client.Components
 @using Client.Utils
+@layout LayoutLogin
+@inherits CustomLayoutComponentBase
 
-@inherits PageComponentBase
+<MudForm @ref="form" @bind-IsValid="@success" @bind-Errors="@errors">
+    <MudStack Spacing=5>
+        <MudTextField InputType="InputType.Email" Label="Email" FullWidth=true
+                      @bind-Value="WorkshopDetail.Email" For="@(() => WorkshopDetail.Email)" />
 
-<MudButton OnClick="Authenticate" Color="Color.Error">Login</MudButton>
+        <MudTextField InputType="InputType.Password" Label="Mot de passe" FullWidth=true
+                      @bind-Value="WorkshopDetail.Password" For="@(() => WorkshopDetail.Password)" />
+
+        <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Primary" OnClick="Authenticate">Login</MudButton>
+    </MudStack>
+</MudForm>

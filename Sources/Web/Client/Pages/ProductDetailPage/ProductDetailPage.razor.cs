@@ -2,13 +2,15 @@
 using Client.Utils;
 using Domain.InterfacesWorker;
 using Domain.Models.MainDomain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Client.Pages.ProductDetailPage
 {
-    public partial class ProductDetailPage : PageComponentBase
+    [Authorize]
+    public partial class ProductDetailPage : CustomComponentBase
     {
         [Parameter] public int? Id { get; set; } = default!;
         [Inject] private IProductWork worker { get; set; } = default!;

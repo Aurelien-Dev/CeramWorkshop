@@ -3,7 +3,7 @@
 namespace Utils.Exception
 {
     [Serializable]
-    public class ParameterPageNullException : System.Exception, ISerializable
+    public class ParameterPageNullException : System.Exception
     {
         public ParameterPageNullException(params string[] parametres) : base(string.Format("Invalid parameter : {0}", string.Join(',', parametres))) { }
 

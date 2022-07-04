@@ -3,7 +3,7 @@
 namespace Utils.Exception
 {
     [Serializable]
-    public class UploadFileException : System.Exception, ISerializable
+    public class UploadFileException : System.Exception
     {
         public UploadFileException(string message) : base(message) { }
 

@@ -3,7 +3,7 @@
 namespace Utils.Exception
 {
     [Serializable]
-    public class ApiCallErrorException : System.Exception, ISerializable
+    public class ApiCallErrorException : System.Exception
     {
         public ApiCallErrorException(string message) : base(message) { }
 

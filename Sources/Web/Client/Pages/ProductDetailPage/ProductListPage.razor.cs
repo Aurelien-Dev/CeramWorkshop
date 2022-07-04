@@ -88,7 +88,7 @@ namespace Client.Pages.ProductDetailPage
         public string? Reference { get; set; }
         public string Name { get; set; }
         public string Image { get; set; }
-        public ProductStatus? Status { get; set; }
+        public ProductStatus Status { get; set; }
 
         public ProductViewModel(Product product)
         {

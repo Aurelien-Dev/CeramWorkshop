@@ -23,7 +23,7 @@ namespace Domain.Models.MainDomain
         public double? TopDiameter { get; set; }
         public double? BottomDiameter { get; set; }
         public string? DesignInstruction { get; set; }
-        public ProductStatus? Status { get; set; }
+        public ProductStatus Status { get; set; }
 
         public ICollection<ImageInstruction> ImageInstructions { get; set; } = new List<ImageInstruction>();
         public ICollection<ProductMaterial> ProductMaterial { get; set; } = new List<ProductMaterial>();

@@ -1,14 +1,14 @@
 ﻿@using Domain.Models.MainDomain
 
-@if (Status.HasValue && Status.Value != ProductStatus.None)
+@if (Status != ProductStatus.None)
 {
-    <MudChip Color="@ChipColor" Size="Size.Small">@Status.Value</MudChip>
+    <MudChip Color="@ChipColor" Size="Size.Small">@Status</MudChip>
 }
 
 @code {
 
     [Parameter]
-    public ProductStatus? Status
+    public ProductStatus Status
     {
         get => status;
         set
@@ -34,7 +34,7 @@
             }
         }
     }
-    private ProductStatus? status;
+    private ProductStatus status;
 
     private Color ChipColor { get; set; }
 

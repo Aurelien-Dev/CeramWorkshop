@@ -8,7 +8,7 @@ namespace Domain.Models.MainDomain
     public class Product
     {
         [Required]
-        public int? Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         public int IdWorkshop { get; set; }

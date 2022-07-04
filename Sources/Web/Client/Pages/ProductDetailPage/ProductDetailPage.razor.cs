@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using System.Diagnostics.CodeAnalysis;
+using Utils.Exception;
 
 namespace Client.Pages.ProductDetailPage
 {
@@ -31,7 +32,7 @@ namespace Client.Pages.ProductDetailPage
         protected override async Task OnInitializedAsync()
         {
             if (!Id.HasValue)
-                throw new ArgumentNullException(nameof(Id));
+                throw new ParameterPageNullException(nameof(Id));
 
             await LoadData(Id.Value);
 

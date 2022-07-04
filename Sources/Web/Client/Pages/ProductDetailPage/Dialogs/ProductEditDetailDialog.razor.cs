@@ -33,7 +33,7 @@ namespace Client.Pages.ProductDetailPage.Dialogs
                 StateHasChanged();
                 productWorker.Completed();
 
-                MudDialog.Close(DialogResult.Ok<int>(ProductDetail.Id.Value));
+                MudDialog.Close(DialogResult.Ok<int>(ProductDetail.Id));
             }
         }
 

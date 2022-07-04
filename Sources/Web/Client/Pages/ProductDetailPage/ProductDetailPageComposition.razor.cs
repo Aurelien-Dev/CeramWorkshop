@@ -20,7 +20,7 @@ namespace Client.Pages.ProductDetailPage
 
             await AutocompleteBox.Clear();
 
-            var pMat = new ProductMaterial(mat.Id, ProductDetail.Id.Value, 0, mat.Cost) { Material = mat };
+            var pMat = new ProductMaterial(mat.Id, ProductDetail.Id, 0, mat.Cost) { Material = mat };
 
             ProductDetail.ProductMaterial.Add(pMat);
             Worker.Completed();

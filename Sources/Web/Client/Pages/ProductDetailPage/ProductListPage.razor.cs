@@ -93,7 +93,7 @@ namespace Client.Pages.ProductDetailPage
 
         public ProductViewModel(Product product)
         {
-            Id = product.Id.Value;
+            Id = product.Id;
             Reference = product.Reference;
             Name = product.Name;
             Status = product.Status;

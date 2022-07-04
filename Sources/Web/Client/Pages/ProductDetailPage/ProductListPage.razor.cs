@@ -7,10 +7,10 @@ namespace Client.Pages.ProductDetailPage
 {
     public enum OrderingPage { StatusAsc, StatusDesc, NameAsc, NameDesc }
 
-    //[Authorize]
+    [Authorize]
     public partial class ProductListPage : ComponentBase
     {
-        [Inject] private IProductWork unitOfWork { get; set; } = default!;
+        [Inject] private IProductWorker unitOfWork { get; set; } = default!;
 
         public IEnumerable<Product> Products { get; set; } = new List<Product>();
         public IList<ProductViewModel> ProductsVM { get; set; } = new List<ProductViewModel>();

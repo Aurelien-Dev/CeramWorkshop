@@ -8,7 +8,7 @@ namespace Client.Pages.ProductDetailPage
 {
     public partial class ProductDetailPageComposition : CustomComponentBase
     {
-        [Inject] private IProductWork Worker { get; set; } = default!;
+        [Inject] private IProductWorker Worker { get; set; } = default!;
         [Parameter] public Product ProductDetail { get; set; } = new();
         [Parameter] public ICollection<Material> Materials { get; set; } = default!;
 

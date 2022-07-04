@@ -15,15 +15,21 @@
         <MudText>Ceram-Workshop</MudText>
         <MudText>@AuthenticationServiceSingleton.LoginInfo.Workshop?.Name</MudText>
 
-        <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Inherit" OnClick="NewProduct" />
+        <AuthorizeView>
+            <Authorized>
+
+                <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Inherit" OnClick="NewProduct" />
+
+            </Authorized>
+        </AuthorizeView>
 
         <MudSpacer />
 
-        <MudAvatar Color="Color.Warning" Variant="Variant.Filled" >
-            <MudMenu Icon="@Icons.Custom.Uncategorized.Radioactive" Color="Color.Dark" ActivationEvent="@MouseEvent.MouseOver" AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopRight"  >
+        <MudAvatar Color="Color.Warning" Variant="Variant.Filled">
+            <MudMenu Icon="@Icons.Custom.Uncategorized.Radioactive" Color="Color.Dark" ActivationEvent="@MouseEvent.MouseOver" AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopRight">
                 <MudMenuItem>Profile</MudMenuItem>
                 <MudMenuItem>My account</MudMenuItem>
-                <MudMenuItem OnClick="@(() => AuthenticationServiceSingleton.Logout(authenticationprovider))">Logout</MudMenuItem>
+                <MudMenuItem OnClick="@(() => NavigationManager.NavigateTo("/Logout"))">Logout</MudMenuItem>
             </MudMenu>
         </MudAvatar>
     </MudAppBar>

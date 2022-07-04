@@ -1,24 +1,23 @@
-﻿@page "/login"
+﻿@page "/register"
 @using Client.Components
 @using Client.Utils
 @layout LayoutLogin
 @inherits CustomLayoutComponentBase
 
 <MudForm @ref="form" @bind-IsValid="@success" @bind-Errors="@errors">
-    <MudStack Spacing=5 Justify="Justify.Center" Row=true>
-        <MudButton Variant="Variant.Filled" Style="background-color: yellowgreen; color: white; width: 300px; height: 60px;"
-                   OnClick=@(() => NavigationManager.NavigateTo("/register"))>
-            Créer mon atelier de poterie
-        </MudButton>
-    </MudStack>
-    <MudDivider Class="ma-10" />
     <MudStack Spacing=5>
+        <MudTextField InputType="InputType.Text" Label="Nom de l'atelier" FullWidth=true
+                      @bind-Value="WorkshopDetail.Name" For="@(() => WorkshopDetail.Name)" />
+
+        <MudTextField InputType="InputType.Text" Label="Votre nom" FullWidth=true
+                      @bind-Value="WorkshopDetail.UserName" For="@(() => WorkshopDetail.UserName)" />
+
         <MudTextField InputType="InputType.Email" Label="Email" FullWidth=true
                       @bind-Value="WorkshopDetail.Email" For="@(() => WorkshopDetail.Email)" />
 
         <MudTextField InputType="InputType.Password" Label="Mot de passe" FullWidth=true
                       @bind-Value="WorkshopDetail.Password" For="@(() => WorkshopDetail.Password)" />
 
-        <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Primary" OnClick="Authenticate">Login</MudButton>
+        <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Primary" OnClick="RegisterWorkshop">Login</MudButton>
     </MudStack>
 </MudForm>

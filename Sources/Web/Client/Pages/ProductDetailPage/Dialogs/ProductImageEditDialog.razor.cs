@@ -8,7 +8,7 @@ namespace Client.Pages.ProductDetailPage.Dialogs
 {
     public partial class ProductImageEditDialog
     {
-        [Inject] private IProductWork productWorker { get; set; } = default!;
+        [Inject] private IProductWorker productWorker { get; set; } = default!;
         [CascadingParameter] MudDialogInstance MudDialog { get; set; } = default!;
         [Parameter] public Product ProductDetail { get; set; } = new();
         [Parameter] public ImageInstruction ImageInstruction { get; set; } = new();

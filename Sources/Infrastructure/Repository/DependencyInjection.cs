@@ -1,5 +1,4 @@
-﻿using Common.Utils.Singletons;
-using Domain.Interfaces;
+﻿using Domain.Interfaces;
 using Domain.InterfacesWorker;
 using Microsoft.Extensions.DependencyInjection;
 using Repository.Repositories;
@@ -16,9 +15,11 @@ namespace Repository
             services.AddTransient<IMaterialRepository, MaterialRepository>();
             services.AddTransient<IFiringRepository, FiringRepository>();
             services.AddTransient<IAccessoryRepository, AccessoryRepository>();
+            services.AddTransient<IWorkshopRepository, WorkshopRepository>();
 
             //Workers
-            services.AddTransient<IProductWork, ProductWork>();
+            services.AddTransient<IProductWorker, ProductWorker>();
+            services.AddTransient<IWorkshopWorker, WorkshopWorker>();
 
             //DbContext
             services.AddDbContext<ApplicationDbContext>();

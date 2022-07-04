@@ -1,25 +1,23 @@
 ﻿using Domain.Interfaces;
 using Domain.InterfacesWorker;
+using Domain.Models.WorkshopDomaine;
 
 namespace Repository.Workers
 {
-    public class ProductWork : IProductWork
+    public class WorkshopWorker : IWorkshopWorker
     {
         private readonly ApplicationDbContext _context;
-        public IProductRepository ProductRepository { get; }
-        public IMaterialRepository MaterialRepository { get; }
+        public IWorkshopRepository WorkshopRepository { get; }
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="context">Db Context</param>
-        /// <param name="productRepository">Product Repository</param>
-        /// <param name="materialRepository">Material Repository</param>
-        public ProductWork(ApplicationDbContext context, IProductRepository productRepository, IMaterialRepository materialRepository)
+        /// <param name="WorkshopRepository">Workshop Repository</param>
+        public WorkshopWorker(ApplicationDbContext context, IWorkshopRepository workshopRepository)
         {
             _context = context;
-            ProductRepository = productRepository;
-            MaterialRepository = materialRepository;
+            WorkshopRepository = workshopRepository;
         }
 
         public int Completed()

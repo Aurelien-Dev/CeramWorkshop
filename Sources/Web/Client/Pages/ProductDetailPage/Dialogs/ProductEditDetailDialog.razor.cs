@@ -7,7 +7,7 @@ namespace Client.Pages.ProductDetailPage.Dialogs
 {
     public partial class ProductEditDetailDialog
     {
-        [Inject] private IProductWork productWorker { get; set; } = default!;
+        [Inject] private IProductWorker productWorker { get; set; } = default!;
         [CascadingParameter] MudDialogInstance MudDialog { get; set; } = default!;
         [Parameter] public Product ProductDetail { get; set; } = default!;
         [Parameter] public bool? InsertMode { get; set; } = new();

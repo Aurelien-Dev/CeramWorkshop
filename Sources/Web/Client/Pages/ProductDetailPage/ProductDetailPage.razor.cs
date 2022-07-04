@@ -13,7 +13,7 @@ namespace Client.Pages.ProductDetailPage
     public partial class ProductDetailPage : CustomComponentBase
     {
         [Parameter] public int? Id { get; set; } = default!;
-        [Inject] private IProductWork worker { get; set; } = default!;
+        [Inject] private IProductWorker worker { get; set; } = default!;
 
         [NotNull] public Product ProductDetail { get; set; } = new();
         [NotNull] public Material MaterialDetail { get; set; } = new();

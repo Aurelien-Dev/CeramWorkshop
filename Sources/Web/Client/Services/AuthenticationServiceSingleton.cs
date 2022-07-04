@@ -1,6 +1,5 @@
 ﻿using Domain.Models.WorkshopDomaine;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Components.Authorization;
 using System.Security.Claims;
 
 namespace Client.Services
@@ -13,31 +12,17 @@ namespace Client.Services
         private AuthenticationServiceSingleton() { }
 
 
-        public static bool Login(IHostEnvironmentAuthenticationStateProvider serverAuthState)
-        {
-            LoginInfo.Workshop = new Workshop("Atelier Crémazie", null, "", "", "");
-
-
-
-            LoginInfo loginInfo = new LoginInfo();
-            serverAuthState.SetAuthenticationState(Task.FromResult(new AuthenticationState(loginInfo.ClaimsPrincipal)));
-
-            return true;
-        }
-
-        public static bool Logout(IHostEnvironmentAuthenticationStateProvider serverAuthState)
-        {
-            ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity());
-            serverAuthState.SetAuthenticationState(Task.FromResult(new AuthenticationState(claimsPrincipal)));
-
-            LoginInfo.Workshop = new();
-
-            return true;
-        }
-
-
         public static LoginInfo LoginInfo { get; set; } = new();
 
+        internal static void ClearSession()
+        {
+            LoginInfo = new();
+        }
+
+        internal static void StartSession(LoginInfo loginInfo)
+        {
+            LoginInfo = loginInfo;
+        }
     }
 
     public class LoginInfo
@@ -54,5 +39,6 @@ namespace Client.Services
         public ClaimsPrincipal ClaimsPrincipal { get; internal set; }
         public Workshop Workshop { get; internal set; }
         public bool IsAuthenticate { get; set; } = false;
+        public string DiagPortalToken { get; internal set; }
     }
 }

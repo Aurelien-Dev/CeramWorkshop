@@ -1,4 +1,5 @@
 using Common.Utils.Singletons;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server;
 using MudBlazor.Services;
@@ -12,15 +13,26 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddRepository();
 
 builder.Services.AddMudServices();
+builder.Services.AddScoped<AuthenticationStateProvider, ServerAuthenticationStateProvider>();
+builder.Services.AddScoped<IHostEnvironmentAuthenticationStateProvider>(sp => { return (ServerAuthenticationStateProvider)sp.GetRequiredService<AuthenticationStateProvider>(); });
 
-#region Auth
+//Authentication
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+                {
+                    options.AccessDeniedPath = new PathString("/AccessDenied");
+                    options.LoginPath = new PathString("/login");
+                    options.LogoutPath = new PathString("/logou");
+                    options.ForwardForbid = CookieAuthenticationDefaults.AuthenticationScheme;
+                });
+builder.Services.AddAuthorization();
 
-builder.Services.AddScoped<IHostEnvironmentAuthenticationStateProvider>(sp =>
+//Cookie Policy
+builder.Services.Configure<CookiePolicyOptions>(options =>
 {
-    return (ServerAuthenticationStateProvider)sp.GetRequiredService<AuthenticationStateProvider>();
+    options.CheckConsentNeeded = context => true;
+    options.MinimumSameSitePolicy = Microsoft.AspNetCore.Http.SameSiteMode.None;
 });
-
-#endregion
 
 var app = builder.Build();
 
@@ -41,6 +53,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseCookiePolicy();
 app.UseAuthentication();
 app.UseAuthorization();
 

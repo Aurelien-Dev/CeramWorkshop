@@ -7,7 +7,7 @@ namespace Client.Pages.MaterialDetailPage.Dialogs
 {
     public partial class AddMaterialDialog
     {
-        [Inject] private IProductWork productWorker { get; set; } = default!;
+        [Inject] private IProductWorker productWorker { get; set; } = default!;
         [CascadingParameter] MudDialogInstance MudDialog { get; set; } = default!;
         [Parameter] public Material MaterialDetail { get; set; } = new();
         [Parameter] public bool? InsertMode { get; set; } = new();

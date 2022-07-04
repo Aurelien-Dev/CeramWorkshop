@@ -2,7 +2,7 @@
 
 namespace Domain.InterfacesWorker
 {
-    public interface IProductWork : IDisposable
+    public interface IProductWorker : IDisposable
     {
         IProductRepository ProductRepository { get; }
         IMaterialRepository MaterialRepository { get; }

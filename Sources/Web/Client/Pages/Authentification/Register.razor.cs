@@ -1,5 +1,6 @@
 using Client.Services;
 using Client.Utils;
+using Domain.InterfacesWorker;
 using Domain.Models.WorkshopDomaine;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -12,11 +13,12 @@ using System.Security.Claims;
 
 namespace Client.Pages.Authentification
 {
-    public partial class Login : CustomLayoutComponentBase
+    public partial class Register : CustomLayoutComponentBase
     {
         [Inject] public IHostEnvironmentAuthenticationStateProvider authenticationprovider { get; set; } = default!;
-        [Inject] public IDataProtectionProvider dataProtectionProvider { get; set; }
-        [Inject] public IJSRuntime JSRuntime { get; set; }
+        [Inject] public IDataProtectionProvider dataProtectionProvider { get; set; } = default!;
+        [Inject] public IJSRuntime JSRuntime { get; set; } = default!;
+        [Inject] public IWorkshopWorker worker { get; set; } = default!;
 
         public Workshop WorkshopDetail { get; set; } = new();
 
@@ -25,19 +27,18 @@ namespace Client.Pages.Authentification
         string[] errors = Array.Empty<string>();
 
 
-        private async Task Authenticate()
+        private async Task RegisterWorkshop()
         {
             StateHasChanged();
             await form.Validate();
 
             if (form.IsValid)
             {
-
-                //Check login before open authentication
-
+                await worker.WorkshopRepository.Add(WorkshopDetail);
+                worker.Completed();
 
                 LoginInfo loginInfo = new LoginInfo();
-                loginInfo.Workshop = new Workshop("Atelier Crémazie", null, "", "", "");
+                loginInfo.Workshop = WorkshopDetail;
                 loginInfo.DiagPortalToken = EncryptCookie(loginInfo.ClaimsPrincipal, dataProtectionProvider);
 
                 authenticationprovider.SetAuthenticationState(Task.FromResult(new AuthenticationState(loginInfo.ClaimsPrincipal)));

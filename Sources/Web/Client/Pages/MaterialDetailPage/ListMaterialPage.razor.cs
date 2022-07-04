@@ -11,7 +11,7 @@ namespace Client.Pages.MaterialDetailPage
     [Authorize]
     public partial class ListMaterialPage : CustomComponentBase
     {
-        [Inject] private IProductWork worker { get; set; } = default!;
+        [Inject] private IProductWorker worker { get; set; } = default!;
 
         public ICollection<Material> Materials { get; set; } = new List<Material>();
 

@@ -3,13 +3,13 @@
 namespace Utils.Exception
 {
     [Serializable]
-    public class ParameterPageNullException : System.Exception
+    public class ParameterPageNullException : System.Exception, ISerializable
     {
         public ParameterPageNullException(params string[] parametres) : base(string.Format("Invalid parameter : {0}", string.Join(',', parametres))) { }
 
         public ParameterPageNullException(string message, System.Exception exception) : base(message, exception) { }
 
-        protected ParameterPageNullException(SerializationInfo serializationInfo, StreamingContext streamingContext)
+        protected ParameterPageNullException(SerializationInfo serializationInfo, StreamingContext streamingContext) :base(serializationInfo, streamingContext)
         {
         }
     }

@@ -22,6 +22,7 @@ namespace Client.Pages.Authentification
         [Inject] public IWorkshopWorker worker { get; set; } = default!;
 
         public LoginInfo LoginInfo { get; set; } = new();
+        public bool LoginInProgress { get; set; } = false;
 
         MudForm form = new();
         string authError = string.Empty;
@@ -29,15 +30,13 @@ namespace Client.Pages.Authentification
         private async Task Authenticate()
         {
             authError = string.Empty;
-            await Task.Delay(5);
-
-
-
-            StateHasChanged();
             await form.Validate();
 
             if (form.IsValid)
             {
+                LoginInProgress = true;
+                StateHasChanged();
+                await Task.Delay(5);
                 //Check login before open authentication
                 Workshop? workshop = worker.WorkshopRepository.GetForLogin(LoginInfo.Email);
 
@@ -76,6 +75,7 @@ namespace Client.Pages.Authentification
 
                 NavigationManager.NavigateTo("/", forceLoad: false);
             }
+            LoginInProgress = false;
         }
 
 

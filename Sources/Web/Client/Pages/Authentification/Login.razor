@@ -21,5 +21,10 @@
         <MudText Color="@Color.Error">@authError</MudText>
         <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Primary" OnClick="Authenticate">Login</MudButton>
 
+        @if (LoginInProgress)
+        {
+            <MudProgressLinear Color="Color.Primary" Indeterminate="true" Class="my-7" />
+        }
+
     </MudStack>
 </MudForm>

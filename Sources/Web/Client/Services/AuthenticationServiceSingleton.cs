@@ -1,5 +1,4 @@
 ﻿using Domain.Models.WorkshopDomaine;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
 
 namespace Client.Services
@@ -13,6 +12,7 @@ namespace Client.Services
 
 
         public static AuthenticateInformation LoginInfo { get; set; } = new();
+        public static bool AuthanticateInitialized { get; set; } = false;
 
         internal static void ClearSession()
         {
@@ -22,19 +22,13 @@ namespace Client.Services
         internal static void StartSession(AuthenticateInformation loginInfo)
         {
             LoginInfo = loginInfo;
+            AuthanticateInitialized = true;
         }
     }
 
     public class AuthenticateInformation
     {
-        public AuthenticateInformation()
-        {
-            List<Claim> claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, "dd")
-                };
-            ClaimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme));
-        }
+        public AuthenticateInformation() { }
 
         public ClaimsPrincipal ClaimsPrincipal { get; internal set; }
         public Workshop? Workshop { get; internal set; }

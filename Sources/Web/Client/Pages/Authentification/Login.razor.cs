@@ -24,7 +24,6 @@ namespace Client.Pages.Authentification
         public LoginInfo LoginInfo { get; set; } = new();
 
         MudForm form = new();
-        bool success;
         string authError = string.Empty;
 
         private async Task Authenticate()
@@ -56,9 +55,18 @@ namespace Client.Pages.Authentification
                     return;
                 }
 
+                List<Claim> claims = new List<Claim>
+                {
+                    new Claim("IdWorkshop", workshop.Id.ToString()),
+                    new Claim("NameWorkshop", workshop.Name),
+                };
+                ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme));
+
                 AuthenticateInformation loginInfo = new AuthenticateInformation();
                 loginInfo.Workshop = workshop;
+                loginInfo.ClaimsPrincipal = claimsPrincipal;
                 loginInfo.Token = EncryptCookie(loginInfo.ClaimsPrincipal, dataProtectionProvider);
+
 
                 authenticationprovider.SetAuthenticationState(Task.FromResult(new AuthenticationState(loginInfo.ClaimsPrincipal)));
 

@@ -1,3 +1,4 @@
+using Client.Utils.Middlewares;
 using Common.Utils.Singletons;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -55,6 +56,9 @@ app.UseRouting();
 
 app.UseCookiePolicy();
 app.UseAuthentication();
+
+app.UseGlobalCustomMiddleware();
+
 app.UseAuthorization();
 
 app.MapBlazorHub();

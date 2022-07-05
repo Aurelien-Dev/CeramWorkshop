@@ -4,7 +4,7 @@
 @layout LayoutLogin
 @inherits CustomLayoutComponentBase
 
-<MudForm @ref="form" @bind-IsValid="@success">
+<MudForm @ref="form">
     <MudStack Spacing=5 Justify="Justify.Center" Row=true>
         <MudButton Variant="Variant.Filled" Style="background-color: yellowgreen; color: white; width: 300px; height: 60px;"
                    OnClick=@(() => NavigationManager.NavigateTo("/register"))>
@@ -20,5 +20,6 @@
                       @bind-Value="LoginInfo.Password" For="@(() => LoginInfo.Password)" />
         <MudText Color="@Color.Error">@authError</MudText>
         <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Primary" OnClick="Authenticate">Login</MudButton>
+
     </MudStack>
 </MudForm>

@@ -6,6 +6,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>1701;1702;CS8618;CS8625;CS8600;CS8622;CS8612</NoWarn>
+  </PropertyGroup>
+  
   <ItemGroup>
     <Compile Remove="Shared\Controls\**" />
     <Compile Remove="wwwroot\css\bootstrap-icons\**" />

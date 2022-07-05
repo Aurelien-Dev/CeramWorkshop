@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+  <PropertyGroup>
     <NoWarn>1701;1702;CS8618;CS8625;CS8600;CS8622;CS8612</NoWarn>
   </PropertyGroup>
   

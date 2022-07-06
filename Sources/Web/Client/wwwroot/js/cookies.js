@@ -9,7 +9,7 @@
     document.cookie = cookieStr;
 }
 
-function getCookie(name) {
+function getCookie(cname) {
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
     let ca = decodedCookie.split(';');

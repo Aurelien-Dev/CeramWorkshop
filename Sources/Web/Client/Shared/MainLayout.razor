@@ -1,5 +1,6 @@
 ﻿@using Client.Utils
 @using Client.Services
+@using Client.Pages.Authentification
 
 @inherits CustomLayoutComponentBase
 
@@ -9,41 +10,63 @@
 <MudDialogProvider />
 <MudSnackbarProvider />
 
-<MudLayout>
-    <MudAppBar>
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
-        <MudText>Ceram-Workshop</MudText>
-        <MudText>@AuthenticationServiceSingleton.LoginInfo.Workshop?.Name</MudText>
 
-        <AuthorizeView>
-            <Authorized>
+<AuthorizeView>
+    <Authorized>
 
+        <MudLayout>
+
+            <MudAppBar>
+                <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+                <MudText>Ceram-Workshop</MudText>
+                <MudText>@AuthenticationServiceSingleton.LoginInfo.Workshop?.Name</MudText>
                 <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Inherit" OnClick="NewProduct" />
+                <MudSpacer />
+                <MudAvatar Color="Color.Warning" Variant="Variant.Filled">
+                    <MudMenu Icon="@Icons.Custom.Uncategorized.Radioactive" Color="Color.Dark" ActivationEvent="@MouseEvent.MouseOver" AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopRight">
+                        <MudMenuItem Href="/Profil">Profile</MudMenuItem>
+                        <MudMenuItem>My account</MudMenuItem>
+                        <MudMenuItem Href="/Logout">Logout</MudMenuItem>
+                    </MudMenu>
+                </MudAvatar>
+            </MudAppBar>
 
-            </Authorized>
-        </AuthorizeView>
+            <MudDrawer @bind-Open="@_drawerOpen" ClipMode="DrawerClipMode.Always">
+                <Sidebar />
+            </MudDrawer>
 
-        <MudSpacer />
 
-        <MudAvatar Color="Color.Warning" Variant="Variant.Filled">
-            <MudMenu Icon="@Icons.Custom.Uncategorized.Radioactive" Color="Color.Dark" ActivationEvent="@MouseEvent.MouseOver" AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopRight">
-                <MudMenuItem Href="/Profil">Profile</MudMenuItem>
-                <MudMenuItem>My account</MudMenuItem>
-                <MudMenuItem Href="/Logout">Logout</MudMenuItem>
-            </MudMenu>
-        </MudAvatar>
-    </MudAppBar>
+            <MudMainContent>
+                <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge">
+                    @Body
+                    <Footer />
+                </MudContainer>
+            </MudMainContent>
 
-    <MudDrawer @bind-Open="@_drawerOpen" ClipMode="DrawerClipMode.Always">
-        <Sidebar />
-    </MudDrawer>
-    <MudMainContent>
-        <MudContainer MaxWidth="MaxWidth.ExtraExtraLarge">
-            @Body
-            <Footer />
-        </MudContainer>
-    </MudMainContent>
-    <MudScrollToTop>
-        <MudFab Color="Color.Tertiary" Icon="@Icons.Filled.ArrowCircleUp" />
-    </MudScrollToTop>
-</MudLayout>
+            <MudScrollToTop>
+                <MudFab Color="Color.Tertiary" Icon="@Icons.Filled.ArrowCircleUp" />
+            </MudScrollToTop>
+
+        </MudLayout>
+
+    </Authorized>
+</AuthorizeView>
+
+
+<AuthorizeView>
+    <NotAuthorized>
+
+        <MudLayout>
+            <MudMainContent>
+                <MudContainer MaxWidth="MaxWidth.Small">
+                    <Login />
+                    <Footer />
+                </MudContainer>
+            </MudMainContent>
+            <MudScrollToTop>
+                <MudFab Color="Color.Tertiary" Icon="@Icons.Filled.ArrowCircleUp" />
+            </MudScrollToTop>
+        </MudLayout>
+
+    </NotAuthorized>
+</AuthorizeView>

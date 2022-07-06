@@ -16,7 +16,6 @@ namespace Client.Utils.Middlewares
 
         public Task Invoke(HttpContext httpContext, ApplicationDbContext dbContext)
         {
-            bool statusCheck = true;
             ClaimsPrincipal claimsP = httpContext.User;
             if (claimsP.Identity.IsAuthenticated && !AuthenticationServiceSingleton.AuthanticateInitialized)
             {
@@ -27,12 +26,10 @@ namespace Client.Utils.Middlewares
                     ClaimsPrincipal = httpContext.User,
                     Workshop = dbContext.Workshops.FirstOrDefault(w => w.Id == idWorkshop)
                 });
+
+                return _next(httpContext);
             }
-            else
-            {
-                if (statusCheck && httpContext.Request.Path.Value == "/")
-                    Task.Run(() => httpContext.Response.Redirect("/login"));
-            }
+
             return _next(httpContext);
         }
     }

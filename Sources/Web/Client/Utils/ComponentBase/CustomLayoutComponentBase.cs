@@ -8,7 +8,7 @@ namespace Client.Utils
     {
         [Inject] public NavigationManager NavigationManager { get; set; } = default!;
         [Inject] public IDialogService DialogService { get; set; } = default!;
-
+        [Inject] public ISnackbar Snackbar { get; set; } = default!;
         public bool IsAuthenticate { get; set; } = AuthenticationServiceSingleton.LoginInfo.IsAuthenticate;
     }
 }

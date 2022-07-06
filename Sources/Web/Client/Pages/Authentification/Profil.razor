@@ -1,0 +1,52 @@
+﻿@page "/profil"
+@using Client.Components
+@using Client.Utils
+
+@inherits CustomLayoutComponentBase
+
+<MudContainer Class="mt-5" MaxWidth="MaxWidth.Medium">
+
+    <MudCard>
+        <MudCardHeader>
+            <MudText Typo="Typo.h6">Modifier votre compte</MudText>
+        </MudCardHeader>
+
+        <MudCardContent>
+            <MudStack Spacing=5>
+                <MudForm @ref="formGeneral">
+                    <MudStack Spacing=5>
+                        <MudTextField InputType="InputType.Text" Label="Nom de l'atelier" FullWidth=true
+                                      @bind-Value="registerInfo.Name" For="@(() => registerInfo.Name)" />
+
+                        <MudTextField InputType="InputType.Text" Label="Votre nom" FullWidth=true
+                                      @bind-Value="registerInfo.UserName" For="@(() => registerInfo.UserName)" />
+
+                        <MudTextField InputType="InputType.Email" Label="Email" FullWidth=true
+                                      @bind-Value="registerInfo.Email" For="@(() => registerInfo.Email)" />
+                        <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Primary" OnClick="EditProfile">Enregistrer</MudButton>
+                    </MudStack>
+                </MudForm>
+
+
+                <MudText Typo="Typo.h6">Réinitialiser le mot de passe</MudText>
+
+                <MudForm @ref="formPassword">
+                    <MudStack Spacing=5>
+
+                        <MudTextField InputType="InputType.Password" Label="Mot de passe" FullWidth=true
+                                      @bind-Value="registerInfo.Password" For="@(() => registerInfo.Password)" />
+
+                        <MudTextField InputType="InputType.Password" Label="Mot de passe" FullWidth=true
+                                      @bind-Value="registerInfo.Password2" For="@(() => registerInfo.Password2)" />
+
+                        <MudText Color="@Color.Error">@registerError</MudText>
+
+                        <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Primary" OnClick="EditPassword">Modifier mon mot de passe</MudButton>
+                    </MudStack>
+                </MudForm>
+            </MudStack>
+
+        </MudCardContent>
+    </MudCard>
+
+</MudContainer>

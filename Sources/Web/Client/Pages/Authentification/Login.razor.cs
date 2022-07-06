@@ -75,7 +75,6 @@ namespace Client.Pages.Authentification
 
                 NavigationManager.NavigateTo("/", forceLoad: false);
             }
-            LoginInProgress = false;
         }
 
 

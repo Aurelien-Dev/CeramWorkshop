@@ -19,7 +19,7 @@
         <MudTextField InputType="InputType.Password" Label="Mot de passe" FullWidth=true
                       @bind-Value="LoginInfo.Password" For="@(() => LoginInfo.Password)" />
         <MudText Color="@Color.Error">@authError</MudText>
-        <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Primary" OnClick="Authenticate">Login</MudButton>
+        <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Primary" OnClick="@(async ()=> { await Authenticate(); LoginInProgress = false; })">Login</MudButton>
 
         @if (LoginInProgress)
         {

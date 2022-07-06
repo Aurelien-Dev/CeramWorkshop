@@ -3,6 +3,7 @@ using Common.Utils.Singletons;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server;
+using MudBlazor;
 using MudBlazor.Services;
 using Repository;
 
@@ -13,7 +14,18 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddRepository();
 
-builder.Services.AddMudServices();
+builder.Services.AddMudServices(config =>
+{
+    config.SnackbarConfiguration.PositionClass = Defaults.Classes.Position.BottomCenter;
+
+    config.SnackbarConfiguration.PreventDuplicates = true;
+    config.SnackbarConfiguration.NewestOnTop = false;
+    config.SnackbarConfiguration.ShowCloseIcon = true;
+    config.SnackbarConfiguration.VisibleStateDuration = 4000;
+    config.SnackbarConfiguration.HideTransitionDuration = 250;
+    config.SnackbarConfiguration.ShowTransitionDuration = 250;
+    config.SnackbarConfiguration.SnackbarVariant = Variant.Text;
+});
 builder.Services.AddScoped<AuthenticationStateProvider, ServerAuthenticationStateProvider>();
 builder.Services.AddScoped<IHostEnvironmentAuthenticationStateProvider>(sp => { return (ServerAuthenticationStateProvider)sp.GetRequiredService<AuthenticationStateProvider>(); });
 

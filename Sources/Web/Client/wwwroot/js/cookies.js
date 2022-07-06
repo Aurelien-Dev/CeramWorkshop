@@ -13,7 +13,8 @@ function getCookie(cname) {
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
     let ca = decodedCookie.split(';');
-    for (let c in ca) {
+    for (let cookie in ca) {
+        let c = cookie;
         while (c.charAt(0) == ' ') {
             c = c.substring(1);
         }

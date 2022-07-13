@@ -15,12 +15,8 @@ namespace Client.Pages.Authentification
 
         protected override async Task OnInitializedAsync()
         {
-            ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity());
-            authenticationprovider.SetAuthenticationState(Task.FromResult(new AuthenticationState(claimsPrincipal)));
+            await AuthenticationManager.StopSession();
 
-            _ = await JSRuntime.InvokeAsync<string>("eraseCookie", new object[] { ".AspNetCore.Cookies" });
-
-            AuthenticationManager.ClearSession();
             NavigationManager.NavigateTo("/", true);
         }
     }

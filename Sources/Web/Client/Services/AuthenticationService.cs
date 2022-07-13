@@ -33,8 +33,12 @@ namespace Client.Services
 
         public bool AuthanticateInitialized { get => CurrentSession.Workshop != null; }
 
-        internal void ClearSession()
+        public async Task StopSession()
         {
+            ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity());
+            Authenticationprovider.SetAuthenticationState(Task.FromResult(new AuthenticationState(claimsPrincipal)));
+
+            _ = await JSRuntime.InvokeAsync<string>("eraseCookie", new object[] { ".AspNetCore.Cookies" });
         }
 
         public async Task<string> StartSession(string Email, string Password)
@@ -64,7 +68,7 @@ namespace Client.Services
             return authError;
         }
 
-        private string EncryptCookie(ClaimsPrincipal claimsPrincipal, IDataProtectionProvider dataProtectionProvider)
+        private static string EncryptCookie(ClaimsPrincipal claimsPrincipal, IDataProtectionProvider dataProtectionProvider)
         {
             AuthenticationTicket ticket = new AuthenticationTicket(claimsPrincipal, CookieAuthenticationDefaults.AuthenticationScheme);
             IDataProtector dataProtector = dataProtectionProvider.CreateProtector("Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationMiddleware", "Cookies", "v2");
@@ -74,7 +78,7 @@ namespace Client.Services
             return encyptedCookie;
         }
 
-        private List<Claim> CreateClaims(Workshop? workshop)
+        private static List<Claim> CreateClaims(Workshop? workshop)
         {
             return new List<Claim>
                 {

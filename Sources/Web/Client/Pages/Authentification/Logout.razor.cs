@@ -25,6 +25,7 @@ namespace Client.Pages.Authentification
             _ = await JSRuntime.InvokeAsync<string>("eraseCookie", new object[] { ".AspNetCore.Cookies" });
 
             AuthenticationServiceSingleton.ClearSession();
+            NavigationManager.NavigateTo("/", true);
         }
     }
 }

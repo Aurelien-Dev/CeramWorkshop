@@ -65,15 +65,15 @@ namespace Client.Pages.Authentification
                 loginInfo.Workshop = workshop;
                 loginInfo.ClaimsPrincipal = claimsPrincipal;
                 loginInfo.Token = EncryptCookie(loginInfo.ClaimsPrincipal, dataProtectionProvider);
+                AuthenticationServiceSingleton.StartSession(loginInfo);
 
 
                 authenticationprovider.SetAuthenticationState(Task.FromResult(new AuthenticationState(loginInfo.ClaimsPrincipal)));
 
-                AuthenticationServiceSingleton.StartSession(loginInfo);
 
                 _ = await JSRuntime.InvokeAsync<string>("setCookie", new object[] { ".AspNetCore.Cookies", loginInfo.Token, 1 });
 
-                NavigationManager.NavigateTo("/", forceLoad: false);
+                StateHasChanged();
             }
         }
 

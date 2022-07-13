@@ -10,15 +10,15 @@ using System.Security.Claims;
 
 namespace Client.Services
 {
-    public sealed class AuthenticationService
+    public class AuthenticationService
     {
-        private static IHostEnvironmentAuthenticationStateProvider Authenticationprovider {get;set;}
-        private static IDataProtectionProvider DataProtectionProvider { get; set; }
-        private static IWorkshopWorker Worker { get; set; }
-        private static SessionInfo CurrentSession { get; set; }
-        private static IJSRuntime JSRuntime { get; set; }
+        private IHostEnvironmentAuthenticationStateProvider Authenticationprovider { get; set; }
+        private IDataProtectionProvider DataProtectionProvider { get; set; }
+        private IWorkshopWorker Worker { get; set; }
+        private SessionInfo CurrentSession { get; set; }
+        private IJSRuntime JSRuntime { get; set; }
 
-        public AuthenticationService(IHostEnvironmentAuthenticationStateProvider authenticationprovider, 
+        public AuthenticationService(IHostEnvironmentAuthenticationStateProvider authenticationprovider,
                                      IDataProtectionProvider dataProtectionProvider,
                                      IWorkshopWorker worker,
                                      SessionInfo sessionInfo,
@@ -31,13 +31,13 @@ namespace Client.Services
             JSRuntime = jSRuntime;
         }
 
-        public static bool AuthanticateInitialized { get; set; } = false;
+        public bool AuthanticateInitialized { get => CurrentSession.Workshop != null; }
 
-        internal static void ClearSession()
+        internal void ClearSession()
         {
         }
 
-        public static async Task<string> StartSession(string Email, string Password)
+        public async Task<string> StartSession(string Email, string Password)
         {
             string authError = null;
             //Check login before open authentication
@@ -61,12 +61,10 @@ namespace Client.Services
 
             _ = await JSRuntime.InvokeAsync<string>("setCookie", new object[] { ".AspNetCore.Cookies", CurrentSession.Token, 1 });
 
-            AuthanticateInitialized = true;
             return authError;
         }
 
-
-        private static string EncryptCookie(ClaimsPrincipal claimsPrincipal, IDataProtectionProvider dataProtectionProvider)
+        private string EncryptCookie(ClaimsPrincipal claimsPrincipal, IDataProtectionProvider dataProtectionProvider)
         {
             AuthenticationTicket ticket = new AuthenticationTicket(claimsPrincipal, CookieAuthenticationDefaults.AuthenticationScheme);
             IDataProtector dataProtector = dataProtectionProvider.CreateProtector("Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationMiddleware", "Cookies", "v2");
@@ -76,7 +74,7 @@ namespace Client.Services
             return encyptedCookie;
         }
 
-        private static List<Claim> CreateClaims(Workshop? workshop)
+        private List<Claim> CreateClaims(Workshop? workshop)
         {
             return new List<Claim>
                 {

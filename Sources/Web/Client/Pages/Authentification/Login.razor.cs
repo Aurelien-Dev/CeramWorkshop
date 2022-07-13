@@ -1,7 +1,5 @@
 using Client.Services;
 using Client.Utils;
-using Domain.InterfacesWorker;
-using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using System.ComponentModel.DataAnnotations;
 
@@ -9,9 +7,6 @@ namespace Client.Pages.Authentification
 {
     public partial class Login : CustomLayoutComponentBase
     {
-        [Inject] public IWorkshopWorker worker { get; set; } = default!;
-        [Inject] public AuthenticationService authenticationService { get; set; }
-
         public LoginInfo LoginInfo { get; set; } = new();
         public bool LoginInProgress { get; set; } = false;
 
@@ -29,14 +24,11 @@ namespace Client.Pages.Authentification
                 StateHasChanged();
                 await Task.Delay(5);
 
-                authError = await AuthenticationService.StartSession(LoginInfo.Email, LoginInfo.Password);
+                authError = await AuthenticationManager.StartSession(LoginInfo.Email, LoginInfo.Password);
 
                 StateHasChanged();
             }
         }
-
-
-
     }
 
     public class LoginInfo

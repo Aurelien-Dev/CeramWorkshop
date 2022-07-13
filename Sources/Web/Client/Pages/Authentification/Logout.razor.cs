@@ -3,8 +3,6 @@ using Client.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.DataProtection;
-using Microsoft.JSInterop;
 using System.Security.Claims;
 
 namespace Client.Pages.Authentification
@@ -13,8 +11,6 @@ namespace Client.Pages.Authentification
     public partial class Logout : CustomLayoutComponentBase
     {
         [Inject] public IHostEnvironmentAuthenticationStateProvider authenticationprovider { get; set; } = default!;
-        [Inject] public IDataProtectionProvider dataProtectionProvider { get; set; } = default!;
-        [Inject] public IJSRuntime JSRuntime { get; set; } = default!;
 
 
         protected override async Task OnInitializedAsync()
@@ -24,7 +20,7 @@ namespace Client.Pages.Authentification
 
             _ = await JSRuntime.InvokeAsync<string>("eraseCookie", new object[] { ".AspNetCore.Cookies" });
 
-            AuthenticationService.ClearSession();
+            AuthenticationManager.ClearSession();
             NavigationManager.NavigateTo("/", true);
         }
     }

@@ -10,15 +10,10 @@ namespace Client.Utils
         [Inject] public IDialogService DialogService { get; set; } = default!;
         [Inject] public SessionInfo CurrentSession { get; set; } = default!;
 
-        public DialogOptions CommonOptionDialog { get; set; }
-
-        public CustomComponentBase()
+        public DialogOptions CommonOptionDialog { get; set; } = new DialogOptions
         {
-            CommonOptionDialog = new DialogOptions
-            {
-                CloseOnEscapeKey = false,
-                DisableBackdropClick = true
-            };
-        }
+            CloseOnEscapeKey = false,
+            DisableBackdropClick = true
+        };
     }
 }

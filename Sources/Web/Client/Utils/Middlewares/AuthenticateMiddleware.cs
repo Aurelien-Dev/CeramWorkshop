@@ -15,17 +15,16 @@ namespace Client.Utils.Middlewares
             _next = next;
         }
 
-        public Task Invoke(HttpContext httpContext, ApplicationDbContext dbContext, SessionInfo currentSession)
+        public Task Invoke(HttpContext httpContext, ApplicationDbContext dbContext, SessionInfo currentSession, AuthenticationService authenticationService)
         {
             ClaimsPrincipal claimsP = httpContext.User;
-            if (claimsP.Identity.IsAuthenticated && !AuthenticationService.AuthanticateInitialized)
+            if (claimsP.Identity.IsAuthenticated && !authenticationService.AuthanticateInitialized)
             {
                 int idWorkshop = Convert.ToInt32(claimsP.Claims.FirstOrDefault(d => d.Type == "IdWorkshop").Value);
 
                 currentSession.ClaimsPrincipal = httpContext.User;
                 currentSession.Workshop = dbContext.Workshops.FirstOrDefault(w => w.Id == idWorkshop);
                 currentSession.IsAuthenticate = true;
-
                 return _next(httpContext);
             }
 

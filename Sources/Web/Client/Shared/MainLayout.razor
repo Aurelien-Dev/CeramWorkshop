@@ -19,7 +19,7 @@
             <MudAppBar>
                 <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
                 <MudText>Ceram-Workshop</MudText>
-                <MudText>@AuthenticationServiceSingleton.LoginInfo.Workshop?.Name</MudText>
+                <MudText>@CurrentSession.Workshop?.Name</MudText>
                 <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Inherit" OnClick="NewProduct" />
                 <MudSpacer />
                 <MudAvatar Color="Color.Warning" Variant="Variant.Filled">

@@ -3,14 +3,12 @@ using Client.Utils;
 using Client.ViewModels;
 using Domain.InterfacesWorker;
 using Domain.Models.WorkshopDomaine;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.JSInterop;
 using MudBlazor;
-using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 
 namespace Client.Pages.Authentification
@@ -21,6 +19,7 @@ namespace Client.Pages.Authentification
         [Inject] public IDataProtectionProvider dataProtectionProvider { get; set; } = default!;
         [Inject] public IJSRuntime JSRuntime { get; set; } = default!;
         [Inject] public IWorkshopWorker worker { get; set; } = default!;
+        [Inject] public AuthenticationService AuthenticationService { get; set; }
 
         RegisterInfo registerInfo = new();
 
@@ -49,35 +48,14 @@ namespace Client.Pages.Authentification
 
                 Workshop workshopDetail = new(registerInfo.Name, null, registerInfo.Email, registerInfo.UserName, WorkshopPasswordHash, WorkshopSalt);
 
-
                 await worker.WorkshopRepository.Add(workshopDetail);
                 worker.Completed();
 
-                AuthenticateInformation loginInfo = new AuthenticateInformation();
-                loginInfo.Workshop = workshopDetail;
-                loginInfo.Token = EncryptCookie(loginInfo.ClaimsPrincipal, dataProtectionProvider);
-
-                authenticationprovider.SetAuthenticationState(Task.FromResult(new AuthenticationState(loginInfo.ClaimsPrincipal)));
-
-                AuthenticationServiceSingleton.StartSession(loginInfo);
-
-                _ = await JSRuntime.InvokeAsync<string>("setCookie", new object[] { ".AspNetCore.Cookies", loginInfo.Token, 1 });
+                registerError = await AuthenticationService.StartSession(workshopDetail.Email, workshopDetail.PasswordHash);
+                if (!string.IsNullOrEmpty(registerError)) return;
 
                 NavigationManager.NavigateTo("/", forceLoad: false);
             }
         }
-
-
-        private static string EncryptCookie(ClaimsPrincipal claimsPrincipal, IDataProtectionProvider dataProtectionProvider)
-        {
-            AuthenticationTicket ticket = new AuthenticationTicket(claimsPrincipal, CookieAuthenticationDefaults.AuthenticationScheme);
-            IDataProtector dataProtector = dataProtectionProvider.CreateProtector("Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationMiddleware", "Cookies", "v2");
-            var ticketDataFormat = new TicketDataFormat(dataProtector);
-
-            string encyptedCookie = ticketDataFormat.Protect(ticket);
-            return encyptedCookie;
-        }
-
-
     }
 }

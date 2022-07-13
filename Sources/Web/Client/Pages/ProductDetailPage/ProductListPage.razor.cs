@@ -1,4 +1,4 @@
-using Client.Services;
+using Client.Utils;
 using Domain.InterfacesWorker;
 using Domain.Models.MainDomain;
 using Microsoft.AspNetCore.Authorization;
@@ -9,7 +9,7 @@ namespace Client.Pages.ProductDetailPage
     public enum OrderingPage { StatusAsc, StatusDesc, NameAsc, NameDesc }
 
     [Authorize]
-    public partial class ProductListPage : ComponentBase
+    public partial class ProductListPage : CustomComponentBase
     {
         [Inject] private IProductWorker unitOfWork { get; set; } = default!;
 
@@ -20,7 +20,7 @@ namespace Client.Pages.ProductDetailPage
 
         protected override async Task OnInitializedAsync()
         {
-            Products = await unitOfWork.ProductRepository.GetAll(AuthenticationServiceSingleton.LoginInfo.Workshop.Id);
+            Products = await unitOfWork.ProductRepository.GetAll(CurrentSession.Workshop.Id);
             ProductsVM = new List<ProductViewModel>(Products.Select(p => new ProductViewModel(p)).OrderBy(p => p.Name).ToList());
         }
 

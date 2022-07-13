@@ -1,4 +1,5 @@
 ﻿using Client.Services;
+using Client.Services.Authentication;
 using Repository;
 using System.Security.Claims;
 
@@ -14,18 +15,16 @@ namespace Client.Utils.Middlewares
             _next = next;
         }
 
-        public Task Invoke(HttpContext httpContext, ApplicationDbContext dbContext)
+        public Task Invoke(HttpContext httpContext, ApplicationDbContext dbContext, SessionInfo currentSession)
         {
             ClaimsPrincipal claimsP = httpContext.User;
-            if (claimsP.Identity.IsAuthenticated && !AuthenticationServiceSingleton.AuthanticateInitialized)
+            if (claimsP.Identity.IsAuthenticated && !AuthenticationService.AuthanticateInitialized)
             {
                 int idWorkshop = Convert.ToInt32(claimsP.Claims.FirstOrDefault(d => d.Type == "IdWorkshop").Value);
 
-                AuthenticationServiceSingleton.StartSession(new AuthenticateInformation()
-                {
-                    ClaimsPrincipal = httpContext.User,
-                    Workshop = dbContext.Workshops.FirstOrDefault(w => w.Id == idWorkshop)
-                });
+                currentSession.ClaimsPrincipal = httpContext.User;
+                currentSession.Workshop = dbContext.Workshops.FirstOrDefault(w => w.Id == idWorkshop);
+                currentSession.IsAuthenticate = true;
 
                 return _next(httpContext);
             }

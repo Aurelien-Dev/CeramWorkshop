@@ -27,7 +27,7 @@ namespace Client.Pages.Authentification
 
         protected override void OnInitialized()
         {
-            currentWorkshop = AuthenticationServiceSingleton.LoginInfo.Workshop;
+            currentWorkshop = CurrentSession.Workshop;
 
             registerInfo.Email = currentWorkshop.Email;
             registerInfo.UserName = currentWorkshop.UserName;

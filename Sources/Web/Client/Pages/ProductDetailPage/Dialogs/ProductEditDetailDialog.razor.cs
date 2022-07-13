@@ -1,4 +1,5 @@
 ﻿using Client.Services;
+using Client.Utils;
 using Domain.InterfacesWorker;
 using Domain.Models.MainDomain;
 using Microsoft.AspNetCore.Components;
@@ -6,7 +7,7 @@ using MudBlazor;
 
 namespace Client.Pages.ProductDetailPage.Dialogs
 {
-    public partial class ProductEditDetailDialog
+    public partial class ProductEditDetailDialog : CustomComponentBase
     {
         [Inject] private IProductWorker productWorker { get; set; } = default!;
         [CascadingParameter] MudDialogInstance MudDialog { get; set; } = default!;
@@ -24,7 +25,7 @@ namespace Client.Pages.ProductDetailPage.Dialogs
 
             if (form.IsValid)
             {
-                ProductDetail.IdWorkshop = AuthenticationServiceSingleton.LoginInfo.Workshop.Id;
+                ProductDetail.IdWorkshop = CurrentSession.Workshop.Id;
                 if (InsertMode.HasValue && InsertMode.Value)
                     await productWorker.ProductRepository.Add(ProductDetail);
                 else

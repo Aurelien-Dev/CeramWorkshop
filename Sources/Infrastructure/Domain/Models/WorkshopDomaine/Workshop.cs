@@ -23,6 +23,9 @@ namespace Domain.Models.WorkshopDomaine
         [Required]
         public string Name { get; set; }
 
+        [Required]
+        public string Culture { get; set; }
+
         public string? Logo { get; set; }
 
 

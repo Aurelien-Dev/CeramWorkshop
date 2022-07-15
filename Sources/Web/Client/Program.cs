@@ -2,9 +2,20 @@ using Client;
 using Client.Utils.Middlewares;
 using Common.Utils.Singletons;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Localization;
 using Repository;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
+var supportedCultures = new List<CultureInfo> { new CultureInfo("fr-FR"), new CultureInfo("en-US") };
+
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    options.DefaultRequestCulture = new RequestCulture("fr", "fr");
+    options.SupportedUICultures = supportedCultures;
+    options.SupportedCultures = supportedCultures;
+});
 
 // Add services to the container.
 builder.Services.AddRazorPages();
@@ -43,6 +54,8 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+app.UseRequestLocalization();
 
 app.UseHttpsRedirection();
 

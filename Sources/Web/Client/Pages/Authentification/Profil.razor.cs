@@ -3,6 +3,7 @@ using Client.ViewModels;
 using Domain.InterfacesWorker;
 using Domain.Models.WorkshopDomaine;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Localization;
 using MudBlazor;
 
 namespace Client.Pages.Authentification
@@ -22,23 +23,36 @@ namespace Client.Pages.Authentification
             registerInfo.Email = CurrentSession.Workshop.Email;
             registerInfo.UserName = CurrentSession.Workshop.UserName;
             registerInfo.Name = CurrentSession.Workshop.Name;
+            registerInfo.Culture = new RequestCulture(CurrentSession.Workshop.Culture);
         }
 
         public async Task EditProfile()
         {
             await formGeneral.Validate();
-            
+
             if (!formGeneral.IsValid) return;
 
             Workshop workshop = await worker.WorkshopRepository.Get(CurrentSession.Workshop.Id);
             workshop.Name = registerInfo.Name;
             workshop.Email = registerInfo.Email;
             workshop.UserName = registerInfo.UserName;
+            workshop.Culture = registerInfo.Culture.Culture.Name;
+
+            CurrentSession.Workshop.Culture = registerInfo.Culture.Culture.Name;
+
+            await JSRuntime.InvokeAsync<string>("setCookie", new object[]
+               {
+                    CookieRequestCultureProvider.DefaultCookieName,
+                    CookieRequestCultureProvider.MakeCookieValue(registerInfo.Culture), 365
+               });
 
             worker.WorkshopRepository.Update(workshop);
             worker.Completed();
 
             Snackbar.Add("Modification effectuée", Severity.Success);
+
+            await Task.Delay(500);
+            NavigationManager.NavigateTo("", true);
         }
 
         public async Task EditPassword()

@@ -6,23 +6,23 @@
 
 <MudForm @ref="form" @bind-IsValid="@success">
     <MudStack Spacing=5>
-        <MudTextField InputType="InputType.Text" Label="Nom de l'atelier" FullWidth=true
+        <MudTextField InputType="InputType.Text" Label="@Localizer["WorkshopName"]" FullWidth=true
                       @bind-Value="registerInfo.Name" For="@(() => registerInfo.Name)" />
 
-        <MudTextField InputType="InputType.Text" Label="Votre nom" FullWidth=true
+        <MudTextField InputType="InputType.Text" Label="@Localizer["WorkshopUserName"]" FullWidth=true
                       @bind-Value="registerInfo.UserName" For="@(() => registerInfo.UserName)" />
 
-        <MudTextField InputType="InputType.Email" Label="Email" FullWidth=true
+        <MudTextField InputType="InputType.Email" Label="@Localizer["WorkshopEmail"]" FullWidth=true
                       @bind-Value="registerInfo.Email" For="@(() => registerInfo.Email)" />
 
-        <MudTextField InputType="InputType.Password" Label="Mot de passe" FullWidth=true
+        <MudTextField InputType="InputType.Password" Label="@Localizer["WorkshopPassword"]" FullWidth=true
                       @bind-Value="registerInfo.Password" For="@(() => registerInfo.Password)" />
 
-        <MudTextField InputType="InputType.Password" Label="Mot de passe" FullWidth=true
+        <MudTextField InputType="InputType.Password" Label="@Localizer["WorkshopPassword"]" FullWidth=true
                       @bind-Value="registerInfo.Password2" For="@(() => registerInfo.Password2)" />
 
         <MudText Color="@Color.Error">@registerError</MudText>
 
-        <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Primary" OnClick="RegisterWorkshop">Login</MudButton>
+        <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Primary" OnClick="RegisterWorkshop">@Localizer["Btn_CreateWorkshop"]</MudButton>
     </MudStack>
 </MudForm>

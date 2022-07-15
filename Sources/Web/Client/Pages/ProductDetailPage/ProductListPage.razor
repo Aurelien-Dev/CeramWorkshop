@@ -5,7 +5,7 @@
 
 <MudPaper Elevation="0">
     <MudToolBar Dense=true Class="mt-4" DisableGutters=true>
-        <MudSelect T="OrderingPage" Label="Trier par" Margin="Margin.Dense" ValueChanged="@((e) => RaiseOrdering(e))"
+        <MudSelect T="OrderingPage" Label=@Localizer["OrderBy"] Margin="Margin.Dense" ValueChanged="@((e) => RaiseOrdering(e))"
                    MultiSelection=false>
             @foreach (OrderingPage item in Enum.GetValues(typeof(OrderingPage)))
             {

@@ -1,6 +1,7 @@
 ﻿using Client.Services;
 using Client.Services.Authentication;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 using MudBlazor;
 
@@ -14,5 +15,6 @@ namespace Client.Utils
         [Inject] public ISnackbar Snackbar { get; set; } = default!;
         [Inject] public SessionInfo CurrentSession { get; set; } = new();
         [Inject] public IJSRuntime JSRuntime { get; set; } = default!;
+        [Inject] public IStringLocalizer<Translations> Localizer { get; set; }
     }
 }

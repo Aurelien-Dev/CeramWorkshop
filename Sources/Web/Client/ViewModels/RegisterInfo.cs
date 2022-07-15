@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Localization;
+using System.ComponentModel.DataAnnotations;
 
 namespace Client.ViewModels
 {
@@ -15,5 +16,6 @@ namespace Client.ViewModels
         [Required]
         [Compare(nameof(Password))]
         public string Password2 { get; set; } = string.Empty;
+        public RequestCulture Culture { get; set; }
     }
 }

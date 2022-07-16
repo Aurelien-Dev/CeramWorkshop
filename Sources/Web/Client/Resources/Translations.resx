@@ -129,6 +129,15 @@
   <data name="OrderBy" xml:space="preserve">
     <value>Trier par</value>
   </data>
+  <data name="ProductList_AltImgProduct" xml:space="preserve">
+    <value>Aperçu du produit</value>
+  </data>
+  <data name="ProductList_ShowProduct" xml:space="preserve">
+    <value>Voir</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Recherche</value>
+  </data>
   <data name="TitleProfil_EditInfo" xml:space="preserve">
     <value>Modifier votre compte</value>
   </data>
@@ -146,6 +155,9 @@
   </data>
   <data name="WorkshopPassword" xml:space="preserve">
     <value>Mot de passe</value>
+  </data>
+  <data name="WorkshopSignUp" xml:space="preserve">
+    <value>Créer mon atelier céramique</value>
   </data>
   <data name="WorkshopUserName" xml:space="preserve">
     <value>Votre nom</value>

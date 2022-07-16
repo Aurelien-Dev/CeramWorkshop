@@ -16,7 +16,7 @@
         <MudSpacer />
 
         <MudTextField ValueChanged="@((e) => RaisFilter(e))" T=string
-                      Clearable=true KeyUpPreventDefault=true Label="Recherche" Variant="Variant.Outlined" Adornment="Adornment.End" Margin="Margin.Dense"
+                      Clearable=true KeyUpPreventDefault=true Label="@Localizer["Search"]" Variant="Variant.Outlined" Adornment="Adornment.End" Margin="Margin.Dense"
                       AdornmentIcon="@Icons.Filled.Search" AdornmentColor="Color.Secondary" />
     </MudToolBar>
 </MudPaper>
@@ -27,7 +27,7 @@
             <MudCard>
                 <MudCardHeader Class="pa-0">
                     <MudImage Src="@item.Image" Class="rounded-t" ObjectPosition=ObjectPosition.Center ObjectFit=ObjectFit.Cover Style="width:100%;" Height=200
-                          Alt="Preview of product" />
+                          Alt="@Localizer["ProductList_AltImgProduct"]" />
                 </MudCardHeader>
                 <MudCardContent Style="height:100px;">
                     <MudText Typo="Typo.h6" Class="pa-0 ma-0" Inline=true>@item.Name</MudText>
@@ -37,7 +37,7 @@
                 </MudCardContent>
                 <MudCardActions>
                     <MudStack AlignItems="AlignItems.End" Justify="Justify.FlexEnd">
-                        <MudButton Variant="Variant.Text" Color="Color.Primary" Href="@($"Product/{item.Id}")">Voir</MudButton>
+                        <MudButton Variant="Variant.Text" Color="Color.Primary" Href="@($"Product/{item.Id}")">@Localizer["ProductList_ShowProduct"]</MudButton>
                     </MudStack>
                 </MudCardActions>
             </MudCard>

@@ -7,15 +7,15 @@
     <MudStack Spacing=5 Justify="Justify.Center" Row=true>
         <MudButton Variant="Variant.Filled" Style="background-color: yellowgreen; color: white; width: 300px; height: 60px;"
                    OnClick=@(() => NavigationManager.NavigateTo("/register"))>
-            Créer mon atelier de poterie
+            @Localizer["WorkshopSignUp"]
         </MudButton>
     </MudStack>
     <MudDivider Class="ma-10" />
     <MudStack Spacing=5>
-        <MudTextField InputType="InputType.Email" Label="Email" FullWidth=true
+        <MudTextField InputType="InputType.Email" Label="@Localizer["WorkshopEmail"]" FullWidth=true
                       @bind-Value="LoginInfo.Email" For="@(() => LoginInfo.Email)" />
 
-        <MudTextField InputType="InputType.Password" Label="Mot de passe" FullWidth=true
+        <MudTextField InputType="InputType.Password" Label="@Localizer["WorkshopPassword"]" FullWidth=true
                       @bind-Value="LoginInfo.Password" For="@(() => LoginInfo.Password)" />
         <MudText Color="@Color.Error">@authError</MudText>
         <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Primary" OnClick="@(async ()=> { await Authenticate(); LoginInProgress = false; })">Login</MudButton>

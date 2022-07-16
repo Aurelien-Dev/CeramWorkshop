@@ -13,6 +13,16 @@ namespace Client.Pages.ProductDetailPage.Dialogs
         [Parameter] public Product ProductDetail { get; set; } = new();
         [Parameter] public ImageInstruction ImageInstruction { get; set; } = new();
 
+        private string OldComment { get; set; }
+
+        protected override void OnAfterRender(bool firstRender)
+        {
+            if (firstRender)
+            {
+                OldComment = ImageInstruction.Comment;
+            }
+        }
+
         private void OnValidSubmit()
         {
             if (ImageInstruction != null && !string.IsNullOrEmpty(ImageInstruction.Url))
@@ -27,8 +37,7 @@ namespace Client.Pages.ProductDetailPage.Dialogs
 
         private void Cancel()
         {
-            LoadFileFromInputFile.RemoveFileInput(ImageInstruction.Url);
-            ImageInstruction = default!;
+            ImageInstruction.Comment = OldComment;
             MudDialog.Cancel();
         }
     }

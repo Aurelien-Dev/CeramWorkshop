@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Domain.CustomDataAnotation;
 
 namespace Domain.Models.MainDomain
 {
@@ -6,13 +6,13 @@ namespace Domain.Models.MainDomain
 
     public class Material
     {
-        [Required]
+        [CeramRequired]
         public int Id { get; set; }
 
-        [Required]
+        [CeramRequired]
         public string Reference { get; set; }
 
-        [Required]
+        [CeramRequired]
         public string Name { get; set; }
 
         public bool? IsHomeMade { get; set; }

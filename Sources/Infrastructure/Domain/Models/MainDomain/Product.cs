@@ -1,4 +1,5 @@
-﻿using Domain.Models.WorkshopDomaine;
+﻿using Domain.CustomDataAnotation;
+using Domain.Models.WorkshopDomaine;
 using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Models.MainDomain
@@ -7,16 +8,16 @@ namespace Domain.Models.MainDomain
 
     public class Product
     {
-        [Required]
+        [CeramRequired]
         public int Id { get; set; }
 
-        [Required]
+        [CeramRequired]
         public int IdWorkshop { get; set; }
 
-        [Required]
+        [CeramRequired]
         public string Reference { get; set; }
 
-        [Required]
+        [CeramRequired]
         public string Name { get; set; }
         public string? Description { get; set; }
         public double? HeightFinish { get; set; }

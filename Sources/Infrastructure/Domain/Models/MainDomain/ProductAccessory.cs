@@ -1,13 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Domain.CustomDataAnotation;
 
 namespace Domain.Models.MainDomain
 {
     public class ProductAccessory
     {
-        [Required]
+        [CeramRequired]
         public int IdAccessory { get; set; }
 
-        [Required]
+        [CeramRequired]
         public int IdProduct { get; set; }
 
         public double Cost { get; set; }

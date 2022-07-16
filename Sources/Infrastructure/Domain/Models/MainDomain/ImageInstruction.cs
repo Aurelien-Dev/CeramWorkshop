@@ -1,17 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Domain.CustomDataAnotation;
 
 namespace Domain.Models.MainDomain
 {
     public enum Location { Server, ImgBB }
     public class ImageInstruction
     {
-        [Required]
+        [CeramRequired]
         public int Id { get; set; }
 
-        [Required]
+        [CeramRequired]
         public int IdProduct { get; set; }
 
-        [Required]
+        [CeramRequired]
         public string Url { get; set; }
 
         public string ThumbUrl { get; set; } = string.Empty;

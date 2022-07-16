@@ -1,13 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Domain.CustomDataAnotation;
 
 namespace Domain.Models.MainDomain
 {
     public class ProductFiring
     {
-        [Required]
+        [CeramRequired]
         public int IdFiring { get; set; }
 
-        [Required]
+        [CeramRequired]
         public int IdProduct { get; set; }
 
         public int TotalKwH { get; set; }

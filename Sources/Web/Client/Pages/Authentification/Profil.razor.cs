@@ -52,7 +52,7 @@ namespace Client.Pages.Authentification
             Snackbar.Add("Modification effectuée", Severity.Success);
 
             await Task.Delay(500);
-            NavigationManager.NavigateTo("", true);
+            NavigationManager.NavigateTo(NavigationManager.Uri, true);
         }
 
         public async Task EditPassword()

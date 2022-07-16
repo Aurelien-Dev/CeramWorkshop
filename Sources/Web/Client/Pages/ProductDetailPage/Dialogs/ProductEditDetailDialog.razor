@@ -5,41 +5,44 @@
 <MudForm @ref="form" @bind-IsValid="@success" @bind-Errors="@errors">
     <MudDialog>
         <DialogContent>
+            <MudContainer Style="max-height: 500px; overflow-y: scroll">
 
-            <MudStack Row="true">
-                <MudTextField Label="Référence" Variant="Variant.Outlined" Class="mx-1"
-                              @bind-Value="ProductDetail.Reference" For="@(() => ProductDetail.Reference)" />
-                <MudTextField Label="Nom" Variant="Variant.Outlined" Class="mx-1"
-                              @bind-Value="ProductDetail.Name" For="@(() => ProductDetail.Name)" />
-            </MudStack>
+                <MudStack Row="true">
+                    <MudTextField Label="Référence" Variant="Variant.Outlined" Class="mx-1"
+                                  @bind-Value="ProductDetail.Reference" For="@(() => ProductDetail.Reference)" />
+                    <MudTextField Label="Nom" Variant="Variant.Outlined" Class="mx-1"
+                                  @bind-Value="ProductDetail.Name" For="@(() => ProductDetail.Name)" />
+                </MudStack>
 
-            <MudStack Class="mt-3">
-                <MudTextField Label="Description" Variant="Variant.Outlined" Class="mx-1" Lines="5"
-                              @bind-Value="ProductDetail.Description" For="@(() => ProductDetail.Description)" />
-                <MudTextField Label="Instruction de construction" Variant="Variant.Outlined" Class="mx-1" Lines="5"
-                              @bind-Value="ProductDetail.DesignInstruction" For="@(() => ProductDetail.DesignInstruction)" />
-            </MudStack>
+                <MudStack Class="mt-3">
+                    <MudTextField Label="Description" Variant="Variant.Outlined" Class="mx-1" Lines="5"
+                                  @bind-Value="ProductDetail.Description" For="@(() => ProductDetail.Description)" />
+                    <MudTextField Label="Instruction de construction" Variant="Variant.Outlined" Class="mx-1" Lines="5"
+                                  @bind-Value="ProductDetail.DesignInstruction" For="@(() => ProductDetail.DesignInstruction)" />
+                    <MudTextField Label="Information pose de l'émail" Variant="Variant.Outlined" Class="mx-1" Lines="5"
+                                  @bind-Value="ProductDetail.GlazingInstruction" For="@(() => ProductDetail.GlazingInstruction)" />
+                </MudStack>
 
-            <MudStack Row="true" Class="mt-3">
-                <MudImage Src="/assets/img/sizing.png" Height="65" Class="ms-3" />
-                <MudTextField Label="Ø Top" Variant="Variant.Outlined" Class="mx-1" Adornment="Adornment.End" AdornmentText="cm"
-                              @bind-Value="ProductDetail.TopDiameter" For="@(() => ProductDetail.TopDiameter)" />
-                <MudTextField Label="Ø Bottom" Variant="Variant.Outlined" Class="mx-1" Adornment="Adornment.End" AdornmentText="cm"
-                              @bind-Value="ProductDetail.BottomDiameter" For="@(() => ProductDetail.BottomDiameter)" />
-                <MudTextField Label="Height" Variant="Variant.Outlined" Class="mx-1" Adornment="Adornment.End" AdornmentText="cm"
-                              @bind-Value="ProductDetail.Height" For="@(() => ProductDetail.Height)" />
-            </MudStack>
+                <MudStack Row="true" Class="mt-3">
+                    <MudImage Src="/assets/img/sizing.png" Height="65" Class="ms-3" />
+                    <MudTextField Label="Ø Top" Variant="Variant.Outlined" Class="mx-1" Adornment="Adornment.End" AdornmentText="cm"
+                                  @bind-Value="ProductDetail.TopDiameterFinish" For="@(() => ProductDetail.TopDiameterFinish)" />
+                    <MudTextField Label="Ø Bottom" Variant="Variant.Outlined" Class="mx-1" Adornment="Adornment.End" AdornmentText="cm"
+                                  @bind-Value="ProductDetail.BottomDiameterFinish" For="@(() => ProductDetail.BottomDiameterFinish)" />
+                    <MudTextField Label="Height" Variant="Variant.Outlined" Class="mx-1" Adornment="Adornment.End" AdornmentText="cm"
+                                  @bind-Value="ProductDetail.HeightFinish" For="@(() => ProductDetail.HeightFinish)" />
+                </MudStack>
 
-            <MudStack Class="mt-3">
-                <MudSelect T="ProductStatus" Label="Statut" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter"
-                           @bind-Value="ProductDetail.Status">
-                    @foreach (ProductStatus item in Enum.GetValues(typeof(ProductStatus)))
-                    {
-                        <MudSelectItem Value="@item">@item</MudSelectItem>
-                    }
-                </MudSelect>
-            </MudStack>
-
+                <MudStack Class="mt-3">
+                    <MudSelect T="ProductStatus" Label="Statut" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter"
+                               @bind-Value="ProductDetail.Status">
+                        @foreach (ProductStatus item in Enum.GetValues(typeof(ProductStatus)))
+                        {
+                            <MudSelectItem Value="@item">@item</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudStack>
+            </MudContainer>
 
         </DialogContent>
         <DialogActions>

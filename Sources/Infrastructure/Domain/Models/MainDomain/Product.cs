@@ -19,10 +19,11 @@ namespace Domain.Models.MainDomain
         [Required]
         public string Name { get; set; }
         public string? Description { get; set; }
-        public double? Height { get; set; }
-        public double? TopDiameter { get; set; }
-        public double? BottomDiameter { get; set; }
+        public double? HeightFinish { get; set; }
+        public double? TopDiameterFinish { get; set; }
+        public double? BottomDiameterFinish { get; set; }
         public string? DesignInstruction { get; set; }
+        public string? GlazingInstruction { get; set; }
         public ProductStatus Status { get; set; }
 
         public ICollection<ImageInstruction> ImageInstructions { get; set; } = new List<ImageInstruction>();

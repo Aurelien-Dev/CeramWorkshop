@@ -3,7 +3,8 @@
 @layout LayoutLogin
 @inherits CustomLayoutComponentBase
 
-<MudForm @ref="form">
+<EditForm Model="@LoginInfo" OnSubmit="Authenticate" >
+    <DataAnnotationsValidator />
     <MudStack Spacing=5 Justify="Justify.Center" Row=true>
         <MudButton Variant="Variant.Filled" Style="background-color: yellowgreen; color: white; width: 300px; height: 60px;"
                    OnClick=@(() => NavigationManager.NavigateTo("/register"))>
@@ -18,7 +19,7 @@
         <MudTextField InputType="InputType.Password" Label="@Localizer["WorkshopPassword"]" FullWidth=true
                       @bind-Value="LoginInfo.Password" For="@(() => LoginInfo.Password)" />
         <MudText Color="@Color.Error">@authError</MudText>
-        <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Primary" OnClick="@(async ()=> { await Authenticate(); LoginInProgress = false; })">Login</MudButton>
+        <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">Login</MudButton>
 
         @if (LoginInProgress)
         {
@@ -26,4 +27,4 @@
         }
 
     </MudStack>
-</MudForm>
+</EditForm>

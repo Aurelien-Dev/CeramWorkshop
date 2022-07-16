@@ -1,6 +1,6 @@
-using Client.Services;
 using Client.Utils;
-using MudBlazor;
+using Domain.CustomDataAnotation;
+using Microsoft.AspNetCore.Components.Forms;
 using System.ComponentModel.DataAnnotations;
 
 namespace Client.Pages.Authentification
@@ -10,15 +10,12 @@ namespace Client.Pages.Authentification
         public LoginInfo LoginInfo { get; set; } = new();
         public bool LoginInProgress { get; set; } = false;
 
-        MudForm form = new();
         string authError = string.Empty;
 
-        private async Task Authenticate()
+        private async Task Authenticate(EditContext context)
         {
             authError = string.Empty;
-            await form.Validate();
-
-            if (form.IsValid)
+            if (context != null && context.Validate())
             {
                 LoginInProgress = true;
                 StateHasChanged();
@@ -28,15 +25,17 @@ namespace Client.Pages.Authentification
 
                 StateHasChanged();
             }
+            LoginInProgress = false;
         }
     }
 
     public class LoginInfo
     {
-        [Required]
+        [CeramRequired]
+        [EmailAddress]
         public string Email { get; set; } = string.Empty;
 
-        [Required]
+        [CeramRequired]
         public string Password { get; set; } = string.Empty;
     }
 }

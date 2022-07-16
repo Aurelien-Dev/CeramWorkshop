@@ -61,6 +61,15 @@ namespace Domain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Le champ doit être identique à &quot;{1}&quot;.
+        /// </summary>
+        public static string FieldCompare {
+            get {
+                return ResourceManager.GetString("FieldCompare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Le champ est obligatoire..
         /// </summary>
         public static string FieldRequired {

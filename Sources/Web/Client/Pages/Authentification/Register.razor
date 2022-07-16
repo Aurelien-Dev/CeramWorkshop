@@ -23,6 +23,11 @@
 
         <MudText Color="@Color.Error">@registerError</MudText>
 
-        <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Primary" OnClick="RegisterWorkshop">@Localizer["Btn_CreateWorkshop"]</MudButton>
+        <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Primary" OnClick="@(async () => { await RegisterWorkshop(); RegisterInProgress = false; })">@Localizer["Btn_CreateWorkshop"]</MudButton>
+
+        @if (RegisterInProgress)
+        {
+            <MudProgressLinear Color=" Color.Primary" Indeterminate="true" Class="my-7" />
+        }
     </MudStack>
 </MudForm>

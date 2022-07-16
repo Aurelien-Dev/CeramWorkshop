@@ -4,8 +4,6 @@ using Client.ViewModels;
 using Domain.InterfacesWorker;
 using Domain.Models.WorkshopDomaine;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.DataProtection;
 using MudBlazor;
 
 namespace Client.Pages.Authentification
@@ -19,18 +17,21 @@ namespace Client.Pages.Authentification
         MudForm form = new();
         bool success;
         string registerError = string.Empty;
+        public bool RegisterInProgress { get; set; } = false;
 
         private async Task RegisterWorkshop()
         {
             registerError = string.Empty;
             await Task.Delay(5);
 
-            StateHasChanged();
             await form.Validate();
 
+            StateHasChanged();
             if (form.IsValid)
             {
-                if(worker.WorkshopRepository.CheckIfEmailExists(registerInfo.Email))
+                RegisterInProgress = true;
+                StateHasChanged();
+                if (worker.WorkshopRepository.CheckIfEmailExists(registerInfo.Email))
                 {
                     registerError = "Email already in use.";
                     return;

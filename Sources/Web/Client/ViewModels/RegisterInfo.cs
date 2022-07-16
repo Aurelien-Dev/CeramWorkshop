@@ -1,20 +1,22 @@
-﻿using Microsoft.AspNetCore.Localization;
+﻿using Domain.CustomDataAnotation;
+using Microsoft.AspNetCore.Localization;
 using System.ComponentModel.DataAnnotations;
 
 namespace Client.ViewModels
 {
     public class RegisterInfo
     {
-        [Required]
+        [CeramRequired]
         public string Name { get; set; } = string.Empty;
-        [Required]
+        [CeramRequired]
         public string UserName { get; set; } = string.Empty;
-        [Required]
+        [CeramRequired]
+        [EmailAddress]
         public string Email { get; set; } = string.Empty;
-        [Required]
+        [CeramRequired]
         public string Password { get; set; } = string.Empty;
-        [Required]
-        [Compare(nameof(Password))]
+        [CeramRequired]
+        [CeramCompare(nameof(Password))]
         public string Password2 { get; set; } = string.Empty;
         public RequestCulture Culture { get; set; }
     }

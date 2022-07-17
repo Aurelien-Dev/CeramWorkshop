@@ -8,26 +8,28 @@
         <MudText Typo="Typo.h5">Composition</MudText>
     </MudCardHeader>
     <MudCardContent>
-        <MudTable Items="@ProductDetail.ProductMaterial" Dense="true" Striped="true">
+        <MudTable Items="@MaterialsVM" Dense="true" Striped="false">
             <HeaderContent>
-                <MudTh>Référence</MudTh>
                 <MudTh>Nom</MudTh>
                 <MudTh>Coût</MudTh>
                 <MudTh>Quantité</MudTh>
                 <MudTh>Type</MudTh>
-            </HeaderContent>
+                <MudTh>Coût total</MudTh>
+            </HeaderContent>    
             <RowTemplate>
-                <MudTd DataLabel="Référence">@context.Material.Reference</MudTd>
-                <MudTd DataLabel="Nom">@context.Material.Name</MudTd>
+                <MudTd DataLabel="Nom">@context.PMat.Material.Name @context.PMat.Material.Reference</MudTd>
                 <MudTd DataLabel="Coût">
-                    <MudNumericField Variant="Variant.Text" Adornment="Adornment.End" AdornmentText="€" AdornmentColor="Color.Info" Margin="Margin.Dense"
-                                  Style="width:85px; margin:0;" ValueChanged="@((e) => CostChanged(e, context.Id))" T=double Value=@context.Cost />
+                    <MudNumericField Variant="Variant.Text" Adornment="Adornment.End" AdornmentText="€"
+                                     AdornmentColor="Color.Info" Margin="Margin.Dense" Style="width:85px; margin:0;"
+                                     ValueChanged="@((e) => CostChanged(e, context.PMat.Id))" T=double Value=@context.PMat.Cost />
                 </MudTd>
                 <MudTd DataLabel="Quantité">
-                    <MudNumericField Variant="Variant.Text" Adornment="Adornment.End" AdornmentText="g" AdornmentColor="Color.Info" Margin="Margin.Dense"
-                                  Style="width:85px; margin:0;" ValueChanged="@((e) => QuantityChanged(e, context.Id))" T=double Value=@context.Quantity />
+                    <MudNumericField Variant="Variant.Text" Adornment="Adornment.End" AdornmentText="g"
+                                     AdornmentColor="Color.Info" Margin="Margin.Dense" Style="width:85px; margin:0;"
+                                     ValueChanged="@((e) => QuantityChanged(e, context.PMat.Id))" T=double Value=@context.PMat.Quantity />
                 </MudTd>
-                <MudTd DataLabel="Type">@context.Material.Type</MudTd>
+                <MudTd DataLabel="Type">@context.PMat.Material.Type</MudTd>
+                <MudTd DataLabel="Coût total">@context.TotalCost.ToString("C2")</MudTd>
             </RowTemplate>
         </MudTable>
         <MudAutocomplete @ref="AutocompleteBox" Class="ma-5" T="Material" Label="Mat." ToStringFunc="@(e=> e==null?null : $"{e.Reference} - {e.Name}")" SearchFunc="@Search1"

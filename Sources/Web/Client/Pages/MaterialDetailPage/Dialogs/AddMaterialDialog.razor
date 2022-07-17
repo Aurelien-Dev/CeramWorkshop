@@ -16,9 +16,22 @@
                 <MudCheckBox @bind-Checked="MaterialDetail.IsHomeMade" Label="Est produit sois même" Color="Color.Primary"></MudCheckBox>
             </MudStack>
 
-            <MudStack>
+            <MudStack Row="true" AlignItems="AlignItems.Center">
                 <MudTextField Label="Prix" Variant="Variant.Outlined" Class="mx-1" Adornment="Adornment.End" AdornmentText="€"
-                              @bind-Value="MaterialDetail.Cost" For="@(() => MaterialDetail.Cost)" />
+                              @bind-Value="MaterialDetail.Cost" For="@(() => MaterialDetail.Cost)"  />
+                <MudText Typo="Typo.subtitle2" Align="Align.Center">pour</MudText>
+                <MudTextField Label="Quantité" Variant="Variant.Outlined" Class="mx-1" Adornment="Adornment.End"
+                              @bind-Value="MaterialDetail.Quantity" For="@(() => MaterialDetail.Quantity)" />
+                <MudSelect T="MaterialUnite" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter"
+                           @bind-Value="MaterialDetail.UniteMesure">
+                    @foreach (MaterialUnite item in Enum.GetValues(typeof(MaterialUnite)))
+                    {
+                        <MudSelectItem Value="@item">@item</MudSelectItem>
+                    }
+                </MudSelect>
+            </MudStack>
+
+            <MudStack>
                 <MudTextField Label="Commentaire" Variant="Variant.Outlined" Class="mx-1" Lines=5
                               @bind-Value="MaterialDetail.Comment" For="@(() => MaterialDetail.Comment)" />
                 <MudTextField Label="Lien du produit" Variant="Variant.Outlined" Class="mx-1"

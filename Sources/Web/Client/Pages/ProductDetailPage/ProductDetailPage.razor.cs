@@ -47,7 +47,7 @@ namespace Client.Pages.ProductDetailPage
 
         private async Task LoadData(int id)
         {
-            ProductDetail = await worker.ProductRepository.Get(id);
+            ProductDetail = await worker.ProductRepository.Get(id, CurrentSession.Workshop.Id);
             Materials = await worker.MaterialRepository.GetAll();
         }
 

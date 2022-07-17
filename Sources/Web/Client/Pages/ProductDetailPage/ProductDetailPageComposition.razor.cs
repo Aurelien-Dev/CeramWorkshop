@@ -12,7 +12,17 @@ namespace Client.Pages.ProductDetailPage
         [Parameter] public Product ProductDetail { get; set; } = new();
         [Parameter] public ICollection<Material> Materials { get; set; } = default!;
 
+        ICollection<MaterialViewModel> MaterialsVM { get; set; } = new List<MaterialViewModel>();
         MudAutocomplete<Material> AutocompleteBox = new();
+
+        protected override void OnParametersSet()
+        {
+            foreach (var pMat in ProductDetail.ProductMaterial)
+            {
+                MaterialsVM.Add(new MaterialViewModel(pMat));
+                CalculateTotalCost(pMat.Id, pMat);
+            }
+        }
 
         private async Task SelectedValueChanged(Material mat)
         {
@@ -22,6 +32,7 @@ namespace Client.Pages.ProductDetailPage
 
             var pMat = new ProductMaterial(mat.Id, ProductDetail.Id, 0, mat.Cost) { Material = mat };
 
+            MaterialsVM.Add(new MaterialViewModel(pMat));
             ProductDetail.ProductMaterial.Add(pMat);
             Worker.Completed();
 
@@ -37,6 +48,7 @@ namespace Client.Pages.ProductDetailPage
 
             pmToUpdate.Cost = cost;
             Worker.ProductRepository.UpdateProductMaterial(pmToUpdate);
+            CalculateTotalCost(id, pmToUpdate);
         }
 
         public void QuantityChanged(double quantity, int id)
@@ -48,6 +60,7 @@ namespace Client.Pages.ProductDetailPage
 
             pmToUpdate.Quantity = quantity;
             Worker.ProductRepository.UpdateProductMaterial(pmToUpdate);
+            CalculateTotalCost(id, pmToUpdate);
         }
 
         private async Task<IEnumerable<Material>> Search1(string value)
@@ -60,6 +73,23 @@ namespace Client.Pages.ProductDetailPage
             return Materials
                 .Where(x => x.Name.Contains(value, StringComparison.InvariantCultureIgnoreCase) ||
                 x.Reference.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+        }
+
+        private void CalculateTotalCost(int id, ProductMaterial pmToUpdate)
+        {
+            MaterialViewModel pmVMToUpdate = MaterialsVM.FirstOrDefault(p => p.PMat.Id == id);
+            pmVMToUpdate.TotalCost = pmToUpdate.Cost / (pmToUpdate.Material.Quantity * 1000) * pmToUpdate.Quantity;
+        }
+    }
+
+    public class MaterialViewModel
+    {
+        public ProductMaterial PMat { get; set; }
+        public double TotalCost { get; set; }
+
+        public MaterialViewModel(ProductMaterial pMat)
+        {
+            PMat = pMat;
         }
     }
 }

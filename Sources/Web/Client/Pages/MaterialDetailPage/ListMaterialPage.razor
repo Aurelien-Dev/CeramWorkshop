@@ -22,10 +22,7 @@
     <RowTemplate>
         <MudTd DataLabel="Référence">@context.Reference</MudTd>
         <MudTd DataLabel="Nom">@context.Name</MudTd>
-        <MudTd DataLabel="Coût">
-            @if (@context.Cost.HasValue)
-                @context.Cost.Value.ToString("C2")
-        </MudTd>
+        <MudTd DataLabel="Coût">@context.Cost.ToString("C2") pour @context.Quantity @context.UniteMesure</MudTd>
         <MudTd DataLabel="Commentaire">@context.Comment</MudTd>
         <MudTd DataLabel="Type">@context.Type</MudTd>
         <MudTd DataLabel="">

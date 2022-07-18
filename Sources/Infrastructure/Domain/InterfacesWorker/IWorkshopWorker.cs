@@ -2,7 +2,7 @@
 
 namespace Domain.InterfacesWorker
 {
-    public  interface IWorkshopWorker
+    public  interface IWorkshopWorker : IDisposable
     {
         IWorkshopRepository WorkshopRepository { get; }
         int Completed();

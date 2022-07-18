@@ -13,6 +13,7 @@ namespace Client.Utils
         [Inject] public SessionInfo CurrentSession { get; set; } = default!;
         [Inject] public IStringLocalizer<Translations> Localizer { get; set; }
         [Inject] public IJSRuntime JSRuntime { get; set; } = default!;
+        [Inject] public ILogger Logger { get; set; } = default!;
 
         public DialogOptions CommonOptionDialog { get; set; } = new DialogOptions
         {

@@ -18,6 +18,8 @@ namespace Client
             
             services.AddScoped<AuthenticationService>();
 
+            services.AddScoped<ILogger>(provider => { return provider.GetRequiredService<ILoggerFactory>().CreateLogger("CeramWorkshop - "); });
+
             services.AddMudServices(config =>
             {
                 config.SnackbarConfiguration.PositionClass = Defaults.Classes.Position.BottomCenter;

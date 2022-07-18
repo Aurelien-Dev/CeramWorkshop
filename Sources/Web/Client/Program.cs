@@ -3,6 +3,7 @@ using Client.Utils.Middlewares;
 using Common.Utils.Singletons;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.EntityFrameworkCore;
 using Repository;
 using System.Globalization;
 
@@ -53,6 +54,18 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
+}
+
+using (IServiceScope serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
+{
+    //Apply last Entity Framework migration
+    try
+    {
+        ApplicationDbContext context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
+        context.Database.SetCommandTimeout(2400);
+        context.Database.Migrate();
+    }
+    catch { }
 }
 
 app.UseRequestLocalization();

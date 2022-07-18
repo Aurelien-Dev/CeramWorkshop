@@ -26,8 +26,8 @@
                                       @bind-Value="registerInfo.Email" For="@(() => registerInfo.Email)" />
                         <MudSelect T="RequestCulture" Label="@Localizer["WorkshopLanguage"]" AnchorOrigin="Origin.BottomCenter"
                                    @bind-Value="registerInfo.Culture" ToStringFunc="@(p=>p?.Culture.DisplayName)" >
-                            <MudSelectItem T="RequestCulture" Value="@(new RequestCulture("fr-FR"))" />
-                            <MudSelectItem T="RequestCulture" Value="@(new RequestCulture("en-US"))" />
+                            <MudSelectItem T="RequestCulture" Value="@(new RequestCulture("fr"))" />
+                            <MudSelectItem T="RequestCulture" Value="@(new RequestCulture("en"))" />
                         </MudSelect>
 
                         <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Primary" OnClick="EditProfile">@Localizer["Btn_Save"]</MudButton>

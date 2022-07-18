@@ -42,6 +42,7 @@ namespace Domain.Models.WorkshopDomaine
             UserName = userName;
             PasswordHash = password;
             Salt = salt;
+            Culture = "fr";
         }
     }
 }

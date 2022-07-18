@@ -27,7 +27,10 @@ namespace Repository
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql(EnvironementSingleton.GetConnectionString());
+            if (EnvironementSingleton.IsInDev())
+                optionsBuilder.UseSqlite(@"Data Source=C:\Temp\devDB.db");
+            else
+                optionsBuilder.UseNpgsql(EnvironementSingleton.GetConnectionString());
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

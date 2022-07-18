@@ -15,7 +15,6 @@ namespace Client.Pages.Authentification
         public RegisterInfo registerInfo { get; set; } = new();
 
         MudForm formGeneral = new();
-        MudForm formPassword = new();
         string registerError = string.Empty;
 
         protected override void OnInitialized()

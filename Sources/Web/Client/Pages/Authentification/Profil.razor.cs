@@ -54,12 +54,5 @@ namespace Client.Pages.Authentification
             await Task.Delay(500);
             NavigationManager.NavigateTo(NavigationManager.Uri, true);
         }
-
-        public async Task EditPassword()
-        {
-            await formPassword.Validate();
-
-            if (!formPassword.IsValid) return;
-        }
     }
 }

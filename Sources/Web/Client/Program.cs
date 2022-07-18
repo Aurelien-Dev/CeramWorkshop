@@ -59,13 +59,9 @@ if (!app.Environment.IsDevelopment())
 using (IServiceScope serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
 {
     //Apply last Entity Framework migration
-    try
-    {
-        ApplicationDbContext context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
-        context.Database.SetCommandTimeout(2400);
-        context.Database.Migrate();
-    }
-    catch { }
+    ApplicationDbContext context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
+    context.Database.SetCommandTimeout(2400);
+    context.Database.Migrate();
 }
 
 app.UseRequestLocalization();

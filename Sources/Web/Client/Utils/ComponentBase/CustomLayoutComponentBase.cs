@@ -16,5 +16,6 @@ namespace Client.Utils
         [Inject] public SessionInfo CurrentSession { get; set; } = new();
         [Inject] public IJSRuntime JSRuntime { get; set; } = default!;
         [Inject] public IStringLocalizer<Translations> Localizer { get; set; }
+        [Inject] public ILogger Logger { get; set; } = default!;
     }
 }

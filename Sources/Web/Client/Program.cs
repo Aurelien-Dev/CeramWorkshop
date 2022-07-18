@@ -8,8 +8,9 @@ using Repository;
 using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
-var supportedCultures = new List<CultureInfo> { new CultureInfo("fr-FR"), new CultureInfo("en-US") };
 
+//Localization
+var supportedCultures = new List<CultureInfo> { new CultureInfo("fr"), new CultureInfo("en") };
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
@@ -42,6 +43,11 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
     options.CheckConsentNeeded = context => true;
     options.MinimumSameSitePolicy = Microsoft.AspNetCore.Http.SameSiteMode.None;
 });
+
+//Logging services
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
 
 var app = builder.Build();
 

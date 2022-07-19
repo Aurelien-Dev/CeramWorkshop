@@ -1,5 +1,4 @@
-﻿@page "/Materials"
-@using Client.Utils
+﻿@using Client.Utils
 @using Domain.Models.MainDomain
 
 @inherits CustomComponentBase
@@ -7,7 +6,7 @@
 
 <MudTable Class="mt-5" Items="@Materials" Dense="true" Striped="true">
     <ToolBarContent>
-        <MudText Typo="Typo.h6">Mats.</MudText>
+        <MudText Typo="Typo.h6">@Title</MudText>
         <MudSpacer />
         <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Inherit" OnClick="AddMaterialDialog" />
     </ToolBarContent>

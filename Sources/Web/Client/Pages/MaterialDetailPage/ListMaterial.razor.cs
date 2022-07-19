@@ -2,16 +2,17 @@
 using Client.Utils;
 using Domain.InterfacesWorker;
 using Domain.Models.MainDomain;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
 namespace Client.Pages.MaterialDetailPage
 {
-    [Authorize]
-    public partial class ListMaterialPage : CustomComponentBase
+    public partial class ListMaterial: CustomComponentBase
     {
         [Inject] private IProductWorker worker { get; set; } = default!;
+
+        [Parameter] public string Title { get; set; }
+        [Parameter] public MaterialType MaterialType { get; set; }
 
         public ICollection<Material> Materials { get; set; } = new List<Material>();
 
@@ -22,7 +23,7 @@ namespace Client.Pages.MaterialDetailPage
 
         private async Task LoadDatas()
         {
-            Materials = await worker.MaterialRepository.GetAll();
+            Materials = await worker.MaterialRepository.GetAll(MaterialType);
         }
 
         private async Task DeleteMat(Material material)

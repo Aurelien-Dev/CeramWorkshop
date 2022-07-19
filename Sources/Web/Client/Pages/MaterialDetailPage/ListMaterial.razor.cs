@@ -41,7 +41,7 @@ namespace Client.Pages.MaterialDetailPage
 
         private async Task AddMaterialDialog()
         {
-            var parameters = new DialogParameters { ["InsertMode"] = true };
+            var parameters = new DialogParameters { ["InsertMode"] = true, ["MaterialType"] = MaterialType };
 
             var dialog = DialogService.Show<AddMaterialDialog>("Ajouter une nouvelle matière", parameters, this.CommonOptionDialog);
             var result = await dialog.Result;

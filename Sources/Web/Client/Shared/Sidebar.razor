@@ -2,7 +2,9 @@
 @inherits CustomComponentBase
 
 <MudNavMenu>
-    <MudNavLink Href="/" Match="NavLinkMatch.Prefix">Mes produits</MudNavLink>
-    <MudNavLink Href="/Clays" Match="NavLinkMatch.Prefix">Mes argiles</MudNavLink>
-    <MudNavLink Href="/Glaze" Match="NavLinkMatch.Prefix">Mes emaux</MudNavLink>
+    <MudNavLink Href="/" Match="NavLinkMatch.All">Mes produits</MudNavLink>
+    <MudNavGroup Title="Mon inventaire" Expanded="true">
+        <MudNavLink Href="/Clays" Match="NavLinkMatch.All">Argiles</MudNavLink>
+        <MudNavLink Href="/Glaze" Match="NavLinkMatch.All">Émaux</MudNavLink>
+    </MudNavGroup>
 </MudNavMenu>

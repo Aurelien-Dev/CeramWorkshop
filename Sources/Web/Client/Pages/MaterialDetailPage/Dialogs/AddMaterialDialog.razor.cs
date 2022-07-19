@@ -10,11 +10,18 @@ namespace Client.Pages.MaterialDetailPage.Dialogs
         [Inject] private IProductWorker productWorker { get; set; } = default!;
         [CascadingParameter] MudDialogInstance MudDialog { get; set; } = default!;
         [Parameter] public Material MaterialDetail { get; set; } = new();
+        [Parameter] public MaterialType? MaterialType { get; set; } = new();
         [Parameter] public bool? InsertMode { get; set; } = new();
 
         MudForm form = new();
         bool success;
         string[] errors = Array.Empty<string>();
+
+        protected override void OnAfterRender(bool firstRender)
+        {
+            if (MaterialType.HasValue)
+                MaterialDetail.Type = MaterialType.Value;
+        }
 
         private async Task OnValidSubmit()
         {

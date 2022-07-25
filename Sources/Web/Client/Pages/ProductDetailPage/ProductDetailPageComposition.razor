@@ -32,7 +32,7 @@
                 <MudTd DataLabel="Coût total">@context.TotalCost.ToString("C2")</MudTd>
             </RowTemplate>
         </MudTable>
-        <MudAutocomplete @ref="AutocompleteBox" Class="ma-5" T="Material" Label="Mat." ToStringFunc="@(e=> e==null?null : $"{e.Reference} - {e.Name}")" SearchFunc="@Search1"
+        <MudAutocomplete @ref="AutocompleteBox" Class="ma-5" T="Material" Label="Mat." ToStringFunc="@(e=> e==null?null : $"{e.Reference} - {e.Name}")" SearchFunc="@Search"
                          ResetValueOnEmptyText="true" ValueChanged=SelectedValueChanged />
 
     </MudCardContent>

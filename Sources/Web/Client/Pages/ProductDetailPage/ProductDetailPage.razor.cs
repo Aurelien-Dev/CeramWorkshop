@@ -128,7 +128,6 @@ namespace Client.Pages.ProductDetailPage
             {
                 if (Id.HasValue)
                     await LoadData(Id.Value);
-                return;
             }
 
             StateHasChanged();

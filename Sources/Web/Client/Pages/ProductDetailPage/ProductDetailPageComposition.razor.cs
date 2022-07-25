@@ -17,6 +17,7 @@ namespace Client.Pages.ProductDetailPage
 
         protected override void OnParametersSet()
         {
+            MaterialsVM = new List<MaterialViewModel>();
             foreach (var pMat in ProductDetail.ProductMaterial)
             {
                 MaterialsVM.Add(new MaterialViewModel(pMat));
@@ -63,7 +64,7 @@ namespace Client.Pages.ProductDetailPage
             CalculateTotalCost(id, pmToUpdate);
         }
 
-        private async Task<IEnumerable<Material>> Search1(string value)
+        private async Task<IEnumerable<Material>> Search(string value)
         {
             await Task.Delay(5);
 

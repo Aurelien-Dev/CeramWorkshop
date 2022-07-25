@@ -124,10 +124,9 @@ namespace Client.Pages.ProductDetailPage
             var dialog = DialogService.Show<ProductEditDetailDialog>("Modifier les détails du produit", parameters, this.CommonOptionDialog);
 
             var result = await dialog.Result;
-            if (result.Cancelled)
+            if (result.Cancelled && Id.HasValue)
             {
-                if (Id.HasValue)
-                    await LoadData(Id.Value);
+                await LoadData(Id.Value);
             }
 
             StateHasChanged();

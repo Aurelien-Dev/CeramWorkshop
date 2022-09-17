@@ -1,7 +1,7 @@
-﻿using Common.Utils.Singletons;
-using Domain.Models.MainDomain;
+﻿using Domain.Models.MainDomain;
 using Domain.Models.WorkshopDomaine;
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
 using Repository.Maps;
 
 namespace Repository
@@ -31,7 +31,10 @@ namespace Repository
             if (localDb != null)
                 optionsBuilder.UseSqlite(@"Data Source=C:\Temp\devDB.db");
             else
-                optionsBuilder.UseNpgsql(EnvironementSingleton.GetConnectionString());
+            {
+                var cs = $"Host=localhost;Username=postgres;Password={Environment.GetEnvironmentVariable("PG_PASSWD")};Database=CeramWorkshop";
+                optionsBuilder.UseNpgsql(new NpgsqlConnection(cs));
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

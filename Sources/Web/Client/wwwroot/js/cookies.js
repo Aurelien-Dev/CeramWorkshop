@@ -5,7 +5,7 @@
         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
         expires = "; expires=" + date.toUTCString();
     }
-    let cookieStr = name + "=" + (value || "") + expires + "; SameSite=Strict;Secure;path=/";
+    let cookieStr = name + "=" + (value || "") + expires + ";domain=.atelier-cremazie.com";
     document.cookie = cookieStr;
 }
 
@@ -26,5 +26,5 @@ function getCookie(cname) {
 }
 
 function eraseCookie(name) {
-    document.cookie = name + '=; Max-Age=-99999999;';
+    document.cookie = name + '=; Max-Age=-99999999;domain=.atelier-cremazie.com';
 }

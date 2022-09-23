@@ -1,4 +1,5 @@
 ﻿using Client.Services.Authentication;
+using Common.Utils.Singletons;
 using Domain.InterfacesWorker;
 using Domain.Models.WorkshopDomaine;
 using Microsoft.AspNetCore.Authentication;
@@ -18,6 +19,8 @@ namespace Client.Services
         private SessionInfo CurrentSession { get; set; }
         private IJSRuntime JSRuntime { get; set; }
 
+        private string? domain = ".atelier-cremazie.com";
+
         public AuthenticationService(IHostEnvironmentAuthenticationStateProvider authenticationprovider,
                                      IDataProtectionProvider dataProtectionProvider,
                                      IWorkshopWorker worker,
@@ -29,6 +32,10 @@ namespace Client.Services
             Worker = worker;
             CurrentSession = sessionInfo;
             JSRuntime = jSRuntime;
+
+
+            if (EnvironementSingleton.IsInDev())
+                domain = null;
         }
 
         public bool AuthanticateInitialized { get => CurrentSession.Workshop != null; }
@@ -38,7 +45,7 @@ namespace Client.Services
             ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity());
             Authenticationprovider.SetAuthenticationState(Task.FromResult(new AuthenticationState(claimsPrincipal)));
 
-            _ = await JSRuntime.InvokeAsync<string>("eraseCookie", new object[] { ".AspNetCore.Cookies" });
+            _ = await JSRuntime.InvokeAsync<string>("eraseCookie", new object[] { ".AspNetCore.Cookies", domain });
         }
 
         public async Task<string> StartSession(string Email, string Password)
@@ -63,7 +70,7 @@ namespace Client.Services
 
             Authenticationprovider.SetAuthenticationState(Task.FromResult(new AuthenticationState(CurrentSession.ClaimsPrincipal)));
 
-            _ = await JSRuntime.InvokeAsync<string>("setCookie", new object[] { ".AspNetCore.Cookies", CurrentSession.Token, 1 });
+            _ = await JSRuntime.InvokeAsync<string>("setCookie", new object[] { ".AspNetCore.Cookies", CurrentSession.Token, 1, domain });
 
             return authError;
         }

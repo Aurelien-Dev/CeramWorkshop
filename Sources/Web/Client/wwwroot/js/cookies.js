@@ -1,11 +1,14 @@
-﻿function setCookie(name, value, days) {
+﻿function setCookie(name, value, days, domain) {
     let expires = "";
     if (days) {
         let date = new Date();
         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
         expires = "; expires=" + date.toUTCString();
     }
-    let cookieStr = name + "=" + (value || "") + expires + ";domain=.atelier-cremazie.com";
+    let cookieStr = name + "=" + (value || "") + expires;
+    if (domain != null) {
+        cookieStr += ';domain=' + domain;
+    }
     document.cookie = cookieStr;
 }
 
@@ -25,6 +28,10 @@ function getCookie(cname) {
     return "";
 }
 
-function eraseCookie(name) {
-    document.cookie = name + '=; Max-Age=-99999999;domain=.atelier-cremazie.com';
+function eraseCookie(name, domain) {
+    let cookieStr = name + '=; Max-Age=-99999999';
+    if (domain != null) {
+        cookieStr += ';domain=' + domain;
+    }
+    document.cookie = cookieStr;
 }

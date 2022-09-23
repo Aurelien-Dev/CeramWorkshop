@@ -7,8 +7,6 @@ namespace Client.Utils
 {
     public static class LoadFileFromInputFile
     {
-        [Inject] private static ILogger Logger { get; set; } = default!;
-       
         private static readonly long maxFileSize = 1024 * 1024 * 15;
         private static readonly string RootPath = EnvironementSingleton.WebRootPath;
         private static readonly string ProductFolderFullPath = Path.Combine(RootPath, "ProductImages");
@@ -24,9 +22,9 @@ namespace Client.Utils
             {
                 File.Delete(Path.Combine(RootPath, path));
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Logger.LogError(ex.Message);
+                throw;
             }
         }
 
@@ -47,8 +45,7 @@ namespace Client.Utils
             await e.File.OpenReadStream(maxFileSize).CopyToAsync(fs);
             fs.Close();
 
-            string shortPath = Path.Combine(ProductFolderShort, workshopName, fileName);
-            return shortPath;
+            return Path.Combine(ProductFolderShort, workshopName, fileName);
         }
 
         /// <summary>

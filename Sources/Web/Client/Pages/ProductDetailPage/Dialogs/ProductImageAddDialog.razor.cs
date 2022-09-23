@@ -11,6 +11,7 @@ namespace Client.Pages.ProductDetailPage.Dialogs
     public partial class ProductImageAddDialog
     {
         [Inject] private IProductWorker productWorker { get; set; } = default!;
+        [Inject] private ILogger logger { get; set; } = default!;
         [CascadingParameter] MudDialogInstance MudDialog { get; set; } = default!;
         [Parameter] public Product ProductDetail { get; set; } = new();
 
@@ -35,6 +36,7 @@ namespace Client.Pages.ProductDetailPage.Dialogs
             }
             catch (Exception ex)
             {
+                logger.LogError(ex, "Error uploading file for AtelierCremazie");
                 throw new UploadFileException("Error uploading file for AtelierCremazie", ex);
             }
         }

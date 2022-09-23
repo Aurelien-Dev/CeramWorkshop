@@ -1,4 +1,5 @@
 using Client;
+using Client.Utils.Logger;
 using Client.Utils.Middlewares;
 using Common.Utils.Singletons;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -48,6 +49,7 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 builder.Logging.AddDebug();
+builder.Logging.AddMyCustomLogger();
 
 var app = builder.Build();
 

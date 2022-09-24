@@ -15,7 +15,8 @@
                 <MudTh>Quantité</MudTh>
                 <MudTh>Type</MudTh>
                 <MudTh>Coût total</MudTh>
-            </HeaderContent>    
+                <MudTh></MudTh>
+            </HeaderContent>
             <RowTemplate>
                 <MudTd DataLabel="Nom">@context.PMat.Material.Name @context.PMat.Material.Reference</MudTd>
                 <MudTd DataLabel="Coût">
@@ -30,6 +31,9 @@
                 </MudTd>
                 <MudTd DataLabel="Type">@context.PMat.Material.Type</MudTd>
                 <MudTd DataLabel="Coût total">@context.TotalCost.ToString("C2")</MudTd>
+                <MudTd>
+                    <MudFab Color="Color.Dark" StartIcon="@Icons.Material.Filled.DeleteForever" Size="Size.Small" OnClick="@(async () => await DeleteMat(context))" />
+                </MudTd>
             </RowTemplate>
         </MudTable>
         <MudAutocomplete @ref="AutocompleteBox" Class="ma-5" T="Material" Label="Mat." ToStringFunc="@(e=> e==null?null : $"{e.Reference} - {e.Name}")" SearchFunc="@Search"

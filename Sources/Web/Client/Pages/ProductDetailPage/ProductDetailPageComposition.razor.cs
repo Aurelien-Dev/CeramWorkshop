@@ -81,6 +81,16 @@ namespace Client.Pages.ProductDetailPage
             MaterialViewModel pmVMToUpdate = MaterialsVM.FirstOrDefault(p => p.PMat.Id == id);
             pmVMToUpdate.TotalCost = pmToUpdate.Cost / (pmToUpdate.Material.Quantity * 1000) * pmToUpdate.Quantity;
         }
+
+        private async Task DeleteMat(MaterialViewModel materialVM)
+        {
+            ProductDetail.ProductMaterial.Remove(materialVM.PMat);
+            Worker.ProductRepository.Update(ProductDetail);
+            Worker.Completed();
+
+            MaterialsVM.Remove(materialVM);
+            StateHasChanged();
+        }
     }
 
     public class MaterialViewModel

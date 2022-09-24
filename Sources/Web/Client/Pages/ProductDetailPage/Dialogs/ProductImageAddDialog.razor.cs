@@ -1,4 +1,5 @@
-﻿using Client.Utils;
+﻿using Client.Services.Authentication;
+using Client.Utils;
 using Domain.InterfacesWorker;
 using Domain.Models.MainDomain;
 using Microsoft.AspNetCore.Components;
@@ -12,6 +13,7 @@ namespace Client.Pages.ProductDetailPage.Dialogs
     {
         [Inject] private IProductWorker productWorker { get; set; } = default!;
         [Inject] private ILogger logger { get; set; } = default!;
+        [Inject] private SessionInfo session { get; set; } = default!;
         [CascadingParameter] MudDialogInstance MudDialog { get; set; } = default!;
         [Parameter] public Product ProductDetail { get; set; } = new();
 
@@ -26,7 +28,7 @@ namespace Client.Pages.ProductDetailPage.Dialogs
         {
             try
             {
-                string filePathLoaded = await LoadFileFromInputFile.LoadFileInput(e, "AtelierCremazie");
+                string filePathLoaded = await LoadFileFromInputFile.LoadFileInput(e, session.WorkshopFolderName);
                 filePathLoaded = filePathLoaded.Replace(@"\", "/");
 
                 ImageInstruction.Url = filePathLoaded;

@@ -1,4 +1,6 @@
-﻿@using Domain.Models.MainDomain
+﻿@using Client.Utils.Extension
+@using Domain.Models.MainDomain
+@using System.Globalization
 @using Utils
 
 @inherits CustomComponentBase
@@ -30,12 +32,30 @@
                                      ValueChanged="@((e) => QuantityChanged(e, context.PMat.Id))" T=double Value=@context.PMat.Quantity />
                 </MudTd>
                 <MudTd DataLabel="Type">@context.PMat.Material.Type</MudTd>
-                <MudTd DataLabel="Coût total">@context.TotalCost.ToString("C2")</MudTd>
+                <MudTd DataLabel="Coût total">@context.TotalCost.ToStringMonetary(CurrentCultur)</MudTd>
                 <MudTd>
                     <MudFab Color="Color.Dark" StartIcon="@Icons.Material.Filled.DeleteForever" Size="Size.Small" OnClick="@(async () => await DeleteMat(context))" />
                 </MudTd>
             </RowTemplate>
         </MudTable>
+
+        <MudSimpleTable>
+            <thead>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Total</td>
+                    <td>
+                        <MudText>@TotalComposition.ToStringMonetary(CurrentCultur)</MudText>
+                    </td>
+                </tr>
+            </tbody>
+        </MudSimpleTable>
+
         <MudAutocomplete @ref="AutocompleteBox" Class="ma-5" T="Material" Label="Mat." ToStringFunc="@(e=> e==null?null : $"{e.Reference} - {e.Name}")" SearchFunc="@Search"
                          ResetValueOnEmptyText="true" ValueChanged=SelectedValueChanged />
 

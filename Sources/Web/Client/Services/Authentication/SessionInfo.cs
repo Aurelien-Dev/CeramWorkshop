@@ -7,8 +7,9 @@ namespace Client.Services.Authentication
     {
         public Workshop? Workshop { get; set; }
         public bool IsAuthenticate { get; set; } = false;
-
         public ClaimsPrincipal ClaimsPrincipal { get; set; }
         public string? Token { get; set; }
+
+        public string WorkshopFolderName { get => Workshop.Name.Replace(" ", string.Empty); }
     }
 }

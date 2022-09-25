@@ -21,20 +21,31 @@
 
                 <MudGrid Justify="Justify.SpaceBetween">
                     <MudItem xs="12" sm="6" lg="8">
-                        <MudText Typo="Typo.subtitle1" Class="mt-4" GutterBottom="true">Description</MudText>
+                        <MudText Typo="Typo.subtitle1" Class="mt-4" GutterBottom="true">Description :</MudText>
                         <MudText Typo="Typo.body2">@ProductDetail.Description</MudText>
 
-                        <MudText Typo="Typo.subtitle1" Class="mt-4" GutterBottom="true">Design insctructions</MudText>
+                        <MudText Typo="Typo.subtitle1" Class="mt-4" GutterBottom="true">Design insctructions :</MudText>
                         <MudText Typo="Typo.body2">@ProductDetail.DesignInstruction</MudText>
 
-                        <MudText Typo="Typo.subtitle1" Class="mt-4" GutterBottom="true">Glazing insctructions</MudText>
+                        <MudText Typo="Typo.subtitle1" Class="mt-4" GutterBottom="true">Glazing insctructions :</MudText>
                         <MudText Typo="Typo.body2">@ProductDetail.GlazingInstruction</MudText>
+
+                        <MudText Typo="Typo.subtitle1" Class="mt-4" GutterBottom="true">Dimension crue :</MudText>
+                        <MudStack Row="true" Class="mt-3" AlignItems="AlignItems.Center" Justify="Justify.SpaceAround">
+                            <MudImage Src="/assets/img/sizing.png" Height="65" Class="ms-3" />
+                            <MudText Typo="Typo.body2"><b>Ø Top :</b> @ProductDetail.TopDiameter cm</MudText>
+                            <MudText Typo="Typo.body2"><b>Ø Bottom :</b> @ProductDetail.BottomDiameter cm</MudText>
+                            <MudText Typo="Typo.body2"><b>Height :</b> @ProductDetail.Height cm</MudText>
+                        </MudStack>
+
+                        <MudTextField Label="Coeficient" Variant="Variant.Outlined" Class="mx-1" Adornment="Adornment.End" AdornmentText="cm"
+                        @bind-Value="ProductDetail.Retrait" For="@(() => ProductDetail.Retrait)" />
 
                         <MudStack Row="true" Class="mt-3" AlignItems="AlignItems.Center" Justify="Justify.SpaceAround">
                             <MudImage Src="/assets/img/sizing.png" Height="65" Class="ms-3" />
-                            <MudText Typo="Typo.body2"><b>Ø Top :</b> @ProductDetail.TopDiameterFinish cm</MudText>
-                            <MudText Typo="Typo.body2"><b>Ø Bottom :</b> @ProductDetail.BottomDiameterFinish cm</MudText>
-                            <MudText Typo="Typo.body2"><b>Height :</b> @ProductDetail.HeightFinish cm</MudText>
+                            <MudText Typo="Typo.body2"><b>Ø Top :</b> @(ProductDetail.TopDiameter * ProductDetail.Retrait) cm</MudText>
+                            <MudText Typo="Typo.body2"><b>Ø Bottom :</b> @(ProductDetail.BottomDiameter* ProductDetail.Retrait) cm</MudText>
+                            <MudText Typo="Typo.body2"><b>Height :</b> @(ProductDetail.Height* ProductDetail.Retrait) cm</MudText>
                         </MudStack>
 
                         <MudStack Row="true" Class="mt-5">

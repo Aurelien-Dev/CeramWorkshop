@@ -32,7 +32,7 @@ namespace Repository
                 optionsBuilder.UseSqlite(@"Data Source=C:\Temp\devDB.db");
             else
             {
-                var cs = $"Host=localhost;Username=postgres;Password={Environment.GetEnvironmentVariable("PG_PASSWD")};Database=CeramWorkshop";
+                var cs = $"Host=localhost;Username=postgres;Password={Environment.GetEnvironmentVariable("PG_PASSWD")};Database={Environment.GetEnvironmentVariable("PG_DB_NAME")}";
                 optionsBuilder.UseNpgsql(new NpgsqlConnection(cs));
             }
         }

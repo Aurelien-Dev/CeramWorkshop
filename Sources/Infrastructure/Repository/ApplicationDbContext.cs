@@ -27,14 +27,8 @@ namespace Repository
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string? localDb = Environment.GetEnvironmentVariable("LocalDb");
-            if (localDb != null)
-                optionsBuilder.UseSqlite(@"Data Source=C:\Temp\devDB.db");
-            else
-            {
-                var cs = $"Host=localhost;Username=postgres;Password={Environment.GetEnvironmentVariable("PG_PASSWD")};Database={Environment.GetEnvironmentVariable("PG_DB_NAME")}";
-                optionsBuilder.UseNpgsql(new NpgsqlConnection(cs));
-            }
+            var cs = $"Host=192.168.1.19;Username=postgres;Password={Environment.GetEnvironmentVariable("PG_PASSWD")};Database={Environment.GetEnvironmentVariable("PG_DB_NAME")}";
+            optionsBuilder.UseNpgsql(new NpgsqlConnection(cs));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

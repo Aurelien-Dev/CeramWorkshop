@@ -15,8 +15,6 @@ namespace Client.Utils
         {
             if (string.IsNullOrEmpty(path)) return;
 
-            Debug.Assert(false, "Attention suppression en cours !");
-
             try
             {
                 File.Delete(Path.Combine(RootPath, path));

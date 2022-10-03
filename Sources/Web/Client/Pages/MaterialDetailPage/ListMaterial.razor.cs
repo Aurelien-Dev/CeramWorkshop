@@ -53,7 +53,7 @@ namespace Client.Pages.MaterialDetailPage
 
         private async Task EditMat(Material material)
         {
-            var parameters = new DialogParameters { ["MaterialDetail"] = material };
+            var parameters = new DialogParameters { ["MaterialDetail"] = material, ["MaterialType"] = material.Type };
 
             var dialog = DialogService.Show<AddMaterialDialog>("Ajouter une nouvelle matière", parameters, this.CommonOptionDialog);
             var result = await dialog.Result;

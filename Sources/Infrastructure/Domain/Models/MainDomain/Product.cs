@@ -31,7 +31,6 @@ namespace Domain.Models.MainDomain
         public ICollection<ImageInstruction> ImageInstructions { get; set; } = new List<ImageInstruction>();
         public ICollection<ProductMaterial> ProductMaterial { get; set; } = new List<ProductMaterial>();
         public ICollection<ProductFiring> ProductFiring { get; set; } = new List<ProductFiring>();
-        public ICollection<ProductAccessory> ProductAccessory { get; set; } = new List<ProductAccessory>();
         public Workshop Workshop { get; set; } = default!;
 
         public Product() { }

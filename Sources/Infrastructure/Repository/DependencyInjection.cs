@@ -14,7 +14,6 @@ namespace Repository
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<IMaterialRepository, MaterialRepository>();
             services.AddTransient<IFiringRepository, FiringRepository>();
-            services.AddTransient<IAccessoryRepository, AccessoryRepository>();
             services.AddTransient<IWorkshopRepository, WorkshopRepository>();
 
             //Workers

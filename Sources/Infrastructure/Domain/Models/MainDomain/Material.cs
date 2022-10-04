@@ -2,7 +2,7 @@
 
 namespace Domain.Models.MainDomain
 {
-    public enum MaterialType { Email = 0, Argile = 1, Engobe = 2, }
+    public enum MaterialType { Email = 0, Argile = 1, Engobe = 2, Accessory = 3}
     public enum MaterialUnite { Kg = 0, L = 1 }
 
     public class Material

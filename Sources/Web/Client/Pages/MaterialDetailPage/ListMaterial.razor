@@ -16,7 +16,6 @@
         <MudTh>Nom</MudTh>
         <MudTh>Coût</MudTh>
         <MudTh>Commentaire</MudTh>
-        <MudTh>Type</MudTh>
         <MudTh></MudTh>
     </HeaderContent>
     <RowTemplate>
@@ -24,7 +23,6 @@
         <MudTd DataLabel="Nom">@context.Name</MudTd>
         <MudTd DataLabel="Coût">@context.Cost.ToStringMonetary(CurrentCultur) pour @context.Quantity @context.UniteMesure</MudTd>
         <MudTd DataLabel="Commentaire">@context.Comment</MudTd>
-        <MudTd DataLabel="Type">@context.Type</MudTd>
         <MudTd DataLabel="">
             <MudStack Row=true>
                 <MudFab Color="Color.Tertiary" StartIcon="@Icons.Material.Filled.Edit" Size="Size.Small" OnClick="@(async () => await EditMat(context))" />

@@ -27,9 +27,7 @@
                     </MudTooltip>
                 </MudTd>
                 <MudTd DataLabel="Coût">
-                    <MudNumericField Variant="Variant.Text" Adornment="Adornment.End" AdornmentText="€"
-                                     AdornmentColor="Color.Info" Margin="Margin.Dense" Style="width:85px; margin:0;"
-                                     ValueChanged="@((e) => CostChanged(e, context.PMat.Id))" T=double Value=@context.PMat.Cost />
+                    @((context.PMat.Cost / context.PMat.Material.Quantity).ToStringMonetary(CurrentCultur)) /@context.PMat.Material.UniteMesure.ToString()
                 </MudTd>
                 <MudTd DataLabel="Quantité">
                     <MudNumericField Variant="Variant.Text" Adornment="Adornment.End" AdornmentText="@context.PMat.Material.UniteMesure.ToString()"

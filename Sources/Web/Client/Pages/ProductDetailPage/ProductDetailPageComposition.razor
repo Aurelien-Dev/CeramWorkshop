@@ -18,17 +18,22 @@
                 <MudTh>Type</MudTh>
                 <MudTh>Coût total</MudTh>
                 <MudTh></MudTh>
-            </HeaderContent>
+            </HeaderContent>    
             <RowTemplate>
-                <MudTd DataLabel="Nom">@context.PMat.Material.Name @context.PMat.Material.Reference</MudTd>
+                <MudTd DataLabel="Nom">
+                    @context.PMat.Material.Reference
+                    <MudTooltip Text="@context.PMat.Material.Name">
+                        <MudIcon Icon="@Icons.Outlined.Info" Color="Color.Info" Size="Size.Small" />
+                    </MudTooltip>
+                </MudTd>
                 <MudTd DataLabel="Coût">
                     <MudNumericField Variant="Variant.Text" Adornment="Adornment.End" AdornmentText="€"
                                      AdornmentColor="Color.Info" Margin="Margin.Dense" Style="width:85px; margin:0;"
                                      ValueChanged="@((e) => CostChanged(e, context.PMat.Id))" T=double Value=@context.PMat.Cost />
                 </MudTd>
                 <MudTd DataLabel="Quantité">
-                    <MudNumericField Variant="Variant.Text" Adornment="Adornment.End" AdornmentText="g"
-                                     AdornmentColor="Color.Info" Margin="Margin.Dense" Style="width:85px; margin:0;"
+                    <MudNumericField Variant="Variant.Text" Adornment="Adornment.End" AdornmentText="@context.PMat.Material.UniteMesure.ToString()"
+                                     AdornmentColor="Color.Info" Margin="Margin.Dense" Style="width:90px; margin:0;"
                                      ValueChanged="@((e) => QuantityChanged(e, context.PMat.Id))" T=double Value=@context.PMat.Quantity />
                 </MudTd>
                 <MudTd DataLabel="Type">@context.PMat.Material.Type</MudTd>

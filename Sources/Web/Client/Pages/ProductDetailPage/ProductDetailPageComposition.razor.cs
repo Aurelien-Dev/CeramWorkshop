@@ -80,7 +80,7 @@ namespace Client.Pages.ProductDetailPage
         private void CalculateTotalCost(int id, ProductMaterial pmToUpdate)
         {
             MaterialViewModel pmVMToUpdate = MaterialsVM.FirstOrDefault(p => p.PMat.Id == id);
-            pmVMToUpdate.TotalCost = pmToUpdate.Cost / (pmToUpdate.Material.Quantity * 1000) * pmToUpdate.Quantity;
+            pmVMToUpdate.TotalCost = pmToUpdate.Cost / pmToUpdate.Material.Quantity * pmToUpdate.Quantity;
         }
 
         private async Task DeleteMat(MaterialViewModel materialVM)

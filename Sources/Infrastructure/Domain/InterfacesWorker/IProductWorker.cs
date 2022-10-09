@@ -6,6 +6,7 @@ namespace Domain.InterfacesWorker
     {
         IProductRepository ProductRepository { get; }
         IMaterialRepository MaterialRepository { get; }
+        IFiringRepository FiringRepository { get; }
         int Completed();
         void Rollback();
     }

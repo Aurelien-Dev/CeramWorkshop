@@ -1,0 +1,53 @@
+﻿@using Client.Utils.Extension
+@using Domain.Models.MainDomain
+@using System.Globalization
+@using Utils
+
+@inherits CustomComponentBase
+
+<MudCard>
+    <MudCardHeader>
+        <MudText Typo="Typo.h5">Composition</MudText>
+    </MudCardHeader>
+    <MudCardContent>
+        <MudTable Items="@FiringsVM" Dense="true" Striped="false">
+            <HeaderContent>
+                <MudTh>Nom</MudTh>
+                <MudTh>Coût</MudTh>
+                <MudTh></MudTh>
+            </HeaderContent>    
+            <RowTemplate>
+                <MudTd DataLabel="Nom">
+                    @context.Pfire.Firing.Name (@context.Pfire.Firing.TotalKwH Kw/h)
+                </MudTd>
+                <MudTd DataLabel="Coût">
+                    <MudNumericField Variant="Variant.Text" Adornment="Adornment.End" AdornmentText="€ / Kw/h"
+                                     AdornmentColor="Color.Info" Margin="Margin.Dense" Style="width:135px; margin:0;"
+                                     ValueChanged="@((e) => CostChanged(e, context.Pfire.Id))" T=double Value=@context.Pfire.CostKwH />
+                </MudTd>
+                <MudTd DataLabel="Coût total">@context.TotalCost.ToStringMonetary(CurrentCultur)</MudTd>
+                <MudTd>
+                    <MudFab Color="Color.Dark" StartIcon="@Icons.Material.Filled.DeleteForever" Size="Size.Small" OnClick="@(() =>  DeleteFire(context))" />
+                </MudTd>
+            </RowTemplate>
+        </MudTable>
+
+        <MudSimpleTable>
+            <thead>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td>Total</td>
+                    <td>
+                        <MudText>@TotalComposition.ToStringMonetary(CurrentCultur)</MudText>
+                    </td>
+                </tr>
+            </tbody>
+        </MudSimpleTable>
+
+        <MudAutocomplete @ref="AutocompleteBox" Class="ma-5" T="Firing" Label="Fire" ToStringFunc="@(e=> e==null?null : e.Name)" SearchFunc="@Search"
+                         ResetValueOnEmptyText="true" ValueChanged=SelectedValueChanged />
+
+    </MudCardContent>
+</MudCard>

@@ -43,7 +43,7 @@ namespace Client.Pages.MaterialDetailPage
         {
             var parameters = new DialogParameters { ["InsertMode"] = true, ["MaterialType"] = MaterialType };
 
-            var dialog = DialogService.Show<AddMaterialDialog>("Ajouter une nouvelle matière", parameters, this.CommonOptionDialog);
+            var dialog = DialogService.Show<MaterialDialog>("Ajouter une nouvelle matière", parameters, this.CommonOptionDialog);
             var result = await dialog.Result;
 
             if (result.Cancelled) return;
@@ -55,7 +55,7 @@ namespace Client.Pages.MaterialDetailPage
         {
             var parameters = new DialogParameters { ["MaterialDetail"] = material, ["MaterialType"] = material.Type };
 
-            var dialog = DialogService.Show<AddMaterialDialog>("Ajouter une nouvelle matière", parameters, this.CommonOptionDialog);
+            var dialog = DialogService.Show<MaterialDialog>("Ajouter une nouvelle matière", parameters, this.CommonOptionDialog);
             var result = await dialog.Result;
 
             if (result.Cancelled)

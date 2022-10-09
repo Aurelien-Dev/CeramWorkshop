@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Repository;
@@ -11,9 +12,10 @@ using Repository;
 namespace Repository.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221009203130_UpdateFiringPrimaryKey")]
+    partial class UpdateFiringPrimaryKey
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,15 +32,15 @@ namespace Repository.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<double>("Duration")
-                        .HasColumnType("double precision");
+                    b.Property<int>("Duration")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<double>("TotalKwH")
-                        .HasColumnType("double precision");
+                    b.Property<int>("TotalKwH")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -182,8 +184,8 @@ namespace Repository.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<double>("CostKwH")
-                        .HasColumnType("double precision");
+                    b.Property<int>("CostKwH")
+                        .HasColumnType("integer");
 
                     b.Property<int>("IdFiring")
                         .HasColumnType("integer");
@@ -191,11 +193,8 @@ namespace Repository.Migrations
                     b.Property<int>("IdProduct")
                         .HasColumnType("integer");
 
-                    b.Property<int>("NumberProducts")
+                    b.Property<int>("TotalKwH")
                         .HasColumnType("integer");
-
-                    b.Property<double>("TotalKwH")
-                        .HasColumnType("double precision");
 
                     b.HasKey("Id");
 

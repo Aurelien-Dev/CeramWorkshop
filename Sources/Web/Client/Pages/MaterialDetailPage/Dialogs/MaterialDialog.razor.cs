@@ -5,7 +5,7 @@ using MudBlazor;
 
 namespace Client.Pages.MaterialDetailPage.Dialogs
 {
-    public partial class AddMaterialDialog
+    public partial class MaterialDialog
     {
         [Inject] private IProductWorker productWorker { get; set; } = default!;
         [CascadingParameter] MudDialogInstance MudDialog { get; set; } = default!;

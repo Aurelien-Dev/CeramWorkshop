@@ -19,6 +19,7 @@ namespace Client.Pages.ProductDetailPage
         [NotNull] public Product ProductDetail { get; set; } = new();
         [NotNull] public Material MaterialDetail { get; set; } = new();
         private ICollection<Material> Materials { get; set; } = default!;
+        private ICollection<Firing> Firings { get; set; } = default!;
 
 
         public ImageInstruction ImageInstruction { get; set; } = new();
@@ -49,6 +50,7 @@ namespace Client.Pages.ProductDetailPage
         {
             ProductDetail = await worker.ProductRepository.Get(id, CurrentSession.Workshop.Id);
             Materials = await worker.MaterialRepository.GetAll();
+            Firings = await worker.FiringRepository.GetAll();
         }
 
 

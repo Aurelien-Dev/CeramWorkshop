@@ -25,7 +25,8 @@ namespace Repository
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var cs = $"Host=192.168.1.19;Username=postgres;Password={Environment.GetEnvironmentVariable("PG_PASSWD")};Database={Environment.GetEnvironmentVariable("PG_DB_NAME")}";
+            //var cs = $"Host=192.168.1.19;Username=postgres;Password={Environment.GetEnvironmentVariable("PG_PASSWD")};Database={Environment.GetEnvironmentVariable("PG_DB_NAME")}";
+            var cs = $"Host=127.0.0.1;Username=postgres;Password=mysecretpassword;Database={Environment.GetEnvironmentVariable("PG_DB_NAME")}";
             optionsBuilder.UseNpgsql(new NpgsqlConnection(cs));
         }
 

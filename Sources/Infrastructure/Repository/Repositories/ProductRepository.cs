@@ -18,6 +18,8 @@ namespace Repository.Repositories
                                  .Include(p => p.ImageInstructions)
                                  .Include(p => p.ProductMaterial)
                                  .ThenInclude(x => x.Material)
+                                 .Include(p => p.ProductFiring)
+                                 .ThenInclude(x => x.Firing)
                                  .FirstAsync();
         }
 
@@ -49,6 +51,17 @@ namespace Repository.Repositories
 
             pMaterial.Cost = productMaterial.Cost;
             pMaterial.Quantity = productMaterial.Quantity;
+
+            _context.SaveChanges();
+        }
+
+        public void UpdateProductFiring(ProductFiring productFiring)
+        {
+            if (productFiring == null) return;
+
+            ProductFiring pFiring = _context.ProductFirings.First(p => p.Id == productFiring.Id);
+
+            pFiring.CostKwH = productFiring.CostKwH;
 
             _context.SaveChanges();
         }

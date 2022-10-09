@@ -10,5 +10,7 @@ namespace Domain.Interfaces
         Task<Product> GetLight(object id);
         Task<int> CountImage(int id);
         void UpdateProductMaterial(ProductMaterial productMaterial);
+        void UpdateProductFiring(ProductFiring productMaterial);
+
     }
 }

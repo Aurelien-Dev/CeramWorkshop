@@ -10,9 +10,9 @@ namespace Domain.Models.MainDomain
         [CeramRequired]
         public string Name { get; set; } = string.Empty;
         
-        public int Duration { get; set; }
+        public double Duration { get; set; }
         
-        public int TotalKwH { get; set; }
+        public double TotalKwH { get; set; }
         
         public ICollection<ProductFiring> ProductFiring { get; set; } = new List<ProductFiring>();
 

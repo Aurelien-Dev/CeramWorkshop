@@ -45,7 +45,7 @@ namespace Client.Pages.Authentification
                 await worker.WorkshopRepository.Add(workshopDetail);
                 worker.Completed();
 
-                registerError = await AuthenticationManager.StartSession(workshopDetail.Email, workshopDetail.PasswordHash);
+                registerError = await AuthenticationManager.StartSession(workshopDetail.Email, registerInfo.Password);
                 if (!string.IsNullOrEmpty(registerError)) return;
 
                 NavigationManager.NavigateTo("/", forceLoad: false);

@@ -1,11 +1,8 @@
-[![CircleCI](https://img.shields.io/circleci/build/gh/Aurelien-Dev/CeramWorkshop?style=flat)](https://app.circleci.com/dashboard)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Aurelien-Dev_CeramWorkshop&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Aurelien-Dev_CeramWorkshop)
-
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=Aurelien-Dev_CeramWorkshop&metric=bugs)](https://sonarcloud.io/summary/new_code?id=Aurelien-Dev_CeramWorkshop)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=Aurelien-Dev_CeramWorkshop&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=Aurelien-Dev_CeramWorkshop)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Aurelien-Dev_CeramWorkshop&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=Aurelien-Dev_CeramWorkshop)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Aurelien-Dev_CeramWorkshop&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=Aurelien-Dev_CeramWorkshop)
-
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=Aurelien-Dev_CeramWorkshop&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=Aurelien-Dev_CeramWorkshop)
 
 # CeramWorkshop
@@ -25,4 +22,4 @@ Command in NuGet Console
 
 **EF Core migration commands:** https://www.entityframeworktutorial.net/efcore/entity-framework-core-migration.aspx
 
-**Delivery platform with CircleCI:** https://app.circleci.com/
+**Delivery platform with CircleCI:** https://app.circleci.com/ or other solution

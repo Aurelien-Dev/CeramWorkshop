@@ -15,12 +15,13 @@ Command in NuGet Console
 
 
 ### Server instance
-**Heroku with heroku-buildpack:** https://github.com/heroku-softtrends/heroku-buildpack-dotnetcore.git
-**Or on IIS webserver
+Heroku with heroku-buildpack: https://github.com/heroku-softtrends/heroku-buildpack-dotnetcore.git
+
+Or on IIS webserver
 
 
 ### Sticky note
 
-**EF Core migration commands:** https://www.entityframeworktutorial.net/efcore/entity-framework-core-migration.aspx
+EF Core migration commands: https://www.entityframeworktutorial.net/efcore/entity-framework-core-migration.aspx
 
-**Delivery platform with CircleCI:** https://app.circleci.com/ or other solution
+Delivery platform with CircleCI: https://app.circleci.com/ or other solution

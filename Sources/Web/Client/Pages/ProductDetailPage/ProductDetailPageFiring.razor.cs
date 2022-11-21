@@ -14,7 +14,7 @@ namespace Client.Pages.ProductDetailPage
 
         ICollection<FiringViewModel> FiringsVM { get; set; } = new List<FiringViewModel>();
         MudAutocomplete<Firing> AutocompleteBox = new();
-        double TotalComposition { get => FiringsVM.Sum(m => m.Pfire.CostKwH); }
+        double TotalComposition { get => FiringsVM.Sum(m => m.UnitaryCost); }
 
 
         protected override void OnParametersSet()
@@ -33,7 +33,7 @@ namespace Client.Pages.ProductDetailPage
 
             await AutocompleteBox.Clear();
 
-            var pFire = new ProductFiring(fire.Id, ProductDetail.Id, fire.TotalKwH, 0) { Firing = fire };
+            var pFire = new ProductFiring(fire.Id, ProductDetail.Id, fire.TotalKwH, fire.CostKwH) { Firing = fire };
 
             FiringsVM.Add(new FiringViewModel(pFire));
             ProductDetail.ProductFiring.Add(pFire);
@@ -42,14 +42,14 @@ namespace Client.Pages.ProductDetailPage
             StateHasChanged();
         }
 
-        public void CostChanged(double cost, int id)
+        public void CostChanged(int number, int id)
         {
             ProductFiring pfToUpdate = ProductDetail.ProductFiring.FirstOrDefault(p => p.Id == id);
 
             if (pfToUpdate == null) return;
-            if (cost == pfToUpdate.CostKwH) return;
+            if (number == pfToUpdate.NumberProducts) return;
 
-            pfToUpdate.CostKwH = cost;
+            pfToUpdate.NumberProducts = number;
             Worker.ProductRepository.UpdateProductFiring(pfToUpdate);
 
             CalculateTotalCost(pfToUpdate.Id, pfToUpdate);
@@ -75,21 +75,28 @@ namespace Client.Pages.ProductDetailPage
             FiringsVM.Remove(firingVM);
             StateHasChanged();
         }
+
         private void CalculateTotalCost(int id, ProductFiring pfToUpdate)
         {
             FiringViewModel pmVMToUpdate = FiringsVM.FirstOrDefault(p => p.Pfire.Id == id);
-            pmVMToUpdate.TotalCost = pfToUpdate.Firing.TotalKwH * pfToUpdate.CostKwH;
+            pmVMToUpdate.CalculateUiteryCost();
         }
     }
 
     public class FiringViewModel
     {
         public ProductFiring Pfire { get; set; }
-        public double TotalCost { get; set; }
+        public double UnitaryCost { get; set; }
 
         public FiringViewModel(ProductFiring pFire)
         {
             Pfire = pFire;
+            CalculateUiteryCost();
+        }
+
+        public void CalculateUiteryCost()
+        {
+            UnitaryCost = Pfire.CostKwH * Pfire.Firing.TotalKwH / Pfire.NumberProducts;
         }
     }
 }

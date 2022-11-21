@@ -16,13 +16,15 @@
     <HeaderContent>
         <MudTh>Nom</MudTh>
         <MudTh>Durée</MudTh>
-        <MudTh>Total Kwh par cuisson</MudTh>
+        <MudTh>Total Kw/h pour la cuisson</MudTh>
+        <MudTh>Coût du Kw/h</MudTh>
         <MudTh></MudTh>
     </HeaderContent>
     <RowTemplate>
         <MudTd DataLabel="Nom">@context.Name</MudTd>
         <MudTd DataLabel="Duration">@context.Duration</MudTd>
         <MudTd DataLabel="TotalKwH">@context.TotalKwH Kw/h</MudTd>
+        <MudTd DataLabel="TotalKwH">@context.CostKwH.ToStringMonetary(CurrentCultur, DecimalPrecision.Five)</MudTd>
         <MudTd DataLabel="">
             <MudStack Row=true>
                 <MudFab Color="Color.Tertiary" StartIcon="@Icons.Material.Filled.Edit" Size="Size.Small" OnClick="async () => await EditFiringDialog(context)" />

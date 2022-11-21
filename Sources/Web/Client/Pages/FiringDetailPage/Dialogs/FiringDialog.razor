@@ -19,6 +19,11 @@
                               @bind-Value="FiringlDetail.TotalKwH" For="@(() => FiringlDetail.TotalKwH)" />
             </MudStack>
 
+            <MudStack>
+                <MudTextField Label="Consommation" Variant="Variant.Outlined" Class="mx-1" Adornment="Adornment.End" AdornmentText="€ / Kw/h"
+                              @bind-Value="FiringlDetail.CostKwH" For="@(() => FiringlDetail.CostKwH)" />
+            </MudStack>
+
         </DialogContent>
         <DialogActions>
             <MudButton OnClick="Cancel">Cancel</MudButton>

@@ -13,19 +13,20 @@
         <MudTable Items="@FiringsVM" Dense="true" Striped="false">
             <HeaderContent>
                 <MudTh>Nom</MudTh>
-                <MudTh>Coût</MudTh>
+                <MudTh>Quantité</MudTh>
+                <MudTh>Coût unitaire</MudTh>
                 <MudTh></MudTh>
             </HeaderContent>    
             <RowTemplate>
                 <MudTd DataLabel="Nom">
                     @context.Pfire.Firing.Name (@context.Pfire.Firing.TotalKwH Kw/h)
                 </MudTd>
-                <MudTd DataLabel="Coût">
-                    <MudNumericField Variant="Variant.Text" Adornment="Adornment.End" AdornmentText="€ / Kw/h"
+                <MudTd DataLabel="Quantité">
+                    <MudNumericField Variant="Variant.Text" Adornment="Adornment.End" AdornmentText="Qte"
                                      AdornmentColor="Color.Info" Margin="Margin.Dense" Style="width:135px; margin:0;"
-                                     ValueChanged="@((e) => CostChanged(e, context.Pfire.Id))" T=double Value=@context.Pfire.CostKwH />
+                                     ValueChanged="@((e) => CostChanged(e, context.Pfire.Id))" T=int Value=@context.Pfire.NumberProducts/>
                 </MudTd>
-                <MudTd DataLabel="Coût total">@context.TotalCost.ToStringMonetary(CurrentCultur)</MudTd>
+                <MudTd DataLabel="Coût total">@context.UnitaryCost.ToStringMonetary(CurrentCultur)</MudTd>
                 <MudTd>
                     <MudFab Color="Color.Dark" StartIcon="@Icons.Material.Filled.DeleteForever" Size="Size.Small" OnClick="@(() =>  DeleteFire(context))" />
                 </MudTd>

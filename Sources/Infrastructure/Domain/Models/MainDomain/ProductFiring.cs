@@ -31,12 +31,22 @@ namespace Domain.Models.MainDomain
         public Firing Firing { get; set; } = default!;
         public Product Product { get; set; } = default!;
 
+        public ProductFiring(int idFiring, int idProduct, double totalKwH, double costKwH, int numberProducts)
+        {
+            IdFiring = idFiring;
+            IdProduct = idProduct;
+            TotalKwH = totalKwH;
+            CostKwH = costKwH;
+            NumberProducts = numberProducts;
+        }
+
         public ProductFiring(int idFiring, int idProduct, double totalKwH, double costKwH)
         {
             IdFiring = idFiring;
-            IdProduct = idProduct;                
+            IdProduct = idProduct;
             TotalKwH = totalKwH;
             CostKwH = costKwH;
+            NumberProducts = 1;
         }
     }
 }

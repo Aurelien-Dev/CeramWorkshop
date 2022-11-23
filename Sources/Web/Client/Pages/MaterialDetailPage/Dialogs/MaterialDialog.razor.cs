@@ -8,6 +8,7 @@ namespace Client.Pages.MaterialDetailPage.Dialogs
     public partial class MaterialDialog
     {
         [Inject] private IProductWorker productWorker { get; set; } = default!;
+
         [CascadingParameter] MudDialogInstance MudDialog { get; set; } = default!;
         [Parameter] public Material MaterialDetail { get; set; } = new();
         [Parameter] public MaterialType? MaterialType { get; set; } = new();
@@ -23,7 +24,7 @@ namespace Client.Pages.MaterialDetailPage.Dialogs
                 MaterialDetail.Type = MaterialType.Value;
         }
 
-        private async Task OnValidSubmit()
+        private async Task OnValidSubmit(bool updateAllProductsMat = false)
         {
             await form.Validate();
 
@@ -32,7 +33,12 @@ namespace Client.Pages.MaterialDetailPage.Dialogs
                 if (InsertMode.HasValue && InsertMode.Value)
                     await productWorker.MaterialRepository.Add(MaterialDetail);
                 else
+                {
                     productWorker.MaterialRepository.Update(MaterialDetail);
+
+                    if (updateAllProductsMat)
+                        productWorker.MaterialRepository.UpdateAllMaterialCost(MaterialDetail.Id);
+                }
 
                 productWorker.Completed();
 

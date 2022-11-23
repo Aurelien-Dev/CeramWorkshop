@@ -51,7 +51,11 @@
         </DialogContent>
         <DialogActions>
             <MudButton OnClick="Cancel">Cancel</MudButton>
-            <MudButton Color="Color.Primary" OnClick="@(async () => await OnValidSubmit())">Ok</MudButton>
+            <MudButton Color="Color.Primary" OnClick="@(async () => await OnValidSubmit())">Enregistrer</MudButton>
+            @if (InsertMode.HasValue && !InsertMode.Value)
+            {
+                <MudButton Color="Color.Primary" OnClick="@(async () => await OnValidSubmit(true))">Enregistrer et update PM</MudButton>
+            }
         </DialogActions>
     </MudDialog>
 </MudForm>

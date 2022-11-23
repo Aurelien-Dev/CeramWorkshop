@@ -19,13 +19,6 @@ namespace Domain.Models.MainDomain
         public Material Material { get; set; } = default!;
         public Product Product { get; set; } = default!;
 
-        public ProductMaterial(int idMaterial, int idProduct, double quantity, double? cost)
-        {
-            IdMaterial = idMaterial;
-            IdProduct = idProduct;
-            Quantity = quantity;
-            if (cost.HasValue) Cost = cost.Value;
-        }
 
         public ProductMaterial(int idMaterial, int idProduct, double quantity, double cost)
         {
@@ -34,5 +27,7 @@ namespace Domain.Models.MainDomain
             Quantity = quantity;
             Cost = cost;
         }
+
+        public double CalculatedCost { get { return Cost / Material.UnifiedQuantity * Quantity; } }
     }
 }

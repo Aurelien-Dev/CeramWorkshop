@@ -33,5 +33,23 @@ namespace Domain.Models.MainDomain
             Reference = reference;
             Name = name;
         }
+
+        public double UnifiedQuantity
+        {
+            get
+            {
+                switch (UniteMesure)
+                {
+                    case MaterialUnite.Kg:
+                        return Quantity * 1000;
+                    case MaterialUnite.L:
+                        return Quantity * 1000;
+                    case MaterialUnite.Unit:
+                        return Quantity;
+                    default:
+                        throw new InvalidOperationException();
+                }
+            }
+        }
     }
 }

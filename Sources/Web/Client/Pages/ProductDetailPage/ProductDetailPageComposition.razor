@@ -30,7 +30,7 @@
                     @((context.PMat.Cost / context.PMat.Material.Quantity).ToStringMonetary(CurrentCultur)) /@context.PMat.Material.UniteMesure.ToString()
                 </MudTd>
                 <MudTd DataLabel="Quantité">
-                    <MudNumericField Variant="Variant.Text" Adornment="Adornment.End" AdornmentText="@context.PMat.Material.UniteMesure.ToString()"
+                    <MudNumericField Variant="Variant.Text" Adornment="Adornment.End" AdornmentText="@context.Unite"
                                      AdornmentColor="Color.Info" Margin="Margin.Dense" Style="width:90px; margin:0;"
                                      ValueChanged="@((e) => QuantityChanged(e, context.PMat.Id))" T=double Value=@context.PMat.Quantity />
                 </MudTd>

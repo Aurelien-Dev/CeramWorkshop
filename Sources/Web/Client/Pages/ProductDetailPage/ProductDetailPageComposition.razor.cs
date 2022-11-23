@@ -22,7 +22,6 @@ namespace Client.Pages.ProductDetailPage
             foreach (var pMat in ProductDetail.ProductMaterial)
             {
                 MaterialsVM.Add(new MaterialViewModel(pMat));
-                CalculateTotalCost(pMat.Id, pMat);
             }
         }
 
@@ -50,7 +49,7 @@ namespace Client.Pages.ProductDetailPage
 
             pmToUpdate.Cost = cost;
             Worker.ProductRepository.UpdateProductMaterial(pmToUpdate);
-            CalculateTotalCost(id, pmToUpdate);
+            CalculateTotalCost(id);
         }
 
         public void QuantityChanged(double quantity, int id)
@@ -62,7 +61,7 @@ namespace Client.Pages.ProductDetailPage
 
             pmToUpdate.Quantity = quantity;
             Worker.ProductRepository.UpdateProductMaterial(pmToUpdate);
-            CalculateTotalCost(id, pmToUpdate);
+            CalculateTotalCost(id);
         }
 
         private async Task<IEnumerable<Material>> Search(string value)
@@ -77,10 +76,10 @@ namespace Client.Pages.ProductDetailPage
                 x.Reference.Contains(value, StringComparison.InvariantCultureIgnoreCase));
         }
 
-        private void CalculateTotalCost(int id, ProductMaterial pmToUpdate)
+        private void CalculateTotalCost(int id)
         {
             MaterialViewModel pmVMToUpdate = MaterialsVM.FirstOrDefault(p => p.PMat.Id == id);
-            pmVMToUpdate.TotalCost = pmToUpdate.Cost / pmToUpdate.Material.Quantity * pmToUpdate.Quantity;
+            pmVMToUpdate.CalculateCost();
         }
 
         private async Task DeleteMat(MaterialViewModel materialVM)
@@ -98,10 +97,34 @@ namespace Client.Pages.ProductDetailPage
     {
         public ProductMaterial PMat { get; set; }
         public double TotalCost { get; set; }
+        public string Unite
+        {
+            get
+            {
+                switch (PMat.Material.UniteMesure)
+                {
+                    case MaterialUnite.Kg:
+                        return "gr";
+                    case MaterialUnite.L:
+                        return "ml";
+                    case MaterialUnite.Unit:
+                        return "/p";
+                    default:
+                        return "";
+                }
+            }
+        }
 
         public MaterialViewModel(ProductMaterial pMat)
         {
             PMat = pMat;
+            CalculateCost();
+
+        }
+
+        public void CalculateCost()
+        {
+            TotalCost = PMat.CalculatedCost;
         }
     }
 }

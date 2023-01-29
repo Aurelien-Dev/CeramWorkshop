@@ -16,5 +16,11 @@ namespace Client.Utils.Extension
         {
             return str.ToString($"C{(int)precision}", culture);
         }
+        public static string ToStringMonetary(this double? str, CultureInfo culture, DecimalPrecision precision = DecimalPrecision.Two)
+        {
+            if (str == null) return 0f.ToString($"C{(int)precision}", culture).Replace("0", "--");
+
+            return ToStringMonetary(str.Value, culture, precision);
+        }
     }
 }

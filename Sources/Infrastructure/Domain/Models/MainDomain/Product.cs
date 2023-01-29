@@ -26,6 +26,8 @@ namespace Domain.Models.MainDomain
         public double? ShrinkingCoeficient { get; set; }
         public string? DesignInstruction { get; set; }
         public string? GlazingInstruction { get; set; }
+        public double? Price { get; set; }
+
         public ProductStatus Status { get; set; }
 
         public ICollection<ImageInstruction> ImageInstructions { get; set; } = new List<ImageInstruction>();

@@ -3,6 +3,7 @@
 @using Client.Utils
 @using Client.Components
 @using Domain.Models.MainDomain
+@using Client.Utils.Extension
 
 @inherits CustomComponentBase
 
@@ -20,7 +21,7 @@
             <MudCardContent>
 
                 <MudGrid Justify="Justify.SpaceBetween">
-                    <MudItem xs="12" sm="6" lg="8">
+                    <MudItem xs="12" sm="12" lg="4">
                         <MudText Typo="Typo.subtitle1" Class="mt-4" GutterBottom="true">Description</MudText>
                         <MudText Typo="Typo.body2">@ProductDetail.Description</MudText>
 
@@ -45,6 +46,12 @@
                                 Supprimer
                             </MudButton>
                         </MudStack>
+                    </MudItem>
+                    <MudItem xs="12" sm="6" lg="4">
+                        <MudText Typo="Typo.subtitle1" Class="mt-4"  GutterBottom="true">Detail des coûts</MudText>
+                        
+                        <MudText Typo="Typo.subtitle1" Class="mt-4" GutterBottom="true">Prix de vente</MudText>
+                        <MudText Typo="Typo.body2">@ProductDetail.Price.ToStringMonetary(CurrentCultur)</MudText>
                     </MudItem>
                     <MudItem xs="12" sm="6" lg="4">
                         <MudCarousel Class="mud-width-full" Style="height:500px;" ShowArrows="@ShowCarouselNavigation" ShowBullets="@ShowCarouselNavigation"

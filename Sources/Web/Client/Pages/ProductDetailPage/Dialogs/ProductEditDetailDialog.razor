@@ -34,6 +34,8 @@
                 </MudStack>
 
                 <MudStack Class="mt-3">
+                    <MudTextField Label="Price" Variant="Variant.Outlined" Class="mx-1"
+                                  @bind-Value="ProductDetail.Price" For="@(() => ProductDetail.Price)" />
                     <MudSelect T="ProductStatus" Label="Statut" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter"
                                @bind-Value="ProductDetail.Status">
                         @foreach (ProductStatus item in Enum.GetValues(typeof(ProductStatus)))

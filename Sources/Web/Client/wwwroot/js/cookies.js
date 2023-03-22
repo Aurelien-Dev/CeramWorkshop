@@ -1,4 +1,15 @@
-﻿function setCookie(name, value, days, domain) {
+﻿var lockResolver;
+if (navigator && navigator.locks && navigator.locks.request) {
+    const promise = new Promise((res) => {
+        lockResolver = res;
+    });
+
+    navigator.locks.request('unique_lock_name', { mode: "shared" }, () => {
+        return promise;
+    });
+}
+
+function setCookie(name, value, days, domain) {
     let expires = "";
     if (days) {
         let date = new Date();

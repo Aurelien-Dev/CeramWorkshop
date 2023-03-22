@@ -74,6 +74,8 @@ namespace Client.Services
             _ = await JSRuntime.InvokeAsync<string>("setCookie", new object[] { ".AspNetCore.Cookies", CurrentSession.Token, 1, domain });
             _ = await JSRuntime.InvokeAsync<string>("setCookie", new object[] { CookieRequestCultureProvider.DefaultCookieName, CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(workshop.Culture)), 365 });
 
+            System.Globalization.CultureInfo.CurrentCulture = new RequestCulture(workshop.Culture).Culture;
+
             return authError;
         }
 

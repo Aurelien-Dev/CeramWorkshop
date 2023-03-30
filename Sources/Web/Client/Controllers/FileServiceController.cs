@@ -34,18 +34,25 @@ namespace Client.Controllers
 
                 foreach (var item in imagesNotExported)
                 {
-                    string path = Path.Combine(EnvironementSingleton.WebRootPath, item.Url.Replace("/", @"\"));
-                    (string url, string thumb, string medium) = await _imgBBService.UploadFile(path);
-                    string localMedium = await _imgBBService.DownloadFile(medium, path);
-   
+                    try
+                    {
+                        string path = Path.Combine(EnvironementSingleton.WebRootPath, item.Url.Replace("/", @"\"));
+                        (string url, string thumb, string medium) = await _imgBBService.UploadFile(path);
+                        string localMedium = await _imgBBService.DownloadFile(medium, path);
 
-                    item.Url = Path.Combine(Path.GetDirectoryName(item.Url), Path.GetFileName(localMedium));
-                    item.FileLocation = Location.ImgBB;
 
-                    _apiWorker.ImageInstructionRepository.Update(item);
-                    _apiWorker.Completed();
+                        item.Url = Path.Combine(Path.GetDirectoryName(item.Url), Path.GetFileName(localMedium));
+                        item.FileLocation = Location.ImgBB;
 
-                    LoadFileFromInputFile.RemoveFileInput(path);
+                        _apiWorker.ImageInstructionRepository.Update(item);
+                        _apiWorker.Completed();
+
+                        LoadFileFromInputFile.RemoveFileInput(path);
+                    }
+                    catch (Exception)
+                    {
+                        //On passe au suivant
+                    }
                 }
 
                 return new JsonResult(new { sucess = true });

@@ -99,7 +99,7 @@ namespace Client.Pages.ProductDetailPage
             Status = product.Status;
 
             if (product.ImageInstructions.Any())
-                Image = product.ImageInstructions.First().ThumbUrl;
+                Image = product.ImageInstructions.First().Url;
             else
                 Image = "assets/img/gallery.png";
         }

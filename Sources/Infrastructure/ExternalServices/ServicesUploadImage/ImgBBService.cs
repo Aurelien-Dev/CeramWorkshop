@@ -1,5 +1,4 @@
-﻿using Domain.Models.MainDomain;
-using ExternalServices.ServicesUploadImage.Model;
+﻿using ExternalServices.ServicesUploadImage.Model;
 using Microsoft.Extensions.Configuration;
 using RestSharp;
 using System.Text.Json;
@@ -11,16 +10,24 @@ namespace ExternalServices.ServicesUploadImage
     /// <summary>
     /// Documentation of API Service : https://api.imgbb.com/
     /// </summary>
-    public class ImgBBService
+    public class ImgBBService : IImgBBService
     {
-        private readonly RestClient _client;
+        private IRestClient _client;
 
         /// <summary>
         /// Constructor
         /// </summary>
         public ImgBBService(IConfiguration configuration)
         {
-            _client = new RestClient(configuration.GetConnectionString("imgbbURL"));
+            _client = new RestClient("https://api.imgbb.com/1/upload/6HjcvZ?key=0af3e3c59b7662210b79f354f8556d38");
+        }
+
+        /// <summary>
+        /// Constructor used for UnitTest
+        /// </summary>
+        public ImgBBService(IRestClient client)
+        {
+            _client = client;
         }
 
         /// <summary>
@@ -30,34 +37,58 @@ namespace ExternalServices.ServicesUploadImage
         /// <returns>Return image object with all URL</returns>
         /// <exception cref="UploadFileException">Exception when not able to convert image to base64 string</exception>
         /// <exception cref="ApiCallErrorException">Exception after calling API, depending status</exception>
-        public async Task<ImageInstruction> UploadFile(string filePath)
+        public async Task<(string, string, string)> UploadFile(string filePath)
         {
+            if (string.IsNullOrEmpty(filePath))
+                throw new ArgumentNullException(nameof(filePath), "File path cannot be null or empty.");
+
+            string b64String = await Base64Converter.ConvertFileToBase64Func(filePath);
+
+            if (string.IsNullOrEmpty(b64String)) throw new UploadFileException("Error generate base 64 image");
+
+            var request = new RestRequest();
+            request.AlwaysMultipartFormData = true;
+            request.Method = Method.Post;
+            request.AddParameter("image", b64String, ParameterType.RequestBody);
+            request.AddParameter("expiration", "30", ParameterType.RequestBody);
+            RestResponse response = await _client.ExecuteAsync(request);
+
+            if (response.StatusCode != System.Net.HttpStatusCode.OK) throw new ApiCallErrorException("Error500: Erreur à l'appel de l'API");
+            if (string.IsNullOrEmpty(response.Content)) throw new ApiCallErrorException("No data return");
+
             try
             {
-                string b64String = await Base64Converter.ConvertFileToBase64(filePath);
-
-                if (string.IsNullOrEmpty(b64String)) throw new UploadFileException("Error generate base 64 image");
-
-                var request = new RestRequest();
-                request.AlwaysMultipartFormData = true;
-                request.Method = Method.Post;
-                request.AddParameter(Parameter.CreateParameter("image", b64String, ParameterType.RequestBody));
-                RestResponse response = await _client.ExecuteAsync(request);
-
-                if (response.StatusCode != System.Net.HttpStatusCode.OK) throw new ApiCallErrorException("Error500: Erreur à l'appel de l'API");
-                if (string.IsNullOrEmpty(response.Content)) throw new ApiCallErrorException("No data return");
-
                 var apiResponse = JsonSerializer.Deserialize<ImgBBResponse>(response.Content);
 
                 if (apiResponse == null) throw new ClientException("Unable to deserialize result");
                 if (!apiResponse.success) throw new ApiCallErrorException($"Erreur au résultat de l'API : {apiResponse.status}");
 
-                return new ImageInstruction(apiResponse.data.image.url, apiResponse.data.thumb.url, apiResponse.data.medium.url);
+                return (apiResponse.data.image.url, apiResponse.data.thumb.url, apiResponse.data.medium.url);
             }
             catch (Exception ex)
             {
-                throw new ApiCallErrorException("ApiError", ex);
+                throw;
             }
+        }
+
+        public async Task<string> DownloadFile(string urlMedium, string path)
+        {
+            if (string.IsNullOrEmpty(path))
+                throw new ArgumentException($"{nameof(path)} Is Null Or Empty : {path}");
+
+            byte[] dataMedium = await new RestClient().DownloadDataAsync(new RestRequest(urlMedium, Method.Get));
+
+            if (dataMedium == null)
+                throw new Exception($"Cannot download file: {urlMedium}");
+
+            string pathMedium = Path.Combine(Path.GetDirectoryName(path), $"{Path.GetFileNameWithoutExtension(path)}_medium{Path.GetExtension(path)}");
+
+            if (string.IsNullOrEmpty(pathMedium))
+                throw new ArgumentException($"{nameof(path)} is probably wrong : {path}");
+
+            File.WriteAllBytes(pathMedium, dataMedium);
+
+            return pathMedium;
         }
     }
 }

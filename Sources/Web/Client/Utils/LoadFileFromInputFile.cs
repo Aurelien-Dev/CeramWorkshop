@@ -21,7 +21,7 @@ namespace Client.Utils
             }
             catch (Exception)
             {
-                throw;
+                //File does not exist
             }
         }
 

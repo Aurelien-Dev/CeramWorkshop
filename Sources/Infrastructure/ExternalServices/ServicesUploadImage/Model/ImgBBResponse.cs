@@ -20,9 +20,7 @@ namespace ExternalServices.ServicesUploadImage.Model
         public string url { get; set; }
         public string display_url { get; set; }
         public int size { get; set; }
-        public string time { get; set; }
-        public string expiration { get; set; }
-        public int is_360 { get; set; }
+        public int expiration { get; set; }
         public Image image { get; set; }
         public Thumb thumb { get; set; }
         public Medium medium { get; set; }

@@ -80,6 +80,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.MapDefaultControllerRoute();
+
 app.UseCookiePolicy();
 app.UseAuthentication();
 

@@ -1,5 +1,6 @@
 ﻿using Client.Services;
 using Client.Services.Authentication;
+using ExternalServices.ServicesUploadImage;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server;
 using MudBlazor;
@@ -17,6 +18,7 @@ namespace Client
             services.AddScoped<IHostEnvironmentAuthenticationStateProvider>(sp => { return (ServerAuthenticationStateProvider)sp.GetRequiredService<AuthenticationStateProvider>(); });
             
             services.AddScoped<AuthenticationService>();
+            services.AddScoped<IImgBBService, ImgBBService>();
 
             services.AddScoped<ILogger>(provider => { return provider.GetRequiredService<ILoggerFactory>().CreateLogger("CeramWorkshop - "); });
 

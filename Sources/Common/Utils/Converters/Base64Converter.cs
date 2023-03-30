@@ -2,20 +2,17 @@
 {
     public static class Base64Converter
     {
-        public static async Task<string> ConvertFileToBase64(string path)
+
+        public static Func<string, Task<string>> ConvertFileToBase64Func { get; set; } = async (s) => await ConvertFileToBase64(s);
+
+
+        private static async Task<string> ConvertFileToBase64(string path)
         {
             await using FileStream fsr = new(path, FileMode.Open);
 
             byte[] imageBytes = ReadFully(fsr);
             //Convert byte[] to Base64 String
             return Convert.ToBase64String(imageBytes);
-        }
-
-        public static async Task<byte[]> ConvertFileToBytes(string path)
-        {
-            await using FileStream fsr = new(path, FileMode.Open);
-
-            return  ReadFully(fsr);
         }
 
         private static byte[] ReadFully(Stream input)

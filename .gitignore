@@ -26,6 +26,7 @@ _UpgradeReport_Files/
 ###############
 bin/
 obj/
+Sources/Web/Client/wwwroot/ProductImages/
 TestResults/
 */.vs
 ###################

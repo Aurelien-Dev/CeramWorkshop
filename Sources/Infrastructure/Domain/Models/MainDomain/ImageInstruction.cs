@@ -14,10 +14,6 @@ namespace Domain.Models.MainDomain
         [CeramRequired]
         public string Url { get; set; }
 
-        public string ThumbUrl { get; set; } = string.Empty;
-
-        public string MediumUrl { get; set; } = string.Empty;
-
         public string Comment { get; set; } = string.Empty;
 
         /// <summary>
@@ -28,12 +24,5 @@ namespace Domain.Models.MainDomain
         public Product? ProductAssociate { get; set; }
 
         public ImageInstruction() { }
-
-        public ImageInstruction(string url, string thumbUrl, string mediumUrl)
-        {
-            Url = url;
-            ThumbUrl = thumbUrl;
-            MediumUrl = mediumUrl;
-        }
     }
 }

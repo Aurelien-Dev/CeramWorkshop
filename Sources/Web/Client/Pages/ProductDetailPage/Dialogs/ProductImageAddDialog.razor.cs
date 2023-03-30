@@ -32,8 +32,6 @@ namespace Client.Pages.ProductDetailPage.Dialogs
                 filePathLoaded = filePathLoaded.Replace(@"\", "/");
 
                 ImageInstruction.Url = filePathLoaded;
-                ImageInstruction.ThumbUrl = filePathLoaded;
-                ImageInstruction.MediumUrl = filePathLoaded;
                 StateHasChanged();
             }
             catch (Exception ex)

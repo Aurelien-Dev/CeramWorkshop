@@ -15,10 +15,12 @@ namespace Repository
             services.AddTransient<IMaterialRepository, MaterialRepository>();
             services.AddTransient<IFiringRepository, FiringRepository>();
             services.AddTransient<IWorkshopRepository, WorkshopRepository>();
+            services.AddTransient<IImageInstructionRepository, ImageInstructionRepository>();
 
             //Workers
             services.AddTransient<IProductWorker, ProductWorker>();
             services.AddTransient<IWorkshopWorker, WorkshopWorker>();
+            services.AddTransient<IApiWorker, ApiWorker>();
 
             //DbContext
             services.AddDbContext<ApplicationDbContext>();

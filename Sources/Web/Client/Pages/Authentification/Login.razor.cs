@@ -21,7 +21,7 @@ namespace Client.Pages.Authentification
                 StateHasChanged();
                 await Task.Delay(5);
 
-                authError = await AuthenticationManager.StartSession(LoginInfo.Email, LoginInfo.Password);
+                (_, authError) = await AuthenticationManager.StartSession(LoginInfo.Email, LoginInfo.Password);
 
                 StateHasChanged();
             }

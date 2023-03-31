@@ -15,6 +15,9 @@ namespace Client.Utils.Middlewares
             _next = next;
         }
 
+        /// <summary>
+        /// Middleware for handling authentication and session information.
+        /// </summary>
         public Task Invoke(HttpContext httpContext, ApplicationDbContext dbContext, SessionInfo currentSession, AuthenticationService authenticationService)
         {
             ClaimsPrincipal claimsP = httpContext.User;

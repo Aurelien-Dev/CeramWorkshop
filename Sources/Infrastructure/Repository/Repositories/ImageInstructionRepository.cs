@@ -1,7 +1,6 @@
 ﻿using Domain.Interfaces;
 using Domain.Models.MainDomain;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography;
 
 namespace Repository.Repositories
 {

@@ -49,19 +49,23 @@ namespace Client.Services
             _ = await JSRuntime.InvokeAsync<string>("eraseCookie", new object[] { ".AspNetCore.Cookies", domain });
         }
 
-        public async Task<string> StartSession(string Email, string Password)
+        /// <summary>
+        /// Start a session, and to create the cookies necessary for the good functioning
+        /// </summary>
+        /// <param name="Email">User email</param>
+        /// <param name="Password">User password</param>
+        /// <returns>Return an boolean success and a error message for client</returns>
+        public async Task<(bool, string)> StartSession(string Email, string Password)
         {
-            string authError = null;
-            //Check login before open authentication
-            Workshop? workshop = Worker.WorkshopRepository.GetForLogin(Email);
+            (Workshop? workshop, bool emailExist) = Worker.WorkshopRepository.GetWorkshopInformationForLogin(Email);
 
-            if (workshop == null)
-                return "Invalid email.";
+            if (!emailExist)
+                return (false, "Invalid email or password.");
 
-            bool userAuth = ProtectedDataService.IsEqual(workshop.Salt, workshop.PasswordHash, Password);
+            bool isWritePawwsord = ProtectedDataService.IsEqual(workshop.Salt, workshop.PasswordHash, Password);
 
-            if (!userAuth)
-                return "Invalid email or password.";
+            if (!isWritePawwsord)
+                return (false, "Invalid email or password.");
 
             ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity(CreateClaims(workshop), CookieAuthenticationDefaults.AuthenticationScheme));
 
@@ -76,7 +80,7 @@ namespace Client.Services
 
             System.Globalization.CultureInfo.CurrentCulture = new RequestCulture(workshop.Culture).Culture;
 
-            return authError;
+            return (true, string.Empty);
         }
 
         private static string EncryptCookie(ClaimsPrincipal claimsPrincipal, IDataProtectionProvider dataProtectionProvider)

@@ -48,7 +48,7 @@ namespace Client.Pages.ProductDetailPage
             if (cost == pmToUpdate.Cost) return;
 
             pmToUpdate.Cost = cost;
-            Worker.ProductRepository.UpdateProductMaterial(pmToUpdate);
+            Worker.ProductRepository.UpdateProductMaterialCostAndQuantity(pmToUpdate);
             CalculateTotalCost(id);
         }
 
@@ -60,7 +60,7 @@ namespace Client.Pages.ProductDetailPage
             if (quantity == pmToUpdate.Quantity) return;
 
             pmToUpdate.Quantity = quantity;
-            Worker.ProductRepository.UpdateProductMaterial(pmToUpdate);
+            Worker.ProductRepository.UpdateProductMaterialCostAndQuantity(pmToUpdate);
             CalculateTotalCost(id);
         }
 

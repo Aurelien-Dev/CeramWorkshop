@@ -6,27 +6,26 @@ namespace Repository.Workers
     {
         public readonly ApplicationDbContext _context;
 
+        /// <summary>
+        /// Constructor of base worker
+        /// </summary>
+        /// <param name="context">Db Context</param>
         public WorkerBase(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        /// <summary>
-        /// Commit changes
-        /// </summary>
-        /// <returns>Number of changes</returns>
         public int Completed()
         {
             return _context.SaveChanges();
         }
 
-        /// <summary>
-        /// Undo changes
-        /// </summary>
         public void Rollback()
         {
             _context.ChangeTracker.Clear();
         }
+
+
 
         public void Dispose()
         {
@@ -34,6 +33,13 @@ namespace Repository.Workers
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Releases the resources used by the object, including the database context,
+        /// if the object is being disposed.
+        /// </summary>
+        /// <param name="disposing">
+        /// True if the object is being disposed; otherwise, false.
+        /// </param>
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)

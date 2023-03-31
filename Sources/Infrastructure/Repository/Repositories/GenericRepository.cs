@@ -18,8 +18,8 @@ namespace Repository.Repositories
 
         public async Task Add(T entity) => await _context.Set<T>().AddAsync(entity);
 
-        public void Delete(T entity) => _context.Set<T>().Remove(entity);
-
         public void Update(T entity) => _context.Set<T>().Update(entity);
+
+        public void Delete(T entity) => _context.Set<T>().Remove(entity);
     }
 }

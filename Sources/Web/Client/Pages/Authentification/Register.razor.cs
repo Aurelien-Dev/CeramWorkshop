@@ -15,7 +15,7 @@ namespace Client.Pages.Authentification
         RegisterInfo registerInfo = new();
 
         MudForm form = new();
-        bool success;
+        bool validForm;
         string registerError = string.Empty;
         public bool RegisterInProgress { get; set; } = false;
 
@@ -31,6 +31,7 @@ namespace Client.Pages.Authentification
             {
                 RegisterInProgress = true;
                 StateHasChanged();
+
                 if (worker.WorkshopRepository.CheckIfEmailExists(registerInfo.Email))
                 {
                     registerError = "Email already in use.";
@@ -45,8 +46,9 @@ namespace Client.Pages.Authentification
                 await worker.WorkshopRepository.Add(workshopDetail);
                 worker.Completed();
 
-                registerError = await AuthenticationManager.StartSession(workshopDetail.Email, registerInfo.Password);
-                if (!string.IsNullOrEmpty(registerError)) return;
+                (bool success, registerError) = await AuthenticationManager.StartSession(workshopDetail.Email, registerInfo.Password);
+
+                if (!success) return;
 
                 NavigationManager.NavigateTo("/", forceLoad: false);
             }

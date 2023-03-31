@@ -7,10 +7,12 @@ namespace Repository.Repositories
     {
         public WorkshopRepository(ApplicationDbContext context) : base(context) { }
 
-
-        public Workshop? GetForLogin(string email)
+        public (Workshop?, bool) GetWorkshopInformationForLogin(string email)
         {
-            return _context.Workshops.FirstOrDefault(w => w.Email == email);
+            Workshop workshop = _context.Workshops.FirstOrDefault(w => w.Email == email);
+            bool mailExist = workshop != null && email == workshop.Email;
+
+            return (workshop, mailExist);
         }
 
         public bool CheckIfEmailExists(string email)

@@ -11,6 +11,10 @@ namespace Client.Utils
         private static readonly string ProductFolderFullPath = Path.Combine(RootPath, "ProductImages");
         private static readonly string ProductFolderShort = Path.Combine("ProductImages");
 
+        /// <summary>
+        /// Removes a file from the input directory located at the specified path.
+        /// </summary>
+        /// <param name="path">The path of the file to remove.</param>
         public static void RemoveFileInput(string path)
         {
             if (string.IsNullOrEmpty(path)) return;

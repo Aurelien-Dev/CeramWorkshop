@@ -6,10 +6,8 @@ namespace Repository.Repositories
 {
     public class ProductRepository : GenericRepository<Product, int>, IProductRepository
     {
-        public ProductRepository(ApplicationDbContext context) : base(context)
-        {
+        public ProductRepository(ApplicationDbContext context) : base(context) { }
 
-        }
 
         public async Task<Product> Get(int id, int idWorkshop)
         {
@@ -22,6 +20,7 @@ namespace Repository.Repositories
                                  .ThenInclude(x => x.Firing)
                                  .FirstAsync();
         }
+
 
         public async Task<ICollection<Product>> GetAll(int idWorkshop)
         {
@@ -43,7 +42,7 @@ namespace Repository.Repositories
             return await _context.ImageInstruction.Where(i => i.IdProduct == id).CountAsync();
         }
 
-        public void UpdateProductMaterial(ProductMaterial productMaterial)
+        public void UpdateProductMaterialCostAndQuantity(ProductMaterial productMaterial)
         {
             if (productMaterial == null) return;
 

@@ -1,5 +1,4 @@
-﻿using Domain.Models;
-using Domain.Models.WorkshopDomaine;
+﻿using Domain.Models.WorkshopDomaine;
 using Microsoft.EntityFrameworkCore;
 
 namespace Repository.Maps

@@ -1,5 +1,4 @@
-﻿using Domain.Models;
-using Domain.Models.WorkshopDomaine;
+﻿using Domain.Models.WorkshopDomaine;
 using Microsoft.EntityFrameworkCore;
 
 namespace Repository.Maps
@@ -11,7 +10,7 @@ namespace Repository.Maps
             modelBuilder.Entity<WorkshopParameter>().HasKey(p => p.Id);
 
             modelBuilder.Entity<WorkshopParameter>()
-                        .HasOne(s => s.Worksĥop)
+                        .HasOne(s => s.Workshop)
                         .WithMany(g => g.WorkshopParameters)
                         .HasForeignKey(s => s.IdWorkshop);
         }

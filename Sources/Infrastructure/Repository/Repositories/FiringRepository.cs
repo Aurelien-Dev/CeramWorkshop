@@ -5,9 +5,6 @@ namespace Repository.Repositories
 {
     public class FiringRepository : GenericRepository<Firing, int>, IFiringRepository
     {
-        public FiringRepository(ApplicationDbContext context) : base(context)
-        {
-
-        }
+        public FiringRepository(ApplicationDbContext context) : base(context) { }
     }
 }

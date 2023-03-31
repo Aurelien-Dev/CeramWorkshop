@@ -2,12 +2,10 @@
 
 namespace Domain.InterfacesWorker
 {
-    public interface IProductWorker : IDisposable
+    public interface IProductWorker : IDisposable, IWorkerBase
     {
         IProductRepository ProductRepository { get; }
         IMaterialRepository MaterialRepository { get; }
         IFiringRepository FiringRepository { get; }
-        int Completed();
-        void Rollback();
     }
 }

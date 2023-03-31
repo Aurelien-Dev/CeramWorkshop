@@ -3,9 +3,8 @@ using Domain.InterfacesWorker;
 
 namespace Repository.Workers
 {
-    public class WorkshopWorker : IWorkshopWorker
+    public class WorkshopWorker : WorkerBase, IWorkshopWorker
     {
-        private readonly ApplicationDbContext _context;
         public IWorkshopRepository WorkshopRepository { get; }
 
         /// <summary>
@@ -14,33 +13,9 @@ namespace Repository.Workers
         /// <param name="context">Db Context</param>
         /// <param name="WorkshopRepository">Workshop Repository</param>
         public WorkshopWorker(ApplicationDbContext context, IWorkshopRepository workshopRepository)
+            : base(context)
         {
-            _context = context;
             WorkshopRepository = workshopRepository;
-        }
-
-        public int Completed()
-        {
-            return _context.SaveChanges();
-        }
-
-        public void Rollback()
-        {
-            _context.ChangeTracker.Clear();
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _context.Dispose();
-            }
         }
     }
 }

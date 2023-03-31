@@ -2,10 +2,8 @@
 
 namespace Domain.InterfacesWorker
 {
-    public  interface IApiWorker : IDisposable
+    public  interface IApiWorker : IDisposable, IWorkerBase
     {
         IImageInstructionRepository ImageInstructionRepository { get; }
-        int Completed();
-        void Rollback();
     }
 }

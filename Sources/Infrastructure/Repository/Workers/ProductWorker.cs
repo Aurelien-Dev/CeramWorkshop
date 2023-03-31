@@ -3,9 +3,8 @@ using Domain.InterfacesWorker;
 
 namespace Repository.Workers
 {
-    public class ProductWorker : IProductWorker
+    public class ProductWorker : WorkerBase, IProductWorker
     {
-        private readonly ApplicationDbContext _context;
         public IProductRepository ProductRepository { get; }
         public IMaterialRepository MaterialRepository { get; }
         public IFiringRepository FiringRepository { get; }
@@ -17,35 +16,11 @@ namespace Repository.Workers
         /// <param name="productRepository">Product Repository</param>
         /// <param name="materialRepository">Material Repository</param>
         public ProductWorker(ApplicationDbContext context, IProductRepository productRepository, IMaterialRepository materialRepository, IFiringRepository firingRepository)
+            : base(context)
         {
-            _context = context;
             ProductRepository = productRepository;
             MaterialRepository = materialRepository;
             FiringRepository = firingRepository;
-        }
-
-        public int Completed()
-        {
-            return _context.SaveChanges();
-        }
-
-        public void Rollback()
-        {
-            _context.ChangeTracker.Clear();
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _context.Dispose();
-            }
         }
     }
 }

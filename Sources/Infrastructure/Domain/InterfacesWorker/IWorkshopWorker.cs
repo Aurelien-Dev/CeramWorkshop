@@ -2,10 +2,8 @@
 
 namespace Domain.InterfacesWorker
 {
-    public  interface IWorkshopWorker : IDisposable
+    public  interface IWorkshopWorker : IWorkerBase
     {
         IWorkshopRepository WorkshopRepository { get; }
-        int Completed();
-        void Rollback();
     }
 }

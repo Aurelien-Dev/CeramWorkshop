@@ -3,10 +3,8 @@ using Common.Utils.Singletons;
 using Domain.InterfacesWorker;
 using Domain.Models.MainDomain;
 using ExternalServices.ServicesUploadImage;
-using ExternalServices.ServicesUploadImage.Model;
 using Microsoft.AspNetCore.Mvc;
-using System.Drawing;
-using System.Security.Policy;
+using System.Text;
 
 namespace Client.Controllers
 {
@@ -24,6 +22,11 @@ namespace Client.Controllers
             _imgBBService = imgBBService;
         }
 
+        /// <summary>
+        /// Permet de réduire la taille des images en passant par le service imgBB,
+        /// initialement prvu d'être hébergé chez eux directement mais leur API n'est vraiment pas pratique
+        /// </summary>
+        /// <returns>success = truc if OK</returns>
         [HttpGet]
         [Route("SynchroImageFile")]
         public async Task<ActionResult> SynchroImageFile()
@@ -31,6 +34,7 @@ namespace Client.Controllers
             try
             {
                 IEnumerable<ImageInstruction> imagesNotExported = await _apiWorker.ImageInstructionRepository.GetAllNonExported();
+                StringBuilder errors = new StringBuilder();
 
                 foreach (var item in imagesNotExported)
                 {
@@ -49,13 +53,14 @@ namespace Client.Controllers
 
                         LoadFileFromInputFile.RemoveFileInput(path);
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                        //On passe au suivant
+                        errors.AppendLine($"Error no file : {item.Url}");
+                        errors.AppendLine( ex.Message);
                     }
                 }
 
-                return new JsonResult(new { sucess = true });
+                return new JsonResult(new { sucess = true, errors = errors.ToString() });
             }
             catch (Exception ex)
             {

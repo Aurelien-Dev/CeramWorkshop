@@ -33,11 +33,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="wwwroot\ProductImages\" />
-		<Folder Include="wwwroot\ProductImages\AtelierCremazie\" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="MudBlazor" Version="6.1.2" />
 	</ItemGroup>
 

@@ -12,8 +12,8 @@ namespace Client.Controllers
     [ApiController]
     public class FileServiceController : ControllerBase
     {
-        private IApiWorker _apiWorker { get; } = default!;
-        private IImgBBService _imgBBService { get; } = default!;
+        private IApiWorker _apiWorker { get; }
+        private IImgBBService _imgBBService { get; }
 
 
         public FileServiceController(IApiWorker apiWorker, IImgBBService imgBBService)
@@ -41,11 +41,15 @@ namespace Client.Controllers
                     try
                     {
                         string path = Path.Combine(EnvironementSingleton.WebRootPath, item.Url.Replace("/", @"\"));
-                        (string url, string thumb, string medium) = await _imgBBService.UploadFile(path);
+                        (_, string medium, _) = await _imgBBService.UploadFile(path);
                         string localMedium = await _imgBBService.DownloadFile(medium, path);
 
+                        string directory = Path.GetDirectoryName(item.Url);
 
-                        item.Url = Path.Combine(Path.GetDirectoryName(item.Url), Path.GetFileName(localMedium));
+                        if (string.IsNullOrEmpty(directory))
+                            throw new InvalidOperationException("Directory path is null or empty.");
+
+                        item.Url = Path.Combine(directory, Path.GetFileName(localMedium));
                         item.FileLocation = Location.ImgBB;
 
                         _apiWorker.ImageInstructionRepository.Update(item);
@@ -56,7 +60,7 @@ namespace Client.Controllers
                     catch (Exception ex)
                     {
                         errors.AppendLine($"Error no file : {item.Url}");
-                        errors.AppendLine( ex.Message);
+                        errors.AppendLine(ex.Message);
                     }
                 }
 

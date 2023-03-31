@@ -23,7 +23,11 @@ namespace Client.Utils.Middlewares
             ClaimsPrincipal claimsP = httpContext.User;
             if (claimsP.Identity.IsAuthenticated && !authenticationService.AuthanticateInitialized)
             {
-                int idWorkshop = Convert.ToInt32(claimsP.Claims.FirstOrDefault(d => d.Type == "IdWorkshop").Value);
+                var claimIdWorkshop = claimsP.Claims.FirstOrDefault(d => d.Type == "IdWorkshop");
+
+                if (claimIdWorkshop == null) return _next(httpContext);
+
+                int idWorkshop = Convert.ToInt32(claimIdWorkshop.Value);
 
                 currentSession.ClaimsPrincipal = httpContext.User;
                 currentSession.Workshop = dbContext.Workshops.FirstOrDefault(w => w.Id == idWorkshop);

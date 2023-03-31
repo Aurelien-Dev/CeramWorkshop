@@ -37,7 +37,7 @@
                 <MudTd DataLabel="Type">@context.PMat.Material.Type</MudTd>
                 <MudTd DataLabel="Coût total">@context.TotalCost.ToStringMonetary(CurrentCultur)</MudTd>
                 <MudTd>
-                    <MudFab Color="Color.Dark" StartIcon="@Icons.Material.Filled.DeleteForever" Size="Size.Small" OnClick="@(async () => await DeleteMat(context))" />
+                    <MudFab Color="Color.Dark" StartIcon="@Icons.Material.Filled.DeleteForever" Size="Size.Small" OnClick="@(() =>  DeleteMat(context))" />
                 </MudTd>
             </RowTemplate>
         </MudTable>

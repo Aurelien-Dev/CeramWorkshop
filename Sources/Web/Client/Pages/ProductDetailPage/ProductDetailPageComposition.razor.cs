@@ -79,10 +79,14 @@ namespace Client.Pages.ProductDetailPage
         private void CalculateTotalCost(int id)
         {
             MaterialViewModel pmVMToUpdate = MaterialsVM.FirstOrDefault(p => p.PMat.Id == id);
+
+            if (pmVMToUpdate == null)
+                throw new ArgumentException("Material not found.");
+
             pmVMToUpdate.CalculateCost();
         }
 
-        private async Task DeleteMat(MaterialViewModel materialVM)
+        private void DeleteMat(MaterialViewModel materialVM)
         {
             ProductDetail.ProductMaterial.Remove(materialVM.PMat);
             Worker.ProductRepository.Update(ProductDetail);

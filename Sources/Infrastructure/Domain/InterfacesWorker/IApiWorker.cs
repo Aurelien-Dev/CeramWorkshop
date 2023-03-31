@@ -2,7 +2,7 @@
 
 namespace Domain.InterfacesWorker
 {
-    public  interface IApiWorker : IDisposable, IWorkerBase
+    public  interface IApiWorker : IWorkerBase
     {
         IImageInstructionRepository ImageInstructionRepository { get; }
     }

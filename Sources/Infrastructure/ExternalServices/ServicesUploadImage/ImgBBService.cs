@@ -1,4 +1,5 @@
-﻿using ExternalServices.ServicesUploadImage.Model;
+﻿using Common.Utils.Singletons;
+using ExternalServices.ServicesUploadImage.Model;
 using Microsoft.Extensions.Configuration;
 using RestSharp;
 using System.Text.Json;
@@ -12,14 +13,14 @@ namespace ExternalServices.ServicesUploadImage
     /// </summary>
     public class ImgBBService : IImgBBService
     {
-        private IRestClient _client;
+        private readonly IRestClient _client;
 
         /// <summary>
         /// Constructor
         /// </summary>
         public ImgBBService(IConfiguration configuration)
         {
-            _client = new RestClient("https://api.imgbb.com/1/upload/6HjcvZ?key=0af3e3c59b7662210b79f354f8556d38");
+            _client = new RestClient(EnvironementSingleton.GetEnvironmentVariable("IMGBB_URL"));
         }
 
         /// <summary>
@@ -37,7 +38,7 @@ namespace ExternalServices.ServicesUploadImage
         /// <returns>Return image object with all URL</returns>
         /// <exception cref="UploadFileException">Exception when not able to convert image to base64 string</exception>
         /// <exception cref="ApiCallErrorException">Exception after calling API, depending status</exception>
-        public async Task<(string, string, string)> UploadFile(string filePath)
+        public async Task<(string, string, string)> UploadFile(string? filePath)
         {
             if (string.IsNullOrEmpty(filePath))
                 throw new ArgumentNullException(nameof(filePath), "File path cannot be null or empty.");
@@ -56,19 +57,12 @@ namespace ExternalServices.ServicesUploadImage
             if (response.StatusCode != System.Net.HttpStatusCode.OK) throw new ApiCallErrorException("Error500: Erreur à l'appel de l'API");
             if (string.IsNullOrEmpty(response.Content)) throw new ApiCallErrorException("No data return");
 
-            try
-            {
-                var apiResponse = JsonSerializer.Deserialize<ImgBBResponse>(response.Content);
+            var apiResponse = JsonSerializer.Deserialize<ImgBBResponse>(response.Content);
 
-                if (apiResponse == null) throw new ClientException("Unable to deserialize result");
-                if (!apiResponse.success) throw new ApiCallErrorException($"Erreur au résultat de l'API : {apiResponse.status}");
+            if (apiResponse == null) throw new ClientException("Unable to deserialize result");
+            if (!apiResponse.success) throw new ApiCallErrorException($"Erreur au résultat de l'API : {apiResponse.status}");
 
-                return (apiResponse.data.image.url, apiResponse.data.thumb.url, apiResponse.data.medium.url);
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+            return (apiResponse.data.image.url, apiResponse.data.thumb.url, apiResponse.data.medium.url);
         }
 
         public async Task<string> DownloadFile(string urlMedium, string path)
@@ -77,12 +71,14 @@ namespace ExternalServices.ServicesUploadImage
                 throw new ArgumentException($"{nameof(path)} Is Null Or Empty : {path}");
 
             byte[] dataMedium = await new RestClient().DownloadDataAsync(new RestRequest(urlMedium, Method.Get));
-
             if (dataMedium == null)
-                throw new Exception($"Cannot download file: {urlMedium}");
+                throw new InvalidOperationException($"Cannot download file: {urlMedium}");
 
-            string pathMedium = Path.Combine(Path.GetDirectoryName(path), $"{Path.GetFileNameWithoutExtension(path)}_medium{Path.GetExtension(path)}");
+            string directory = Path.GetDirectoryName(path);
+            if (!Directory.Exists(directory))
+                throw new InvalidOperationException($"Directory does not exist : {path}");
 
+            string pathMedium = Path.Combine(directory, $"{Path.GetFileNameWithoutExtension(path)}_medium{Path.GetExtension(path)}");
             if (string.IsNullOrEmpty(pathMedium))
                 throw new ArgumentException($"{nameof(path)} is probably wrong : {path}");
 

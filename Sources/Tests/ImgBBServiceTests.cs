@@ -39,7 +39,8 @@ namespace Tests
         [Fact]
         public async Task UploadFile_ThrowsArgumentNullException_WhenFilePathIsNull()
         {
-            await Assert.ThrowsAsync<ArgumentNullException>(() => _imgBBService.UploadFile(null));
+            string? nullFilePath = null;
+            await Assert.ThrowsAsync<ArgumentNullException>(() => _imgBBService.UploadFile(nullFilePath));
         }
 
         [Fact]

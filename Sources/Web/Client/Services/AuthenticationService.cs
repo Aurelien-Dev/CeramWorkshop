@@ -20,7 +20,7 @@ namespace Client.Services
         private SessionInfo CurrentSession { get; set; }
         private IJSRuntime JSRuntime { get; set; }
 
-        private string? domain = ".atelier-cremazie.com";
+        private readonly string domain = ".atelier-cremazie.com";
 
         public AuthenticationService(IHostEnvironmentAuthenticationStateProvider authenticationprovider,
                                      IDataProtectionProvider dataProtectionProvider,
@@ -36,7 +36,7 @@ namespace Client.Services
 
 
             if (EnvironementSingleton.IsInDev())
-                domain = null;
+                domain = string.Empty;
         }
 
         public bool AuthanticateInitialized { get => CurrentSession.Workshop != null; }

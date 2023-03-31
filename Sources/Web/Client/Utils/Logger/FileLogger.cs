@@ -55,12 +55,15 @@ namespace Client.Utils.Logger
                 WriteFullStack(logLevel, exception.InnerException);
         }
 
-        /// <summary>
-        /// Disposes the logger.
-        /// </summary>
+
         public void Dispose()
         {
-            throw new NotImplementedException();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
         }
     }
 }

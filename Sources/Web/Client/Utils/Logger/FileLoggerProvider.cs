@@ -9,11 +9,6 @@ namespace Client.Utils.Logger
         private readonly IDisposable _onChangeToken;
         private FileLoggerConfiguration _currentConfig;
 
-        public FileLoggerProvider(FileLoggerConfiguration currentConfig)
-        {
-            _currentConfig = currentConfig;
-        }
-
         private readonly ConcurrentDictionary<string, FileLogger> _loggers = new(StringComparer.OrdinalIgnoreCase);
 
         public FileLoggerProvider(IOptionsMonitor<FileLoggerConfiguration> config)
@@ -25,11 +20,17 @@ namespace Client.Utils.Logger
         public ILogger CreateLogger(string categoryName) => _loggers.GetOrAdd(categoryName, name => new FileLogger(GetCurrentConfig));
         private FileLoggerConfiguration GetCurrentConfig() => _currentConfig;
 
+
         public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
         {
             _loggers.Clear();
             _onChangeToken.Dispose();
         }
-
     }
 }

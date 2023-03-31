@@ -13,22 +13,25 @@
 
 <AuthorizeView>
     <Authorized>
-
+         
         <MudLayout>
 
             <MudAppBar>
                 <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
-                
                 <MudButton Href="/" Variant="Variant.Filled" DisableElevation="true" Color="Color.Primary" Style="text-transform:none">@CurrentSession.Workshop?.Name</MudButton>
-
                 <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Inherit" OnClick="NewProduct" />
+
                 <MudSpacer />
-                <MudAvatar Color="Color.Warning" Variant="Variant.Filled">
-                    <MudMenu Icon="@Icons.Custom.Uncategorized.Radioactive" Color="Color.Dark" ActivationEvent="@MouseEvent.MouseOver" AnchorOrigin="Origin.BottomCenter" TransformOrigin="Origin.TopRight">
+
+                <MudMenu Icon="@Icons.Custom.Uncategorized.Radioactive" FullWidth="true" Color="Color.Dark" >
+                    <ActivatorContent>
+                        <MudChip  Icon="@Icons.Material.Filled.Person" Color="Color.Primary">Account</MudChip>
+                    </ActivatorContent>
+                    <ChildContent>
                         <MudMenuItem Href="/Profil">Profile</MudMenuItem>
-                        <MudMenuItem Href="/Logout">Logout</MudMenuItem>
-                    </MudMenu>
-                </MudAvatar>
+                        <MudMenuItem Href="/Logout">Sign Out</MudMenuItem>
+                    </ChildContent>
+                </MudMenu>
             </MudAppBar>
 
             <MudDrawer @bind-Open="@_drawerOpen" ClipMode="DrawerClipMode.Always">

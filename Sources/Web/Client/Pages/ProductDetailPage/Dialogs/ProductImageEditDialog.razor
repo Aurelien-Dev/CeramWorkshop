@@ -1,4 +1,8 @@
-﻿<MudForm>
+﻿@using Domain.Models.MainDomain
+@using Client.Utils
+@inherits CustomComponentBase
+
+<MudForm>
     <MudDialog>
         <DialogContent>
             <MudTextField Label="@Localizer["Text_Comment"]" @bind-Value="ImageInstruction.Comment" For="@(() => ImageInstruction.Comment)" Lines="5" />

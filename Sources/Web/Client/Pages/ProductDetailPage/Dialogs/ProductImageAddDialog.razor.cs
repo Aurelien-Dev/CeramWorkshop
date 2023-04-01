@@ -10,12 +10,11 @@ using Utils.Exception;
 
 namespace Client.Pages.ProductDetailPage.Dialogs
 {
-    public partial class ProductImageAddDialog
+    public partial class ProductImageAddDialog : CustomComponentBase
     {
         [Inject] private IProductWorker productWorker { get; set; } = default!;
         [Inject] private ILogger logger { get; set; } = default!;
         [Inject] private SessionInfo session { get; set; } = default!;
-        [Inject] public IStringLocalizer<Translations> Localizer { get; set; }
 
         [CascadingParameter] MudDialogInstance MudDialog { get; set; } = default!;
         [Parameter] public Product ProductDetail { get; set; } = new();

@@ -1,4 +1,5 @@
-﻿using Domain.InterfacesWorker;
+﻿using Client.Utils;
+using Domain.InterfacesWorker;
 using Domain.Models.MainDomain;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
@@ -6,7 +7,7 @@ using MudBlazor;
 
 namespace Client.Pages.FiringDetailPage.Dialogs
 {
-    public partial class FiringDialog
+    public partial class FiringDialog : CustomComponentBase
     {
         [Inject] private IProductWorker productWorker { get; set; } = default!;
         [Inject] public IStringLocalizer<Translations> Localizer { get; set; }

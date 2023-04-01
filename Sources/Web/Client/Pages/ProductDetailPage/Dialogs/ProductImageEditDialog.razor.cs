@@ -1,4 +1,5 @@
-﻿using Domain.InterfacesWorker;
+﻿using Client.Utils;
+using Domain.InterfacesWorker;
 using Domain.Models.MainDomain;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
@@ -6,10 +7,9 @@ using MudBlazor;
 
 namespace Client.Pages.ProductDetailPage.Dialogs
 {
-    public partial class ProductImageEditDialog
+    public partial class ProductImageEditDialog : CustomComponentBase
     {
         [Inject] private IProductWorker productWorker { get; set; } = default!;
-        [Inject] public IStringLocalizer<Translations> Localizer { get; set; }
 
         [CascadingParameter] MudDialogInstance MudDialog { get; set; } = default!;
         [Parameter] public Product ProductDetail { get; set; } = new();

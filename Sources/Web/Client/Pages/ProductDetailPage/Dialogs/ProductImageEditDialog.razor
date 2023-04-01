@@ -1,12 +1,11 @@
-﻿
-<MudForm>
+﻿<MudForm>
     <MudDialog>
         <DialogContent>
-            <MudTextField Label="Commentaire" @bind-Value="ImageInstruction.Comment" For="@(() => ImageInstruction.Comment)" Lines="5" />
+            <MudTextField Label="@Localizer["Text_Comment"]" @bind-Value="ImageInstruction.Comment" For="@(() => ImageInstruction.Comment)" Lines="5" />
         </DialogContent>
         <DialogActions>
-            <MudButton OnClick="Cancel">Cancel</MudButton>
-            <MudButton Color="Color.Primary" OnClick="OnValidSubmit">Ok</MudButton>
+            <MudButton OnClick="Cancel">@Localizer["Btn_Cancel"]</MudButton>
+            <MudButton Color="Color.Primary" OnClick="OnValidSubmit">@Localizer["Btn_Ok"]</MudButton>
         </DialogActions>
     </MudDialog>
 </MudForm>

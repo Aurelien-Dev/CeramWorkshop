@@ -117,8 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Btn_Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Btn_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="Btn_CreateWorkshop" xml:space="preserve">
     <value>Create my ceramic workshop</value>
+  </data>
+  <data name="Btn_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Btn_Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Btn_Ok" xml:space="preserve">
+    <value>Ok</value>
   </data>
   <data name="Btn_Save" xml:space="preserve">
     <value>Save</value>
@@ -126,23 +141,137 @@
   <data name="Btn_SavePassword" xml:space="preserve">
     <value>Change my password</value>
   </data>
+  <data name="CostKwH" xml:space="preserve">
+    <value>Cost of Kw/h</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Duration</value>
+  </data>
+  <data name="For" xml:space="preserve">
+    <value>for</value>
+  </data>
+  <data name="IsHomeMade" xml:space="preserve">
+    <value>Is homemade</value>
+  </data>
+  <data name="MenuItem_Profile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="MenuItem_SignOut" xml:space="preserve">
+    <value>Sign Out</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>minutes</value>
+  </data>
+  <data name="NavMenu_Accessory" xml:space="preserve">
+    <value>Accessories</value>
+  </data>
+  <data name="NavMenu_Clays" xml:space="preserve">
+    <value>Clays</value>
+  </data>
+  <data name="NavMenu_Firing" xml:space="preserve">
+    <value>My firings</value>
+  </data>
+  <data name="NavMenu_Glaze" xml:space="preserve">
+    <value>Glazes</value>
+  </data>
+  <data name="NavMenu_MyInventory" xml:space="preserve">
+    <value>My inventory</value>
+  </data>
+  <data name="NavMenu_MyProducts" xml:space="preserve">
+    <value>My products</value>
+  </data>
   <data name="OrderBy" xml:space="preserve">
     <value>Sort by</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="ProductLink" xml:space="preserve">
+    <value>Product link</value>
   </data>
   <data name="ProductList_AltImgProduct" xml:space="preserve">
     <value>Product preview</value>
   </data>
   <data name="ProductList_ShowProduct" xml:space="preserve">
-    <value>View</value>
+    <value>Show</value>
+  </data>
+  <data name="Reference" xml:space="preserve">
+    <value>Reference</value>
+  </data>
+  <data name="SaveAndUpdatePM" xml:space="preserve">
+    <value>Save and update PM</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="TableHeader_Cost" xml:space="preserve">
+    <value>Cost</value>
+  </data>
+  <data name="TableHeader_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="TableHeader_Quantity" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="TableHeader_TotalCost" xml:space="preserve">
+    <value>Total cost</value>
+  </data>
+  <data name="TableHeader_Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="TableHeader_UnitaryCost" xml:space="preserve">
+    <value>Unitary cost</value>
+  </data>
+  <data name="Text_BottomDiameter" xml:space="preserve">
+    <value>Ø Bottom</value>
+  </data>
+  <data name="Text_BuildInstructions" xml:space="preserve">
+    <value>Construction instructions</value>
+  </data>
+  <data name="Text_Comment" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="Text_Composition" xml:space="preserve">
+    <value>Composition</value>
+  </data>
+  <data name="Text_CostDetails" xml:space="preserve">
+    <value>Cost details</value>
+  </data>
+  <data name="Text_Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Text_DesignInstructions" xml:space="preserve">
+    <value>Design instructions</value>
+  </data>
+  <data name="Text_DragAndDrop" xml:space="preserve">
+    <value>Drag and drop files here or click</value>
+  </data>
+  <data name="Text_GlazingInstructions" xml:space="preserve">
+    <value>Glazing instructions</value>
+  </data>
+  <data name="Text_Height" xml:space="preserve">
+    <value>Height</value>
+  </data>
+  <data name="Text_SellingPrice" xml:space="preserve">
+    <value>Selling price</value>
+  </data>
+  <data name="Text_TopDiameter" xml:space="preserve">
+    <value>Ø Top</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Title</value>
   </data>
   <data name="TitleProfil_EditInfo" xml:space="preserve">
     <value>Edit your account</value>
   </data>
   <data name="TitleProfil_ResetPwd" xml:space="preserve">
     <value>Reset password</value>
+  </data>
+  <data name="TotalKwH" xml:space="preserve">
+    <value>Total Kw/h for firing</value>
   </data>
   <data name="WorkshopEmail" xml:space="preserve">
     <value>Email</value>

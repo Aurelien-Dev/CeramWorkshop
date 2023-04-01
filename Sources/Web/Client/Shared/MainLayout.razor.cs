@@ -32,5 +32,24 @@ namespace Client.Shared
 
             NavigationManager.NavigateTo($"/Product/{result.Data}", true);
         }
+
+
+        MudTheme MyCustomTheme = new MudTheme()
+        {
+            Palette = new Palette()
+            {
+                Primary = Colors.LightBlue.Darken2,
+                AppbarBackground = "#0F3F59",
+            },
+
+            Typography = new Typography()
+            {
+                H6 = new H6()
+                {
+                    FontSize = "1.1rem"
+                }
+            }
+        };
+
     }
 }

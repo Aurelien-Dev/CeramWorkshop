@@ -6,7 +6,7 @@
 
 <PageTitle>Ceram-Workshop</PageTitle>
 
-<MudThemeProvider />
+<MudThemeProvider Theme="MyCustomTheme" />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
@@ -23,13 +23,13 @@
 
                 <MudSpacer />
 
-                <MudMenu Icon="@Icons.Custom.Uncategorized.Radioactive" Color="Color.Dark" >
+                <MudMenu Icon="@Icons.Custom.Uncategorized.Radioactive" Color="Color.Dark">
                     <ActivatorContent>
                         <MudFab EndIcon="@Icons.Material.Filled.Person" Color="Color.Primary" Size="Size.Small" />
                     </ActivatorContent>
                     <ChildContent>
-                        <MudMenuItem Href="/Profil">Profile</MudMenuItem>
-                        <MudMenuItem Href="/Logout">Sign Out</MudMenuItem>
+                        <MudMenuItem Href="/Profil">@Localizer["MenuItem_Profile"]</MudMenuItem>
+                        <MudMenuItem Href="/Logout">@Localizer["MenuItem_SignOut"]</MudMenuItem>
                     </ChildContent>
                 </MudMenu>
             </MudAppBar>

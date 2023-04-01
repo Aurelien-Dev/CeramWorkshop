@@ -1,21 +1,19 @@
-﻿
-<MudForm>
+﻿<MudForm>
     <MudDialog>
         <DialogContent>
-
             <MudPaper @ondragenter="@SetDragClass" @ondragleave="@ClearDragClass" @ondragend="@ClearDragClass" Outlined="true" Class="@DragClass">
                 @if (!Clearing)
                 {
                     <InputFile OnChange="OnInputFileChanged" class="absolute mud-width-full mud-height-full overflow-hidden z-2" style="opacity:0;" />
                 }
-                <MudText Typo="Typo.h6">Drag and drop files here or click</MudText>
-                <MudImage Src="@ImageInstruction.Url" ObjectFit="ObjectFit.Contain" ObjectPosition="ObjectPosition.Center" Height="300" Width="300"  Elevation="25" Class="rounded-lg" />
+                <MudText Typo="Typo.h6">@Localizer["Text_DragAndDrop"]</MudText>
+                <MudImage Src="@ImageInstruction.Url" ObjectFit="ObjectFit.Contain" ObjectPosition="ObjectPosition.Center" Height="300" Width="300" Elevation="25" Class="rounded-lg" />
             </MudPaper>
-            <MudTextField Label="Instruction de construction" @bind-Value="ImageInstruction.Comment" For="@(() => ImageInstruction.Comment)" Lines="5" />
+            <MudTextField Label="@Localizer["Text_BuildInstructions"]" @bind-Value="ImageInstruction.Comment" For="@(() => ImageInstruction.Comment)" Lines="5" />
         </DialogContent>
         <DialogActions>
-            <MudButton OnClick="Cancel">Cancel</MudButton>
-                <MudButton Color="Color.Primary" OnClick="OnValidSubmit">Ok</MudButton>
+            <MudButton OnClick="Cancel">@Localizer["Btn_Cancel"]</MudButton>
+            <MudButton Color="Color.Primary" OnClick="OnValidSubmit">@Localizer["Btn_Ok"]</MudButton>
         </DialogActions>
     </MudDialog>
 </MudForm>

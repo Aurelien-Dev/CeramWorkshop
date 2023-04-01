@@ -2,11 +2,11 @@
 @inherits CustomComponentBase
 
 <MudNavMenu>
-    <MudNavLink Href="/" Match="NavLinkMatch.All">Mes produits</MudNavLink>
-    <MudNavGroup Title="Mon inventaire" Expanded="true">
-        <MudNavLink Href="/Clays" Match="NavLinkMatch.All">Argiles</MudNavLink>
-        <MudNavLink Href="/Glaze" Match="NavLinkMatch.All">Émaux</MudNavLink>
-        <MudNavLink Href="/Accessory" Match="NavLinkMatch.All">Accessoires</MudNavLink>
+    <MudNavLink Href="/" Match="NavLinkMatch.All">@Localizer["NavMenu_MyProducts"]</MudNavLink>
+    <MudNavGroup Title="@Localizer["NavMenu_MyInventory"]" Expanded="true">
+        <MudNavLink Href="/Clays" Match="NavLinkMatch.All">@Localizer["NavMenu_Clays"]</MudNavLink>
+        <MudNavLink Href="/Glaze" Match="NavLinkMatch.All">@Localizer["NavMenu_Glaze"]</MudNavLink>
+        <MudNavLink Href="/Accessory" Match="NavLinkMatch.All">@Localizer["NavMenu_Accessory"]</MudNavLink>
     </MudNavGroup>
-    <MudNavLink Href="/Firing" Match="NavLinkMatch.All">Mes cuissons</MudNavLink>
+    <MudNavLink Href="/Firing" Match="NavLinkMatch.All">@Localizer["NavMenu_Firing"]</MudNavLink>
 </MudNavMenu>

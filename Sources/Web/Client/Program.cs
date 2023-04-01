@@ -53,8 +53,8 @@ builder.Logging.AddMyCustomLogger();
 
 var app = builder.Build();
 
-EnvironementSingleton.WebRootPath = app.Environment.WebRootPath.Replace(@"\", "/");
-EnvironementSingleton.ContentRootPath = app.Environment.ContentRootPath.Replace(@"\", "/");
+EnvironementSingleton.WebRootPath = app.Environment.WebRootPath;
+EnvironementSingleton.ContentRootPath = app.Environment.ContentRootPath;
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

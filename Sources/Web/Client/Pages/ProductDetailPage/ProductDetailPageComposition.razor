@@ -7,18 +7,18 @@
 
 <MudCard>
     <MudCardHeader>
-        <MudText Typo="Typo.h5">Composition</MudText>
+        <MudText Typo="Typo.h5">@Localizer["Text_Composition"]</MudText>
     </MudCardHeader>
     <MudCardContent>
         <MudTable Items="@MaterialsVM" Dense="true" Striped="false">
             <HeaderContent>
-                <MudTh>Nom</MudTh>
-                <MudTh>Coût</MudTh>
-                <MudTh>Quantité</MudTh>
-                <MudTh>Type</MudTh>
-                <MudTh>Coût total</MudTh>
+                <MudTh>@Localizer["TableHeader_Name"]</MudTh>
+                <MudTh>@Localizer["TableHeader_Cost"]</MudTh>
+                <MudTh>@Localizer["TableHeader_Quantity"]</MudTh>
+                <MudTh>@Localizer["TableHeader_Type"]</MudTh>
+                <MudTh>@Localizer["TableHeader_TotalCost"]</MudTh>
                 <MudTh></MudTh>
-            </HeaderContent>    
+            </HeaderContent>
             <RowTemplate>
                 <MudTd DataLabel="Nom">
                     @context.PMat.Material.Reference
@@ -26,16 +26,16 @@
                         <MudIcon Icon="@Icons.Material.Outlined.Info" Color="Color.Info" Size="Size.Small" />
                     </MudTooltip>
                 </MudTd>
-                <MudTd DataLabel="Coût">
+                <MudTd>
                     @((context.PMat.Cost / context.PMat.Material.Quantity).ToStringMonetary(CurrentCultur)) /@context.PMat.Material.UniteMesure.ToString()
                 </MudTd>
-                <MudTd DataLabel="Quantité">
+                <MudTd>
                     <MudNumericField Variant="Variant.Text" Adornment="Adornment.End" AdornmentText="@context.Unite"
                                      AdornmentColor="Color.Info" Margin="Margin.Dense" Style="width:90px; margin:0;"
                                      ValueChanged="@((e) => QuantityChanged(e, context.PMat.Id))" T=double Value=@context.PMat.Quantity />
                 </MudTd>
-                <MudTd DataLabel="Type">@context.PMat.Material.Type</MudTd>
-                <MudTd DataLabel="Coût total">@context.TotalCost.ToStringMonetary(CurrentCultur)</MudTd>
+                <MudTd>@context.PMat.Material.Type</MudTd>
+                <MudTd>@context.TotalCost.ToStringMonetary(CurrentCultur)</MudTd>
                 <MudTd>
                     <MudFab Color="Color.Dark" StartIcon="@Icons.Material.Filled.DeleteForever" Size="Size.Small" OnClick="@(() =>  DeleteMat(context))" />
                 </MudTd>

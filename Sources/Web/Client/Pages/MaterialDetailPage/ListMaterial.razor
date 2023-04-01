@@ -12,18 +12,19 @@
         <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Inherit" OnClick="AddMaterialDialog" />
     </ToolBarContent>
     <HeaderContent>
-        <MudTh>Référence</MudTh>
-        <MudTh>Nom</MudTh>
-        <MudTh>Coût</MudTh>
-        <MudTh>Commentaire</MudTh>
+        <MudTh>@Localizer["TableHeader_Name"]</MudTh>
+        <MudTh>@Localizer["TableHeader_Name"]</MudTh>
+        <MudTh>@Localizer["TableHeader_Cost"]</MudTh>
+        <MudTh>@Localizer["Text_Comment"]</MudTh>
         <MudTh></MudTh>
     </HeaderContent>
+
     <RowTemplate>
-        <MudTd DataLabel="Référence">@context.Reference</MudTd>
-        <MudTd DataLabel="Nom">@context.Name</MudTd>
-        <MudTd DataLabel="Coût">@context.Cost.ToStringMonetary(CurrentCultur) pour @context.Quantity @context.UniteMesure</MudTd>
-        <MudTd DataLabel="Commentaire">@context.Comment</MudTd>
-        <MudTd DataLabel="">
+        <MudTd>@context.Reference</MudTd>
+        <MudTd>@context.Name</MudTd>
+        <MudTd>@context.Cost.ToStringMonetary(CurrentCultur) pour @context.Quantity @context.UniteMesure</MudTd>
+        <MudTd>@context.Comment</MudTd>
+        <MudTd>
             <MudStack Row=true>
                 <MudFab Color="Color.Tertiary" StartIcon="@Icons.Material.Filled.Edit" Size="Size.Small" OnClick="@(async () => await EditMat(context))" />
                 <MudFab Color="Color.Error" StartIcon="@Icons.Material.Filled.DeleteForever" Size="Size.Small" OnClick="@(async () => await DeleteMat(context))" />

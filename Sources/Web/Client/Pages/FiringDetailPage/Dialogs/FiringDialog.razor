@@ -5,29 +5,29 @@
         <DialogContent>
 
             <MudStack Row="true">
-                <MudTextField Label="Nom" Variant="Variant.Outlined" Class="mx-1"
+                <MudTextField Label="@Localizer["TableHeader_Name"]" Variant="Variant.Outlined" Class="mx-1"
                               @bind-Value="FiringlDetail.Name" For="@(() => FiringlDetail.Name)" />
             </MudStack>
 
             <MudStack>
-                <MudTextField Label="Durée" Variant="Variant.Outlined" Class="mx-1" Adornment="Adornment.End" AdornmentText="minutes"
+                <MudTextField Label="@Localizer["Duration"]" Variant="Variant.Outlined" Class="mx-1" Adornment="Adornment.End" AdornmentText="@Localizer["Minutes"]"
                               @bind-Value="FiringlDetail.Duration" For="@(() => FiringlDetail.Duration)" />
             </MudStack>
 
             <MudStack>
-                <MudTextField Label="Consommation" Variant="Variant.Outlined" Class="mx-1" Adornment="Adornment.End" AdornmentText="Kw/h"
+                <MudTextField Label="@Localizer["TotalKwH"]" Variant="Variant.Outlined" Class="mx-1" Adornment="Adornment.End" AdornmentText="Kw/h"
                               @bind-Value="FiringlDetail.TotalKwH" For="@(() => FiringlDetail.TotalKwH)" />
             </MudStack>
 
             <MudStack>
-                <MudTextField Label="Consommation" Variant="Variant.Outlined" Class="mx-1" Adornment="Adornment.End" AdornmentText="€ / Kw/h"
+                <MudTextField Label="@Localizer["CostKwH"]" Variant="Variant.Outlined" Class="mx-1" Adornment="Adornment.End" AdornmentText="€ / Kw/h"
                               @bind-Value="FiringlDetail.CostKwH" For="@(() => FiringlDetail.CostKwH)" />
             </MudStack>
 
         </DialogContent>
         <DialogActions>
-            <MudButton OnClick="Cancel">Cancel</MudButton>
-            <MudButton Color="Color.Primary" OnClick="@(async () => await OnValidSubmit())">Ok</MudButton>
+            <MudButton OnClick="Cancel">@Localizer["Btn_Cancel"]</MudButton>
+            <MudButton Color="Color.Primary" OnClick="@(async () => await OnValidSubmit())">@Localizer["Btn_Ok"]</MudButton>
         </DialogActions>
     </MudDialog>
 </MudForm>

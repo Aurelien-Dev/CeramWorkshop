@@ -6,35 +6,31 @@
     <MudDialog>
         <DialogContent>
             <MudContainer Style="max-height: 500px; overflow-y: scroll">
-
                 <MudStack Row="true">
-                    <MudTextField Label="Référence" Variant="Variant.Outlined" Class="mx-1"
+                    <MudTextField Label="@Localizer["Reference"]" Variant="Variant.Outlined" Class="mx-1"
                                   @bind-Value="ProductDetail.Reference" For="@(() => ProductDetail.Reference)" />
-                    <MudTextField Label="Nom" Variant="Variant.Outlined" Class="mx-1"
+                    <MudTextField Label="@Localizer["TableHeader_Name"]" Variant="Variant.Outlined" Class="mx-1"
                                   @bind-Value="ProductDetail.Name" For="@(() => ProductDetail.Name)" />
                 </MudStack>
-
                 <MudStack Class="mt-3">
-                    <MudTextField Label="Description" Variant="Variant.Outlined" Class="mx-1" Lines="5"
+                    <MudTextField Label="@Localizer["Text_Description"]" Variant="Variant.Outlined" Class="mx-1" Lines="5"
                                   @bind-Value="ProductDetail.Description" For="@(() => ProductDetail.Description)" />
-                    <MudTextField Label="Instruction de construction" Variant="Variant.Outlined" Class="mx-1" Lines="5"
+                    <MudTextField Label="@Localizer["Text_DesignInstructions"]" Variant="Variant.Outlined" Class="mx-1" Lines="5"
                                   @bind-Value="ProductDetail.DesignInstruction" For="@(() => ProductDetail.DesignInstruction)" />
-                    <MudTextField Label="Information pose de l'émail" Variant="Variant.Outlined" Class="mx-1" Lines="5"
+                    <MudTextField Label="@Localizer["Text_GlazingInstructions"]" Variant="Variant.Outlined" Class="mx-1" Lines="5"
                                   @bind-Value="ProductDetail.GlazingInstruction" For="@(() => ProductDetail.GlazingInstruction)" />
                 </MudStack>
-
                 <MudStack Row="true" Class="mt-3">
                     <MudImage Src="/assets/img/sizing.png" Height="65" Class="ms-3" />
-                    <MudTextField Label="Ø Top" Variant="Variant.Outlined" Class="mx-1" Adornment="Adornment.End" AdornmentText="cm"
+                    <MudTextField Label="@Localizer["Text_TopDiameter"]" Variant="Variant.Outlined" Class="mx-1" Adornment="Adornment.End" AdornmentText="cm"
                                   @bind-Value="ProductDetail.TopDiameter" For="@(() => ProductDetail.TopDiameter)" />
-                    <MudTextField Label="Ø Bottom" Variant="Variant.Outlined" Class="mx-1" Adornment="Adornment.End" AdornmentText="cm"
+                    <MudTextField Label="@Localizer["Text_BottomDiameter"]" Variant="Variant.Outlined" Class="mx-1" Adornment="Adornment.End" AdornmentText="cm"
                                   @bind-Value="ProductDetail.BottomDiameter" For="@(() => ProductDetail.BottomDiameter)" />
-                    <MudTextField Label="Height" Variant="Variant.Outlined" Class="mx-1" Adornment="Adornment.End" AdornmentText="cm"
+                    <MudTextField Label="@Localizer["Text_Height"]" Variant="Variant.Outlined" Class="mx-1" Adornment="Adornment.End" AdornmentText="cm"
                                   @bind-Value="ProductDetail.Height" For="@(() => ProductDetail.Height)" />
                 </MudStack>
-
                 <MudStack Class="mt-3">
-                    <MudTextField Label="Price" Variant="Variant.Outlined" Class="mx-1"
+                    <MudTextField Label="@Localizer["Text_SellingPrice"]" Variant="Variant.Outlined" Class="mx-1"
                                   @bind-Value="ProductDetail.Price" For="@(() => ProductDetail.Price)" />
                     <MudSelect T="ProductStatus" Label="Statut" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter"
                                @bind-Value="ProductDetail.Status">
@@ -45,11 +41,10 @@
                     </MudSelect>
                 </MudStack>
             </MudContainer>
-
         </DialogContent>
         <DialogActions>
-            <MudButton OnClick="Cancel">Cancel</MudButton>
-            <MudButton Color="Color.Primary" OnClick="@(async () => await OnValidSubmit())">Ok</MudButton>
+            <MudButton OnClick="Cancel">@Localizer["Btn_Cancel"]</MudButton>
+            <MudButton Color="Color.Primary" OnClick="@(async () => await OnValidSubmit())">@Localizer["Btn_Ok"]</MudButton>
         </DialogActions>
     </MudDialog>
 </MudForm>

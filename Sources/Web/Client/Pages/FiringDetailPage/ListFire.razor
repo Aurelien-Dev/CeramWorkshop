@@ -9,22 +9,22 @@
 
 <MudTable Class="mt-5" Items="@Firings" Dense="true" Striped="true">
     <ToolBarContent>
-        <MudText Typo="Typo.h6">@Title</MudText>
+        <MudText Typo="Typo.h6">@Localizer["Title"]</MudText>
         <MudSpacer />
         <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Inherit" OnClick="AddFiringDialog" />
     </ToolBarContent>
     <HeaderContent>
-        <MudTh>Nom</MudTh>
-        <MudTh>Durée</MudTh>
-        <MudTh>Total Kw/h pour la cuisson</MudTh>
-        <MudTh>Coût du Kw/h</MudTh>
+        <MudTh>@Localizer["TableHeader_Name"]</MudTh>
+        <MudTh>@Localizer["Duration"]</MudTh>
+        <MudTh>@Localizer["TotalKwH"]</MudTh>
+        <MudTh>@Localizer["CostKwH"]</MudTh>
         <MudTh></MudTh>
     </HeaderContent>
     <RowTemplate>
-        <MudTd DataLabel="Nom">@context.Name</MudTd>
-        <MudTd DataLabel="Duration">@context.Duration</MudTd>
-        <MudTd DataLabel="TotalKwH">@context.TotalKwH Kw/h</MudTd>
-        <MudTd DataLabel="TotalKwH">@context.CostKwH.ToStringMonetary(CurrentCultur, DecimalPrecision.Five)</MudTd>
+        <MudTd DataLabel="@Localizer["TableHeader_Name"]">@context.Name</MudTd>
+        <MudTd DataLabel="@Localizer["Duration"]">@context.Duration</MudTd>
+        <MudTd DataLabel="@Localizer["TotalKwH"]">@context.TotalKwH Kw/h</MudTd>
+        <MudTd DataLabel="@Localizer["CostKwH"]">@context.CostKwH.ToStringMonetary(CurrentCultur, DecimalPrecision.Five)</MudTd>
         <MudTd DataLabel="">
             <MudStack Row=true>
                 <MudFab Color="Color.Tertiary" StartIcon="@Icons.Material.Filled.Edit" Size="Size.Small" OnClick="async () => await EditFiringDialog(context)" />

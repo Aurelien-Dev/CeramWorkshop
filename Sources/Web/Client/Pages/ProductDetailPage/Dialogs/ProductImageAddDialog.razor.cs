@@ -4,6 +4,7 @@ using Domain.InterfacesWorker;
 using Domain.Models.MainDomain;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.Extensions.Localization;
 using MudBlazor;
 using Utils.Exception;
 
@@ -14,6 +15,8 @@ namespace Client.Pages.ProductDetailPage.Dialogs
         [Inject] private IProductWorker productWorker { get; set; } = default!;
         [Inject] private ILogger logger { get; set; } = default!;
         [Inject] private SessionInfo session { get; set; } = default!;
+        [Inject] public IStringLocalizer<Translations> Localizer { get; set; }
+
         [CascadingParameter] MudDialogInstance MudDialog { get; set; } = default!;
         [Parameter] public Product ProductDetail { get; set; } = new();
 

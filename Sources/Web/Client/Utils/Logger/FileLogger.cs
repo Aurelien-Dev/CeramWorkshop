@@ -1,5 +1,4 @@
 ﻿using Common.Utils.Singletons;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Client.Utils.Logger
 {

@@ -40,7 +40,7 @@ namespace Client.Controllers
                 {
                     try
                     {
-                        string path = Path.Combine(EnvironementSingleton.WebRootPath, item.Url.Replace("/", @"\"));
+                        string path = Path.Combine(EnvironementSingleton.WebRootPath, item.Url);
                         (_, string medium, _) = await _imgBBService.UploadFile(path);
                         string localMedium = await _imgBBService.DownloadFile(medium, path);
 

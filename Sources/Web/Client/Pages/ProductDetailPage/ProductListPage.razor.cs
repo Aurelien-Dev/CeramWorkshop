@@ -100,6 +100,8 @@ namespace Client.Pages.ProductDetailPage
 
             if (product.ImageInstructions.Any())
                 Image = product.ImageInstructions.First().Url;
+            else
+                Image = "assets/img/bg-empty.png";
         }
     }
 

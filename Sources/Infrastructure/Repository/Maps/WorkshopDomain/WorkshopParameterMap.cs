@@ -12,7 +12,7 @@ namespace Repository.Maps
             modelBuilder.Entity<WorkshopParameter>()
                         .HasOne(s => s.Workshop)
                         .WithMany(g => g.WorkshopParameters)
-                        .HasForeignKey(s => s.IdWorkshop);
+                        .HasForeignKey(s => s.WorkshopId);
         }
     }
 }

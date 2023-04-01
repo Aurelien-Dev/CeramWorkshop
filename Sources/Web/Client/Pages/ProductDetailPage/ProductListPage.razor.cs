@@ -98,9 +98,8 @@ namespace Client.Pages.ProductDetailPage
             Name = product.Name;
             Status = product.Status;
 
-            if (product.ImageInstructions.Any())
-                Image = product.ImageInstructions.First().Url;
+            if (product.FavoriteImage != null)
+                Image = product.FavoriteImage.Url;
         }
     }
-
 }

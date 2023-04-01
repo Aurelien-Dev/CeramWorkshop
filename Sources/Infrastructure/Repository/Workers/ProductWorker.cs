@@ -8,6 +8,7 @@ namespace Repository.Workers
         public IProductRepository ProductRepository { get; }
         public IMaterialRepository MaterialRepository { get; }
         public IFiringRepository FiringRepository { get; }
+        public IImageInstructionRepository ImageInstructionRepository { get; }
 
         /// <summary>
         /// Constructor
@@ -15,12 +16,13 @@ namespace Repository.Workers
         /// <param name="context">Db Context</param>
         /// <param name="productRepository">Product Repository</param>
         /// <param name="materialRepository">Material Repository</param>
-        public ProductWorker(ApplicationDbContext context, IProductRepository productRepository, IMaterialRepository materialRepository, IFiringRepository firingRepository)
+        public ProductWorker(ApplicationDbContext context, IProductRepository productRepository, IMaterialRepository materialRepository, IFiringRepository firingRepository, IImageInstructionRepository imageInstructionRepository)
             : base(context)
         {
             ProductRepository = productRepository;
             MaterialRepository = materialRepository;
             FiringRepository = firingRepository;
+            ImageInstructionRepository = imageInstructionRepository;
         }
     }
 }

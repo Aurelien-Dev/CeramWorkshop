@@ -13,7 +13,7 @@ namespace Repository.Repositories
         {
             return await _context.Products
                                  .Where(p => p.Id == id && p.IdWorkshop == idWorkshop)
-                                 .Include(p => p.ImageInstructions)
+                                 .Include(p => p.ImageInstructions.OrderByDescending(i => i.IsFavoriteImage))
                                  .Include(p => p.ProductMaterial)
                                  .ThenInclude(x => x.Material)
                                  .Include(p => p.ProductFiring)

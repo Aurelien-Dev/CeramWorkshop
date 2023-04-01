@@ -60,9 +60,10 @@
                             @foreach (var item in ProductDetail.ImageInstructions)
                             {
                                 <MudCarouselItem Transition="Transition.Slide">
-                                    <MudToggleIconButton @bind-Toggled="@AlarmOn"
-                                                     Icon="@Icons.Material.Filled.Star" Color="@Color.Error" Title="Off"
-                                                     ToggledIcon="@Icons.Material.Filled.StarOutline" ToggledColor="@Color.Success" ToggledTitle="On" />
+                                    <MudToggleIconButton Toggled="@item.IsFavoriteImage" ToggledChanged="@((t) => OnToggledFavoriteChanged(t, item))"
+                                                     Icon="@Icons.Material.Outlined.FavoriteBorder" Size="Size.Small" Color="@Color.Dark" Title="Off"
+                                                     ToggledIcon="@Icons.Material.Outlined.Favorite" ToggledSize="Size.Small" ToggledColor="@Color.Secondary" ToggledTitle="On"
+                                                     Style="position:absolute; top:5%; left:10%;" />
                                     <MudStack AlignItems="AlignItems.Center">
                                         <MudImage Src="@item.Url" ObjectFit="ObjectFit.Contain" ObjectPosition="ObjectPosition.Center"
                                               Height="400" Width="500" Class="rounded-lg" />
@@ -72,7 +73,7 @@
                             }
                         </MudCarousel>
 
-                        <MudStack Row="true" Justify="Justify.Center">
+                        <MudItem Class="d-flex justify-center flex-grow-1 gap-4" Style="height:40px;">
                             <MudButton Variant="Variant.Outlined" Color="Color.Tertiary" Class="mt-2" StartIcon="@Icons.Material.Filled.AddAPhoto"
                                        OnClick="OpenAddImageProductDialog">
                                 @Localizer["Btn_Add"]
@@ -85,7 +86,11 @@
                                        OnClick="OpenDeleteImageProductDialog" Disabled="ShowEditingImageButtons">
                                 @Localizer["Btn_Delete"]
                             </MudButton>
-                        </MudStack>
+                            @*<MudToggleIconButton Class="mt-2"  Icon="@Icons.Material.Outlined.FavoriteBorder" Size="Size.Medium" Color="@Color.Dark" Title="Off" DisableRipple="true"
+                                                 ToggledIcon="@Icons.Material.Outlined.Favorite" ToggledSize="Size.Medium" ToggledColor="@Color.Secondary" ToggledTitle="On"
+                                                 
+                                                 />*@
+                        </MudItem>
                     </MudItem>
                 </MudGrid>
 

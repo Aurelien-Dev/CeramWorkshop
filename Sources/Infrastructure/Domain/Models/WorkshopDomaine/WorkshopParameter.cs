@@ -17,7 +17,7 @@ namespace Domain.Models.WorkshopDomaine
         /// The unique identifier of the <see cref="Workshop"/> associated with this parameter.
         /// </summary>
         [Required]
-        public int IdWorkshop { get; set; }
+        public int WorkshopId { get; set; }
 
         /// <summary>
         /// The key of the parameter.
@@ -53,7 +53,7 @@ namespace Domain.Models.WorkshopDomaine
         /// <param name="value">The value of the parameter.</param>
         public WorkshopParameter(int idWorkshop, string key, string value)
         {
-            IdWorkshop = idWorkshop;
+            WorkshopId = idWorkshop;
             Key = key;
             Value = value;
         }

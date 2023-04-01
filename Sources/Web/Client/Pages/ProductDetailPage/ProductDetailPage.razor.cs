@@ -106,6 +106,12 @@ namespace Client.Pages.ProductDetailPage
             StateHasChanged();
             RefreshCarouselInfo();
         }
+
+        public void OnToggledFavoriteChanged(bool toggled, ImageInstruction image)
+        {
+            worker.ImageInstructionRepository.SetNewFavorite(toggled, image.Id, ProductDetail.Id);
+            image.IsFavoriteImage = toggled;
+        }
         #endregion
 
         #region Product traitement

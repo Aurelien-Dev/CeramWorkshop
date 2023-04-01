@@ -1,5 +1,6 @@
 ﻿using Domain.CustomDataAnotation;
 using Domain.Models.WorkshopDomaine;
+using System.Xml.Serialization;
 
 namespace Domain.Models.MainDomain
 {
@@ -119,5 +120,12 @@ namespace Domain.Models.MainDomain
             Name = name;
             Reference = reference;
         }
+
+        /// <summary>
+        /// Gets or sets the image instructions associated with the product.
+        /// </summary>
+        [XmlIgnore]
+        public ImageInstruction FavoriteImage { get => ImageInstructions.FirstOrDefault(i => i.IsFavoriteImage); }
+
     }
 }

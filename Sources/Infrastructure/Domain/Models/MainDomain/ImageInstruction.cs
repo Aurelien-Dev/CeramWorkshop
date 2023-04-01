@@ -48,6 +48,11 @@ namespace Domain.Models.MainDomain
         public Location FileLocation { get; set; }
 
         /// <summary>
+        /// Indicates whether this is the product favorite image
+        /// </summary>
+        public bool IsFavoriteImage { get; set; }
+
+        /// <summary>
         /// Gets or sets the product associated with the image instruction.
         /// </summary>
         public Product? ProductAssociate { get; set; }

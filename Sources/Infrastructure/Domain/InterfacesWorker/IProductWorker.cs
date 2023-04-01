@@ -7,5 +7,6 @@ namespace Domain.InterfacesWorker
         IProductRepository ProductRepository { get; }
         IMaterialRepository MaterialRepository { get; }
         IFiringRepository FiringRepository { get; }
+        IImageInstructionRepository ImageInstructionRepository { get; }
     }
 }

@@ -48,8 +48,8 @@
                         </MudStack>
                     </MudItem>
                     <MudItem xs="12" sm="6" lg="4">
-                        <MudText Typo="Typo.subtitle1" Class="mt-4"  GutterBottom="true">Detail des coûts</MudText>
-                        
+                        <MudText Typo="Typo.subtitle1" Class="mt-4" GutterBottom="true">Detail des coûts</MudText>
+
                         <MudText Typo="Typo.subtitle1" Class="mt-4" GutterBottom="true">Prix de vente</MudText>
                         <MudText Typo="Typo.body2">@ProductDetail.Price.ToStringMonetary(CurrentCultur)</MudText>
                     </MudItem>
@@ -59,6 +59,9 @@
                             @foreach (var item in ProductDetail.ImageInstructions)
                             {
                                 <MudCarouselItem Transition="Transition.Slide">
+                                    <MudToggleIconButton @bind-Toggled="@AlarmOn"
+                                                     Icon="@Icons.Material.Filled.Star" Color="@Color.Error" Title="Off"
+                                                     ToggledIcon="@Icons.Material.Filled.StarOutline" ToggledColor="@Color.Success" ToggledTitle="On" />
                                     <MudStack AlignItems="AlignItems.Center">
                                         <MudImage Src="@item.Url" ObjectFit="ObjectFit.Contain" ObjectPosition="ObjectPosition.Center"
                                               Height="400" Width="500" Class="rounded-lg" />
@@ -98,7 +101,7 @@
         <ProductDetailPageComposition ProductDetail=ProductDetail Materials=Materials />
     </MudItem>
     <MudItem xs="12" md="12" lg="6">
-        <ProductDetailPageFiring ProductDetail=ProductDetail Firings=Firings/>
+        <ProductDetailPageFiring ProductDetail=ProductDetail Firings=Firings />
     </MudItem>
 </MudGrid>
 

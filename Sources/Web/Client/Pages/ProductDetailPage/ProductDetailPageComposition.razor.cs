@@ -13,7 +13,7 @@ namespace Client.Pages.ProductDetailPage
         [Parameter] public ICollection<Material> Materials { get; set; } = default!;
 
         ICollection<MaterialViewModel> MaterialsVM { get; set; } = new List<MaterialViewModel>();
-        MudAutocomplete<Material> AutocompleteBox = new();
+        MudAutocomplete<Material>? AutocompleteBox = new();
         double TotalComposition { get => MaterialsVM.Sum(m => m.TotalCost); }
 
         protected override void OnParametersSet()

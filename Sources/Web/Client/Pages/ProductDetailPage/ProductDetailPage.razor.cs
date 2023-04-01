@@ -29,6 +29,7 @@ namespace Client.Pages.ProductDetailPage
 
         public int CarouselSelectedIndex { get; set; } = 0;
 
+        public bool AlarmOn { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -63,7 +64,7 @@ namespace Client.Pages.ProductDetailPage
             var dialog = DialogService.Show<ProductImageEditDialog>("Modifier le commentaire de l'image", parameters, this.CommonOptionDialog);
             var result = await dialog.Result;
 
-            if (result.Cancelled)
+            if (result.Canceled)
             {
                 if (Id.HasValue)
                     await LoadData(Id.Value);
@@ -80,7 +81,7 @@ namespace Client.Pages.ProductDetailPage
             var dialog = DialogService.Show<ProductImageAddDialog>("Ajouter une photo", parameters, this.CommonOptionDialog);
             var result = await dialog.Result;
 
-            if (result.Cancelled) return;
+            if (result.Canceled) return;
 
             CarouselSelectedIndex = ProductDetail.ImageInstructions.Count - 1;
             RefreshCarouselInfo();
@@ -126,7 +127,7 @@ namespace Client.Pages.ProductDetailPage
             var dialog = DialogService.Show<ProductEditDetailDialog>("Modifier les détails du produit", parameters, this.CommonOptionDialog);
 
             var result = await dialog.Result;
-            if (result.Cancelled && Id.HasValue)
+            if (result.Canceled && Id.HasValue)
             {
                 await LoadData(Id.Value);
             }

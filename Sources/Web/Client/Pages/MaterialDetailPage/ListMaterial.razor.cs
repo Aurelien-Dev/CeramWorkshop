@@ -46,7 +46,7 @@ namespace Client.Pages.MaterialDetailPage
             var dialog = DialogService.Show<MaterialDialog>("Ajouter une nouvelle matière", parameters, this.CommonOptionDialog);
             var result = await dialog.Result;
 
-            if (result.Cancelled) return;
+            if (result.Canceled) return;
 
             Materials.Add((Material)result.Data);
         }
@@ -58,7 +58,7 @@ namespace Client.Pages.MaterialDetailPage
             var dialog = DialogService.Show<MaterialDialog>("Ajouter une nouvelle matière", parameters, this.CommonOptionDialog);
             var result = await dialog.Result;
 
-            if (result.Cancelled)
+            if (result.Canceled)
             {
                 await LoadDatas();
                 return;

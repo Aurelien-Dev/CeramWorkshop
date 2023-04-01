@@ -47,7 +47,7 @@ namespace Client.Pages.FiringDetailPage
             var dialog = DialogService.Show<FiringDialog>("Ajouter une nouvelle Cuisson", parameters, this.CommonOptionDialog);
             var result = await dialog.Result;
 
-            if (result.Cancelled) return;
+            if (result.Canceled) return;
 
             Firings.Add((Firing)result.Data);
         }
@@ -59,7 +59,7 @@ namespace Client.Pages.FiringDetailPage
             var dialog = DialogService.Show<FiringDialog>("Modifier une cuisson", parameters, this.CommonOptionDialog);
             var result = await dialog.Result;
 
-            if (result.Cancelled)
+            if (result.Canceled)
             {
                 await LoadDatas();
                 return;

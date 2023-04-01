@@ -28,7 +28,7 @@ namespace Client.Shared
 
             var result = await dialog.Result;
 
-            if (result.Cancelled) return;
+            if (result.Canceled) return;
 
             NavigationManager.NavigateTo($"/Product/{result.Data}", true);
         }

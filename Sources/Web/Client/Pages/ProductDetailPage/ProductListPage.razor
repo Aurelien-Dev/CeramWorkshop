@@ -23,22 +23,22 @@
 <MudGrid Class="mt-2">
     @foreach (var item in ProductsVM)
     {
-        <MudItem xs="12" md="4" lg="2">
+        <MudItem xs="12" sm="6" md="4" lg="2">
             <MudCard>
-                <MudCardHeader Class="pa-0">
-                    <MudImage Src="@item.Image" Class="rounded-t" ObjectPosition=ObjectPosition.Center ObjectFit=ObjectFit.Cover Style="width:100%;" Height=200
-                          Alt="@Localizer["ProductList_AltImgProduct"]" />
-                </MudCardHeader>
-                <MudCardContent Style="height:100px;">
-                    <MudText Typo="Typo.h6" Class="pa-0 ma-0" Inline=true>@item.Name</MudText>
-                    <MudText Typo="Typo.body2" Class="pa-0 ma-0" Inline=true>#@item.Reference</MudText>
-
-                    <ProductStatusChip Status=@item.Status />
+                @if (string.IsNullOrEmpty(item.Image))
+                {
+                    <MudCardMedia Image="assets/img/bg-empty.png" Style="opacity:0.05" Height="200" />
+                }
+                else
+                {
+                    <MudCardMedia Image="@item.Image" Height="200" />
+                }
+                <MudCardContent>
+                    <MudText Typo="Typo.h6">#@item.Reference - @item.Name</MudText>
+                    <MudText>Status: @item.Status</MudText>
                 </MudCardContent>
                 <MudCardActions>
-                    <MudStack AlignItems="AlignItems.End" Justify="Justify.FlexEnd">
-                        <MudButton Variant="Variant.Text" Color="Color.Primary" Href="@($"Product/{item.Id}")">@Localizer["ProductList_ShowProduct"]</MudButton>
-                    </MudStack>
+                    <MudButton Variant="Variant.Text" Color="Color.Primary" Href="@($"Product/{item.Id}")">@Localizer["ProductList_ShowProduct"]</MudButton>
                 </MudCardActions>
             </MudCard>
         </MudItem>

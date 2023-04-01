@@ -34,7 +34,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="MudBlazor" Version="6.2.0" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.15" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.4" />
 	</ItemGroup>
 
 </Project>

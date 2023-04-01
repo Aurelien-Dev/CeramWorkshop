@@ -1,10 +1,12 @@
 ﻿using Common.Utils.Singletons;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Client.Utils.Logger
 {
     public class FileLogger : ILogger, IDisposable
     {
-        public IDisposable BeginScope<TState>(TState state) => default!;
+        public IDisposable? BeginScope<TState>(TState state) where TState : notnull => default!;
+
         private readonly Func<FileLoggerConfiguration> _getCurrentConfig;
 
         /// <summary>
@@ -54,7 +56,6 @@ namespace Client.Utils.Logger
             if (exception.InnerException != null)
                 WriteFullStack(logLevel, exception.InnerException);
         }
-
 
         public void Dispose()
         {

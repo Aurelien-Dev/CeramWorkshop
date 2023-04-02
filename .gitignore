@@ -29,6 +29,7 @@ obj/
 Sources/Web/Client/wwwroot/ProductImages/
 TestResults/
 */.vs
+*launchSettings.json
 ###################
 # Web publish log #
 ###################

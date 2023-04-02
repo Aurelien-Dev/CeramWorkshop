@@ -5,6 +5,7 @@ using Domain.Models.MainDomain;
 using ExternalServices.ServicesUploadImage;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
+using Utils.Helpers;
 
 namespace Client.Controllers
 {
@@ -40,17 +41,16 @@ namespace Client.Controllers
                 {
                     try
                     {
-
                         string path = Path.Combine(EnvironementSingleton.WebRootPath,  item.Url);
                         (_, string medium, _) = await _imgBBService.UploadFile(path);
                         string localMedium = await _imgBBService.DownloadFile(medium, path);
 
-                        string directory = Path.GetDirectoryName(item.Url);
+                        string directory = WebPathHelper.GetDirectoryName(item.Url);
 
                         if (string.IsNullOrEmpty(directory))
                             throw new InvalidOperationException("Directory path is null or empty.");
 
-                        item.Url = Path.Combine(directory, Path.GetFileName(localMedium));
+                        item.Url = WebPathHelper.Combine(directory, Path.GetFileName(localMedium));
                         item.FileLocation = Location.ImgBB;
 
                         _apiWorker.ImageInstructionRepository.Update(item);

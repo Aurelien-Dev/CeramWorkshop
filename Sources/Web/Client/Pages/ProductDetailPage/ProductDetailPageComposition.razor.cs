@@ -25,6 +25,12 @@ namespace Client.Pages.ProductDetailPage
             }
         }
 
+        public double GetTotalComposition()
+        {
+            return TotalComposition;
+        }
+
+
         private async Task SelectedValueChanged(Material mat)
         {
             if (mat == null) return;

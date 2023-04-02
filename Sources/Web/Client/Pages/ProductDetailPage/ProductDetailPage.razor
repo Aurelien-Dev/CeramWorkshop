@@ -22,13 +22,13 @@
 
                 <MudGrid Justify="Justify.SpaceBetween">
                     <MudItem xs="12" sm="12" lg="4">
-                        <MudText Typo="Typo.subtitle1" Class="mt-4" GutterBottom="true">@Localizer["Text_Description"]</MudText>
+                        <MudText Typo="Typo.subtitle2" Class="mt-4" GutterBottom="true">@Localizer["Text_Description"]</MudText>
                         <MudText Typo="Typo.body2">@ProductDetail.Description</MudText>
 
-                        <MudText Typo="Typo.subtitle1" Class="mt-4" GutterBottom="true">@Localizer["Text_DesignInstructions"]</MudText>
+                        <MudText Typo="Typo.subtitle2" Class="mt-4" GutterBottom="true">@Localizer["Text_DesignInstructions"]</MudText>
                         <MudText Typo="Typo.body2">@ProductDetail.DesignInstruction</MudText>
 
-                        <MudText Typo="Typo.subtitle1" Class="mt-4" GutterBottom="true">@Localizer["Text_GlazingInstructions"]</MudText>
+                        <MudText Typo="Typo.subtitle2" Class="mt-4" GutterBottom="true">@Localizer["Text_GlazingInstructions"]</MudText>
                         <MudText Typo="Typo.body2">@ProductDetail.GlazingInstruction</MudText>
 
                         <MudStack Row="true" Class="mt-3" AlignItems="AlignItems.Center" Justify="Justify.SpaceAround">
@@ -49,9 +49,10 @@
                         </MudStack>
                     </MudItem>
                     <MudItem xs="12" sm="6" lg="4">
-                        <MudText Typo="Typo.subtitle1" Class="mt-4" GutterBottom="true">@Localizer["Text_CostDetails"]</MudText>
+                        <MudText Typo="Typo.subtitle2" Class="mt-4" GutterBottom="true">@Localizer["Text_CostDetails"]</MudText>
+                        <MudText Typo="Typo.body2">@TotalMakingCost.ToStringMonetary(CurrentCultur)</MudText>
 
-                        <MudText Typo="Typo.subtitle1" Class="mt-4" GutterBottom="true">@Localizer["Text_SellingPrice"]</MudText>
+                        <MudText Typo="Typo.subtitle2" Class="mt-4" GutterBottom="true">@Localizer["Text_SellingPrice"]</MudText>
                         <MudText Typo="Typo.body2">@ProductDetail.Price.ToStringMonetary(CurrentCultur)</MudText>
                     </MudItem>
                     <MudItem xs="12" sm="6" lg="4">
@@ -61,8 +62,8 @@
                             {
                                 <MudCarouselItem Transition="Transition.Slide">
                                     <MudToggleIconButton Toggled="@item.IsFavoriteImage" ToggledChanged="@((t) => OnToggledFavoriteChanged(t, item))"
-                                                     Icon="@Icons.Material.Outlined.FavoriteBorder" Size="Size.Small" Color="@Color.Dark" Title="Off"
-                                                     ToggledIcon="@Icons.Material.Outlined.Favorite" ToggledSize="Size.Small" ToggledColor="@Color.Secondary" ToggledTitle="On"
+                                                     Icon="@Icons.Material.Outlined.StarBorder" Size="Size.Small" Color="@Color.Dark" Title="Off"
+                                                     ToggledIcon="@Icons.Material.Outlined.Star" ToggledSize="Size.Small" ToggledColor="@Color.Secondary" ToggledTitle="On"
                                                      Style="position:absolute; top:5%; left:10%;" />
                                     <MudStack AlignItems="AlignItems.Center">
                                         <MudImage Src="@item.Url" ObjectFit="ObjectFit.Contain" ObjectPosition="ObjectPosition.Center"
@@ -87,9 +88,9 @@
                                 @Localizer["Btn_Delete"]
                             </MudButton>
                             @*<MudToggleIconButton Class="mt-2"  Icon="@Icons.Material.Outlined.FavoriteBorder" Size="Size.Medium" Color="@Color.Dark" Title="Off" DisableRipple="true"
-                                                 ToggledIcon="@Icons.Material.Outlined.Favorite" ToggledSize="Size.Medium" ToggledColor="@Color.Secondary" ToggledTitle="On"
-                                                 
-                                                 />*@
+                            ToggledIcon="@Icons.Material.Outlined.Favorite" ToggledSize="Size.Medium" ToggledColor="@Color.Secondary" ToggledTitle="On"
+
+                            />*@
                         </MudItem>
                     </MudItem>
                 </MudGrid>
@@ -104,10 +105,10 @@
 
 <MudGrid>
     <MudItem xs="12" md="12" lg="6">
-        <ProductDetailPageComposition ProductDetail=ProductDetail Materials=Materials />
+        <ProductDetailPageComposition @ref="_productDetailPageComposition" ProductDetail=ProductDetail Materials=Materials />
     </MudItem>
     <MudItem xs="12" md="12" lg="6">
-        <ProductDetailPageFiring ProductDetail=ProductDetail Firings=Firings />
+        <ProductDetailPageFiring @ref="_productDetailPageFiring" ProductDetail=ProductDetail Firings=Firings />
     </MudItem>
 </MudGrid>
 

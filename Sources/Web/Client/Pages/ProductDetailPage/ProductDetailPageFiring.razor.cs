@@ -14,7 +14,7 @@ namespace Client.Pages.ProductDetailPage
 
         ICollection<FiringViewModel> FiringsVM { get; set; } = new List<FiringViewModel>();
         MudAutocomplete<Firing> AutocompleteBox = new();
-        double TotalComposition { get => FiringsVM.Sum(m => m.UnitaryCost); }
+        double TotalFiring { get => FiringsVM.Sum(m => m.UnitaryCost); }
 
 
         protected override void OnParametersSet()
@@ -25,6 +25,11 @@ namespace Client.Pages.ProductDetailPage
                 FiringsVM.Add(new FiringViewModel(pFire));
                 CalculateTotalCost(pFire.Id, pFire);
             }
+        }
+
+        public double GetTotalFiring()
+        {
+            return TotalFiring;
         }
 
         private async Task SelectedValueChanged(Firing fire)

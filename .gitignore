@@ -29,7 +29,7 @@ obj/
 Sources/Web/Client/wwwroot/ProductImages/
 TestResults/
 */.vs
-*launchSettings.json
+*/*launchSettings.json
 ###################
 # Web publish log #
 ###################
@@ -78,3 +78,5 @@ _[Ss]cripts
 *.nupkg
 *.ncrunchsolution
 *.dot[Cc]over
+/Sources/Web/Client/Properties/launchSettings.json
+/Sources/Web/Client/Properties/launchSettings.json

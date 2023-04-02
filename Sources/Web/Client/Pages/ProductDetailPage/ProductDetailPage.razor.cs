@@ -31,6 +31,11 @@ namespace Client.Pages.ProductDetailPage
 
         public bool AlarmOn { get; set; }
 
+        public double TotalMakingCost { get => _productDetailPageComposition.GetTotalComposition() + _productDetailPageFiring.GetTotalFiring(); }
+
+        public ProductDetailPageComposition _productDetailPageComposition { get; set; }
+        public ProductDetailPageFiring _productDetailPageFiring { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
             if (!Id.HasValue)

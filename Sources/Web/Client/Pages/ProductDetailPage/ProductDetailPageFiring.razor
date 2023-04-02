@@ -24,11 +24,11 @@
                 <MudTd>
                     <MudNumericField Variant="Variant.Text" Adornment="Adornment.End" AdornmentText="Qte"
                                      AdornmentColor="Color.Info" Margin="Margin.Dense" Style="width:135px; margin:0;"
-                                     ValueChanged="@((e) => CostChanged(e, context.Pfire.Id))" T=int Value=@context.Pfire.NumberProducts/>
+                                     ValueChanged="@((e) => CostChanged(e, context.Pfire.Id))" T=int Value=@context.Pfire.NumberProducts />
                 </MudTd>
                 <MudTd>@context.UnitaryCost.ToStringMonetary(CurrentCultur)</MudTd>
                 <MudTd>
-                    <MudFab Color="Color.Dark" StartIcon="@Icons.Material.Filled.DeleteForever" Size="Size.Small" OnClick="@(() =>  DeleteFire(context))" />
+                    <MudIconButton Icon="@Icons.Material.Filled.DeleteForever" Color="Color.Error" Size="Size.Small" OnClick="@(() =>  DeleteFire(context))" />
                 </MudTd>
             </RowTemplate>
         </MudTable>
@@ -41,7 +41,7 @@
                     <td></td>
                     <td>Total</td>
                     <td>
-                        <MudText>@TotalComposition.ToStringMonetary(CurrentCultur)</MudText>
+                        <MudText>@TotalFiring.ToStringMonetary(CurrentCultur)</MudText>
                     </td>
                 </tr>
             </tbody>

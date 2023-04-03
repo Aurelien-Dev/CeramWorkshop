@@ -15,6 +15,8 @@
 		<EmbeddedResource Remove="wwwroot\css\bootstrap-icons\**" />
 		<None Remove="Shared\Controls\**" />
 		<None Remove="wwwroot\css\bootstrap-icons\**" />
+		<Content Remove="wwwroot\js\MudExtensions.min.js" />
+		<Content Remove="wwwroot\css\MudExtensions.min.css" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -33,6 +35,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="CodeBeam.MudExtensions" Version="6.3.0" />
 		<PackageReference Include="MudBlazor" Version="6.2.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.4" />
 	</ItemGroup>

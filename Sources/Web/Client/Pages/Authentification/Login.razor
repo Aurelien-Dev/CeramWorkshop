@@ -1,4 +1,5 @@
-﻿@using Client.Components
+﻿@using MudExtensions
+@using Client.Components
 @using Client.Utils
 @layout LayoutLogin
 @inherits CustomLayoutComponentBase
@@ -16,8 +17,8 @@
         <MudTextField InputType="InputType.Email" Label="@Localizer["WorkshopEmail"]" FullWidth=true
                       @bind-Value="LoginInfo.Email" For="@(() => LoginInfo.Email)" />
 
-        <MudTextField InputType="InputType.Password" Label="@Localizer["WorkshopPassword"]" FullWidth=true
-                      @bind-Value="LoginInfo.Password" For="@(() => LoginInfo.Password)" />
+        <MudPasswordField @bind-Value="@LoginInfo.Password" FullWidth="true" Label="@Localizer["WorkshopPassword"]" PasswordMode="true" />
+
         <MudText Color="@Color.Error">@authError</MudText>
         <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">Login</MudButton>
 

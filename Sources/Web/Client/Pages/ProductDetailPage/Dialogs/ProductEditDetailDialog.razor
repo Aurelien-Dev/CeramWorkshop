@@ -2,7 +2,7 @@
 @using Client.Utils
 @inherits CustomComponentBase
 
-<MudForm @ref="form" @bind-IsValid="@success" @bind-Errors="@errors">
+<MudForm @ref="_form" @bind-IsValid="@_success" @bind-Errors="@_errors">
     <MudDialog>
         <DialogContent>
             <MudContainer Style="max-height: 500px; overflow-y: scroll">
@@ -44,7 +44,19 @@
         </DialogContent>
         <DialogActions>
             <MudButton OnClick="Cancel">@Localizer["Btn_Cancel"]</MudButton>
-            <MudButton Color="Color.Primary" OnClick="@(async () => await OnValidSubmit())">@Localizer["Btn_Ok"]</MudButton>
+
+            <MudLoadingButton @bind-Loading="_loading" LoadingAdornment="Adornment.Start" LoadingCircularColor="Color.Primary" OnClick="@(async () => await OnValidSubmit())" Variant="Variant.Filled" Color="Color.Primary">
+                <LoadingContent>
+                    @Localizer["Btn_Ok"]
+                </LoadingContent>
+                <ChildContent>
+                    @Localizer["Btn_Ok"]
+                </ChildContent>
+            </MudLoadingButton>
+
+
+
+            @*<MudButton Color="Color.Primary" OnClick="@(async () => await OnValidSubmit())">@Localizer["Btn_Ok"]</MudButton>*@
         </DialogActions>
     </MudDialog>
 </MudForm>

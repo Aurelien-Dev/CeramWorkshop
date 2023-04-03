@@ -1,3 +1,4 @@
+using MudExtensions.Services;
 using Client;
 using Client.Utils.Logger;
 using Client.Utils.Middlewares;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Repository;
 using System.Globalization;
+using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +27,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddRepository();
 builder.Services.AddClientServices();
+builder.Services.AddMudExtensions();
 
 
 //Authentication

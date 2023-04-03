@@ -31,7 +31,6 @@ namespace Client.Pages.ProductDetailPage.Dialogs
             try
             {
                 _loading = true;
-                await Task.Delay(3000);
                 string filePathLoaded = await LoadFileFromInputFile.LoadFileInput(e, Session.WorkshopFolderName);
                 filePathLoaded = filePathLoaded.Replace(@"\", "/");
 

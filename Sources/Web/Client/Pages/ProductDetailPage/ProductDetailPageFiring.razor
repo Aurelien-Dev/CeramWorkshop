@@ -10,7 +10,7 @@
         <MudText Typo="Typo.h5">Cuissons</MudText>
     </MudCardHeader>
     <MudCardContent>
-        <MudTable Items="@FiringsVM" Dense="true" Striped="false">
+        <MudTable Items="@FiringsVm" Dense="true" Striped="false">
             <HeaderContent>
                 <MudTh>@Localizer["TableHeader_Name"]</MudTh>
                 <MudTh>@Localizer["TableHeader_Quantity"]</MudTh>
@@ -19,12 +19,12 @@
             </HeaderContent>
             <RowTemplate>
                 <MudTd>
-                    @context.Pfire.Firing.Name (@context.Pfire.Firing.TotalKwH Kw/h)
+                    @context.ProductFire.Firing.Name (@context.ProductFire.Firing.TotalKwH Kw/h)
                 </MudTd>
                 <MudTd>
                     <MudNumericField Variant="Variant.Text" Adornment="Adornment.End" AdornmentText="Qte"
                                      AdornmentColor="Color.Info" Margin="Margin.Dense" Style="width:135px; margin:0;"
-                                     ValueChanged="@((e) => CostChanged(e, context.Pfire.Id))" T=int Value=@context.Pfire.NumberProducts />
+                                     ValueChanged="@((e) => CostChanged(e, context.ProductFire.Id))" T=int Value=@context.ProductFire.NumberProducts />
                 </MudTd>
                 <MudTd>@context.UnitaryCost.ToStringMonetary(CurrentCultur)</MudTd>
                 <MudTd>

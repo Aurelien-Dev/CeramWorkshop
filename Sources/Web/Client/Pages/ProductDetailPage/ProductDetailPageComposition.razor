@@ -10,7 +10,7 @@
         <MudText Typo="Typo.h5">@Localizer["Text_Composition"]</MudText>
     </MudCardHeader>
     <MudCardContent>
-        <MudTable Items="@MaterialsVM" Dense="true" Striped="false">
+        <MudTable Items="@MaterialsVm" Dense="true" Striped="false">
             <HeaderContent>
                 <MudTh>@Localizer["TableHeader_Name"]</MudTh>
                 <MudTh>@Localizer["TableHeader_Cost"]</MudTh>
@@ -59,8 +59,8 @@
             </tbody>
         </MudSimpleTable>
 
-        <MudAutocomplete @ref="AutocompleteBox" Class="ma-5" T="Material" Label="Mat." ToStringFunc="@(e=> e==null?null : $"{e.Reference} - {e.Name}")" SearchFunc="@Search"
-                         ResetValueOnEmptyText="true" ValueChanged=SelectedValueChanged />
+        <MudAutocomplete @ref="_autocompleteBox" Class="ma-5" T="Material" Label="Mat." ToStringFunc="@(e=> e==null?null : $"{e.Reference} - {e.Name}")" 
+                         SearchFunc="@Search" ResetValueOnEmptyText="true" ValueChanged="SelectedValueChanged" />
 
     </MudCardContent>
 </MudCard>

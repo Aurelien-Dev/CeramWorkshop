@@ -12,18 +12,17 @@ namespace Client.Pages.ProductDetailPage
         [Parameter] public Product ProductDetail { get; set; } = new();
         [Parameter] public ICollection<Firing> Firings { get; set; } = default!;
 
-        ICollection<FiringViewModel> FiringsVM { get; set; } = new List<FiringViewModel>();
-        MudAutocomplete<Firing> AutocompleteBox = new();
-        double TotalFiring { get => FiringsVM.Sum(m => m.UnitaryCost); }
+        private ICollection<FiringViewModel> FiringsVm { get; set; } = new List<FiringViewModel>();
+        private MudAutocomplete<Firing> AutocompleteBox = new();
+        private double TotalFiring => FiringsVm.Sum(m => m.UnitaryCost);
 
 
         protected override void OnParametersSet()
         {
-            FiringsVM = new List<FiringViewModel>();
+            FiringsVm = new List<FiringViewModel>();
             foreach (var pFire in ProductDetail.ProductFiring)
             {
-                FiringsVM.Add(new FiringViewModel(pFire));
-                CalculateTotalCost(pFire.Id, pFire);
+                FiringsVm.Add(new FiringViewModel(pFire));
             }
         }
 
@@ -32,7 +31,7 @@ namespace Client.Pages.ProductDetailPage
             return TotalFiring;
         }
 
-        private async Task SelectedValueChanged(Firing fire)
+        private async Task SelectedValueChanged(Firing? fire)
         {
             if (fire == null) return;
 
@@ -40,7 +39,7 @@ namespace Client.Pages.ProductDetailPage
 
             var pFire = new ProductFiring(fire.Id, ProductDetail.Id, fire.TotalKwH, fire.CostKwH) { Firing = fire };
 
-            FiringsVM.Add(new FiringViewModel(pFire));
+            FiringsVm.Add(new FiringViewModel(pFire));
             ProductDetail.ProductFiring.Add(pFire);
             Worker.Completed();
 
@@ -57,7 +56,7 @@ namespace Client.Pages.ProductDetailPage
             pfToUpdate.NumberProducts = number;
             Worker.ProductRepository.UpdateProductFiring(pfToUpdate);
 
-            CalculateTotalCost(pfToUpdate.Id, pfToUpdate);
+            // CalculateTotalCost(pfToUpdate.Id, pfToUpdate);
         }
 
         private async Task<IEnumerable<Firing>> Search(string value)
@@ -71,37 +70,30 @@ namespace Client.Pages.ProductDetailPage
                 .Where(x => x.Name.Contains(value, StringComparison.InvariantCultureIgnoreCase) );
         }
 
-        private void DeleteFire(FiringViewModel firingVM)
+        private void DeleteFire(FiringViewModel firingVm)
         {
-            ProductDetail.ProductFiring.Remove(firingVM.Pfire);
+            ProductDetail.ProductFiring.Remove(firingVm.ProductFire);
             Worker.ProductRepository.Update(ProductDetail);
             Worker.Completed();
 
-            FiringsVM.Remove(firingVM);
+            FiringsVm.Remove(firingVm);
             StateHasChanged();
         }
 
-        private void CalculateTotalCost(int id, ProductFiring pfToUpdate)
-        {
-            FiringViewModel pmVMToUpdate = FiringsVM.FirstOrDefault(p => p.Pfire.Id == id);
-            pmVMToUpdate.CalculateUiteryCost();
-        }
+        // private void CalculateTotalCost(int id, ProductFiring pfToUpdate)
+        // {
+        //     FiringViewModel pmVMToUpdate = FiringsVm.FirstOrDefault(p => p.ProductFire.Id == id);
+        // }
     }
 
     public class FiringViewModel
     {
-        public ProductFiring Pfire { get; set; }
-        public double UnitaryCost { get; set; }
+        public ProductFiring ProductFire { get; set; }
+        public double UnitaryCost => ProductFire.CostKwH * ProductFire.Firing.TotalKwH / ProductFire.NumberProducts;
 
-        public FiringViewModel(ProductFiring pFire)
+        public FiringViewModel(ProductFiring productFire)
         {
-            Pfire = pFire;
-            CalculateUiteryCost();
-        }
-
-        public void CalculateUiteryCost()
-        {
-            UnitaryCost = Pfire.CostKwH * Pfire.Firing.TotalKwH / Pfire.NumberProducts;
+            ProductFire = productFire;
         }
     }
 }

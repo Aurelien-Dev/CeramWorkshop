@@ -12,16 +12,16 @@ namespace Client.Pages.ProductDetailPage
         [Parameter] public Product ProductDetail { get; set; } = new();
         [Parameter] public ICollection<Material> Materials { get; set; } = default!;
 
-        ICollection<MaterialViewModel> MaterialsVM { get; set; } = new List<MaterialViewModel>();
-        MudAutocomplete<Material>? AutocompleteBox = new();
-        double TotalComposition { get => MaterialsVM.Sum(m => m.TotalCost); }
+        private ICollection<MaterialViewModel> MaterialsVm { get; set; } = new List<MaterialViewModel>();
+        private MudAutocomplete<Material>? _autocompleteBox = new();
+        private double TotalComposition => MaterialsVm.Sum(m => m.TotalCost);
 
         protected override void OnParametersSet()
         {
-            MaterialsVM = new List<MaterialViewModel>();
+            MaterialsVm = new List<MaterialViewModel>();
             foreach (var pMat in ProductDetail.ProductMaterial)
             {
-                MaterialsVM.Add(new MaterialViewModel(pMat));
+                MaterialsVm.Add(new MaterialViewModel(pMat));
             }
         }
 
@@ -30,16 +30,15 @@ namespace Client.Pages.ProductDetailPage
             return TotalComposition;
         }
 
-
-        private async Task SelectedValueChanged(Material mat)
+        private async Task SelectedValueChanged(Material? mat)
         {
             if (mat == null) return;
 
-            await AutocompleteBox.Clear();
+            await _autocompleteBox.Clear();
 
             var pMat = new ProductMaterial(mat.Id, ProductDetail.Id, 0, mat.Cost) { Material = mat };
 
-            MaterialsVM.Add(new MaterialViewModel(pMat));
+            MaterialsVm.Add(new MaterialViewModel(pMat));
             ProductDetail.ProductMaterial.Add(pMat);
             Worker.Completed();
 
@@ -77,64 +76,51 @@ namespace Client.Pages.ProductDetailPage
             if (string.IsNullOrEmpty(value))
                 return Materials;
 
-            return Materials
-                .Where(x => x.Name.Contains(value, StringComparison.InvariantCultureIgnoreCase) ||
-                x.Reference.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+            return Materials.Where(x => x.Name.Contains(value, StringComparison.InvariantCultureIgnoreCase) ||
+                                        x.Reference.Contains(value, StringComparison.InvariantCultureIgnoreCase));
         }
 
         private void CalculateTotalCost(int id)
         {
-            MaterialViewModel pmVMToUpdate = MaterialsVM.FirstOrDefault(p => p.PMat.Id == id);
+            MaterialViewModel pmVMToUpdate = MaterialsVm.FirstOrDefault(p => p.PMat.Id == id);
 
             if (pmVMToUpdate == null)
                 throw new ArgumentException("Material not found.");
-
-            pmVMToUpdate.CalculateCost();
         }
 
-        private void DeleteMat(MaterialViewModel materialVM)
+        private void DeleteMat(MaterialViewModel materialVm)
         {
-            ProductDetail.ProductMaterial.Remove(materialVM.PMat);
+            ProductDetail.ProductMaterial.Remove(materialVm.PMat);
             Worker.ProductRepository.Update(ProductDetail);
             Worker.Completed();
 
-            MaterialsVM.Remove(materialVM);
+            MaterialsVm.Remove(materialVm);
             StateHasChanged();
         }
     }
 
     public class MaterialViewModel
     {
-        public ProductMaterial PMat { get; set; }
-        public double TotalCost { get; set; }
+        public ProductMaterial PMat { get; }
+        public double TotalCost => PMat.CalculatedCost;
+
         public string Unite
         {
             get
             {
-                switch (PMat.Material.UniteMesure)
+                return PMat.Material.UniteMesure switch
                 {
-                    case MaterialUnite.Kg:
-                        return "gr";
-                    case MaterialUnite.L:
-                        return "ml";
-                    case MaterialUnite.Unit:
-                        return "/p";
-                    default:
-                        return "";
-                }
+                    MaterialUnite.Kg => "gr",
+                    MaterialUnite.L => "ml",
+                    MaterialUnite.Unit => "/p",
+                    _ => string.Empty
+                };
             }
         }
 
         public MaterialViewModel(ProductMaterial pMat)
         {
             PMat = pMat;
-            CalculateCost();
-
-        }
-
-        public void CalculateCost()
-        {
-            TotalCost = PMat.CalculatedCost;
         }
     }
 }

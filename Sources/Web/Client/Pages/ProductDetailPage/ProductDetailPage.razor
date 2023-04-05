@@ -1,11 +1,8 @@
 ﻿@page "/Product/{id:int?}"
 
-@using Client.Utils
-@using Client.Components
-@using Domain.Models.MainDomain
 @using Client.Utils.Extension
-
-@inherits CustomComponentBase
+@using Client.Components
+@inherits Client.Utils.CustomComponentBase
 
 <MudGrid Class="mt-2">
     <MudItem xs="12" md="12" lg="12">
@@ -14,7 +11,7 @@
                 <MudPaper Width="100%" Elevation="0">
                     <MudStack Row="true" Justify="Justify.SpaceBetween">
                         <MudText Typo="Typo.h5">#@ProductDetail.Reference - @ProductDetail.Name</MudText>
-                        <ProductStatusChip Status=@ProductDetail.Status />
+                        <ProductStatusChip Status="@ProductDetail.Status" />
                     </MudStack>
                 </MudPaper>
             </MudCardHeader>
@@ -32,7 +29,7 @@
                         <MudText Typo="Typo.body2">@ProductDetail.GlazingInstruction</MudText>
 
                         <MudStack Row="true" Class="mt-3" AlignItems="AlignItems.Center" Justify="Justify.SpaceAround">
-                            <MudImage Src="/assets/img/sizing.png" Height="65" Class="ms-3" />
+                            <MudImage Src="/assets/img/sizing.png" Height="65" Class="ms-3"/>
                             <MudText Typo="Typo.body2"><b>@Localizer["Text_TopDiameter"] :</b> @ProductDetail.TopDiameter cm</MudText>
                             <MudText Typo="Typo.body2"><b>@Localizer["Text_BottomDiameter"] :</b> @ProductDetail.BottomDiameter cm</MudText>
                             <MudText Typo="Typo.body2"><b>@Localizer["Text_Height"] :</b> @ProductDetail.Height cm</MudText>
@@ -44,7 +41,6 @@
                             </MudButton>
                             <MudButton Variant="Variant.Filled" Color="Color.Error" Class="mt-2" StartIcon="@Icons.Material.Filled.Delete" OnClick="OpenDeleteProductDialog">
                                 @Localizer["Btn_Delete"]
-
                             </MudButton>
                         </MudStack>
                     </MudItem>
@@ -62,12 +58,12 @@
                             {
                                 <MudCarouselItem Transition="Transition.Slide">
                                     <MudToggleIconButton Toggled="@item.IsFavoriteImage" ToggledChanged="@((t) => OnToggledFavoriteChanged(t, item))"
-                                                     Icon="@Icons.Material.Outlined.StarBorder" Size="Size.Small" Color="@Color.Dark" Title="Off"
-                                                     ToggledIcon="@Icons.Material.Outlined.Star" ToggledSize="Size.Small" ToggledColor="@Color.Secondary" ToggledTitle="On"
-                                                     Style="position:absolute; top:5%; left:10%;" />
+                                                         Icon="@Icons.Material.Outlined.StarBorder" Size="Size.Small" Color="@Color.Dark" Title="Off"
+                                                         ToggledIcon="@Icons.Material.Outlined.Star" ToggledSize="Size.Small" ToggledColor="@Color.Secondary" ToggledTitle="On"
+                                                         Style="position:absolute; top:5%; left:10%;"/>
                                     <MudStack AlignItems="AlignItems.Center">
                                         <MudImage Src="@item.Url" ObjectFit="ObjectFit.Contain" ObjectPosition="ObjectPosition.Center"
-                                              Height="400" Width="500" Class="rounded-lg" />
+                                                  Height="400" Width="500" Class="rounded-lg"/>
                                         <MudText Typo="Typo.caption">@item.Comment</MudText>
                                     </MudStack>
                                 </MudCarouselItem>
@@ -75,22 +71,12 @@
                         </MudCarousel>
 
                         <MudItem Class="d-flex justify-center flex-grow-1 gap-4" Style="height:40px;">
-                            <MudButton Variant="Variant.Outlined" Color="Color.Tertiary" Class="mt-2" StartIcon="@Icons.Material.Filled.AddAPhoto"
-                                       OnClick="OpenAddImageProductDialog">
-                                @Localizer["Btn_Add"]
-                            </MudButton>
-                            <MudButton Variant="Variant.Outlined" Color="Color.Tertiary" Class="mt-2" StartIcon="@Icons.Material.Filled.Edit"
-                                       OnClick="OpenEditImageProductDialog" Disabled="ShowEditingImageButtons">
-                                @Localizer["Btn_Edit"]
-                            </MudButton>
-                            <MudButton Variant="Variant.Filled" Color="Color.Error" Class="mt-2" StartIcon="@Icons.Material.Filled.Delete"
-                                       OnClick="OpenDeleteImageProductDialog" Disabled="ShowEditingImageButtons">
-                                @Localizer["Btn_Delete"]
-                            </MudButton>
-                            @*<MudToggleIconButton Class="mt-2"  Icon="@Icons.Material.Outlined.FavoriteBorder" Size="Size.Medium" Color="@Color.Dark" Title="Off" DisableRipple="true"
-                            ToggledIcon="@Icons.Material.Outlined.Favorite" ToggledSize="Size.Medium" ToggledColor="@Color.Secondary" ToggledTitle="On"
-
-                            />*@
+                            <MudFab Color="Color.Tertiary" Class="mt-2" StartIcon="@Icons.Material.Filled.AddAPhoto"
+                                    Size="Size.Small" OnClick="OpenAddImageProductDialog" />
+                            <MudFab Color="Color.Tertiary" Class="mt-2" StartIcon="@Icons.Material.Filled.Edit"
+                                    Size="Size.Small" OnClick="OpenEditImageProductDialog" />
+                            <MudFab Color="Color.Error" Class="mt-2" StartIcon="@Icons.Material.Filled.Delete"
+                                    Size="Size.Small" OnClick="OpenDeleteImageProductDialog" />
                         </MudItem>
                     </MudItem>
                 </MudGrid>
@@ -105,10 +91,9 @@
 
 <MudGrid>
     <MudItem xs="12" md="12" lg="6">
-        <ProductDetailPageComposition @ref="_productDetailPageComposition" ProductDetail=ProductDetail Materials=Materials />
+        <ProductDetailPageComposition @ref="ProductDetailPageComposition" ProductDetail="ProductDetail" Materials="Materials"/>
     </MudItem>
     <MudItem xs="12" md="12" lg="6">
-        <ProductDetailPageFiring @ref="_productDetailPageFiring" ProductDetail=ProductDetail Firings=Firings />
+        <ProductDetailPageFiring @ref="ProductDetailPageFiring" ProductDetail="ProductDetail" Firings="Firings"/>
     </MudItem>
 </MudGrid>
-

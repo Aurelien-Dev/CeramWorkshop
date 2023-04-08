@@ -1,6 +1,7 @@
 using Client.Utils;
 using Domain.InterfacesWorker;
 using Domain.Models.MainDomain;
+using Client.Pages.ProductDetailPage.Components;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 
@@ -11,95 +12,55 @@ namespace Client.Pages.ProductDetailPage
     [Authorize]
     public partial class ProductListPage : CustomComponentBase
     {
-        [Inject] private IProductWorker unitOfWork { get; set; } = default!;
+        [Inject] private IProductWorker UnitOfWork { get; set; } = default!;
 
-        public IEnumerable<Product> Products { get; set; } = new List<Product>();
-        public IList<ProductViewModel> ProductsVM { get; set; } = new List<ProductViewModel>();
-        public string Search { get; set; } = string.Empty;
-        public OrderingPage SelectedOrder { get; set; } = OrderingPage.NameAsc;
+        private IEnumerable<Product> Products { get; set; } = new List<Product>();
+        private IList<ProductListItemViewModel> ProductsVm { get; set; } = new List<ProductListItemViewModel>();
+        private string Search { get; set; } = string.Empty;
+        private OrderingPage SelectedOrder { get; set; } = OrderingPage.NameAsc;
 
         protected override async Task OnInitializedAsync()
         {
-            Products = await unitOfWork.ProductRepository.GetAll(CurrentSession.Workshop.Id);
-            ProductsVM = new List<ProductViewModel>(Products.Select(p => new ProductViewModel(p)).OrderBy(p => p.Name).ToList());
+            Products = await UnitOfWork.ProductRepository.GetAll(CurrentSession.Workshop.Id);
+            ProductsVm = new List<ProductListItemViewModel>(Products.Select(p => new ProductListItemViewModel(p)).OrderBy(p => p.Name).ToList());
         }
 
         private void RaiseOrdering(OrderingPage e)
         {
             SelectedOrder = e;
-            IQueryable<Product> ex = Products.AsQueryable();
-
-            ex = Filterproducts(ex, Search);
-
-            switch (e)
-            {
-                case OrderingPage.StatusAsc:
-                    ex = ex.OrderBy(p => p.Status);
-                    break;
-                case OrderingPage.StatusDesc:
-                    ex = ex.OrderByDescending(p => p.Status);
-                    break;
-                case OrderingPage.NameAsc:
-                    ex = ex.OrderBy(p => p.Name);
-                    break;
-                case OrderingPage.NameDesc:
-                    ex = ex.OrderByDescending(p => p.Name);
-                    break;
-                default:
-                    break;
-            }
-
-            ProductsVM = ex.Select(p => new ProductViewModel(p)).ToList();
+            FilterProduct();
         }
 
-        private void RaisFilter(string e)
+        private void RaiseFilter(string e)
         {
             Search = e;
-            IQueryable<Product> ex = Products.AsQueryable();
-
-            ex = Filterproducts(ex, e);
-
-            switch (SelectedOrder)
-            {
-                case OrderingPage.StatusAsc:
-                    ex = ex.OrderBy(p => p.Status);
-                    break;
-                case OrderingPage.NameAsc:
-                    ex = ex.OrderBy(p => p.Name);
-                    break;
-                default:
-                    break;
-            }
-
-            ProductsVM = ex.Select(p => new ProductViewModel(p)).ToList();
+            FilterProduct();
         }
 
-        private static IQueryable<Product> Filterproducts(IQueryable<Product> query, string value)
+        private void FilterProduct()
+        {
+            IQueryable<Product> ex = Products.AsQueryable();
+            
+            ex = SearchProduct(ex, Search);
+
+            ex = SelectedOrder switch
+            {
+                OrderingPage.StatusAsc => ex.OrderBy(p => p.Status),
+                OrderingPage.StatusDesc => ex.OrderByDescending(p => p.Status),
+                OrderingPage.NameAsc => ex.OrderBy(p => p.Name),
+                OrderingPage.NameDesc => ex.OrderByDescending(p => p.Name),
+                _ => throw new ArgumentOutOfRangeException(nameof(SelectedOrder), SelectedOrder, null)
+            };
+
+            ProductsVm = ex.Select(p => new ProductListItemViewModel(p)).ToList();
+        }
+        
+        private static IQueryable<Product> SearchProduct(IQueryable<Product> query, string value)
         {
             if (string.IsNullOrEmpty(value)) return query;
 
             return query.Where(p => p.Name.Contains(value, StringComparison.InvariantCultureIgnoreCase) ||
                                     p.Reference.Contains(value, StringComparison.InvariantCultureIgnoreCase));
-        }
-    }
-
-    public class ProductViewModel
-    {
-        public int Id { get; set; }
-        public string? Reference { get; set; }
-        public string Name { get; set; }
-        public string Image { get; set; }
-        public ProductStatus Status { get; set; }
-
-        public ProductViewModel(Product product)
-        {
-            Id = product.Id;
-            Reference = product.Reference;
-            Name = product.Name;
-            Status = product.Status;
-
-            if (product.FavoriteImage != null)
-                Image = product.FavoriteImage.Url;
         }
     }
 }

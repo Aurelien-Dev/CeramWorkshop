@@ -1,9 +1,7 @@
-﻿using Client.Services;
-using Client.Utils;
+﻿using Client.Utils;
 using Domain.InterfacesWorker;
 using Domain.Models.MainDomain;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Mvc.Filters;
 using MudBlazor;
 
 namespace Client.Pages.ProductDetailPage.Dialogs

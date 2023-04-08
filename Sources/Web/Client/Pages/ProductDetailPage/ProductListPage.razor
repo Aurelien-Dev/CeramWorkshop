@@ -1,12 +1,11 @@
 ﻿@page "/"
-@using Client.Components
 @using Client.Utils
+@using Client.Pages.ProductDetailPage.Components
 @inherits CustomComponentBase
 
 <MudPaper Elevation="0">
-    <MudToolBar Dense=true Class="mt-4" DisableGutters=true>
-        <MudSelect T="OrderingPage" Label=@Localizer["OrderBy"] Margin="Margin.Dense" ValueChanged="@((e) => RaiseOrdering(e))"
-                   MultiSelection=false>
+    <MudToolBar Dense="true" Class="mt-4" DisableGutters=true>
+        <MudSelect T="OrderingPage" Label=@Localizer["OrderBy"] Margin="Margin.Dense" ValueChanged="@(RaiseOrdering)">
             @foreach (OrderingPage item in Enum.GetValues(typeof(OrderingPage)))
             {
                 <MudSelectItem Value="@item">@item</MudSelectItem>
@@ -15,32 +14,14 @@
 
         <MudSpacer />
 
-        <MudTextField ValueChanged="@((e) => RaisFilter(e))" T=string
-                      Clearable=true KeyUpPreventDefault=true Label="@Localizer["Search"]" Variant="Variant.Outlined" Adornment="Adornment.End" Margin="Margin.Dense"
+        <MudTextField ValueChanged="@(RaiseFilter)" T="string"
+                      Clearable="true" KeyUpPreventDefault="true" Label="@Localizer["Search"]" Variant="Variant.Outlined" Adornment="Adornment.End" Margin="Margin.Dense"
                       AdornmentIcon="@Icons.Material.Filled.Search" AdornmentColor="Color.Secondary" />
     </MudToolBar>
 </MudPaper>
 <MudGrid Class="mt-2">
-    @foreach (var item in ProductsVM)
+    @foreach (var item in ProductsVm)
     {
-        <MudItem xs="12" sm="6" md="4" lg="2">
-            <MudCard>
-                @if (string.IsNullOrEmpty(item.Image))
-                {
-                    <MudCardMedia Image="assets/img/bg-empty.png" Style="opacity:0.05" Height="200" />
-                }
-                else
-                {
-                    <MudCardMedia Image="@item.Image" Height="200" />
-                }
-                <MudCardContent>
-                    <MudText Typo="Typo.h6">#@item.Reference - @item.Name</MudText>
-                    <MudText>Status: @item.Status</MudText>
-                </MudCardContent>
-                <MudCardActions>
-                    <MudButton Variant="Variant.Text" Color="Color.Primary" Href="@($"Product/{item.Id}")">@Localizer["ProductList_ShowProduct"]</MudButton>
-                </MudCardActions>
-            </MudCard>
-        </MudItem>
+        <ProductListItem ProductListItemVm="item" />
     }
 </MudGrid>

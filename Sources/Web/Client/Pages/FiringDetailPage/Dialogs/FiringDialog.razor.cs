@@ -2,46 +2,43 @@
 using Domain.InterfacesWorker;
 using Domain.Models.MainDomain;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 using MudBlazor;
 
 namespace Client.Pages.FiringDetailPage.Dialogs
 {
     public partial class FiringDialog : CustomComponentBase
     {
-        [Inject] private IProductWorker productWorker { get; set; } = default!;
-        [Inject] public IStringLocalizer<Translations> Localizer { get; set; }
-
+        [Inject] private IProductWorker ProductWorker { get; set; } = default!;
         [CascadingParameter] MudDialogInstance MudDialog { get; set; } = default!;
-        [Parameter] public Firing FiringlDetail { get; set; } = new();
+        [Parameter] public Firing FiringDetail { get; set; } = new();
         [Parameter] public bool? InsertMode { get; set; } = new();
 
-        MudForm form = new();
-        bool success;
-        string[] errors = Array.Empty<string>();
+        private MudForm _form = new();
+        private bool _success;
+        private string[] _errors = Array.Empty<string>();
 
 
         private async Task OnValidSubmit()
         {
-            await form.Validate();
+            await _form.Validate();
 
-            if (form.IsValid)
+            if (_form.IsValid)
             {
                 if (InsertMode.HasValue && InsertMode.Value)
-                    await productWorker.FiringRepository.Add(FiringlDetail);
+                    await ProductWorker.FiringRepository.Add(FiringDetail);
                 else
-                    productWorker.FiringRepository.Update(FiringlDetail);
+                    ProductWorker.FiringRepository.Update(FiringDetail);
 
-                productWorker.Completed();
+                ProductWorker.Completed();
 
                 StateHasChanged();
-                MudDialog.Close(DialogResult.Ok(FiringlDetail));
+                MudDialog.Close(DialogResult.Ok(FiringDetail));
             }
         }
 
         void Cancel()
         {
-            productWorker.Rollback();
+            ProductWorker.Rollback();
             StateHasChanged();
             MudDialog.Cancel();
         }

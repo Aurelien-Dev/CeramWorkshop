@@ -110,7 +110,9 @@ namespace Domain.Models.MainDomain
         /// <summary>
         /// Initializes a new instance of the <see cref="Product"/> class.
         /// </summary>
-        public Product() { }
+        public Product()
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Product"/> class with the specified name and reference.
@@ -125,7 +127,9 @@ namespace Domain.Models.MainDomain
         /// Gets or sets the image instructions associated with the product.
         /// </summary>
         [XmlIgnore]
-        public ImageInstruction FavoriteImage { get => ImageInstructions.FirstOrDefault(i => i.IsFavoriteImage); }
-
+        public ImageInstruction? FavoriteImage
+        {
+            get => ImageInstructions.FirstOrDefault(i => i.IsFavoriteImage);
+        }
     }
 }

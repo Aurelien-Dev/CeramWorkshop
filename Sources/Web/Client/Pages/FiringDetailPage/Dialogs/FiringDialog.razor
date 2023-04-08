@@ -2,28 +2,28 @@
 @using Client.Utils
 @inherits CustomComponentBase
 
-<MudForm @ref="form" @bind-IsValid="@success" @bind-Errors="@errors">
+<MudForm @ref="_form" @bind-IsValid="@_success" @bind-Errors="@_errors">
     <MudDialog>
         <DialogContent>
 
             <MudStack Row="true">
                 <MudTextField Label="@Localizer["TableHeader_Name"]" Variant="Variant.Outlined" Class="mx-1"
-                              @bind-Value="FiringlDetail.Name" For="@(() => FiringlDetail.Name)" />
+                              @bind-Value="FiringDetail.Name" For="@(() => FiringDetail.Name)" />
             </MudStack>
 
             <MudStack>
                 <MudTextField Label="@Localizer["Duration"]" Variant="Variant.Outlined" Class="mx-1" Adornment="Adornment.End" AdornmentText="@Localizer["Minutes"]"
-                              @bind-Value="FiringlDetail.Duration" For="@(() => FiringlDetail.Duration)" />
+                              @bind-Value="FiringDetail.Duration" For="@(() => FiringDetail.Duration)" />
             </MudStack>
 
             <MudStack>
                 <MudTextField Label="@Localizer["TotalKwH"]" Variant="Variant.Outlined" Class="mx-1" Adornment="Adornment.End" AdornmentText="Kw/h"
-                              @bind-Value="FiringlDetail.TotalKwH" For="@(() => FiringlDetail.TotalKwH)" />
+                              @bind-Value="FiringDetail.TotalKwH" For="@(() => FiringDetail.TotalKwH)" />
             </MudStack>
 
             <MudStack>
                 <MudTextField Label="@Localizer["CostKwH"]" Variant="Variant.Outlined" Class="mx-1" Adornment="Adornment.End" AdornmentText="€ / Kw/h"
-                              @bind-Value="FiringlDetail.CostKwH" For="@(() => FiringlDetail.CostKwH)" />
+                              @bind-Value="FiringDetail.CostKwH" For="@(() => FiringDetail.CostKwH)" />
             </MudStack>
 
         </DialogContent>

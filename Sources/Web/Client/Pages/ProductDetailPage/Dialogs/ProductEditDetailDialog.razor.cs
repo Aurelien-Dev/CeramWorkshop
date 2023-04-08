@@ -29,7 +29,7 @@ namespace Client.Pages.ProductDetailPage.Dialogs
 
             if (_form.IsValid)
             {
-                await Task.Delay(750);
+                await Task.Delay(550);
                 ProductDetail.IdWorkshop = CurrentSession.Workshop.Id;
                 if (InsertMode.HasValue && InsertMode.Value)
                     await ProductWorker.ProductRepository.Add(ProductDetail);

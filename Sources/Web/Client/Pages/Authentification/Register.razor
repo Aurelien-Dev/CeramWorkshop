@@ -2,26 +2,26 @@
 @using Client.Components
 @using Client.Utils
 @layout LayoutLogin
-@inherits CustomLayoutComponentBase
+@inherits Client.Utils.ComponentBase.CustomLayoutComponentBase
 
-<MudForm @ref="form" @bind-IsValid="@validForm">
-    <MudStack Spacing=5>
-        <MudTextField InputType="InputType.Text" Label="@Localizer["WorkshopName"]" FullWidth=true
-                      @bind-Value="registerInfo.Name" For="@(() => registerInfo.Name)" />
+<MudForm @ref="_form" @bind-IsValid="@_validForm">
+    <MudStack Spacing="5">
+        <MudTextField InputType="InputType.Text" Label="@Localizer["WorkshopName"]" FullWidth="true"
+                      @bind-Value="_registerInfo.Name" For="@(() => _registerInfo.Name)" />
 
-        <MudTextField InputType="InputType.Text" Label="@Localizer["WorkshopUserName"]" FullWidth=true
-                      @bind-Value="registerInfo.UserName" For="@(() => registerInfo.UserName)" />
+        <MudTextField InputType="InputType.Text" Label="@Localizer["WorkshopUserName"]" FullWidth="true"
+                      @bind-Value="_registerInfo.UserName" For="@(() => _registerInfo.UserName)" />
 
-        <MudTextField InputType="InputType.Email" Label="@Localizer["WorkshopEmail"]" FullWidth=true
-                      @bind-Value="registerInfo.Email" For="@(() => registerInfo.Email)" />
+        <MudTextField InputType="InputType.Email" Label="@Localizer["WorkshopEmail"]" FullWidth="true"
+                      @bind-Value="_registerInfo.Email" For="@(() => _registerInfo.Email)" />
 
-        <MudTextField InputType="InputType.Password" Label="@Localizer["WorkshopPassword"]" FullWidth=true
-                      @bind-Value="registerInfo.Password" For="@(() => registerInfo.Password)" />
+        <MudTextField InputType="InputType.Password" Label="@Localizer["WorkshopPassword"]" FullWidth="true"
+                      @bind-Value="_registerInfo.Password" For="@(() => _registerInfo.Password)" />
 
-        <MudTextField InputType="InputType.Password" Label="@Localizer["WorkshopPassword"]" FullWidth=true
-                      @bind-Value="registerInfo.Password2" For="@(() => registerInfo.Password2)" />
+        <MudTextField InputType="InputType.Password" Label="@Localizer["WorkshopPassword"]" FullWidth="true"
+                      @bind-Value="_registerInfo.Password2" For="@(() => _registerInfo.Password2)" />
 
-        <MudText Color="@Color.Error">@registerError</MudText>
+        <MudText Color="@Color.Error">@_registerError</MudText>
 
         <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Color="Color.Primary" OnClick="@(async () => { await RegisterWorkshop(); RegisterInProgress = false; })">@Localizer["Btn_CreateWorkshop"]</MudButton>
 

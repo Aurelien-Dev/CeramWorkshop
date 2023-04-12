@@ -1,6 +1,6 @@
 ﻿@using Domain.Models.MainDomain
 @using Client.Utils
-@inherits CustomComponentBase
+@inherits Client.Utils.ComponentBase.CustomComponentBase
 
 <MudForm @ref="_form" @bind-IsValid="@_success" @bind-Errors="@_errors">
     <MudDialog>

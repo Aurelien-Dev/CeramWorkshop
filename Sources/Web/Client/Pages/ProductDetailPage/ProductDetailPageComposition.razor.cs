@@ -1,11 +1,14 @@
 ﻿using Client.Utils;
+using Client.Utils.ComponentBase;
 using Domain.InterfacesWorker;
 using Domain.Models.MainDomain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
 namespace Client.Pages.ProductDetailPage
 {
+    [Authorize]
     public partial class ProductDetailPageComposition : CustomComponentBase
     {
         [Inject] private IProductWorker Worker { get; set; } = default!;
@@ -82,9 +85,9 @@ namespace Client.Pages.ProductDetailPage
 
         private void CalculateTotalCost(int id)
         {
-            MaterialViewModel pmVMToUpdate = MaterialsVm.FirstOrDefault(p => p.PMat.Id == id);
+            MaterialViewModel pmVmToUpdate = MaterialsVm.FirstOrDefault(p => p.PMat.Id == id);
 
-            if (pmVMToUpdate == null)
+            if (pmVmToUpdate == null)
                 throw new ArgumentException("Material not found.");
         }
 

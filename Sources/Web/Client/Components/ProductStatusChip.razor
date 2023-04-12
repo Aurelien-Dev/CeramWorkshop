@@ -10,10 +10,10 @@
     [Parameter]
     public ProductStatus Status
     {
-        get => status;
+        get => _status;
         set
         {
-            status = value;
+            _status = value;
             switch (Status)
             {
                 case ProductStatus.Abandoned:
@@ -34,7 +34,7 @@
             }
         }
     }
-    private ProductStatus status;
+    private ProductStatus _status;
 
     private Color ChipColor { get; set; }
 

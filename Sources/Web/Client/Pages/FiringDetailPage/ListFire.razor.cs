@@ -1,5 +1,6 @@
 ﻿using Client.Pages.FiringDetailPage.Dialogs;
 using Client.Utils;
+using Client.Utils.ComponentBase;
 using Domain.InterfacesWorker;
 using Domain.Models.MainDomain;
 using Microsoft.AspNetCore.Authorization;
@@ -11,11 +12,11 @@ namespace Client.Pages.FiringDetailPage
     [Authorize]
     public partial class ListFire : CustomComponentBase
     {
-        [Inject] private IProductWorker worker { get; set; } = default!;
+        [Inject] private IProductWorker Worker { get; set; } = default!;
 
         [Parameter] public string Title { get; set; }
 
-        public ICollection<Firing> Firings { get; set; } = new List<Firing>();
+        private ICollection<Firing> Firings { get; set; } = new List<Firing>();
 
         protected override async Task OnInitializedAsync()
         {
@@ -24,7 +25,7 @@ namespace Client.Pages.FiringDetailPage
 
         private async Task LoadDatas()
         {
-            Firings = await worker.FiringRepository.GetAll();
+            Firings = await Worker.FiringRepository.GetAll();
         }
 
         private async Task DeleteFiringDialog(Firing firing)
@@ -33,8 +34,8 @@ namespace Client.Pages.FiringDetailPage
 
             if (!result.HasValue) return;
 
-            worker.FiringRepository.Delete(firing);
-            worker.Completed();
+            Worker.FiringRepository.Delete(firing);
+            Worker.Completed();
 
             Firings.Remove(firing);
             StateHasChanged();
@@ -44,7 +45,7 @@ namespace Client.Pages.FiringDetailPage
         {
             var parameters = new DialogParameters { ["InsertMode"] = true };
 
-            var dialog = DialogService.Show<FiringDialog>("Ajouter une nouvelle Cuisson", parameters, this.CommonOptionDialog);
+            var dialog = await DialogService.ShowAsync<FiringDialog>("Ajouter une nouvelle Cuisson", parameters, this.CommonOptionDialog);
             var result = await dialog.Result;
 
             if (result.Canceled) return;
@@ -56,7 +57,7 @@ namespace Client.Pages.FiringDetailPage
         {
             var parameters = new DialogParameters { ["FiringlDetail"] = firing };
 
-            var dialog = DialogService.Show<FiringDialog>("Modifier une cuisson", parameters, this.CommonOptionDialog);
+            var dialog = await DialogService.ShowAsync<FiringDialog>("Modifier une cuisson", parameters, this.CommonOptionDialog);
             var result = await dialog.Result;
 
             if (result.Canceled)
@@ -64,6 +65,7 @@ namespace Client.Pages.FiringDetailPage
                 await LoadDatas();
                 return;
             }
+
             StateHasChanged();
         }
     }

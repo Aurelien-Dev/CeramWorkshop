@@ -18,7 +18,7 @@ namespace Client
             services.AddScoped<IHostEnvironmentAuthenticationStateProvider>(sp => { return (ServerAuthenticationStateProvider)sp.GetRequiredService<AuthenticationStateProvider>(); });
             
             services.AddScoped<AuthenticationService>();
-            services.AddScoped<IImgBBService, ImgBBService>();
+            services.AddScoped<IImgBbService, ImgBbService>();
 
             services.AddScoped<ILogger>(provider => { return provider.GetRequiredService<ILoggerFactory>().CreateLogger("CeramWorkshop - "); });
 

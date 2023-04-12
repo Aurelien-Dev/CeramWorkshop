@@ -4,7 +4,7 @@
 @using Client.Utils.Extension
 @using Domain.Models.MainDomain
 
-@inherits CustomComponentBase
+@inherits Client.Utils.ComponentBase.CustomComponentBase
 
 
 <MudTable Class="mt-5" Items="@Firings" Dense="true" Striped="true">
@@ -25,8 +25,8 @@
         <MudTd DataLabel="@Localizer["Duration"]">@context.Duration</MudTd>
         <MudTd DataLabel="@Localizer["TotalKwH"]">@context.TotalKwH Kw/h</MudTd>
         <MudTd DataLabel="@Localizer["CostKwH"]">@context.CostKwH.ToStringMonetary(CurrentCultur, DecimalPrecision.Five)</MudTd>
-        <MudTd DataLabel="">
-            <MudStack Row=true>
+        <MudTd>
+            <MudStack Row="true">
                 <MudFab Color="Color.Tertiary" StartIcon="@Icons.Material.Filled.Edit" Size="Size.Small" OnClick="async () => await EditFiringDialog(context)" />
                 <MudFab Color="Color.Error" StartIcon="@Icons.Material.Filled.DeleteForever" Size="Size.Small" OnClick="async () => await DeleteFiringDialog(context)" />
             </MudStack>

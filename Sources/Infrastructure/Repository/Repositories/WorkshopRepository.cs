@@ -9,7 +9,7 @@ namespace Repository.Repositories
 
         public (Workshop?, bool) GetWorkshopInformationForLogin(string email)
         {
-            Workshop workshop = _context.Workshops.FirstOrDefault(w => w.Email == email);
+            Workshop workshop = Context.Workshops.FirstOrDefault(w => w.Email == email);
             bool mailExist = workshop != null && email == workshop.Email;
 
             return (workshop, mailExist);
@@ -17,7 +17,7 @@ namespace Repository.Repositories
 
         public bool CheckIfEmailExists(string email)
         {
-            return _context.Workshops.Any(w => w.Email == email);
+            return Context.Workshops.Any(w => w.Email == email);
         }
     }
 }

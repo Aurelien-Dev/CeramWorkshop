@@ -2,24 +2,24 @@
 @using Client.Components
 @using Client.Utils
 @layout LayoutLogin
-@inherits CustomLayoutComponentBase
+@inherits Client.Utils.ComponentBase.CustomLayoutComponentBase
 
 <EditForm Model="@LoginInfo" OnSubmit="Authenticate" >
     <DataAnnotationsValidator />
-    <MudStack Spacing=5 Justify="Justify.Center" Row=true>
+    <MudStack Spacing="5" Justify="Justify.Center" Row="true">
         <MudButton Variant="Variant.Filled" Style="background-color: yellowgreen; color: white; width: 300px; height: 60px;"
                    OnClick=@(() => NavigationManager.NavigateTo("/register"))>
             @Localizer["WorkshopSignUp"]
         </MudButton>
     </MudStack>
     <MudDivider Class="ma-10" />
-    <MudStack Spacing=5>
-        <MudTextField InputType="InputType.Email" Label="@Localizer["WorkshopEmail"]" FullWidth=true
+    <MudStack Spacing="5">
+        <MudTextField InputType="InputType.Email" Label="@Localizer["WorkshopEmail"]" FullWidth="true"
                       @bind-Value="LoginInfo.Email" For="@(() => LoginInfo.Email)" />
 
         <MudPasswordField @bind-Value="@LoginInfo.Password" FullWidth="true" Label="@Localizer["WorkshopPassword"]" PasswordMode="true" />
 
-        <MudText Color="@Color.Error">@authError</MudText>
+        <MudText Color="@Color.Error">@_authError</MudText>
         <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary">Login</MudButton>
 
         @if (LoginInProgress)

@@ -1,24 +1,24 @@
 ﻿using Client.Utils;
+using Client.Utils.ComponentBase;
 using Domain.InterfacesWorker;
 using Domain.Models.MainDomain;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 using MudBlazor;
 
 namespace Client.Pages.MaterialDetailPage.Dialogs
 {
     public partial class MaterialDialog : CustomComponentBase
     {
-        [Inject] private IProductWorker productWorker { get; set; } = default!;
+        [Inject] private IProductWorker ProductWorker { get; set; }
 
-        [CascadingParameter] MudDialogInstance MudDialog { get; set; } = default!;
+        [CascadingParameter] private MudDialogInstance MudDialog { get; set; }
         [Parameter] public Material MaterialDetail { get; set; } = new();
         [Parameter] public MaterialType? MaterialType { get; set; } = new();
         [Parameter] public bool? InsertMode { get; set; } = new();
 
-        MudForm form = new();
-        bool success;
-        string[] errors = Array.Empty<string>();
+        private MudForm _form = new();
+        private bool _success;
+        private string[] _errors = Array.Empty<string>();
 
         protected override void OnAfterRender(bool firstRender)
         {
@@ -28,31 +28,30 @@ namespace Client.Pages.MaterialDetailPage.Dialogs
 
         private async Task OnValidSubmit(bool updateAllProductsMat = false)
         {
-            await form.Validate();
+            await _form.Validate();
 
-            if (form.IsValid)
+            if (_form.IsValid)
             {
                 if (InsertMode.HasValue && InsertMode.Value)
-                    await productWorker.MaterialRepository.Add(MaterialDetail);
+                    await ProductWorker.MaterialRepository.Add(MaterialDetail);
                 else
                 {
-                    productWorker.MaterialRepository.Update(MaterialDetail);
+                    ProductWorker.MaterialRepository.Update(MaterialDetail);
 
                     if (updateAllProductsMat)
-                        productWorker.MaterialRepository.UpdateAllMaterialCost(MaterialDetail.Id);
+                        ProductWorker.MaterialRepository.UpdateAllMaterialCost(MaterialDetail.Id);
                 }
 
-                productWorker.Completed();
+                ProductWorker.Completed();
 
                 StateHasChanged();
                 MudDialog.Close(DialogResult.Ok(MaterialDetail));
             }
         }
 
-
-        void Cancel()
+        private void Cancel()
         {
-            productWorker.Rollback();
+            ProductWorker.Rollback();
             StateHasChanged();
             MudDialog.Cancel();
         }

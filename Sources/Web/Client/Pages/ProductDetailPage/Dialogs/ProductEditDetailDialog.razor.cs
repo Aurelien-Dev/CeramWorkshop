@@ -1,4 +1,5 @@
 ﻿using Client.Utils;
+using Client.Utils.ComponentBase;
 using Domain.InterfacesWorker;
 using Domain.Models.MainDomain;
 using Microsoft.AspNetCore.Components;
@@ -8,17 +9,16 @@ namespace Client.Pages.ProductDetailPage.Dialogs
 {
     public partial class ProductEditDetailDialog : CustomComponentBase
     {
-        [Inject] private IProductWorker ProductWorker { get; set; } = default!;
-        [CascadingParameter] MudDialogInstance MudDialog { get; set; } = default!;
+        [Inject] private IProductWorker ProductWorker { get; set; }
+        [CascadingParameter] private MudDialogInstance MudDialog { get; set; }
         [Parameter] public Product ProductDetail { get; set; } = default!;
         [Parameter] public bool? InsertMode { get; set; } = new();
 
-        MudForm _form = new();
-        bool _success;
-        string[] _errors = Array.Empty<string>();
-        bool _loading = false;
-
-
+        private MudForm _form = new();
+        private bool _success;
+        private string[] _errors = Array.Empty<string>();
+        private bool _loading = false;
+        
         private async Task OnValidSubmit()
         {
             _loading = true;
@@ -37,7 +37,7 @@ namespace Client.Pages.ProductDetailPage.Dialogs
                 StateHasChanged();
                 ProductWorker.Completed();
 
-                MudDialog.Close(DialogResult.Ok<int>(ProductDetail.Id));
+                MudDialog.Close(DialogResult.Ok(ProductDetail.Id));
             }
 
             _loading = false;

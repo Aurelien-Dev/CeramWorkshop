@@ -1,5 +1,6 @@
 ﻿using Client.Pages.ProductDetailPage.Dialogs;
 using Client.Utils;
+using Client.Utils.ComponentBase;
 using Domain.Models.MainDomain;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -9,12 +10,12 @@ namespace Client.Shared
 {
     public partial class MainLayout : CustomLayoutComponentBase
     {
-        [Inject] public IHostEnvironmentAuthenticationStateProvider authenticationprovider { get; set; } = default!;
+        [Inject] public IHostEnvironmentAuthenticationStateProvider Authenticationprovider { get; set; } = default!;
 
-        bool _drawerOpen = true;
+        private bool _drawerOpen = true;
 
 
-        void DrawerToggle()
+        private void DrawerToggle()
         {
             _drawerOpen = !_drawerOpen;
         }
@@ -34,7 +35,7 @@ namespace Client.Shared
         }
 
 
-        MudTheme MyCustomTheme = new MudTheme()
+        private MudTheme _myCustomTheme = new MudTheme()
         {
             Palette = new Palette()
             {

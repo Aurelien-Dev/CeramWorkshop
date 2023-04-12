@@ -10,14 +10,14 @@ namespace Repository.Repositories
 
         public async Task<ICollection<Material>> GetAll(MaterialType type)
         {
-            return await _context.Materials
+            return await Context.Materials
                                  .Where(p => p.Type == type)
                                  .ToListAsync();
         }
 
         public void UpdateAllMaterialCost(int idMat)
         {
-            var matToUpdate = _context.Materials
+            var matToUpdate = Context.Materials
                 .Include(p => p.ProductMaterial)
                 .Where(m => m.Id == idMat).Single();
 
@@ -26,7 +26,7 @@ namespace Repository.Repositories
                 item.Cost = matToUpdate.Cost;
             }
 
-            _context.SaveChanges();
+            Context.SaveChanges();
         }
     }
 }

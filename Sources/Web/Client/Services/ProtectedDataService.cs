@@ -5,7 +5,7 @@ namespace Client.Services
 {
     public static class ProtectedDataService
     {
-        private const int iterations = 2;
+        private const int Iterations = 2;
 
         public static byte[] GetSalt()
         {
@@ -26,7 +26,7 @@ namespace Client.Services
                 password: password,
                 salt: salt,
                 prf: KeyDerivationPrf.HMACSHA256,
-                iterationCount: iterations,
+                iterationCount: Iterations,
                 numBytesRequested: 256 / 8));
 
             return hashed;

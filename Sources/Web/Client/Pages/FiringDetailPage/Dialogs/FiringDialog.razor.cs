@@ -1,4 +1,5 @@
 ﻿using Client.Utils;
+using Client.Utils.ComponentBase;
 using Domain.InterfacesWorker;
 using Domain.Models.MainDomain;
 using Microsoft.AspNetCore.Components;
@@ -8,8 +9,8 @@ namespace Client.Pages.FiringDetailPage.Dialogs
 {
     public partial class FiringDialog : CustomComponentBase
     {
-        [Inject] private IProductWorker ProductWorker { get; set; } = default!;
-        [CascadingParameter] MudDialogInstance MudDialog { get; set; } = default!;
+        [Inject] private IProductWorker ProductWorker { get; set; }
+        [CascadingParameter] private MudDialogInstance MudDialog { get; set; }
         [Parameter] public Firing FiringDetail { get; set; } = new();
         [Parameter] public bool? InsertMode { get; set; } = new();
 
@@ -36,7 +37,7 @@ namespace Client.Pages.FiringDetailPage.Dialogs
             }
         }
 
-        void Cancel()
+        private void Cancel()
         {
             ProductWorker.Rollback();
             StateHasChanged();

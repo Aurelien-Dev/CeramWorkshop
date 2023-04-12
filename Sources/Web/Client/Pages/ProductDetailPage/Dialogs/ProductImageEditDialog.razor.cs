@@ -1,17 +1,17 @@
 ﻿using Client.Utils;
+using Client.Utils.ComponentBase;
 using Domain.InterfacesWorker;
 using Domain.Models.MainDomain;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 using MudBlazor;
 
 namespace Client.Pages.ProductDetailPage.Dialogs
 {
     public partial class ProductImageEditDialog : CustomComponentBase
     {
-        [Inject] private IProductWorker productWorker { get; set; } = default!;
+        [Inject] private IProductWorker ProductWorker { get; set; } = default!;
 
-        [CascadingParameter] MudDialogInstance MudDialog { get; set; } = default!;
+        [CascadingParameter] private MudDialogInstance MudDialog { get; set; } = default!;
         [Parameter] public Product ProductDetail { get; set; } = new();
         [Parameter] public ImageInstruction ImageInstruction { get; set; } = new();
 
@@ -27,14 +27,11 @@ namespace Client.Pages.ProductDetailPage.Dialogs
 
         private void OnValidSubmit()
         {
-            if (ImageInstruction != null && !string.IsNullOrEmpty(ImageInstruction.Url))
-            {
-                productWorker.ProductRepository.Update(ProductDetail);
-                productWorker.Completed();
+            ProductWorker.ProductRepository.Update(ProductDetail);
+            ProductWorker.Completed();
 
-                StateHasChanged();
-                MudDialog.Close(DialogResult.Ok(true));
-            }
+            StateHasChanged();
+            MudDialog.Close(DialogResult.Ok(true));
         }
 
         private void Cancel()

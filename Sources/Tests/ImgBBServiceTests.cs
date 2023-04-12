@@ -9,19 +9,19 @@ using Xunit;
 
 namespace Tests
 {
-    public class ImgBBServiceTests
+    public class ImgBbServiceTests
     {
-        private const string base64String = "base64string";
-        private const string filePath = "nonexistentfile.png";
+        private const string Base64String = "base64string";
+        private const string FilePath = "nonexistentfile.png";
 
-        private readonly ImgBBService _imgBBService;
+        private readonly ImgBbService _imgBbService;
         private readonly Mock<IRestClient> _mockClient;
 
-        public ImgBBServiceTests()
+        public ImgBbServiceTests()
         {
             _mockClient = new Mock<IRestClient>();
 
-            Base64Converter.ConvertFileToBase64Func = (path) => Task.FromResult(base64String);
+            Base64Converter.ConvertFileToBase64Func = (path) => Task.FromResult(Base64String);
 
             var mockResponse = new RestResponse
             {
@@ -32,7 +32,7 @@ namespace Tests
             _mockClient.Setup(client => client.ExecuteAsync(It.IsAny<RestRequest>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(mockResponse);
 
-            _imgBBService = new ImgBBService(_mockClient.Object);
+            _imgBbService = new ImgBbService(_mockClient.Object);
         }
 
 
@@ -40,13 +40,13 @@ namespace Tests
         public async Task UploadFile_ThrowsArgumentNullException_WhenFilePathIsNull()
         {
             string? nullFilePath = null;
-            await Assert.ThrowsAsync<ArgumentNullException>(() => _imgBBService.UploadFile(nullFilePath));
+            await Assert.ThrowsAsync<ArgumentNullException>(() => _imgBbService.UploadFile(nullFilePath));
         }
 
         [Fact]
         public async Task UploadFile_ThrowsArgumentNullException_WhenFilePathIsEmpty()
         {
-            await Assert.ThrowsAsync<ArgumentNullException>(() => _imgBBService.UploadFile(string.Empty));
+            await Assert.ThrowsAsync<ArgumentNullException>(() => _imgBbService.UploadFile(string.Empty));
         }
 
         [Fact]
@@ -56,14 +56,14 @@ namespace Tests
             Base64Converter.ConvertFileToBase64Func = (path) => Task.FromResult(string.Empty);
 
             // Act & Assert
-            await Assert.ThrowsAsync<UploadFileException>(() => _imgBBService.UploadFile(filePath));
+            await Assert.ThrowsAsync<UploadFileException>(() => _imgBbService.UploadFile(FilePath));
         }
 
         [Fact]
         public async Task UploadFile_ReturnsImageInstruction_WhenApiCallSucceeds()
         {
             // Act
-            (string url, string thumb, string medium) = await _imgBBService.UploadFile(filePath);
+            (string url, string thumb, string medium) = await _imgBbService.UploadFile(FilePath);
 
             // Assert
             Assert.Equal("imageurl", url);

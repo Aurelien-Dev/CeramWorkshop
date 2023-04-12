@@ -8,7 +8,7 @@ namespace Domain.Models.MainDomain
     public enum Location
     {
         Server,
-        ImgBB
+        ImgBb
     }
 
     /// <summary>

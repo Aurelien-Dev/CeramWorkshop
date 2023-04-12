@@ -1,7 +1,7 @@
 ﻿using Domain.Models.WorkshopDomaine;
 using Microsoft.EntityFrameworkCore;
 
-namespace Repository.Maps
+namespace Repository.Maps.WorkshopDomain
 {
     public static class WorkshopMap
     {

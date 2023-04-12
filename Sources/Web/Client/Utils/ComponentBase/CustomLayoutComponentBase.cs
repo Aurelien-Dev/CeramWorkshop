@@ -5,7 +5,7 @@ using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 using MudBlazor;
 
-namespace Client.Utils
+namespace Client.Utils.ComponentBase
 {
     public abstract class CustomLayoutComponentBase : LayoutComponentBase
     {
@@ -14,7 +14,7 @@ namespace Client.Utils
         [Inject] public IDialogService DialogService { get; set; } = default!;
         [Inject] public ISnackbar Snackbar { get; set; } = default!;
         [Inject] public SessionInfo CurrentSession { get; set; } = new();
-        [Inject] public IJSRuntime JSRuntime { get; set; } = default!;
+        [Inject] public IJSRuntime JsRuntime { get; set; } = default!;
         [Inject] public IStringLocalizer<Translations> Localizer { get; set; }
         [Inject] public ILogger Logger { get; set; } = default!;
     }

@@ -1,24 +1,24 @@
-﻿using Common.Utils.Singletons;
-using ExternalServices.ServicesUploadImage.Model;
+﻿using ExternalServices.ServicesUploadImage.Model;
 using Microsoft.Extensions.Configuration;
 using RestSharp;
 using System.Text.Json;
 using Utils.Converters;
 using Utils.Exception;
+using Utils.Singletons;
 
 namespace ExternalServices.ServicesUploadImage
 {
     /// <summary>
     /// Documentation of API Service : https://api.imgbb.com/
     /// </summary>
-    public class ImgBBService : IImgBBService
+    public class ImgBbService : IImgBbService
     {
         private readonly IRestClient _client;
 
         /// <summary>
         /// Constructor
         /// </summary>
-        public ImgBBService(IConfiguration configuration)
+        public ImgBbService(IConfiguration configuration)
         {
             _client = new RestClient(EnvironementSingleton.GetEnvironmentVariable("IMGBB_URL"));
         }
@@ -26,7 +26,7 @@ namespace ExternalServices.ServicesUploadImage
         /// <summary>
         /// Constructor used for UnitTest
         /// </summary>
-        public ImgBBService(IRestClient client)
+        public ImgBbService(IRestClient client)
         {
             _client = client;
         }

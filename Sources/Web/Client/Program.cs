@@ -2,13 +2,13 @@ using MudExtensions.Services;
 using Client;
 using Client.Utils.Logger;
 using Client.Utils.Middlewares;
-using Common.Utils.Singletons;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Repository;
 using System.Globalization;
 using MudBlazor.Services;
+using Utils.Singletons;
 
 var builder = WebApplication.CreateBuilder(args);
 

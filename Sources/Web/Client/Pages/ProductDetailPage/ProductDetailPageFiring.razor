@@ -3,7 +3,7 @@
 @using System.Globalization
 @using Utils
 
-@inherits CustomComponentBase
+@inherits Client.Utils.ComponentBase.CustomComponentBase
 
 <MudCard>
     <MudCardHeader>
@@ -24,7 +24,7 @@
                 <MudTd>
                     <MudNumericField Variant="Variant.Text" Adornment="Adornment.End" AdornmentText="Qte"
                                      AdornmentColor="Color.Info" Margin="Margin.Dense" Style="width:135px; margin:0;"
-                                     ValueChanged="@((e) => CostChanged(e, context.ProductFire.Id))" T=int Value=@context.ProductFire.NumberProducts />
+                                     ValueChanged="@((e) => CostChanged(e, context.ProductFire.Id))" T="int" Value="@context.ProductFire.NumberProducts" />
                 </MudTd>
                 <MudTd>@context.UnitaryCost.ToStringMonetary(CurrentCultur)</MudTd>
                 <MudTd>
@@ -47,8 +47,8 @@
             </tbody>
         </MudSimpleTable>
 
-        <MudAutocomplete @ref="AutocompleteBox" Class="ma-5" T="Firing" Label="Fire" ToStringFunc="@(e=> e==null?null : e.Name)" SearchFunc="@Search"
-                         ResetValueOnEmptyText="true" ValueChanged=SelectedValueChanged />
+        <MudAutocomplete @ref="_autocompleteBox" Class="ma-5" T="Firing" Label="Fire" ToStringFunc="@(e=> e==null?null : e.Name)" SearchFunc="@Search"
+                         ResetValueOnEmptyText="true" ValueChanged="SelectedValueChanged" />
 
     </MudCardContent>
 </MudCard>

@@ -1,8 +1,8 @@
 ﻿@using Domain.Models.MainDomain
 @using Client.Utils
-@inherits CustomComponentBase
+@inherits Client.Utils.ComponentBase.CustomComponentBase
 
-<MudForm @ref="form" @bind-IsValid="@success" @bind-Errors="@errors">
+<MudForm @ref="_form" @bind-IsValid="@_success" @bind-Errors="@_errors">
     <MudDialog>
         <DialogContent>
             <MudStack Row="true">
@@ -32,7 +32,7 @@
             </MudStack>
 
             <MudStack>
-                <MudTextField Label="@Localizer["Text_Comment"]" Variant="Variant.Outlined" Class="mx-1" Lines=5
+                <MudTextField Label="@Localizer["Text_Comment"]" Variant="Variant.Outlined" Class="mx-1" Lines="5"
                               @bind-Value="MaterialDetail.Comment" For="@(() => MaterialDetail.Comment)" />
                 <MudTextField Label="@Localizer["ProductLink"]" Variant="Variant.Outlined" Class="mx-1"
                               @bind-Value="MaterialDetail.Link" For="@(() => MaterialDetail.Link)" />

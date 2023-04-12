@@ -1,10 +1,10 @@
 ﻿using Client.Services.Authentication;
 using Client.Utils;
+using Client.Utils.ComponentBase;
 using Domain.InterfacesWorker;
 using Domain.Models.MainDomain;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.Extensions.Localization;
 using MudBlazor;
 using Utils.Exception;
 
@@ -15,7 +15,7 @@ namespace Client.Pages.ProductDetailPage.Dialogs
         [Inject] private IProductWorker ProductWorker { get; set; } = default!;
         [Inject] private SessionInfo Session { get; set; } = default!;
 
-        [CascadingParameter] MudDialogInstance MudDialog { get; set; } = default!;
+        [CascadingParameter] private MudDialogInstance MudDialog { get; set; } = default!;
         [Parameter] public Product ProductDetail { get; set; } = new();
 
         private bool _clearing = false;
@@ -47,15 +47,14 @@ namespace Client.Pages.ProductDetailPage.Dialogs
 
         private void OnValidSubmit()
         {
-            if (!string.IsNullOrEmpty(ImageInstruction.Url))
-            {
-                ProductDetail.ImageInstructions.Add(ImageInstruction);
-                ProductWorker.ProductRepository.Update(ProductDetail);
-                ProductWorker.Completed();
+            if (string.IsNullOrEmpty(ImageInstruction.Url)) return;
 
-                StateHasChanged();
-                MudDialog.Close(DialogResult.Ok(true));
-            }
+            ProductDetail.ImageInstructions.Add(ImageInstruction);
+            ProductWorker.ProductRepository.Update(ProductDetail);
+            ProductWorker.Completed();
+
+            StateHasChanged();
+            MudDialog.Close(DialogResult.Ok(true));
         }
 
         private void SetDragClass()

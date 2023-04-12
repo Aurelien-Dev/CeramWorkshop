@@ -1,5 +1,4 @@
 ﻿using Client.Services.Authentication;
-using Common.Utils.Singletons;
 using Domain.InterfacesWorker;
 using Domain.Models.WorkshopDomaine;
 using Microsoft.AspNetCore.Authentication;
@@ -9,6 +8,7 @@ using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.JSInterop;
 using System.Security.Claims;
+using Utils.Singletons;
 
 namespace Client.Services
 {
@@ -18,9 +18,9 @@ namespace Client.Services
         private IDataProtectionProvider DataProtectionProvider { get; set; }
         private IWorkshopWorker Worker { get; set; }
         private SessionInfo CurrentSession { get; set; }
-        private IJSRuntime JSRuntime { get; set; }
+        private IJSRuntime JsRuntime { get; set; }
 
-        private readonly string domain = ".atelier-cremazie.com";
+        private readonly string _domain = ".atelier-cremazie.com";
 
         public AuthenticationService(IHostEnvironmentAuthenticationStateProvider authenticationprovider,
                                      IDataProtectionProvider dataProtectionProvider,
@@ -32,37 +32,37 @@ namespace Client.Services
             DataProtectionProvider = dataProtectionProvider;
             Worker = worker;
             CurrentSession = sessionInfo;
-            JSRuntime = jSRuntime;
+            JsRuntime = jSRuntime;
 
 
             if (EnvironementSingleton.IsInDev())
-                domain = string.Empty;
+                _domain = string.Empty;
         }
 
-        public bool AuthanticateInitialized { get => CurrentSession.Workshop != null; }
+        public bool AuthanticateInitialized => CurrentSession.Workshop != null;
 
         public async Task StopSession()
         {
             ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity());
             Authenticationprovider.SetAuthenticationState(Task.FromResult(new AuthenticationState(claimsPrincipal)));
 
-            _ = await JSRuntime.InvokeAsync<string>("eraseCookie", new object[] { ".AspNetCore.Cookies", domain });
+            _ = await JsRuntime.InvokeAsync<string>("eraseCookie", new object[] { ".AspNetCore.Cookies", _domain });
         }
 
         /// <summary>
         /// Start a session, and to create the cookies necessary for the good functioning
         /// </summary>
-        /// <param name="Email">User email</param>
-        /// <param name="Password">User password</param>
+        /// <param name="email">User email</param>
+        /// <param name="password">User password</param>
         /// <returns>Return an boolean success and a error message for client</returns>
-        public async Task<(bool, string)> StartSession(string Email, string Password)
+        public async Task<(bool, string)> StartSession(string email, string password)
         {
-            (Workshop? workshop, bool emailExist) = Worker.WorkshopRepository.GetWorkshopInformationForLogin(Email);
+            (Workshop? workshop, bool emailExist) = Worker.WorkshopRepository.GetWorkshopInformationForLogin(email);
 
             if (!emailExist)
                 return (false, "Invalid email or password.");
 
-            bool isWritePawwsord = ProtectedDataService.IsEqual(workshop.Salt, workshop.PasswordHash, Password);
+            bool isWritePawwsord = ProtectedDataService.IsEqual(workshop.Salt, workshop.PasswordHash, password);
 
             if (!isWritePawwsord)
                 return (false, "Invalid email or password.");
@@ -75,8 +75,8 @@ namespace Client.Services
 
             Authenticationprovider.SetAuthenticationState(Task.FromResult(new AuthenticationState(CurrentSession.ClaimsPrincipal)));
 
-            _ = await JSRuntime.InvokeAsync<string>("setCookie", new object[] { ".AspNetCore.Cookies", CurrentSession.Token, 1, domain });
-            _ = await JSRuntime.InvokeAsync<string>("setCookie", new object[] { CookieRequestCultureProvider.DefaultCookieName, CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(workshop.Culture)), 365 });
+            _ = await JsRuntime.InvokeAsync<string>("setCookie", new object[] { ".AspNetCore.Cookies", CurrentSession.Token, 1, _domain });
+            _ = await JsRuntime.InvokeAsync<string>("setCookie", new object[] { CookieRequestCultureProvider.DefaultCookieName, CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(workshop.Culture)), 365 });
 
             System.Globalization.CultureInfo.CurrentCulture = new RequestCulture(workshop.Culture).Culture;
 

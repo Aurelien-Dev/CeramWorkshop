@@ -2,7 +2,7 @@
 @using Client.Utils.Extension
 @using Domain.Models.MainDomain
 
-@inherits CustomComponentBase
+@inherits Client.Utils.ComponentBase.CustomComponentBase
 
 
 <MudTable Class="mt-5" Items="@Materials" Dense="true" Striped="true" RowsPerPage="25">
@@ -25,7 +25,7 @@
         <MudTd>@context.Cost.ToStringMonetary(CurrentCultur) pour @context.Quantity @context.UniteMesure</MudTd>
         <MudTd>@context.Comment</MudTd>
         <MudTd>
-            <MudStack Row=true>
+            <MudStack Row="true">
                 <MudFab Color="Color.Tertiary" StartIcon="@Icons.Material.Filled.Edit" Size="Size.Small" OnClick="@(async () => await EditMat(context))" />
                 <MudFab Color="Color.Error" StartIcon="@Icons.Material.Filled.DeleteForever" Size="Size.Small" OnClick="@(async () => await DeleteMat(context))" />
                 @if (!string.IsNullOrEmpty(context.Link))

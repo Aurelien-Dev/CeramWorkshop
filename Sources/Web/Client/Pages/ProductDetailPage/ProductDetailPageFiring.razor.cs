@@ -1,11 +1,14 @@
 ﻿using Client.Utils;
+using Client.Utils.ComponentBase;
 using Domain.InterfacesWorker;
 using Domain.Models.MainDomain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
 namespace Client.Pages.ProductDetailPage
 {
+    [Authorize]
     public partial class ProductDetailPageFiring : CustomComponentBase
     {
         [Inject] private IProductWorker Worker { get; set; } = default!;
@@ -13,7 +16,7 @@ namespace Client.Pages.ProductDetailPage
         [Parameter] public ICollection<Firing> Firings { get; set; } = default!;
 
         private ICollection<FiringViewModel> FiringsVm { get; set; } = new List<FiringViewModel>();
-        private MudAutocomplete<Firing> AutocompleteBox = new();
+        private MudAutocomplete<Firing> _autocompleteBox = new();
         private double TotalFiring => FiringsVm.Sum(m => m.UnitaryCost);
 
 
@@ -35,7 +38,7 @@ namespace Client.Pages.ProductDetailPage
         {
             if (fire == null) return;
 
-            await AutocompleteBox.Clear();
+            await _autocompleteBox.Clear();
 
             var pFire = new ProductFiring(fire.Id, ProductDetail.Id, fire.TotalKwH, fire.CostKwH) { Firing = fire };
 

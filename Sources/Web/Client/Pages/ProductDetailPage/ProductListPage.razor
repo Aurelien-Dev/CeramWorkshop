@@ -1,10 +1,10 @@
 ﻿@page "/"
 @using Client.Utils
 @using Client.Pages.ProductDetailPage.Components
-@inherits CustomComponentBase
+@inherits Client.Utils.ComponentBase.CustomComponentBase
 
 <MudPaper Elevation="0">
-    <MudToolBar Dense="true" Class="mt-4" DisableGutters=true>
+    <MudToolBar Dense="true" Class="mt-4" DisableGutters="true">
         <MudSelect T="OrderingPage" Label=@Localizer["OrderBy"] Margin="Margin.Dense" ValueChanged="@(RaiseOrdering)">
             @foreach (OrderingPage item in Enum.GetValues(typeof(OrderingPage)))
             {

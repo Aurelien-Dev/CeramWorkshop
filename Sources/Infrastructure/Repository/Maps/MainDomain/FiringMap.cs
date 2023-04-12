@@ -1,7 +1,7 @@
 ﻿using Domain.Models.MainDomain;
 using Microsoft.EntityFrameworkCore;
 
-namespace Repository.Maps
+namespace Repository.Maps.MainDomain
 {
     public static class FiringMap
     {

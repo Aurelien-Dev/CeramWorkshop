@@ -1,11 +1,11 @@
 ﻿using Client.Utils;
-using Common.Utils.Singletons;
 using Domain.InterfacesWorker;
 using Domain.Models.MainDomain;
 using ExternalServices.ServicesUploadImage;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
 using Utils.Helpers;
+using Utils.Singletons;
 
 namespace Client.Controllers
 {
@@ -13,14 +13,14 @@ namespace Client.Controllers
     [ApiController]
     public class FileServiceController : ControllerBase
     {
-        private IApiWorker _apiWorker { get; }
-        private IImgBBService _imgBBService { get; }
+        private IApiWorker ApiWorker { get; }
+        private IImgBbService ImgBbService { get; }
 
 
-        public FileServiceController(IApiWorker apiWorker, IImgBBService imgBBService)
+        public FileServiceController(IApiWorker apiWorker, IImgBbService imgBbService)
         {
-            _apiWorker = apiWorker;
-            _imgBBService = imgBBService;
+            ApiWorker = apiWorker;
+            ImgBbService = imgBbService;
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace Client.Controllers
         {
             try
             {
-                IEnumerable<ImageInstruction> imagesNotExported = await _apiWorker.ImageInstructionRepository.GetAllNonExported();
+                IEnumerable<ImageInstruction> imagesNotExported = await ApiWorker.ImageInstructionRepository.GetAllNonExported();
                 StringBuilder errors = new StringBuilder();
 
                 foreach (var item in imagesNotExported)
@@ -42,8 +42,8 @@ namespace Client.Controllers
                     try
                     {
                         string path = Path.Combine(EnvironementSingleton.WebRootPath,  item.Url);
-                        (_, string medium, _) = await _imgBBService.UploadFile(path);
-                        string localMedium = await _imgBBService.DownloadFile(medium, path);
+                        (_, string medium, _) = await ImgBbService.UploadFile(path);
+                        string localMedium = await ImgBbService.DownloadFile(medium, path);
 
                         string directory = WebPathHelper.GetDirectoryName(item.Url);
 
@@ -51,10 +51,10 @@ namespace Client.Controllers
                             throw new InvalidOperationException("Directory path is null or empty.");
 
                         item.Url = WebPathHelper.Combine(directory, Path.GetFileName(localMedium));
-                        item.FileLocation = Location.ImgBB;
+                        item.FileLocation = Location.ImgBb;
 
-                        _apiWorker.ImageInstructionRepository.Update(item);
-                        _apiWorker.Completed();
+                        ApiWorker.ImageInstructionRepository.Update(item);
+                        ApiWorker.Completed();
 
                         LoadFileFromInputFile.RemoveFileInput(path);
                     }
@@ -69,7 +69,7 @@ namespace Client.Controllers
             }
             catch (Exception ex)
             {
-                _apiWorker.Rollback();
+                ApiWorker.Rollback();
                 return new JsonResult(new { sucess = false, error = ex.Message, stacktrace = ex.StackTrace });
             }
         }

@@ -1,4 +1,4 @@
-﻿namespace Common.Utils.Singletons
+﻿namespace Utils.Singletons
 {
     public sealed class EnvironementSingleton
     {

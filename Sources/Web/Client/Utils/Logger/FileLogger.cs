@@ -1,4 +1,4 @@
-﻿using Common.Utils.Singletons;
+﻿using Utils.Singletons;
 
 namespace Client.Utils.Logger
 {

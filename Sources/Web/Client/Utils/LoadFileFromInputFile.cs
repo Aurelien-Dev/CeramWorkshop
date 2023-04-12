@@ -1,11 +1,11 @@
-﻿using Common.Utils.Singletons;
-using Microsoft.AspNetCore.Components.Forms;
+﻿using Microsoft.AspNetCore.Components.Forms;
+using Utils.Singletons;
 
 namespace Client.Utils
 {
     public static class LoadFileFromInputFile
     {
-        private static readonly long maxFileSize = 1024 * 1024 * 15;
+        private static readonly long MaxFileSize = 1024 * 1024 * 15;
         private static readonly string RootPath = EnvironementSingleton.WebRootPath;
         private static readonly string ProductFolderFullPath = Path.Combine(RootPath, "ProductImages");
         private static readonly string ProductFolderShort = Path.Combine("ProductImages");
@@ -42,7 +42,7 @@ namespace Client.Utils
                 Directory.CreateDirectory(Path.Combine(ProductFolderFullPath, workshopName));
 
             await using FileStream fs = new(workshopFolder, FileMode.Create);
-            await e.File.OpenReadStream(maxFileSize).CopyToAsync(fs);
+            await e.File.OpenReadStream(MaxFileSize).CopyToAsync(fs);
             fs.Close();
 
             return Path.Combine(ProductFolderShort, workshopName, fileName);

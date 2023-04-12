@@ -4,7 +4,7 @@ namespace Repository.Workers
 {
     public class WorkerBase : IWorkerBase
     {
-        public readonly ApplicationDbContext _context;
+        public readonly ApplicationDbContext Context;
 
         /// <summary>
         /// Constructor of base worker
@@ -12,17 +12,17 @@ namespace Repository.Workers
         /// <param name="context">Db Context</param>
         public WorkerBase(ApplicationDbContext context)
         {
-            _context = context;
+            Context = context;
         }
 
         public int Completed()
         {
-            return _context.SaveChanges();
+            return Context.SaveChanges();
         }
 
         public void Rollback()
         {
-            _context.ChangeTracker.Clear();
+            Context.ChangeTracker.Clear();
         }
 
 
@@ -44,7 +44,7 @@ namespace Repository.Workers
         {
             if (disposing)
             {
-                _context.Dispose();
+                Context.Dispose();
             }
         }
     }

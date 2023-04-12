@@ -11,7 +11,7 @@ namespace Repository.Repositories
 
         public async Task<Product> Get(int id, int idWorkshop)
         {
-            return await _context.Products
+            return await Context.Products
                                  .Where(p => p.Id == id && p.IdWorkshop == idWorkshop)
                                  .Include(p => p.ImageInstructions.OrderByDescending(i => i.IsFavoriteImage))
                                  .Include(p => p.ProductMaterial)
@@ -24,7 +24,7 @@ namespace Repository.Repositories
 
         public async Task<ICollection<Product>> GetAll(int idWorkshop)
         {
-            return await _context.Products
+            return await Context.Products
                                  .Where(p => p.IdWorkshop == idWorkshop)
                                  .Include(p => p.ImageInstructions)
                                  .ToListAsync();
@@ -32,37 +32,37 @@ namespace Repository.Repositories
 
         public async Task<Product> GetLight(object id)
         {
-            return await _context.Products
+            return await Context.Products
                                  .Where(p => p.Id == (int)id)
                                  .FirstAsync();
         }
 
         public async Task<int> CountImage(int id)
         {
-            return await _context.ImageInstruction.Where(i => i.IdProduct == id).CountAsync();
+            return await Context.ImageInstruction.Where(i => i.IdProduct == id).CountAsync();
         }
 
         public void UpdateProductMaterialCostAndQuantity(ProductMaterial productMaterial)
         {
             if (productMaterial == null) return;
 
-            ProductMaterial pMaterial = _context.ProductMaterials.First(p => p.Id == productMaterial.Id);
+            ProductMaterial pMaterial = Context.ProductMaterials.First(p => p.Id == productMaterial.Id);
 
             pMaterial.Cost = productMaterial.Cost;
             pMaterial.Quantity = productMaterial.Quantity;
 
-            _context.SaveChanges();
+            Context.SaveChanges();
         }
 
         public void UpdateProductFiring(ProductFiring productFiring)
         {
             if (productFiring == null) return;
 
-            ProductFiring pFiring = _context.ProductFirings.First(p => p.Id == productFiring.Id);
+            ProductFiring pFiring = Context.ProductFirings.First(p => p.Id == productFiring.Id);
 
             pFiring.CostKwH = productFiring.CostKwH;
 
-            _context.SaveChanges();
+            Context.SaveChanges();
         }
     }
 }

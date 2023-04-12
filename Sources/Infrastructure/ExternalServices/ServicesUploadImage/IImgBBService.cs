@@ -1,6 +1,6 @@
 ﻿namespace ExternalServices.ServicesUploadImage
 {
-    public interface IImgBBService
+    public interface IImgBbService
     {
         /// <summary>
         /// Upload image on imgBB services

@@ -3,7 +3,7 @@
 @using System.Globalization
 @using Utils
 
-@inherits CustomComponentBase
+@inherits Client.Utils.ComponentBase.CustomComponentBase
 
 <MudCard>
     <MudCardHeader>
@@ -32,7 +32,7 @@
                 <MudTd>
                     <MudNumericField Variant="Variant.Text" Adornment="Adornment.End" AdornmentText="@context.Unite"
                                      AdornmentColor="Color.Info" Margin="Margin.Dense" Style="width:90px; margin:0;"
-                                     ValueChanged="@((e) => QuantityChanged(e, context.PMat.Id))" T=double Value=@context.PMat.Quantity />
+                                     ValueChanged="@((e) => QuantityChanged(e, context.PMat.Id))" T="double" Value="@context.PMat.Quantity" />
                 </MudTd>
                 <MudTd>@context.PMat.Material.Type</MudTd>
                 <MudTd>@context.TotalCost.ToStringMonetary(CurrentCultur)</MudTd>

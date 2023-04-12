@@ -1,4 +1,5 @@
 using Client.Utils;
+using Client.Utils.ComponentBase;
 using Client.ViewModels;
 using Domain.InterfacesWorker;
 using Domain.Models.WorkshopDomaine;
@@ -10,43 +11,41 @@ namespace Client.Pages.Authentification
 {
     public partial class Profil : CustomLayoutComponentBase
     {
-        [Inject] public IWorkshopWorker worker { get; set; } = default!;
+        [Inject] public IWorkshopWorker Worker { get; set; } = default!;
 
-        public RegisterInfo registerInfo { get; set; } = new();
-
-        MudForm formGeneral = new();
-        string registerError = string.Empty;
+        private RegisterInfo RegisterInfo { get; set; } = new();
+        private MudForm _formGeneral = new();
 
         protected override void OnInitialized()
         {
-            registerInfo.Email = CurrentSession.Workshop.Email;
-            registerInfo.UserName = CurrentSession.Workshop.UserName;
-            registerInfo.Name = CurrentSession.Workshop.Name;
-            registerInfo.Culture = new RequestCulture(CurrentSession.Workshop.Culture);
+            RegisterInfo.Email = CurrentSession.Workshop.Email;
+            RegisterInfo.UserName = CurrentSession.Workshop.UserName;
+            RegisterInfo.Name = CurrentSession.Workshop.Name;
+            RegisterInfo.Culture = new RequestCulture(CurrentSession.Workshop.Culture);
         }
 
-        public async Task EditProfile()
+        private async Task EditProfile()
         {
-            await formGeneral.Validate();
+            await _formGeneral.Validate();
 
-            if (!formGeneral.IsValid) return;
+            if (!_formGeneral.IsValid) return;
 
-            Workshop workshop = await worker.WorkshopRepository.Get(CurrentSession.Workshop.Id);
-            workshop.Name = registerInfo.Name;
-            workshop.Email = registerInfo.Email;
-            workshop.UserName = registerInfo.UserName;
-            workshop.Culture = registerInfo.Culture.Culture.Name;
+            Workshop workshop = await Worker.WorkshopRepository.Get(CurrentSession.Workshop.Id);
+            workshop.Name = RegisterInfo.Name;
+            workshop.Email = RegisterInfo.Email;
+            workshop.UserName = RegisterInfo.UserName;
+            workshop.Culture = RegisterInfo.Culture.Culture.Name;
 
-            CurrentSession.Workshop.Culture = registerInfo.Culture.Culture.Name;
+            CurrentSession.Workshop.Culture = RegisterInfo.Culture.Culture.Name;
 
-            await JSRuntime.InvokeAsync<string>("setCookie", new object[]
-               {
-                    CookieRequestCultureProvider.DefaultCookieName,
-                    CookieRequestCultureProvider.MakeCookieValue(registerInfo.Culture), 365
-               });
+            await JsRuntime.InvokeAsync<string>("setCookie", new object[]
+            {
+                CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(RegisterInfo.Culture), 365
+            });
 
-            worker.WorkshopRepository.Update(workshop);
-            worker.Completed();
+            Worker.WorkshopRepository.Update(workshop);
+            Worker.Completed();
 
             Snackbar.Add("Modification effectuée", Severity.Success);
 

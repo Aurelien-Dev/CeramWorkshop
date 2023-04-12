@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using System.Diagnostics.CodeAnalysis;
+using Client.Utils.ComponentBase;
 using Utils.Exception;
 
 namespace Client.Pages.ProductDetailPage
@@ -16,7 +17,7 @@ namespace Client.Pages.ProductDetailPage
         [Parameter] public int? Id { get; set; } = default!;
         [Inject] private IProductWorker Worker { get; set; } = default!;
 
-        [NotNull] private Product ProductDetail { get; set; } = new();
+        private Product ProductDetail { get; set; } = new();
         private ICollection<Material> Materials { get; set; } = default!;
         private ICollection<Firing> Firings { get; set; } = default!;
 
@@ -54,14 +55,13 @@ namespace Client.Pages.ProductDetailPage
             Firings = await Worker.FiringRepository.GetAll();
         }
 
-
-
         #region Image traitement
+
         private async Task OpenEditImageProductDialog()
         {
             var parameters = new DialogParameters { ["ProductDetail"] = this.ProductDetail, ["ImageInstruction"] = this.ProductDetail.ImageInstructions.ElementAt(CarouselSelectedIndex) };
 
-            var dialog = DialogService.Show<ProductImageEditDialog>("Modifier le commentaire de l'image", parameters, this.CommonOptionDialog);
+            var dialog = await DialogService.ShowAsync<ProductImageEditDialog>("Modifier le commentaire de l'image", parameters, this.CommonOptionDialog);
             var result = await dialog.Result;
 
             if (result.Canceled)
@@ -112,9 +112,11 @@ namespace Client.Pages.ProductDetailPage
             Worker.ImageInstructionRepository.SetNewFavorite(toggled, image.Id, ProductDetail.Id);
             image.IsFavoriteImage = toggled;
         }
+
         #endregion
 
         #region Product traitement
+
         private async Task OpenDeleteProductDialog()
         {
             bool? result = await DialogService.ShowMessageBox("Suppression du produit", "Voulez-vous supprimer le produit ? suppression définitive.", yesText: "Delete!", cancelText: "Cancel");
@@ -132,11 +134,12 @@ namespace Client.Pages.ProductDetailPage
 
             var dialog = await DialogService.ShowAsync<ProductEditDetailDialog>("Modifier les détails du produit", parameters, this.CommonOptionDialog);
             var result = await dialog.Result;
-            
+
             if (result.Canceled && Id.HasValue) await LoadData(Id.Value);
 
             StateHasChanged();
         }
+
         #endregion
     }
 }

@@ -3,6 +3,7 @@ using Domain.Models.WorkshopDomaine;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using Repository.Maps;
+using Repository.Maps.MainDomain;
 
 namespace Repository
 {

@@ -1,8 +1,7 @@
-using Client.Utils;
+using Client.Pages.ProductDetailPage.Components.ViewModel;
+using Client.Utils.ComponentBase;
 using Domain.InterfacesWorker;
 using Domain.Models.MainDomain;
-using Client.Pages.ProductDetailPage.Components;
-using Client.Utils.ComponentBase;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 

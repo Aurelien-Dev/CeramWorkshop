@@ -1,6 +1,6 @@
 ﻿using Domain.Models.MainDomain;
 
-namespace Client.Pages.ProductDetailPage.Components;
+namespace Client.Pages.ProductDetailPage.Components.ViewModel;
 
 public class ProductListItemViewModel
 {

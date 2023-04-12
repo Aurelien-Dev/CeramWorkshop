@@ -1,4 +1,5 @@
-﻿using Client.Utils;
+﻿using Client.Pages.ProductDetailPage.Components.ViewModel;
+using Client.Utils;
 using Client.Utils.ComponentBase;
 using Microsoft.AspNetCore.Components;
 

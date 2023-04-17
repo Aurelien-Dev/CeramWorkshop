@@ -18,7 +18,7 @@ namespace ExternalServices.ServicesUploadImage
         /// <summary>
         /// Constructor
         /// </summary>
-        public ImgBbService(IConfiguration configuration)
+        public ImgBbService()
         {
             _client = new RestClient(EnvironementSingleton.GetEnvironmentVariable("IMGBB_URL"));
         }

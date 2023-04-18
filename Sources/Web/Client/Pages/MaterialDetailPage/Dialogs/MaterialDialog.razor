@@ -1,28 +1,41 @@
 ﻿@using Domain.Models.MainDomain
-@using Client.Utils
 @inherits Client.Utils.ComponentBase.CustomComponentBase
 
 <MudForm @ref="_form" @bind-IsValid="@_success" @bind-Errors="@_errors">
     <MudDialog>
+        <TitleContent>
+            <MudText Typo="Typo.h6">
+                @MudDialog.Title
+            </MudText>
+            @if (InsertMode.HasValue && !InsertMode.Value)
+            {
+                <MudSpeedDial Origin="Origin.TopRight" Padding="6" OpenOnClick="true" OpenOnHover="false" Size="Size.Small" Color="Color.Primary"
+                              Icon="@Icons.Material.Filled.Settings" IconOnOpen="@Icons.Material.Outlined.Settings">
+
+                    <MudFab Size="Size.Small" IconSize="Size.Small" Icon="@Icons.Material.Filled.EditRoad" Color="Color.Primary"
+                            OnClick="@(async () => await OnValidSubmit(true))"/>
+                </MudSpeedDial>
+            }
+        </TitleContent>
         <DialogContent>
-            <MudStack Row="true">
-                <MudTextField Label="@Localizer["Reference"]" Variant="Variant.Outlined" Class="mx-1"
-                              @bind-Value="MaterialDetail.Reference" For="@(() => MaterialDetail.Reference)" />
-                <MudTextField Label="@Localizer["TableHeader_Name"]" Variant="Variant.Outlined" Class="mx-1"
-                              @bind-Value="MaterialDetail.Name" For="@(() => MaterialDetail.Name)" />
+            <MudStack Row="true" Class="my-2">
+                <MudTextField Label="@Localizer["Reference"]" Variant="Variant.Outlined" Margin="Margin.Dense"
+                              @bind-Value="MaterialDetail.Reference" For="@(() => MaterialDetail.Reference)"/>
+                <MudTextField Label="@Localizer["TableHeader_Name"]" Variant="Variant.Outlined" Margin="Margin.Dense"
+                              @bind-Value="MaterialDetail.Name" For="@(() => MaterialDetail.Name)"/>
             </MudStack>
 
-            <MudStack Class="mt-3">
-                <MudCheckBox @bind-Checked="MaterialDetail.IsHomeMade" Label="@Localizer["IsHomeMade"]" Color="Color.Primary"></MudCheckBox>
+            <MudStack Class="my-3">
+                <MudCheckBox @bind-Checked="MaterialDetail.IsHomeMade" Label="@Localizer["IsHomeMade"]" Color="Color.Primary" Dense="true" />
             </MudStack>
 
-            <MudStack Row="true" AlignItems="AlignItems.Center">
-                <MudTextField Label="@Localizer["Price"]" Variant="Variant.Outlined" Class="mx-1" Adornment="Adornment.End" AdornmentText="€"
-                              @bind-Value="MaterialDetail.Cost" For="@(() => MaterialDetail.Cost)" />
+            <MudStack Row="true" AlignItems="AlignItems.Center" Class="my-2">
+                <MudTextField Label="@Localizer["Price"]" Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentText="€" Margin="Margin.Dense"
+                              @bind-Value="MaterialDetail.Cost" For="@(() => MaterialDetail.Cost)"/>
                 <MudText Typo="Typo.subtitle2" Align="Align.Center">@Localizer["For"]</MudText>
-                <MudTextField Label="@Localizer["TableHeader_Quantity"]" Variant="Variant.Outlined" Class="mx-1" Adornment="Adornment.End"
-                              @bind-Value="MaterialDetail.Quantity" For="@(() => MaterialDetail.Quantity)" />
-                <MudSelect T="MaterialUnite" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter"
+                <MudTextField Label="@Localizer["TableHeader_Quantity"]" Variant="Variant.Outlined" Adornment="Adornment.End" Margin="Margin.Dense"
+                              @bind-Value="MaterialDetail.Quantity" For="@(() => MaterialDetail.Quantity)"/>
+                <MudSelect T="MaterialUnite" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense"
                            @bind-Value="MaterialDetail.UniteMesure">
                     @foreach (MaterialUnite item in Enum.GetValues(typeof(MaterialUnite)))
                     {
@@ -31,15 +44,18 @@
                 </MudSelect>
             </MudStack>
 
-            <MudStack>
-                <MudTextField Label="@Localizer["Text_Comment"]" Variant="Variant.Outlined" Class="mx-1" Lines="5"
-                              @bind-Value="MaterialDetail.Comment" For="@(() => MaterialDetail.Comment)" />
-                <MudTextField Label="@Localizer["ProductLink"]" Variant="Variant.Outlined" Class="mx-1"
-                              @bind-Value="MaterialDetail.Link" For="@(() => MaterialDetail.Link)" />
+            <MudStack Class="my-2">
+                <MudTextField Label="@Localizer["Text_Comment"]" Variant="Variant.Outlined" Lines="5" Margin="Margin.Dense"
+                              @bind-Value="MaterialDetail.Comment" For="@(() => MaterialDetail.Comment)"/>
+            </MudStack>
+            <MudStack Class="my-2">
+                
+                <MudTextField Label="@Localizer["ProductLink"]" Variant="Variant.Outlined" Margin="Margin.Dense"
+                              @bind-Value="MaterialDetail.Link" For="@(() => MaterialDetail.Link)"/>
                 @if (!MaterialType.HasValue)
                 {
-                    <MudSelect T="MaterialType" Label="@Localizer["Status"]" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter"
-                           @bind-Value="MaterialDetail.Type">
+                    <MudSelect T="MaterialType" Label="@Localizer["Status"]" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter" Margin="Margin.Dense"
+                               @bind-Value="MaterialDetail.Type">
                         @foreach (MaterialType item in Enum.GetValues(typeof(MaterialType)))
                         {
                             <MudSelectItem Value="@item">@item</MudSelectItem>
@@ -51,10 +67,6 @@
         <DialogActions>
             <MudButton OnClick="Cancel">@Localizer["Btn_Cancel"]</MudButton>
             <MudButton Color="Color.Primary" OnClick="@(async () => await OnValidSubmit())">@Localizer["Btn_Save"]</MudButton>
-            @if (InsertMode.HasValue && !InsertMode.Value)
-            {
-                <MudButton Color="Color.Primary" OnClick="@(async () => await OnValidSubmit(true))">@Localizer["SaveAndUpdatePM"]</MudButton>
-            }
         </DialogActions>
     </MudDialog>
 </MudForm>

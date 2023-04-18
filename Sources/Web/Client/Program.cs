@@ -50,8 +50,6 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
 
 //Logging services
 builder.Logging.ClearProviders();
-builder.Logging.AddConsole();
-builder.Logging.AddDebug();
 builder.Logging.AddMyCustomLogger();
 
 var app = builder.Build();

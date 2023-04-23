@@ -21,7 +21,6 @@ namespace Repository.Repositories
                                  .FirstAsync();
         }
 
-
         public async Task<ICollection<Product>> GetAll(int idWorkshop)
         {
             return await Context.Products
@@ -44,8 +43,6 @@ namespace Repository.Repositories
 
         public void UpdateProductMaterialCostAndQuantity(ProductMaterial productMaterial)
         {
-            if (productMaterial == null) return;
-
             ProductMaterial pMaterial = Context.ProductMaterials.First(p => p.Id == productMaterial.Id);
 
             pMaterial.Cost = productMaterial.Cost;
@@ -56,8 +53,6 @@ namespace Repository.Repositories
 
         public void UpdateProductFiring(ProductFiring productFiring)
         {
-            if (productFiring == null) return;
-
             ProductFiring pFiring = Context.ProductFirings.First(p => p.Id == productFiring.Id);
 
             pFiring.CostKwH = productFiring.CostKwH;

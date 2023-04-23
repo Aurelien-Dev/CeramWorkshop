@@ -50,6 +50,5 @@ namespace Domain.Interfaces
         /// <param name="productFiring">The ProductFiring object with updated data to be saved.</param>
         /// <remarks>If the provided ProductFiring object is null, the method will not perform any action.</remarks>
         void UpdateProductFiring(ProductFiring productFiring);
-
     }
 }

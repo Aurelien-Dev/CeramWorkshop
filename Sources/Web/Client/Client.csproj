@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFramework>net7.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
@@ -35,9 +35,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CodeBeam.MudBlazor.Extensions" Version="6.4.9" />
+		<PackageReference Include="CodeBeam.MudBlazor.Extensions" Version="6.4.10" />
 		<PackageReference Include="MudBlazor" Version="6.2.2" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.4" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.5" />
 	</ItemGroup>
 
 </Project>

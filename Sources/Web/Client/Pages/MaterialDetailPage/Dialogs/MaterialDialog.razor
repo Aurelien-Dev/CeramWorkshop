@@ -26,7 +26,7 @@
             </MudStack>
 
             <MudStack Class="my-3">
-                <MudCheckBox @bind-Checked="MaterialDetail.IsHomeMade" Label="@Localizer["IsHomeMade"]" Color="Color.Primary" Dense="true" />
+                <MudCheckBox @bind-Checked="MaterialDetail.IsHomeMade" Label="@Localizer["IsHomeMade"]" Color="Color.Primary" Dense="true"/>
             </MudStack>
 
             <MudStack Row="true" AlignItems="AlignItems.Center" Class="my-2">
@@ -49,7 +49,6 @@
                               @bind-Value="MaterialDetail.Comment" For="@(() => MaterialDetail.Comment)"/>
             </MudStack>
             <MudStack Class="my-2">
-                
                 <MudTextField Label="@Localizer["ProductLink"]" Variant="Variant.Outlined" Margin="Margin.Dense"
                               @bind-Value="MaterialDetail.Link" For="@(() => MaterialDetail.Link)"/>
                 @if (!MaterialType.HasValue)
@@ -63,6 +62,15 @@
                     </MudSelect>
                 }
             </MudStack>
+            @if (MaterialDetail.ProductMaterial.Count > 0)
+            {
+                <MudStack Class="my-2" AlignItems="AlignItems.Center" Row="true">
+                    <MudText>
+                        <MudIcon Icon="@Icons.Material.Outlined.Info" Color="Color.Info" Size="Size.Small"/>
+                        @MaterialDetail.ProductMaterial.Count product use this material
+                    </MudText>
+                </MudStack>
+            }
         </DialogContent>
         <DialogActions>
             <MudButton OnClick="Cancel">@Localizer["Btn_Cancel"]</MudButton>

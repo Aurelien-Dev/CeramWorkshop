@@ -48,7 +48,7 @@ namespace Client.Pages.MaterialDetailPage.Dialogs
                 MudDialog.Close(DialogResult.Ok(MaterialDetail));
             }
         }
-
+        
         private void Cancel()
         {
             ProductWorker.Rollback();

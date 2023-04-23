@@ -6,20 +6,22 @@ namespace Repository.Repositories
 {
     public class MaterialRepository : GenericRepository<Material, int>, IMaterialRepository
     {
-        public MaterialRepository(ApplicationDbContext context) : base(context) { }
+        public MaterialRepository(ApplicationDbContext context) : base(context)
+        {
+        }
 
         public async Task<ICollection<Material>> GetAll(MaterialType type)
         {
             return await Context.Materials
-                                 .Where(p => p.Type == type)
-                                 .ToListAsync();
+                .Include(m => m.ProductMaterial)
+                .Where(p => p.Type == type)
+                .ToListAsync();
         }
 
         public void UpdateAllMaterialCost(int idMat)
         {
             var matToUpdate = Context.Materials
-                .Include(p => p.ProductMaterial)
-                .Where(m => m.Id == idMat).Single();
+                .Include(p => p.ProductMaterial).Single(m => m.Id == idMat);
 
             foreach (var item in matToUpdate.ProductMaterial)
             {

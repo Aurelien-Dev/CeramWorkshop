@@ -11,7 +11,7 @@ namespace Client.Pages.ProductDetailPage
     [Authorize]
     public partial class ProductDetailPageFiring : CustomComponentBase
     {
-        [Inject] private IProductWorker Worker { get; set; } = default!;
+        [Inject] private IProductWorker ProductWorker { get; set; } = default!;
         [Parameter] public Product ProductDetail { get; set; } = new();
         [Parameter] public ICollection<Firing> Firings { get; set; } = default!;
 
@@ -44,7 +44,7 @@ namespace Client.Pages.ProductDetailPage
 
             FiringsVm.Add(new FiringViewModel(pFire));
             ProductDetail.ProductFiring.Add(pFire);
-            await Worker.Completed();
+            await ProductWorker.Completed();
 
             StateHasChanged();
         }
@@ -57,7 +57,7 @@ namespace Client.Pages.ProductDetailPage
             if (number == pfToUpdate.NumberProducts) return;
 
             pfToUpdate.NumberProducts = number;
-            Worker.ProductRepository.UpdateProductFiring(pfToUpdate);
+            ProductWorker.ProductRepository.UpdateProductFiring(pfToUpdate);
 
             // CalculateTotalCost(pfToUpdate.Id, pfToUpdate);
         }
@@ -76,8 +76,8 @@ namespace Client.Pages.ProductDetailPage
         private void DeleteFire(FiringViewModel firingVm)
         {
             ProductDetail.ProductFiring.Remove(firingVm.ProductFire);
-            Worker.ProductRepository.Update(ProductDetail);
-            Worker.Completed();
+            ProductWorker.ProductRepository.Update(ProductDetail);
+            ProductWorker.Completed();
 
             FiringsVm.Remove(firingVm);
             StateHasChanged();
@@ -87,6 +87,10 @@ namespace Client.Pages.ProductDetailPage
         // {
         //     FiringViewModel pmVMToUpdate = FiringsVm.FirstOrDefault(p => p.ProductFire.Id == id);
         // }
+        public override void Dispose()
+        {
+            ProductWorker.Close();
+        }
     }
 
     public class FiringViewModel

@@ -6,7 +6,7 @@ using Client.Utils.ComponentBase;
 
 namespace Client.Pages.Authentification
 {
-    public partial class Login : CustomLayoutComponentBase
+    public partial class Login : CustomComponentBase
     {
         private LoginInfo LoginInfo { get; set; } = new();
         private bool LoginInProgress { get; set; } = false;

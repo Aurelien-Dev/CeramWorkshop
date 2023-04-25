@@ -43,5 +43,10 @@ namespace Client.Pages.FiringDetailPage.Dialogs
             StateHasChanged();
             MudDialog.Cancel();
         }
+
+        public override void Dispose()
+        {
+            ProductWorker.Close();
+        }
     }
 }

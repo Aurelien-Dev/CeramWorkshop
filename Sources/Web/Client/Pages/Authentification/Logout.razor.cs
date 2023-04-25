@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace Client.Pages.Authentification
 {
     [Authorize]
-    public partial class Logout : CustomLayoutComponentBase
+    public partial class Logout : CustomComponentBase
     {
         protected override async Task OnInitializedAsync()
         {

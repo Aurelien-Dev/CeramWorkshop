@@ -10,9 +10,9 @@ namespace Client.Pages.ProductDetailPage
     public enum OrderingPage { StatusAsc, StatusDesc, NameAsc, NameDesc }
 
     [Authorize]
-    public partial class ProductListPage : CustomComponentBase, IDisposable
+    public partial class ProductListPage : CustomComponentBase
     {
-        [Inject] private IProductWorker UnitOfWork { get; set; } = default!;
+        [Inject] private IProductWorker ProductWorker { get; set; } = default!;
 
         private IEnumerable<Product> Products { get; set; } = new List<Product>();
         private IList<ProductListItemViewModel> ProductsVm { get; set; } = new List<ProductListItemViewModel>();
@@ -21,7 +21,7 @@ namespace Client.Pages.ProductDetailPage
 
         protected override async Task OnInitializedAsync()
         {
-            Products = await UnitOfWork.ProductRepository.GetAll(CurrentSession.Workshop.Id);
+            Products = await ProductWorker.ProductRepository.GetAll(CurrentSession.Workshop.Id);
             ProductsVm = new List<ProductListItemViewModel>(Products.Select(p => new ProductListItemViewModel(p)).OrderBy(p => p.Name).ToList());
         }
 
@@ -63,9 +63,9 @@ namespace Client.Pages.ProductDetailPage
                                     p.Reference.Contains(value, StringComparison.InvariantCultureIgnoreCase));
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
-            UnitOfWork.Close();
+            ProductWorker.Close();
         }
     }
 }

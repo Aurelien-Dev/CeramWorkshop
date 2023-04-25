@@ -17,5 +17,10 @@ namespace Repository.Workers
         {
             WorkshopRepository = workshopRepository;
         }
+
+        public override void Close()
+        {
+            WorkshopRepository.CancelEFCore();
+        }
     }
 }

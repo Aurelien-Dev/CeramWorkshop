@@ -9,9 +9,9 @@ using MudBlazor;
 
 namespace Client.Pages.Authentification
 {
-    public partial class Profil : CustomLayoutComponentBase
+    public partial class Profil : CustomComponentBase
     {
-        [Inject] public IWorkshopWorker Worker { get; set; } = default!;
+        [Inject] public IWorkshopWorker WorkshopWorker { get; set; } = default!;
 
         private RegisterInfo RegisterInfo { get; set; } = new();
         private MudForm _formGeneral = new();
@@ -30,7 +30,7 @@ namespace Client.Pages.Authentification
 
             if (!_formGeneral.IsValid) return;
 
-            Workshop workshop = await Worker.WorkshopRepository.Get(CurrentSession.Workshop.Id);
+            Workshop workshop = await WorkshopWorker.WorkshopRepository.Get(CurrentSession.Workshop.Id);
             workshop.Name = RegisterInfo.Name;
             workshop.Email = RegisterInfo.Email;
             workshop.UserName = RegisterInfo.UserName;
@@ -44,13 +44,18 @@ namespace Client.Pages.Authentification
                 CookieRequestCultureProvider.MakeCookieValue(RegisterInfo.Culture), 365
             });
 
-            Worker.WorkshopRepository.Update(workshop);
-            await Worker.Completed();
+            WorkshopWorker.WorkshopRepository.Update(workshop);
+            await WorkshopWorker.Completed();
 
             Snackbar.Add("Modification effectuée", Severity.Success);
 
             await Task.Delay(500);
             NavigationManager.NavigateTo(NavigationManager.Uri, true);
+        }
+
+        public override void Dispose()
+        {
+            WorkshopWorker.Close();
         }
     }
 }

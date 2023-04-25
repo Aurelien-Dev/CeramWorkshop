@@ -39,5 +39,10 @@ namespace Client.Pages.ProductDetailPage.Dialogs
             ImageInstruction.Comment = OldComment;
             MudDialog.Cancel();
         }
+
+        public override  void Dispose()
+        {
+            ProductWorker.Close();
+        }
     }
 }

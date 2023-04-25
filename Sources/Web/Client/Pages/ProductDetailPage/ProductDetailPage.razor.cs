@@ -15,7 +15,7 @@ namespace Client.Pages.ProductDetailPage
     public partial class ProductDetailPage : CustomComponentBase
     {
         [Parameter] public int? Id { get; set; } = default!;
-        [Inject] private IProductWorker Worker { get; set; } = default!;
+        [Inject] private IProductWorker ProductWorker { get; set; } = default!;
 
         private Product ProductDetail { get; set; } = new();
         private ICollection<Material> Materials { get; set; } = default!;
@@ -50,9 +50,9 @@ namespace Client.Pages.ProductDetailPage
 
         private async Task LoadData(int id)
         {
-            ProductDetail = await Worker.ProductRepository.Get(id, CurrentSession.Workshop.Id);
-            Materials = await Worker.MaterialRepository.GetAll();
-            Firings = await Worker.FiringRepository.GetAll();
+            ProductDetail = await ProductWorker.ProductRepository.Get(id, CurrentSession.Workshop.Id);
+            Materials = await ProductWorker.MaterialRepository.GetAll();
+            Firings = await ProductWorker.FiringRepository.GetAll();
         }
 
         #region Image traitement
@@ -97,8 +97,8 @@ namespace Client.Pages.ProductDetailPage
             LoadFileFromInputFile.RemoveFileInput(image.Url);
 
             ProductDetail.ImageInstructions.Remove(image);
-            Worker.ProductRepository.Update(ProductDetail);
-            await Worker.Completed();
+            ProductWorker.ProductRepository.Update(ProductDetail);
+            await ProductWorker.Completed();
 
             if (ProductDetail.ImageInstructions.Any())
                 CarouselSelectedIndex = ProductDetail.ImageInstructions.Count - 1;
@@ -109,7 +109,7 @@ namespace Client.Pages.ProductDetailPage
 
         private void OnToggledFavoriteChanged(bool toggled, ImageInstruction image)
         {
-            Worker.ImageInstructionRepository.SetNewFavorite(toggled, image.Id, ProductDetail.Id);
+            ProductWorker.ImageInstructionRepository.SetNewFavorite(toggled, image.Id, ProductDetail.Id);
             image.IsFavoriteImage = toggled;
         }
 
@@ -123,8 +123,8 @@ namespace Client.Pages.ProductDetailPage
 
             if (!result.HasValue) return;
 
-            Worker.ProductRepository.Delete(ProductDetail);
-            await Worker.Completed();
+            ProductWorker.ProductRepository.Delete(ProductDetail);
+            await ProductWorker.Completed();
             NavigationManager.NavigateTo($"/");
         }
 
@@ -141,5 +141,10 @@ namespace Client.Pages.ProductDetailPage
         }
 
         #endregion
+
+        public override  void Dispose()
+        {
+            ProductWorker.Close();
+        }
     }
 }

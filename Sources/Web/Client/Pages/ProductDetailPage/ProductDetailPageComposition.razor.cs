@@ -11,7 +11,7 @@ namespace Client.Pages.ProductDetailPage
     [Authorize]
     public partial class ProductDetailPageComposition : CustomComponentBase
     {
-        [Inject] private IProductWorker Worker { get; set; } = default!;
+        [Inject] private IProductWorker ProductWorker { get; set; } = default!;
         [Parameter] public Product ProductDetail { get; set; } = new();
         [Parameter] public ICollection<Material> Materials { get; set; } = default!;
 
@@ -43,7 +43,7 @@ namespace Client.Pages.ProductDetailPage
 
             MaterialsVm.Add(new MaterialViewModel(pMat));
             ProductDetail.ProductMaterial.Add(pMat);
-            await Worker.Completed();
+            await ProductWorker.Completed();
 
             StateHasChanged();
         }
@@ -56,7 +56,7 @@ namespace Client.Pages.ProductDetailPage
             if (cost == pmToUpdate.Cost) return;
 
             pmToUpdate.Cost = cost;
-            Worker.ProductRepository.UpdateProductMaterialCostAndQuantity(pmToUpdate);
+            ProductWorker.ProductRepository.UpdateProductMaterialCostAndQuantity(pmToUpdate);
             CalculateTotalCost(id);
         }
 
@@ -68,7 +68,7 @@ namespace Client.Pages.ProductDetailPage
             if (quantity == pmToUpdate.Quantity) return;
 
             pmToUpdate.Quantity = quantity;
-            Worker.ProductRepository.UpdateProductMaterialCostAndQuantity(pmToUpdate);
+            ProductWorker.ProductRepository.UpdateProductMaterialCostAndQuantity(pmToUpdate);
             CalculateTotalCost(id);
         }
 
@@ -94,11 +94,16 @@ namespace Client.Pages.ProductDetailPage
         private void DeleteMat(MaterialViewModel materialVm)
         {
             ProductDetail.ProductMaterial.Remove(materialVm.PMat);
-            Worker.ProductRepository.Update(ProductDetail);
-            Worker.Completed();
+            ProductWorker.ProductRepository.Update(ProductDetail);
+            ProductWorker.Completed();
 
             MaterialsVm.Remove(materialVm);
             StateHasChanged();
+        }
+
+        public  override void Dispose()
+        {
+            ProductWorker.Close();
         }
     }
 

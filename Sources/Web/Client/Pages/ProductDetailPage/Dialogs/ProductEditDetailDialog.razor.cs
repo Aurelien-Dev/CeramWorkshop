@@ -48,5 +48,10 @@ namespace Client.Pages.ProductDetailPage.Dialogs
             ProductWorker.Rollback();
             MudDialog.Cancel();
         }
+
+        public override  void Dispose()
+        {
+            ProductWorker.Close();
+        }
     }
 }

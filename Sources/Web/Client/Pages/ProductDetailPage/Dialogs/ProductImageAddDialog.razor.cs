@@ -73,5 +73,10 @@ namespace Client.Pages.ProductDetailPage.Dialogs
             ImageInstruction = default!;
             MudDialog.Cancel();
         }
+
+        public override  void Dispose()
+        {
+            ProductWorker.Close();
+        }
     }
 }

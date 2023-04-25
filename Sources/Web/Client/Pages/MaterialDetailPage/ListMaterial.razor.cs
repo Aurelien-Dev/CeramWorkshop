@@ -10,7 +10,7 @@ namespace Client.Pages.MaterialDetailPage
 {
     public partial class ListMaterial : CustomComponentBase
     {
-        [Inject] private IProductWorker Worker { get; set; } = default!;
+        [Inject] private IProductWorker ProductWorker { get; set; } = default!;
 
         [Parameter] public string Title { get; set; }
         [Parameter] public MaterialType MaterialType { get; set; }
@@ -24,7 +24,7 @@ namespace Client.Pages.MaterialDetailPage
 
         private async Task LoadDatas()
         {
-            Materials = await Worker.MaterialRepository.GetAll(MaterialType);
+            Materials = await ProductWorker.MaterialRepository.GetAll(MaterialType);
         }
 
         private async Task DeleteMat(Material material)
@@ -33,8 +33,8 @@ namespace Client.Pages.MaterialDetailPage
 
             if (!result.HasValue) return;
 
-            Worker.MaterialRepository.Delete(material);
-            await Worker.Completed();
+            ProductWorker.MaterialRepository.Delete(material);
+            await ProductWorker.Completed();
 
             Materials.Remove(material);
             StateHasChanged();
@@ -66,6 +66,11 @@ namespace Client.Pages.MaterialDetailPage
             }
 
             StateHasChanged();
+        }
+
+        public override void Dispose()
+        {
+            ProductWorker.Close();
         }
     }
 }

@@ -28,9 +28,12 @@ namespace Repository.Workers
             ImageInstructionRepository = imageInstructionRepository;
         }
 
-        public void Close()
+        public override void Close()
         {
             ProductRepository.CancelEFCore();
+            MaterialRepository.CancelEFCore();
+            FiringRepository.CancelEFCore();
+            ImageInstructionRepository.CancelEFCore();
         }
     }
 }

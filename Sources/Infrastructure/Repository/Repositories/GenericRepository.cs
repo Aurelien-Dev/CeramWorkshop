@@ -6,9 +6,9 @@ namespace Repository.Repositories
     public class GenericRepository<T, TId> : IGenericRepository<T, TId> where T : class
     {
         protected readonly ApplicationDbContext Context;
-        private CancellationTokenSource? _cancellationTokenSource;
 
         protected CancellationToken ComponentDisposed => (_cancellationTokenSource ??= new()).Token;
+        private CancellationTokenSource? _cancellationTokenSource;
 
         protected GenericRepository(ApplicationDbContext context)
         {
@@ -33,6 +33,7 @@ namespace Repository.Repositories
                 _cancellationTokenSource.Cancel();
                 _cancellationTokenSource.Dispose();
                 _cancellationTokenSource = null;
+                
             }
         }
     }

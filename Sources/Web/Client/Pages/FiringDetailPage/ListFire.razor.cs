@@ -12,7 +12,7 @@ namespace Client.Pages.FiringDetailPage
     [Authorize]
     public partial class ListFire : CustomComponentBase
     {
-        [Inject] private IProductWorker Worker { get; set; } = default!;
+        [Inject] private IProductWorker ProductWorker { get; set; } = default!;
 
         [Parameter] public string Title { get; set; }
 
@@ -25,7 +25,7 @@ namespace Client.Pages.FiringDetailPage
 
         private async Task LoadDatas()
         {
-            Firings = await Worker.FiringRepository.GetAll();
+            Firings = await ProductWorker.FiringRepository.GetAll();
         }
 
         private async Task DeleteFiringDialog(Firing firing)
@@ -34,8 +34,8 @@ namespace Client.Pages.FiringDetailPage
 
             if (!result.HasValue) return;
 
-            Worker.FiringRepository.Delete(firing);
-            await Worker.Completed();
+            ProductWorker.FiringRepository.Delete(firing);
+            await ProductWorker.Completed();
 
             Firings.Remove(firing);
             StateHasChanged();
@@ -67,6 +67,11 @@ namespace Client.Pages.FiringDetailPage
             }
 
             StateHasChanged();
+        }
+
+        public override void Dispose()
+        {
+            ProductWorker.Close();
         }
     }
 }

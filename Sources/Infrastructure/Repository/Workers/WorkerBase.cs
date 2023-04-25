@@ -25,6 +25,11 @@ namespace Repository.Workers
             _context.ChangeTracker.Clear();
         }
 
+        public virtual void Close()
+        {
+            throw new NotImplementedException();
+        }
+
 
         public void Dispose()
         {

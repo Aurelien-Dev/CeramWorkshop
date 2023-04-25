@@ -10,7 +10,7 @@ namespace Client.Pages.ProductDetailPage
     public enum OrderingPage { StatusAsc, StatusDesc, NameAsc, NameDesc }
 
     [Authorize]
-    public partial class ProductListPage : CustomComponentBase
+    public partial class ProductListPage : CustomComponentBase, IDisposable
     {
         [Inject] private IProductWorker UnitOfWork { get; set; } = default!;
 
@@ -61,6 +61,11 @@ namespace Client.Pages.ProductDetailPage
 
             return query.Where(p => p.Name.Contains(value, StringComparison.InvariantCultureIgnoreCase) ||
                                     p.Reference.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+        }
+
+        public void Dispose()
+        {
+            UnitOfWork.Close();
         }
     }
 }

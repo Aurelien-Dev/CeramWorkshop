@@ -9,13 +9,13 @@ namespace Domain.Interfaces
         /// </summary>
         /// <param name="email">The email address to search for.</param>
         /// <returns>A tuple containing the Workshop object (or null) and a boolean indicating whether the email exists in the database.</returns>
-        (Workshop?, bool) GetWorkshopInformationForLogin(string email);
+        Task<(Workshop?, bool)> GetWorkshopInformationForLogin(string email);
 
         /// <summary>
         /// Checks if the provided email address exists in the Workshops table.
         /// </summary>
         /// <param name="email">The email address to check for existence.</param>
         /// <returns>A boolean value indicating whether the email address exists (true) or not (false).</returns>
-        bool CheckIfEmailExists(string email);
+        Task<bool> CheckIfEmailExists(string email);
     }
 }

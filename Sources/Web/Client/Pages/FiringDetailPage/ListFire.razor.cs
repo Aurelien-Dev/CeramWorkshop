@@ -35,7 +35,7 @@ namespace Client.Pages.FiringDetailPage
             if (!result.HasValue) return;
 
             Worker.FiringRepository.Delete(firing);
-            Worker.Completed();
+            await Worker.Completed();
 
             Firings.Remove(firing);
             StateHasChanged();

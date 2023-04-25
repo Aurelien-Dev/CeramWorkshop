@@ -1,5 +1,6 @@
 ﻿using Domain.Interfaces;
 using Domain.Models.WorkshopDomaine;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repository.Repositories
 {
@@ -7,17 +8,17 @@ namespace Repository.Repositories
     {
         public WorkshopRepository(ApplicationDbContext context) : base(context) { }
 
-        public (Workshop?, bool) GetWorkshopInformationForLogin(string email)
+        public async  Task<(Workshop?, bool)> GetWorkshopInformationForLogin(string email)
         {
-            Workshop workshop = Context.Workshops.FirstOrDefault(w => w.Email == email);
+            Workshop workshop = await Context.Workshops.FirstOrDefaultAsync(w => w.Email == email, ComponentDisposed);
             bool mailExist = workshop != null && email == workshop.Email;
 
             return (workshop, mailExist);
         }
 
-        public bool CheckIfEmailExists(string email)
+        public async Task<bool> CheckIfEmailExists(string email)
         {
-            return Context.Workshops.Any(w => w.Email == email);
+            return await Context.Workshops.AnyAsync(w => w.Email == email, ComponentDisposed);
         }
     }
 }

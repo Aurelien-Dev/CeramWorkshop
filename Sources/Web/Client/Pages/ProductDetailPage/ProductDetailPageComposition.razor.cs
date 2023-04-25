@@ -43,7 +43,7 @@ namespace Client.Pages.ProductDetailPage
 
             MaterialsVm.Add(new MaterialViewModel(pMat));
             ProductDetail.ProductMaterial.Add(pMat);
-            Worker.Completed();
+            await Worker.Completed();
 
             StateHasChanged();
         }

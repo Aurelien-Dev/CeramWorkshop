@@ -15,20 +15,20 @@ namespace Repository.Repositories
             return await Context.Materials
                 .Include(m => m.ProductMaterial)
                 .Where(p => p.Type == type)
-                .ToListAsync();
+                .ToListAsync(ComponentDisposed);
         }
 
-        public void UpdateAllMaterialCost(int idMat)
+        public async Task UpdateAllMaterialCost(int idMat)
         {
-            var matToUpdate = Context.Materials
-                .Include(p => p.ProductMaterial).Single(m => m.Id == idMat);
+            var matToUpdate = await Context.Materials
+                .Include(p => p.ProductMaterial).SingleAsync(m => m.Id == idMat, ComponentDisposed);
 
             foreach (var item in matToUpdate.ProductMaterial)
             {
                 item.Cost = matToUpdate.Cost;
             }
 
-            Context.SaveChanges();
+            await Context.SaveChangesAsync();
         }
     }
 }

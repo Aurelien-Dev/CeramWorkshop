@@ -15,16 +15,15 @@ namespace Repository.Workers
             _context = context;
         }
 
-        public int Completed()
+        public async Task<int> Completed()
         {
-            return _context.SaveChanges();
+            return await _context.SaveChangesAsync();
         }
 
         public void Rollback()
         {
             _context.ChangeTracker.Clear();
         }
-
 
 
         public void Dispose()

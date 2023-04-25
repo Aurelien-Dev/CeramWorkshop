@@ -8,34 +8,20 @@
 @code {
 
     [Parameter]
-    public ProductStatus Status
-    {
-        get => _status;
-        set
-        {
-            _status = value;
-            switch (Status)
-            {
-                case ProductStatus.Abandoned:
-                    ChipColor = Color.Error;
-                    break;
-                case ProductStatus.Discontinued:
-                    ChipColor = Color.Warning;
-                    break;
-                case ProductStatus.None:
-                    ChipColor = Color.Dark;
-                    break;
-                case ProductStatus.Production:
-                    ChipColor = Color.Success;
-                    break;
-                case ProductStatus.Test:
-                    ChipColor = Color.Secondary;
-                    break;
-            }
-        }
-    }
-    private ProductStatus _status;
+    public ProductStatus Status { get; set; }
 
     private Color ChipColor { get; set; }
 
+    protected override void OnParametersSet()
+    {
+        ChipColor = Status switch
+        {
+            ProductStatus.Abandoned => Color.Error,
+            ProductStatus.Discontinued => Color.Warning,
+            ProductStatus.None => Color.Dark,
+            ProductStatus.Production => Color.Success,
+            ProductStatus.Test => Color.Secondary,
+            _ => ChipColor
+        };
+    }
 }

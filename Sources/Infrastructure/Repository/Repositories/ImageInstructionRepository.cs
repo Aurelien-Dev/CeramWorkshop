@@ -6,34 +6,37 @@ namespace Repository.Repositories
 {
     public class ImageInstructionRepository : GenericRepository<ImageInstruction, int>, IImageInstructionRepository
     {
-        public ImageInstructionRepository(ApplicationDbContext context) : base(context) { }
+        public ImageInstructionRepository(ApplicationDbContext context) : base(context)
+        {
+        }
 
-        public async Task<IEnumerable<ImageInstruction>> GetAllNonExported() => await Context.ImageInstruction.Where(i => i.FileLocation == Location.Server).ToListAsync();
+        public async Task<IEnumerable<ImageInstruction>> GetAllNonExported() => await Context.ImageInstruction
+            .Where(i => i.FileLocation == Location.Server)
+            .ToListAsync(ComponentDisposed);
 
         public async Task<ImageInstruction?> GetFavoritImageByProduct(int idProduct)
         {
-            bool hasFavorite = Context.ImageInstruction.Any(i => i.IdProduct == idProduct && i.IsFavoriteImage);
+            bool hasFavorite = await Context.ImageInstruction.AnyAsync(i => i.IdProduct == idProduct && i.IsFavoriteImage, ComponentDisposed);
 
             if (hasFavorite)
-                return await Context.ImageInstruction.FirstAsync(i => i.IdProduct == idProduct && i.IsFavoriteImage);
+                return await Context.ImageInstruction.FirstAsync(i => i.IdProduct == idProduct && i.IsFavoriteImage, ComponentDisposed);
 
-            return await Context.ImageInstruction.FirstOrDefaultAsync(i => i.IdProduct == idProduct);
+            return await Context.ImageInstruction.FirstOrDefaultAsync(i => i.IdProduct == idProduct, ComponentDisposed);
         }
 
         public async Task SetNewFavorite(bool isFavorite, int id, int idProduct)
         {
-            ImageInstruction newFavorite = await Context.ImageInstruction.FirstOrDefaultAsync(i => i.IdProduct == idProduct && i.Id == id);
+            ImageInstruction newFavorite = await Context.ImageInstruction.FirstOrDefaultAsync(i => i.IdProduct == idProduct && i.Id == id, ComponentDisposed);
 
             if (!isFavorite)
             {
                 newFavorite.IsFavoriteImage = false;
                 Context.Update(newFavorite);
-                Context.SaveChanges();
+                await Context.SaveChangesAsync();
                 return;
             }
 
-            ImageInstruction image = await Context.ImageInstruction.FirstOrDefaultAsync(i => i.IdProduct == idProduct && i.IsFavoriteImage);
-
+            ImageInstruction image = await Context.ImageInstruction.FirstOrDefaultAsync(i => i.IdProduct == idProduct && i.IsFavoriteImage, ComponentDisposed);
 
             if (image != null)
             {
@@ -47,7 +50,7 @@ namespace Repository.Repositories
                 Context.Update(newFavorite);
             }
 
-            Context.SaveChanges();
+            await Context.SaveChangesAsync();
         }
     }
 }

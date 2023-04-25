@@ -35,7 +35,7 @@ namespace Client.Pages.ProductDetailPage.Dialogs
                     ProductWorker.ProductRepository.Update(ProductDetail);
 
                 StateHasChanged();
-                ProductWorker.Completed();
+                await ProductWorker.Completed();
 
                 MudDialog.Close(DialogResult.Ok(ProductDetail.Id));
             }

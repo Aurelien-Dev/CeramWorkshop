@@ -98,7 +98,7 @@ namespace Client.Pages.ProductDetailPage
 
             ProductDetail.ImageInstructions.Remove(image);
             Worker.ProductRepository.Update(ProductDetail);
-            Worker.Completed();
+            await Worker.Completed();
 
             if (ProductDetail.ImageInstructions.Any())
                 CarouselSelectedIndex = ProductDetail.ImageInstructions.Count - 1;
@@ -124,7 +124,7 @@ namespace Client.Pages.ProductDetailPage
             if (!result.HasValue) return;
 
             Worker.ProductRepository.Delete(ProductDetail);
-            Worker.Completed();
+            await Worker.Completed();
             NavigationManager.NavigateTo($"/");
         }
 

@@ -45,7 +45,7 @@ namespace Client.Pages.Authentification
             });
 
             Worker.WorkshopRepository.Update(workshop);
-            Worker.Completed();
+            await Worker.Completed();
 
             Snackbar.Add("Modification effectuée", Severity.Success);
 

@@ -1,5 +1,4 @@
 using Client.Services;
-using Client.Utils;
 using Client.Utils.ComponentBase;
 using Client.ViewModels;
 using Domain.InterfacesWorker;
@@ -33,7 +32,7 @@ namespace Client.Pages.Authentification
                 RegisterInProgress = true;
                 StateHasChanged();
 
-                if (Worker.WorkshopRepository.CheckIfEmailExists(_registerInfo.Email))
+                if (await Worker.WorkshopRepository.CheckIfEmailExists(_registerInfo.Email))
                 {
                     _registerError = "Email already in use.";
                     return;
@@ -45,7 +44,7 @@ namespace Client.Pages.Authentification
                 Workshop workshopDetail = new(_registerInfo.Name, null, _registerInfo.Email, _registerInfo.UserName, workshopPasswordHash, workshopSalt);
 
                 await Worker.WorkshopRepository.Add(workshopDetail);
-                Worker.Completed();
+                await Worker.Completed();
 
                 (bool success, _registerError) = await AuthenticationManager.StartSession(workshopDetail.Email, _registerInfo.Password);
 

@@ -44,7 +44,7 @@ namespace Client.Pages.ProductDetailPage
 
             FiringsVm.Add(new FiringViewModel(pFire));
             ProductDetail.ProductFiring.Add(pFire);
-            Worker.Completed();
+            await Worker.Completed();
 
             StateHasChanged();
         }

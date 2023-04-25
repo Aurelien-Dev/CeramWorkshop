@@ -57,7 +57,7 @@ namespace Client.Services
         /// <returns>Return an boolean success and a error message for client</returns>
         public async Task<(bool, string)> StartSession(string email, string password)
         {
-            (Workshop? workshop, bool emailExist) = Worker.WorkshopRepository.GetWorkshopInformationForLogin(email);
+            (Workshop? workshop, bool emailExist) = await Worker.WorkshopRepository.GetWorkshopInformationForLogin(email);
 
             if (!emailExist)
                 return (false, "Invalid email or password.");

@@ -39,10 +39,10 @@ namespace Client.Pages.MaterialDetailPage.Dialogs
                     ProductWorker.MaterialRepository.Update(MaterialDetail);
 
                     if (updateAllProductsMat)
-                        ProductWorker.MaterialRepository.UpdateAllMaterialCost(MaterialDetail.Id);
+                        await ProductWorker.MaterialRepository.UpdateAllMaterialCost(MaterialDetail.Id);
                 }
 
-                ProductWorker.Completed();
+                await ProductWorker.Completed();
 
                 StateHasChanged();
                 MudDialog.Close(DialogResult.Ok(MaterialDetail));

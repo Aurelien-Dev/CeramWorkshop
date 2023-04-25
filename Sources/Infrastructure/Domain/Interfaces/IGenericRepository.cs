@@ -33,5 +33,7 @@
         /// </summary>
         /// <param name="entity">The entity to delete.</param>
         void Delete(T entity);
+
+        void CancelEFCore();
     }
 }

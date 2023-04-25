@@ -18,14 +18,19 @@ namespace Repository.Workers
         /// <param name="materialRepository">Material Repository</param>
         /// <param name="firingRepository">Firing Repository</param>
         /// <param name="imageInstructionRepository">Image instruction Repository</param>
-        public ProductWorker(ApplicationDbContext context, IProductRepository productRepository, IMaterialRepository materialRepository, 
-                             IFiringRepository firingRepository, IImageInstructionRepository imageInstructionRepository)
+        public ProductWorker(ApplicationDbContext context, IProductRepository productRepository, IMaterialRepository materialRepository,
+            IFiringRepository firingRepository, IImageInstructionRepository imageInstructionRepository)
             : base(context)
         {
             ProductRepository = productRepository;
             MaterialRepository = materialRepository;
             FiringRepository = firingRepository;
             ImageInstructionRepository = imageInstructionRepository;
+        }
+
+        public void Close()
+        {
+            ProductRepository.CancelEFCore();
         }
     }
 }

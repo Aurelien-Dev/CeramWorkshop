@@ -34,7 +34,7 @@ namespace Client.Pages.MaterialDetailPage
             if (!result.HasValue) return;
 
             Worker.MaterialRepository.Delete(material);
-            Worker.Completed();
+            await Worker.Completed();
 
             Materials.Remove(material);
             StateHasChanged();

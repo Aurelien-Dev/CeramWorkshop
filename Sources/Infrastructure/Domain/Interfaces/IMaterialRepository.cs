@@ -15,6 +15,6 @@ namespace Domain.Interfaces
         /// Updates the cost of all product materials associated with a specific material ID.
         /// </summary>
         /// <param name="idMat">The material ID to filter by and update associated product material costs.</param>
-        void UpdateAllMaterialCost(int idMat);
+        Task UpdateAllMaterialCost(int idMat);
     }
 }

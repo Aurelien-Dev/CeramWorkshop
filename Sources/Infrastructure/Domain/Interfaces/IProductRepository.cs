@@ -4,7 +4,6 @@ namespace Domain.Interfaces
 {
     public interface IProductRepository : IGenericRepository<Product, int>
     {
-
         /// <summary>
         /// Retrieves a product with its associated relationships based on the provided product ID and workshop ID.
         /// </summary>
@@ -42,13 +41,13 @@ namespace Domain.Interfaces
         /// </summary>
         /// <param name="productMaterial">The ProductMaterial object containing updated cost and quantity information.</param>
         /// <remarks>If the input ProductMaterial is null, the method will return without performing any updates.</remarks>
-        void UpdateProductMaterialCostAndQuantity(ProductMaterial productMaterial);
+        Task UpdateProductMaterialCostAndQuantity(ProductMaterial productMaterial);
 
         /// <summary>
         /// Updates the CostKwH property of an existing ProductFiring object in the database.
         /// </summary>
         /// <param name="productFiring">The ProductFiring object with updated data to be saved.</param>
         /// <remarks>If the provided ProductFiring object is null, the method will not perform any action.</remarks>
-        void UpdateProductFiring(ProductFiring productFiring);
+        Task UpdateProductFiring(ProductFiring productFiring);
     }
 }

@@ -8,5 +8,6 @@ namespace Domain.InterfacesWorker
         IMaterialRepository MaterialRepository { get; }
         IFiringRepository FiringRepository { get; }
         IImageInstructionRepository ImageInstructionRepository { get; }
+        void Close();
     }
 }

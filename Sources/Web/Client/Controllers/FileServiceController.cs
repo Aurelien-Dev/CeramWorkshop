@@ -54,7 +54,7 @@ namespace Client.Controllers
                         item.FileLocation = Location.ImgBb;
 
                         ApiWorker.ImageInstructionRepository.Update(item);
-                        ApiWorker.Completed();
+                        await ApiWorker.Completed();
 
                         LoadFileFromInputFile.RemoveFileInput(path);
                     }

@@ -35,9 +35,9 @@ namespace Client.Shared
         }
 
 
-        private MudTheme _myCustomTheme = new MudTheme()
+        private MudTheme _myCustomTheme = new()
         {
-            Palette = new Palette()
+            Palette = new PaletteLight
             {
                 Primary = Colors.LightBlue.Darken2,
                 AppbarBackground = "#0F3F59",
@@ -51,6 +51,5 @@ namespace Client.Shared
                 }
             }
         };
-
     }
 }

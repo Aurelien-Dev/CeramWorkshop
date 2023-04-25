@@ -30,7 +30,7 @@ namespace Client.Pages.FiringDetailPage.Dialogs
                 else
                     ProductWorker.FiringRepository.Update(FiringDetail);
 
-                ProductWorker.Completed();
+                await ProductWorker.Completed();
 
                 StateHasChanged();
                 MudDialog.Close(DialogResult.Ok(FiringDetail));

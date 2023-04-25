@@ -18,7 +18,7 @@ namespace Repository.Repositories
                                  .ThenInclude(x => x.Material)
                                  .Include(p => p.ProductFiring)
                                  .ThenInclude(x => x.Firing)
-                                 .FirstAsync();
+                                 .FirstAsync(ComponentDisposed);
         }
 
         public async Task<ICollection<Product>> GetAll(int idWorkshop)
@@ -26,38 +26,38 @@ namespace Repository.Repositories
             return await Context.Products
                                  .Where(p => p.IdWorkshop == idWorkshop)
                                  .Include(p => p.ImageInstructions)
-                                 .ToListAsync();
+                                 .ToListAsync(ComponentDisposed);
         }
 
         public async Task<Product> GetLight(object id)
         {
             return await Context.Products
                                  .Where(p => p.Id == (int)id)
-                                 .FirstAsync();
+                                 .FirstAsync(ComponentDisposed);
         }
 
         public async Task<int> CountImage(int id)
         {
-            return await Context.ImageInstruction.Where(i => i.IdProduct == id).CountAsync();
+            return await Context.ImageInstruction.Where(i => i.IdProduct == id).CountAsync(ComponentDisposed);
         }
 
-        public void UpdateProductMaterialCostAndQuantity(ProductMaterial productMaterial)
+        public async Task UpdateProductMaterialCostAndQuantity(ProductMaterial productMaterial)
         {
-            ProductMaterial pMaterial = Context.ProductMaterials.First(p => p.Id == productMaterial.Id);
+            ProductMaterial pMaterial = await Context.ProductMaterials.FirstAsync(p => p.Id == productMaterial.Id, ComponentDisposed);
 
             pMaterial.Cost = productMaterial.Cost;
             pMaterial.Quantity = productMaterial.Quantity;
 
-            Context.SaveChanges();
+            await Context.SaveChangesAsync();
         }
 
-        public void UpdateProductFiring(ProductFiring productFiring)
+        public async Task UpdateProductFiring(ProductFiring productFiring)
         {
-            ProductFiring pFiring = Context.ProductFirings.First(p => p.Id == productFiring.Id);
+            ProductFiring pFiring =await  Context.ProductFirings.FirstAsync(p => p.Id == productFiring.Id, ComponentDisposed);
 
             pFiring.CostKwH = productFiring.CostKwH;
 
-            Context.SaveChanges();
+            await Context.SaveChangesAsync();
         }
     }
 }

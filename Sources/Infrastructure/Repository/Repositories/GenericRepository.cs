@@ -24,7 +24,7 @@ namespace Repository.Repositories
         public void Update(T entity) => Context.Set<T>().Update(entity);
 
         public void Delete(T entity) => Context.Set<T>().Remove(entity);
-
+        
         
         public void CancelEFCore()
         {
@@ -33,7 +33,6 @@ namespace Repository.Repositories
                 _cancellationTokenSource.Cancel();
                 _cancellationTokenSource.Dispose();
                 _cancellationTokenSource = null;
-                
             }
         }
     }

@@ -1,6 +1,6 @@
 ﻿namespace Domain.InterfacesWorker
 {
-    public interface IWorkerBase : IDisposable
+    public interface IWorkerBase
     {
         /// <summary>
         /// Saves all changes made in this context to the database.

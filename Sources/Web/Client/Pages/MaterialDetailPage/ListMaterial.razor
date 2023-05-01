@@ -5,20 +5,22 @@
 @inherits Client.Utils.ComponentBase.CustomComponentBase
 
 
-<MudTable Class="mt-5" Items="@Materials" Dense="true" Striped="true" RowsPerPage="25">
+<MudTable ServerData="@(new Func<TableState, Task<TableData<Material>>>(ServerReload))" Class="mt-5" 
+          Dense="true" Striped="true" RowsPerPage="25" FixedHeader="true" FixedFooter="true">
     <ToolBarContent>
         <MudText Typo="Typo.h6">@Title</MudText>
-        <MudSpacer />
-        <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Inherit" OnClick="AddMaterialDialog" />
+        <MudSpacer/>
+        <MudTextField @bind-Value="searchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+        <MudIconButton Icon="@Icons.Material.Outlined.Add" Color="Color.Inherit" OnClick="AddMaterialDialog"/>
     </ToolBarContent>
+    
     <HeaderContent>
-        <MudTh>@Localizer["TableHeader_Name"]</MudTh>
-        <MudTh>@Localizer["TableHeader_Name"]</MudTh>
-        <MudTh>@Localizer["TableHeader_Cost"]</MudTh>
+        <MudTh><MudTableSortLabel SortLabel="Reference" T="Material">@Localizer["Reference"]</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="Name" T="Material">@Localizer["TableHeader_Name"]</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="Cost" T="Material">@Localizer["TableHeader_Cost"]</MudTableSortLabel></MudTh>
         <MudTh>@Localizer["Text_Comment"]</MudTh>
         <MudTh></MudTh>
     </HeaderContent>
-
     <RowTemplate>
         <MudTd>@context.Reference</MudTd>
         <MudTd>@context.Name</MudTd>
@@ -26,18 +28,18 @@
         <MudTd>@context.Comment</MudTd>
         <MudTd>
             <MudStack Row="true">
-                <MudFab Color="Color.Tertiary" StartIcon="@Icons.Material.Filled.Edit" Size="Size.Small" OnClick="@(async () => await EditMat(context))" />
-                <MudFab Color="Color.Error" StartIcon="@Icons.Material.Filled.DeleteForever" Size="Size.Small" OnClick="@(async () => await DeleteMat(context))" />
+                <MudFab Color="Color.Tertiary" StartIcon="@Icons.Material.Filled.Edit" Size="Size.Small" OnClick="@(async () => await EditMat(context))"/>
+                <MudFab Color="Color.Error" StartIcon="@Icons.Material.Filled.DeleteForever" Size="Size.Small" OnClick="@(async () => await DeleteMat(context))"/>
                 @if (!string.IsNullOrEmpty(context.Link))
                 {
                     <MudLink Href="@context.Link" Target="_blank">
-                        <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Link" Size="Size.Small" />
+                        <MudFab Color="Color.Primary" StartIcon="@Icons.Material.Filled.Link" Size="Size.Small"/>
                     </MudLink>
                 }
             </MudStack>
         </MudTd>
     </RowTemplate>
     <PagerContent>
-        <MudTablePager />
+        <MudTablePager/>
     </PagerContent>
 </MudTable>

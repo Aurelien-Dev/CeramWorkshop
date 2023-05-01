@@ -1,7 +1,9 @@
-﻿@inherits Client.Utils.ComponentBase.CustomComponentBase
+﻿@using Client.Components
+
+@inherits Client.Utils.ComponentBase.CustomComponentBase
 
 <MudItem xs="12" sm="6" md="4" lg="2">
-    <MudCard>
+    <MudCard Style="height:100%">
         @if (string.IsNullOrEmpty(ProductListItemVm.Image))
         {
             <MudCardMedia Image="assets/img/bg-empty.png" Style="opacity:0.05" Height="200"/>
@@ -12,7 +14,7 @@
         }
         <MudCardContent>
             <MudText Typo="Typo.h6">#@ProductListItemVm.Reference - @ProductListItemVm.Name</MudText>
-            <MudText>Status: @ProductListItemVm.Status</MudText>
+            <ProductStatusChip Status="@ProductListItemVm.Status"/>
         </MudCardContent>
         <MudCardActions>
             <MudButton Variant="Variant.Text" Color="Color.Primary" Href="@($"Product/{ProductListItemVm.Id}")">@Localizer["ProductList_ShowProduct"]</MudButton>

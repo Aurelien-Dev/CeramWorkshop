@@ -294,4 +294,7 @@
   <data name="Text_Dimensions" xml:space="preserve">
     <value>Dimentions</value>
   </data>
+  <data name="TableHeader_Reference" xml:space="preserve">
+    <value>Ref.</value>
+  </data>
 </root>

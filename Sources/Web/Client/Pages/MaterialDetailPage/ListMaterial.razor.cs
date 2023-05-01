@@ -14,13 +14,9 @@ namespace Client.Pages.MaterialDetailPage
         [Parameter] public string Title { get; set; }
         [Parameter] public MaterialType MaterialType { get; set; }
 
+        public string searchString { get; set; }
+
         private ICollection<Material> Materials { get; set; } = new List<Material>();
-
-        protected override async Task OnInitializedAsync()
-        {
-            await LoadDatas();
-        }
-
 
         private async Task LoadDatas()
         {
@@ -33,7 +29,7 @@ namespace Client.Pages.MaterialDetailPage
 
             if (!result.HasValue) return;
 
-            ProductWorker.MaterialRepository.Delete(material);
+            await ProductWorker.MaterialRepository.Delete(material, ComponentDisposed);
             await ProductWorker.Completed(ComponentDisposed);
 
             Materials.Remove(material);
@@ -68,5 +64,23 @@ namespace Client.Pages.MaterialDetailPage
             StateHasChanged();
         }
 
+
+        #region Datatable management
+
+
+        /// <summary>
+        /// Here we simulate getting the paged, filtered and ordered data from the server
+        /// </summary>
+        private async Task<TableData<Material>> ServerReload(TableState state)
+        {
+            (IEnumerable<Material> datas, int totalItems) = await ProductWorker.MaterialRepository.GetAllWithPaging(MaterialType, state.Page, state.PageSize,
+                state.SortLabel, state.SortDirection.ToString(), ComponentDisposed);
+            
+            await Task.Delay(300);
+            
+            return new TableData<Material>() {TotalItems = totalItems, Items = datas};
+        }
+
+        #endregion
     }
 }

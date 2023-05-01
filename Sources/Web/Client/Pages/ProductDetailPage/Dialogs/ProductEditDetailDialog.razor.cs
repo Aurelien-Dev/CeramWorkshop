@@ -35,7 +35,7 @@ namespace Client.Pages.ProductDetailPage.Dialogs
                 await Task.Delay(350);
                 ProductDetail.IdWorkshop = CurrentSession.Workshop.Id;
                 if (InsertMode.HasValue && InsertMode.Value)
-                    await ProductWorker.ProductRepository.Add(OriginalProductDetail, ComponentDisposed);
+                    await ProductWorker.ProductRepository.Add(ProductDetail, ComponentDisposed);
                 else
                 {
                     await ProductWorker.ProductRepository.Update(ProductDetail, ComponentDisposed);

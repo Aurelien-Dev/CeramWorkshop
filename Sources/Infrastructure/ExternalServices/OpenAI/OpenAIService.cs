@@ -1,10 +1,11 @@
 ﻿using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
+using Utils.Singletons;
 
 namespace ExternalServices.OpenAI;
 
-public class OpenAIService :IOpenAIService
+public class OpenAIService : IOpenAIService
 {
     private readonly HttpClient _httpClient;
     private readonly string _apiKey;
@@ -13,7 +14,7 @@ public class OpenAIService :IOpenAIService
     {
         _httpClient = new HttpClient();
         _httpClient.BaseAddress = new Uri("https://api.openai.com/v1/");
-        _apiKey = "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";
+        _apiKey = EnvironementSingleton.GetEnvironmentVariable("OPENAI_API)KEY");
     }
 
     public async Task<string> GetCompletionAsync(string prompt, string model, int maxTokens)
@@ -21,7 +22,8 @@ public class OpenAIService :IOpenAIService
         var request = new HttpRequestMessage(HttpMethod.Post, "engines/" + model + "/completions");
         request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _apiKey);
 
-        var requestBody = new {
+        var requestBody = new
+        {
             prompt = prompt,
             max_tokens = maxTokens
         };

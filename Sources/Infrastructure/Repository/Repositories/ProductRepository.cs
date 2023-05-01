@@ -7,8 +7,7 @@ namespace Repository.Repositories
     public class ProductRepository : GenericRepository<Product, int>, IProductRepository
     {
         public ProductRepository(ApplicationDbContext context) : base(context) { }
-
-
+        
         public async Task<Product> Get(int id, int idWorkshop, CancellationToken cancellationToken = default)
         {
             return await Context.Products

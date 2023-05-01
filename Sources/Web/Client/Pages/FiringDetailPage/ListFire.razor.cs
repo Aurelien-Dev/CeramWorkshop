@@ -54,7 +54,7 @@ namespace Client.Pages.FiringDetailPage
 
         private async Task EditFiringDialog(Firing firing)
         {
-            var parameters = new DialogParameters { ["FiringlDetail"] = firing };
+            var parameters = new DialogParameters { ["FiringDetail"] = firing };
 
             var dialog = await DialogService.ShowAsync<FiringDialog>("Modifier une cuisson", parameters, this.CommonOptionDialog);
             var result = await dialog.Result;

@@ -16,10 +16,22 @@ namespace Repository.Repositories
 
         public virtual async Task<ICollection<T>> GetAll(CancellationToken cancellationToken = default) => await Context.Set<T>().ToListAsync(cancellationToken);
 
-        public async Task Add(T entity, CancellationToken cancellationToken = default) => await Context.Set<T>().AddAsync(entity, cancellationToken);
+        public async Task Add(T entity, CancellationToken cancellationToken = default)
+        {
+            await Context.Set<T>().AddAsync(entity, cancellationToken);
+            await Context.SaveChangesAsync(cancellationToken);
+        }
 
-        public void Update(T entity) => Context.Set<T>().Update(entity);
+        public async Task Update(T entity, CancellationToken cancellationToken = default)
+        {
+            Context.Set<T>().Update(entity);
+            await Context.SaveChangesAsync(cancellationToken);
+        }
 
-        public void Delete(T entity) => Context.Set<T>().Remove(entity);
+        public async Task Delete(T entity, CancellationToken cancellationToken = default)
+        {
+            Context.Set<T>().Remove(entity);
+            await Context.SaveChangesAsync(cancellationToken);
+        }
     }
 }

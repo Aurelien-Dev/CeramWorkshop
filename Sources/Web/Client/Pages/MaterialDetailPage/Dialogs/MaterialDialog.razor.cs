@@ -32,16 +32,16 @@ namespace Client.Pages.MaterialDetailPage.Dialogs
             if (_form.IsValid)
             {
                 if (InsertMode.HasValue && InsertMode.Value)
-                    await ProductWorker.MaterialRepository.Add(MaterialDetail);
+                    await ProductWorker.MaterialRepository.Add(MaterialDetail, ComponentDisposed);
                 else
                 {
-                    ProductWorker.MaterialRepository.Update(MaterialDetail);
+                    await ProductWorker.MaterialRepository.Update(MaterialDetail);
 
                     if (updateAllProductsMat)
-                        await ProductWorker.MaterialRepository.UpdateAllMaterialCost(MaterialDetail.Id);
+                        await ProductWorker.MaterialRepository.UpdateAllMaterialCost(MaterialDetail.Id, ComponentDisposed);
                 }
 
-                await ProductWorker.Completed();
+                _ = await ProductWorker.Completed(ComponentDisposed);
 
                 StateHasChanged();
                 MudDialog.Close(DialogResult.Ok(MaterialDetail));

@@ -11,13 +11,19 @@ namespace Client.Pages.ProductDetailPage.Dialogs
         [Inject] private IProductWorker ProductWorker { get; set; }
         [CascadingParameter] private MudDialogInstance MudDialog { get; set; }
         [Parameter] public Product ProductDetail { get; set; } = default!;
+        private Product OriginalProductDetail { get; set; } = default!;
         [Parameter] public bool? InsertMode { get; set; } = new();
 
         private MudForm _form = new();
         private bool _success;
         private string[] _errors = Array.Empty<string>();
         private bool _loading = false;
-        
+
+        protected override void OnParametersSet()
+        {
+            OriginalProductDetail = ProductDetail.GetClone();
+        }
+
         private async Task OnValidSubmit()
         {
             _loading = true;
@@ -29,12 +35,14 @@ namespace Client.Pages.ProductDetailPage.Dialogs
                 await Task.Delay(350);
                 ProductDetail.IdWorkshop = CurrentSession.Workshop.Id;
                 if (InsertMode.HasValue && InsertMode.Value)
-                    await ProductWorker.ProductRepository.Add(ProductDetail, ComponentDisposed);
+                    await ProductWorker.ProductRepository.Add(OriginalProductDetail, ComponentDisposed);
                 else
-                    ProductWorker.ProductRepository.Update(ProductDetail);
+                {
+                    await ProductWorker.ProductRepository.Update(ProductDetail, ComponentDisposed);
+                }
 
                 StateHasChanged();
-                await ProductWorker.Completed(ComponentDisposed);
+                _ = await ProductWorker.Completed(ComponentDisposed);
 
                 MudDialog.Close(DialogResult.Ok(ProductDetail.Id));
             }
@@ -46,6 +54,17 @@ namespace Client.Pages.ProductDetailPage.Dialogs
         {
             ProductWorker.Rollback();
             MudDialog.Cancel();
+
+            ProductDetail.Reference = OriginalProductDetail.Reference;
+            ProductDetail.Name = OriginalProductDetail.Name;
+            ProductDetail.Description = OriginalProductDetail.Description;
+            ProductDetail.Height = OriginalProductDetail.Height;
+            ProductDetail.TopDiameter = OriginalProductDetail.TopDiameter;
+            ProductDetail.BottomDiameter = OriginalProductDetail.BottomDiameter;
+            ProductDetail.Price = OriginalProductDetail.Price;
+            ProductDetail.Status = OriginalProductDetail.Status;
+            ProductDetail.DesignInstruction = OriginalProductDetail.DesignInstruction;
+            ProductDetail.GlazingInstruction = OriginalProductDetail.GlazingInstruction;
         }
     }
 }

@@ -38,5 +38,11 @@ namespace Domain.Models.MainDomain
         /// Gets or sets the product firings associated with the firing process.
         /// </summary>
         public ICollection<ProductFiring> ProductFiring { get; set; } = new List<ProductFiring>();
+
+        public Firing Clone()
+        {
+            //Both Cloned and Existing Object Point to the Same Memory Location of the Address Object
+            return (Firing)this.MemberwiseClone();
+        }
     }
 }

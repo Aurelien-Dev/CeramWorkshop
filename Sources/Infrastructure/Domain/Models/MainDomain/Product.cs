@@ -131,5 +131,11 @@ namespace Domain.Models.MainDomain
         {
             get => ImageInstructions.FirstOrDefault(i => i.IsFavoriteImage);
         }
+        
+        public Product GetClone()
+        {
+            //Both Cloned and Existing Object Point to the Same Memory Location of the Address Object
+            return (Product)this.MemberwiseClone();
+        }
     }
 }

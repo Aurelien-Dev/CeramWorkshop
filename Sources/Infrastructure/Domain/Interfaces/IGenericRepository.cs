@@ -29,12 +29,14 @@
         /// Updates the specified entity in the database.
         /// </summary>
         /// <param name="entity">The entity to update.</param>
-        void Update(T entity);
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
+        Task Update(T entity, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Deletes the specified entity from the context.
         /// </summary>
         /// <param name="entity">The entity to delete.</param>
-        void Delete(T entity);
+        /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
+        Task Delete(T entity, CancellationToken cancellationToken = default);
     }
 }

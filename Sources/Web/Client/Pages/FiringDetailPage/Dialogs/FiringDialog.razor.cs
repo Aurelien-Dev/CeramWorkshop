@@ -11,12 +11,17 @@ namespace Client.Pages.FiringDetailPage.Dialogs
         [Inject] private IProductWorker ProductWorker { get; set; }
         [CascadingParameter] private MudDialogInstance MudDialog { get; set; }
         [Parameter] public Firing FiringDetail { get; set; } = new();
+        private Firing OriginalFiringDetail { get; set; } = new();
         [Parameter] public bool? InsertMode { get; set; } = new();
 
         private MudForm _form = new();
         private bool _success;
         private string[] _errors = Array.Empty<string>();
 
+        protected override void OnParametersSet()
+        {
+            OriginalFiringDetail = FiringDetail.Clone();
+        }
 
         private async Task OnValidSubmit()
         {
@@ -27,8 +32,8 @@ namespace Client.Pages.FiringDetailPage.Dialogs
                 if (InsertMode.HasValue && InsertMode.Value)
                     await ProductWorker.FiringRepository.Add(FiringDetail, ComponentDisposed);
                 else
-                    ProductWorker.FiringRepository.Update(FiringDetail);
-
+                    await ProductWorker.FiringRepository.Update(FiringDetail);
+                ComponentDisposed.ThrowIfCancellationRequested();
                 await ProductWorker.Completed(ComponentDisposed);
 
                 StateHasChanged();
@@ -41,6 +46,12 @@ namespace Client.Pages.FiringDetailPage.Dialogs
             ProductWorker.Rollback();
             StateHasChanged();
             MudDialog.Cancel();
+            
+            FiringDetail.Name = OriginalFiringDetail.Name;
+            FiringDetail.Duration = OriginalFiringDetail.Duration;
+            FiringDetail.CostKwH = OriginalFiringDetail.CostKwH;
+            FiringDetail.TotalKwH = OriginalFiringDetail.TotalKwH;
+
         }
     }
 }

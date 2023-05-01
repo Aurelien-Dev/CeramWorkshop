@@ -50,8 +50,8 @@ namespace Client.Pages.ProductDetailPage
         private async Task LoadData(int id)
         {
             ProductDetail = await ProductWorker.ProductRepository.Get(id, CurrentSession.Workshop.Id, ComponentDisposed);
-            Materials = await ProductWorker.MaterialRepository.GetAll(ComponentDisposed);
-            Firings = await ProductWorker.FiringRepository.GetAll(ComponentDisposed);
+            // Materials = await ProductWorker.MaterialRepository.GetAll(ComponentDisposed);
+            // Firings = await ProductWorker.FiringRepository.GetAll(ComponentDisposed);
         }
 
         #region Image traitement

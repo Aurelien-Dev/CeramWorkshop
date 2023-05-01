@@ -1,5 +1,4 @@
 ﻿using Client.Pages.FiringDetailPage.Dialogs;
-using Client.Utils;
 using Client.Utils.ComponentBase;
 using Domain.InterfacesWorker;
 using Domain.Models.MainDomain;
@@ -25,7 +24,7 @@ namespace Client.Pages.FiringDetailPage
 
         private async Task LoadDatas()
         {
-            Firings = await ProductWorker.FiringRepository.GetAll();
+            Firings = await ProductWorker.FiringRepository.GetAll(ComponentDisposed);
         }
 
         private async Task DeleteFiringDialog(Firing firing)
@@ -35,7 +34,7 @@ namespace Client.Pages.FiringDetailPage
             if (!result.HasValue) return;
 
             ProductWorker.FiringRepository.Delete(firing);
-            await ProductWorker.Completed();
+            await ProductWorker.Completed(ComponentDisposed);
 
             Firings.Remove(firing);
             StateHasChanged();
@@ -67,11 +66,6 @@ namespace Client.Pages.FiringDetailPage
             }
 
             StateHasChanged();
-        }
-
-        public override void Dispose()
-        {
-            ProductWorker.Close();
         }
     }
 }

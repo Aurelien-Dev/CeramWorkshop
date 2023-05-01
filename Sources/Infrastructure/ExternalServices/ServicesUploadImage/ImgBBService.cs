@@ -1,5 +1,4 @@
 ﻿using ExternalServices.ServicesUploadImage.Model;
-using Microsoft.Extensions.Configuration;
 using RestSharp;
 using System.Text.Json;
 using Utils.Converters;

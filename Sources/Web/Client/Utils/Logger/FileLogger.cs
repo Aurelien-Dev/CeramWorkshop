@@ -50,7 +50,8 @@ namespace Client.Utils.Logger
             fileStream.WriteLine($"{logLevel} : {DateTime.Now.ToShortDateString()} {DateTime.Now.ToShortTimeString()} : {exception?.Message}");
             fileStream.WriteLine($"{exception?.StackTrace}");
             fileStream.Close();
-
+            Console.WriteLine(exception);
+            
             // If the exception has an inner exception, write its full stack trace as well.
             if (exception.InnerException != null)
                 WriteFullStack(logLevel, exception.InnerException);

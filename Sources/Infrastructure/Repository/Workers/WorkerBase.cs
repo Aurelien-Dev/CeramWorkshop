@@ -15,19 +15,14 @@ namespace Repository.Workers
             _context = context;
         }
 
-        public async Task<int> Completed()
+        public async Task<int> Completed(CancellationToken cancellationToken = default)
         {
-            return await _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync(cancellationToken);
         }
 
         public void Rollback()
         {
             _context.ChangeTracker.Clear();
-        }
-
-        public virtual void Close()
-        {
-            throw new NotImplementedException();
         }
     }
 }

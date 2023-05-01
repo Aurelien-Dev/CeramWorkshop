@@ -1,5 +1,4 @@
-﻿using Domain.Models.WorkshopDomaine;
-using System.Globalization;
+﻿using System.Globalization;
 
 namespace Client.Utils.Extension
 {

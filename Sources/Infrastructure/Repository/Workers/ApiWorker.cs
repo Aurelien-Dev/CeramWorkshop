@@ -17,10 +17,5 @@ namespace Repository.Workers
         {
             ImageInstructionRepository = imageInstructionRepository;
         }
-
-        public override void Close()
-        {
-            ImageInstructionRepository.CancelEFCore();
-        }
     }
 }

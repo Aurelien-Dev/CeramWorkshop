@@ -10,25 +10,25 @@ namespace Repository.Repositories
         {
         }
 
-        public async Task<ICollection<Material>> GetAll(MaterialType type)
+        public async Task<ICollection<Material>> GetAll(MaterialType type, CancellationToken cancellationToken = default)
         {
             return await Context.Materials
                 .Include(m => m.ProductMaterial)
                 .Where(p => p.Type == type)
-                .ToListAsync(ComponentDisposed);
+                .ToListAsync(cancellationToken);
         }
 
-        public async Task UpdateAllMaterialCost(int idMat)
+        public async Task UpdateAllMaterialCost(int idMat, CancellationToken cancellationToken = default)
         {
             var matToUpdate = await Context.Materials
-                .Include(p => p.ProductMaterial).SingleAsync(m => m.Id == idMat, ComponentDisposed);
+                .Include(p => p.ProductMaterial).SingleAsync(m => m.Id == idMat, cancellationToken);
 
             foreach (var item in matToUpdate.ProductMaterial)
             {
                 item.Cost = matToUpdate.Cost;
             }
 
-            await Context.SaveChangesAsync();
+            await Context.SaveChangesAsync(cancellationToken);
         }
     }
 }

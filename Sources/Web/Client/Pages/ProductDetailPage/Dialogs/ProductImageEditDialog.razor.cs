@@ -1,5 +1,4 @@
-﻿using Client.Utils;
-using Client.Utils.ComponentBase;
+﻿using Client.Utils.ComponentBase;
 using Domain.InterfacesWorker;
 using Domain.Models.MainDomain;
 using Microsoft.AspNetCore.Components;
@@ -28,7 +27,7 @@ namespace Client.Pages.ProductDetailPage.Dialogs
         private void OnValidSubmit()
         {
             ProductWorker.ProductRepository.Update(ProductDetail);
-            ProductWorker.Completed();
+            ProductWorker.Completed(ComponentDisposed);
 
             StateHasChanged();
             MudDialog.Close(DialogResult.Ok(true));
@@ -38,11 +37,6 @@ namespace Client.Pages.ProductDetailPage.Dialogs
         {
             ImageInstruction.Comment = OldComment;
             MudDialog.Cancel();
-        }
-
-        public override  void Dispose()
-        {
-            ProductWorker.Close();
         }
     }
 }

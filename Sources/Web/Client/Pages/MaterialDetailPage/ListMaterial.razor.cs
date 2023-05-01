@@ -1,5 +1,4 @@
 ﻿using Client.Pages.MaterialDetailPage.Dialogs;
-using Client.Utils;
 using Client.Utils.ComponentBase;
 using Domain.InterfacesWorker;
 using Domain.Models.MainDomain;
@@ -22,9 +21,10 @@ namespace Client.Pages.MaterialDetailPage
             await LoadDatas();
         }
 
+
         private async Task LoadDatas()
         {
-            Materials = await ProductWorker.MaterialRepository.GetAll(MaterialType);
+            Materials = await ProductWorker.MaterialRepository.GetAll(MaterialType, ComponentDisposed);
         }
 
         private async Task DeleteMat(Material material)
@@ -34,7 +34,7 @@ namespace Client.Pages.MaterialDetailPage
             if (!result.HasValue) return;
 
             ProductWorker.MaterialRepository.Delete(material);
-            await ProductWorker.Completed();
+            await ProductWorker.Completed(ComponentDisposed);
 
             Materials.Remove(material);
             StateHasChanged();
@@ -68,9 +68,5 @@ namespace Client.Pages.MaterialDetailPage
             StateHasChanged();
         }
 
-        public override void Dispose()
-        {
-            ProductWorker.Close();
-        }
     }
 }

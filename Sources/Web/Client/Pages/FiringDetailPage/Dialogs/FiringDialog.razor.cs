@@ -1,5 +1,4 @@
-﻿using Client.Utils;
-using Client.Utils.ComponentBase;
+﻿using Client.Utils.ComponentBase;
 using Domain.InterfacesWorker;
 using Domain.Models.MainDomain;
 using Microsoft.AspNetCore.Components;
@@ -26,11 +25,11 @@ namespace Client.Pages.FiringDetailPage.Dialogs
             if (_form.IsValid)
             {
                 if (InsertMode.HasValue && InsertMode.Value)
-                    await ProductWorker.FiringRepository.Add(FiringDetail);
+                    await ProductWorker.FiringRepository.Add(FiringDetail, ComponentDisposed);
                 else
                     ProductWorker.FiringRepository.Update(FiringDetail);
 
-                await ProductWorker.Completed();
+                await ProductWorker.Completed(ComponentDisposed);
 
                 StateHasChanged();
                 MudDialog.Close(DialogResult.Ok(FiringDetail));
@@ -42,11 +41,6 @@ namespace Client.Pages.FiringDetailPage.Dialogs
             ProductWorker.Rollback();
             StateHasChanged();
             MudDialog.Cancel();
-        }
-
-        public override void Dispose()
-        {
-            ProductWorker.Close();
         }
     }
 }

@@ -43,7 +43,7 @@ namespace Client.Pages.ProductDetailPage
 
             MaterialsVm.Add(new MaterialViewModel(pMat));
             ProductDetail.ProductMaterial.Add(pMat);
-            await ProductWorker.Completed();
+            await ProductWorker.Completed(ComponentDisposed);
 
             StateHasChanged();
         }
@@ -56,7 +56,7 @@ namespace Client.Pages.ProductDetailPage
             if (cost == pmToUpdate.Cost) return;
 
             pmToUpdate.Cost = cost;
-            ProductWorker.ProductRepository.UpdateProductMaterialCostAndQuantity(pmToUpdate);
+            ProductWorker.ProductRepository.UpdateProductMaterialCostAndQuantity(pmToUpdate, ComponentDisposed);
             CalculateTotalCost(id);
         }
 
@@ -68,7 +68,7 @@ namespace Client.Pages.ProductDetailPage
             if (quantity == pmToUpdate.Quantity) return;
 
             pmToUpdate.Quantity = quantity;
-            ProductWorker.ProductRepository.UpdateProductMaterialCostAndQuantity(pmToUpdate);
+            ProductWorker.ProductRepository.UpdateProductMaterialCostAndQuantity(pmToUpdate, ComponentDisposed);
             CalculateTotalCost(id);
         }
 
@@ -95,15 +95,10 @@ namespace Client.Pages.ProductDetailPage
         {
             ProductDetail.ProductMaterial.Remove(materialVm.PMat);
             ProductWorker.ProductRepository.Update(ProductDetail);
-            ProductWorker.Completed();
+            ProductWorker.Completed(ComponentDisposed);
 
             MaterialsVm.Remove(materialVm);
             StateHasChanged();
-        }
-
-        public  override void Dispose()
-        {
-            ProductWorker.Close();
         }
     }
 

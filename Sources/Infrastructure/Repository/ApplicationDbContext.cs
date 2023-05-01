@@ -1,8 +1,6 @@
 ﻿using Domain.Models.MainDomain;
 using Domain.Models.WorkshopDomaine;
 using Microsoft.EntityFrameworkCore;
-using Npgsql;
-using Repository.Maps;
 using Repository.Maps.MainDomain;
 
 namespace Repository
@@ -26,8 +24,6 @@ namespace Repository
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var cs = $"Host=192.168.1.19;Username=postgres;Password={Environment.GetEnvironmentVariable("PG_PASSWD")};Database={Environment.GetEnvironmentVariable("PG_DB_NAME")}";
-            optionsBuilder.UseNpgsql(new NpgsqlConnection(cs));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

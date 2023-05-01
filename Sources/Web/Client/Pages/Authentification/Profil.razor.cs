@@ -1,4 +1,3 @@
-using Client.Utils;
 using Client.Utils.ComponentBase;
 using Client.ViewModels;
 using Domain.InterfacesWorker;
@@ -30,7 +29,7 @@ namespace Client.Pages.Authentification
 
             if (!_formGeneral.IsValid) return;
 
-            Workshop workshop = await WorkshopWorker.WorkshopRepository.Get(CurrentSession.Workshop.Id);
+            Workshop workshop = await WorkshopWorker.WorkshopRepository.Get(CurrentSession.Workshop.Id, ComponentDisposed);
             workshop.Name = RegisterInfo.Name;
             workshop.Email = RegisterInfo.Email;
             workshop.UserName = RegisterInfo.UserName;
@@ -45,17 +44,12 @@ namespace Client.Pages.Authentification
             });
 
             WorkshopWorker.WorkshopRepository.Update(workshop);
-            await WorkshopWorker.Completed();
+            await WorkshopWorker.Completed(ComponentDisposed);
 
             Snackbar.Add("Modification effectuée", Severity.Success);
 
             await Task.Delay(500);
             NavigationManager.NavigateTo(NavigationManager.Uri, true);
-        }
-
-        public override void Dispose()
-        {
-            WorkshopWorker.Close();
         }
     }
 }

@@ -27,13 +27,5 @@ namespace Repository.Workers
             FiringRepository = firingRepository;
             ImageInstructionRepository = imageInstructionRepository;
         }
-
-        public override void Close()
-        {
-            ProductRepository.CancelEFCore();
-            MaterialRepository.CancelEFCore();
-            FiringRepository.CancelEFCore();
-            ImageInstructionRepository.CancelEFCore();
-        }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Domain.Interfaces;
 using Domain.InterfacesWorker;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Npgsql;
 using Repository.Repositories;
 using Repository.Workers;
 
@@ -23,7 +25,12 @@ namespace Repository
             services.AddTransient<IApiWorker, ApiWorker>();
 
             //DbContext
-            services.AddDbContext<ApplicationDbContext>();
+            services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                var cs = $"Host=192.168.1.19;Username=postgres;Password={Environment.GetEnvironmentVariable("PG_PASSWD")};Database={Environment.GetEnvironmentVariable("PG_DB_NAME")}";
+                options.UseNpgsql(new NpgsqlConnection(cs));
+    
+            }, ServiceLifetime.Transient, ServiceLifetime.Transient);
 
             return services;
         }

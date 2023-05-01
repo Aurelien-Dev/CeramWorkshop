@@ -27,9 +27,13 @@ namespace Client.Utils.ComponentBase
             DisableBackdropClick = true
         };
 
+        protected CancellationToken ComponentDisposed => (_cancellationTokenSource ??= new()).Token;
+        private CancellationTokenSource? _cancellationTokenSource;
+
         public virtual void Dispose()
         {
-            // throw new NotImplementedException();
+            _cancellationTokenSource?.Cancel();
+            _cancellationTokenSource?.Dispose();
         }
     }
 }

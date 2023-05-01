@@ -1,5 +1,4 @@
 ﻿using Client.Pages.ProductDetailPage.Dialogs;
-using Client.Utils;
 using Client.Utils.ComponentBase;
 using Domain.Models.MainDomain;
 using Microsoft.AspNetCore.Components;

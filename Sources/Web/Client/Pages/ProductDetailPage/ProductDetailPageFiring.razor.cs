@@ -44,7 +44,7 @@ namespace Client.Pages.ProductDetailPage
 
             FiringsVm.Add(new FiringViewModel(pFire));
             ProductDetail.ProductFiring.Add(pFire);
-            await ProductWorker.Completed();
+            await ProductWorker.Completed(ComponentDisposed);
 
             StateHasChanged();
         }
@@ -57,7 +57,7 @@ namespace Client.Pages.ProductDetailPage
             if (number == pfToUpdate.NumberProducts) return;
 
             pfToUpdate.NumberProducts = number;
-            ProductWorker.ProductRepository.UpdateProductFiring(pfToUpdate);
+            ProductWorker.ProductRepository.UpdateProductFiring(pfToUpdate, ComponentDisposed);
 
             // CalculateTotalCost(pfToUpdate.Id, pfToUpdate);
         }
@@ -77,7 +77,7 @@ namespace Client.Pages.ProductDetailPage
         {
             ProductDetail.ProductFiring.Remove(firingVm.ProductFire);
             ProductWorker.ProductRepository.Update(ProductDetail);
-            ProductWorker.Completed();
+            ProductWorker.Completed(ComponentDisposed);
 
             FiringsVm.Remove(firingVm);
             StateHasChanged();
@@ -87,10 +87,6 @@ namespace Client.Pages.ProductDetailPage
         // {
         //     FiringViewModel pmVMToUpdate = FiringsVm.FirstOrDefault(p => p.ProductFire.Id == id);
         // }
-        public override void Dispose()
-        {
-            ProductWorker.Close();
-        }
     }
 
     public class FiringViewModel

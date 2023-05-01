@@ -7,33 +7,19 @@ namespace Repository.Repositories
     {
         protected readonly ApplicationDbContext Context;
 
-        protected CancellationToken ComponentDisposed => (_cancellationTokenSource ??= new()).Token;
-        private CancellationTokenSource? _cancellationTokenSource;
-
         protected GenericRepository(ApplicationDbContext context)
         {
             Context = context;
         }
 
-        public virtual async Task<T> Get(TId id) => await Context.Set<T>().FindAsync(id, ComponentDisposed);
+        public virtual async Task<T> Get(TId id, CancellationToken cancellationToken = default) => await Context.Set<T>().FindAsync(id, cancellationToken);
 
-        public virtual async Task<ICollection<T>> GetAll() => await Context.Set<T>().ToListAsync(ComponentDisposed);
+        public virtual async Task<ICollection<T>> GetAll(CancellationToken cancellationToken = default) => await Context.Set<T>().ToListAsync(cancellationToken);
 
-        public async Task Add(T entity) => await Context.Set<T>().AddAsync(entity, ComponentDisposed);
+        public async Task Add(T entity, CancellationToken cancellationToken = default) => await Context.Set<T>().AddAsync(entity, cancellationToken);
 
         public void Update(T entity) => Context.Set<T>().Update(entity);
 
         public void Delete(T entity) => Context.Set<T>().Remove(entity);
-        
-        
-        public void CancelEFCore()
-        {
-            if (_cancellationTokenSource != null)
-            {
-                _cancellationTokenSource.Cancel();
-                _cancellationTokenSource.Dispose();
-                _cancellationTokenSource = null;
-            }
-        }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Client.Utils;
-using Client.Utils.ComponentBase;
+﻿using Client.Utils.ComponentBase;
 using Domain.InterfacesWorker;
 using Domain.Models.MainDomain;
 using Microsoft.AspNetCore.Components;
@@ -54,11 +53,6 @@ namespace Client.Pages.MaterialDetailPage.Dialogs
             ProductWorker.Rollback();
             StateHasChanged();
             MudDialog.Cancel();
-        }
-
-        public override void Dispose()
-        {
-            ProductWorker.Close();
         }
     }
 }

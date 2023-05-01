@@ -5,7 +5,6 @@ using Domain.Models.MainDomain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using System.Diagnostics.CodeAnalysis;
 using Client.Utils.ComponentBase;
 using Utils.Exception;
 
@@ -50,9 +49,9 @@ namespace Client.Pages.ProductDetailPage
 
         private async Task LoadData(int id)
         {
-            ProductDetail = await ProductWorker.ProductRepository.Get(id, CurrentSession.Workshop.Id);
-            Materials = await ProductWorker.MaterialRepository.GetAll();
-            Firings = await ProductWorker.FiringRepository.GetAll();
+            ProductDetail = await ProductWorker.ProductRepository.Get(id, CurrentSession.Workshop.Id, ComponentDisposed);
+            Materials = await ProductWorker.MaterialRepository.GetAll(ComponentDisposed);
+            Firings = await ProductWorker.FiringRepository.GetAll(ComponentDisposed);
         }
 
         #region Image traitement
@@ -98,7 +97,7 @@ namespace Client.Pages.ProductDetailPage
 
             ProductDetail.ImageInstructions.Remove(image);
             ProductWorker.ProductRepository.Update(ProductDetail);
-            await ProductWorker.Completed();
+            await ProductWorker.Completed(ComponentDisposed);
 
             if (ProductDetail.ImageInstructions.Any())
                 CarouselSelectedIndex = ProductDetail.ImageInstructions.Count - 1;
@@ -109,7 +108,7 @@ namespace Client.Pages.ProductDetailPage
 
         private void OnToggledFavoriteChanged(bool toggled, ImageInstruction image)
         {
-            ProductWorker.ImageInstructionRepository.SetNewFavorite(toggled, image.Id, ProductDetail.Id);
+            ProductWorker.ImageInstructionRepository.SetNewFavorite(toggled, image.Id, ProductDetail.Id, ComponentDisposed);
             image.IsFavoriteImage = toggled;
         }
 
@@ -124,7 +123,7 @@ namespace Client.Pages.ProductDetailPage
             if (!result.HasValue) return;
 
             ProductWorker.ProductRepository.Delete(ProductDetail);
-            await ProductWorker.Completed();
+            await ProductWorker.Completed(ComponentDisposed);
             NavigationManager.NavigateTo($"/");
         }
 
@@ -141,10 +140,5 @@ namespace Client.Pages.ProductDetailPage
         }
 
         #endregion
-
-        public override  void Dispose()
-        {
-            ProductWorker.Close();
-        }
     }
 }

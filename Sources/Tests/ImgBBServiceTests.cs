@@ -1,5 +1,4 @@
 ﻿using ExternalServices.ServicesUploadImage;
-using Microsoft.Extensions.Configuration;
 using Moq;
 using RestSharp;
 using System.Net;

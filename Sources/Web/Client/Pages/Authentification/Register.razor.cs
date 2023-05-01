@@ -32,7 +32,7 @@ namespace Client.Pages.Authentification
                 RegisterInProgress = true;
                 StateHasChanged();
 
-                if (await WorkshopWorker.WorkshopRepository.CheckIfEmailExists(_registerInfo.Email))
+                if (await WorkshopWorker.WorkshopRepository.CheckIfEmailExists(_registerInfo.Email, ComponentDisposed))
                 {
                     _registerError = "Email already in use.";
                     return;
@@ -43,8 +43,8 @@ namespace Client.Pages.Authentification
 
                 Workshop workshopDetail = new(_registerInfo.Name, null, _registerInfo.Email, _registerInfo.UserName, workshopPasswordHash, workshopSalt);
 
-                await WorkshopWorker.WorkshopRepository.Add(workshopDetail);
-                await WorkshopWorker.Completed();
+                await WorkshopWorker.WorkshopRepository.Add(workshopDetail, ComponentDisposed);
+                await WorkshopWorker.Completed(ComponentDisposed);
 
                 (bool success, _registerError) = await AuthenticationManager.StartSession(workshopDetail.Email, _registerInfo.Password);
 
@@ -52,11 +52,6 @@ namespace Client.Pages.Authentification
 
                 NavigationManager.NavigateTo("/", forceLoad: false);
             }
-        }
-
-        public override void Dispose()
-        {
-            WorkshopWorker.Close();
         }
     }
 }

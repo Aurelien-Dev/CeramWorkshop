@@ -51,7 +51,7 @@ namespace Client.Pages.ProductDetailPage.Dialogs
 
             ProductDetail.ImageInstructions.Add(ImageInstruction);
             ProductWorker.ProductRepository.Update(ProductDetail);
-            ProductWorker.Completed();
+            ProductWorker.Completed(ComponentDisposed);
 
             StateHasChanged();
             MudDialog.Close(DialogResult.Ok(true));
@@ -72,11 +72,6 @@ namespace Client.Pages.ProductDetailPage.Dialogs
             LoadFileFromInputFile.RemoveFileInput(ImageInstruction.Url);
             ImageInstruction = default!;
             MudDialog.Cancel();
-        }
-
-        public override  void Dispose()
-        {
-            ProductWorker.Close();
         }
     }
 }

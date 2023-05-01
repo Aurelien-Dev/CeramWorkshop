@@ -21,7 +21,7 @@ namespace Client.Pages.ProductDetailPage
 
         protected override async Task OnInitializedAsync()
         {
-            Products = await ProductWorker.ProductRepository.GetAll(CurrentSession.Workshop.Id);
+            Products = await ProductWorker.ProductRepository.GetAll(CurrentSession.Workshop.Id, ComponentDisposed);
             ProductsVm = new List<ProductListItemViewModel>(Products.Select(p => new ProductListItemViewModel(p)).OrderBy(p => p.Name).ToList());
         }
 
@@ -61,11 +61,6 @@ namespace Client.Pages.ProductDetailPage
 
             return query.Where(p => p.Name.Contains(value, StringComparison.InvariantCultureIgnoreCase) ||
                                     p.Reference.Contains(value, StringComparison.InvariantCultureIgnoreCase));
-        }
-
-        public override void Dispose()
-        {
-            ProductWorker.Close();
         }
     }
 }

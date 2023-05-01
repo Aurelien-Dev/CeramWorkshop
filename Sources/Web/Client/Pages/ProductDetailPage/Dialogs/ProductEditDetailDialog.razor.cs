@@ -1,5 +1,4 @@
-﻿using Client.Utils;
-using Client.Utils.ComponentBase;
+﻿using Client.Utils.ComponentBase;
 using Domain.InterfacesWorker;
 using Domain.Models.MainDomain;
 using Microsoft.AspNetCore.Components;
@@ -27,15 +26,15 @@ namespace Client.Pages.ProductDetailPage.Dialogs
 
             if (_form.IsValid)
             {
-                await Task.Delay(550);
+                await Task.Delay(350);
                 ProductDetail.IdWorkshop = CurrentSession.Workshop.Id;
                 if (InsertMode.HasValue && InsertMode.Value)
-                    await ProductWorker.ProductRepository.Add(ProductDetail);
+                    await ProductWorker.ProductRepository.Add(ProductDetail, ComponentDisposed);
                 else
                     ProductWorker.ProductRepository.Update(ProductDetail);
 
                 StateHasChanged();
-                await ProductWorker.Completed();
+                await ProductWorker.Completed(ComponentDisposed);
 
                 MudDialog.Close(DialogResult.Ok(ProductDetail.Id));
             }
@@ -47,11 +46,6 @@ namespace Client.Pages.ProductDetailPage.Dialogs
         {
             ProductWorker.Rollback();
             MudDialog.Cancel();
-        }
-
-        public override  void Dispose()
-        {
-            ProductWorker.Close();
         }
     }
 }

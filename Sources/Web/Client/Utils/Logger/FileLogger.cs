@@ -40,10 +40,12 @@ namespace Client.Utils.Logger
                 WriteFullStack(logLevel, exception);
         }
 
-        private void WriteFullStack(LogLevel logLevel, Exception exception)
+        private void WriteFullStack(LogLevel logLevel, Exception? exception)
         {
             if (!IsEnabled(logLevel))
                 return;
+
+            if (exception == null) return;
 
             // Open a stream to the log file and write the exception message and stack trace.
             StreamWriter fileStream = File.AppendText(Path.Combine(EnvironementSingleton.WebRootPath, "CustomLog.log"));

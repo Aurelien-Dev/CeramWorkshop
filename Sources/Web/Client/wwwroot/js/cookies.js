@@ -4,7 +4,7 @@ if (navigator && navigator.locks && navigator.locks.request) {
         lockResolver = res;
     });
 
-    navigator.locks.request('unique_lock_name', { mode: "shared" }, () => {
+    await navigator.locks.request('unique_lock_name', {mode: "shared"}, () => {
         return promise;
     });
 }

@@ -47,8 +47,9 @@ namespace Repository.Repositories
 
         public async Task<int> SaveChangeAsync(CancellationToken cancellationToken = default)
         {
-          return   await Context.SaveChangesAsync(cancellationToken);
+            return await Context.SaveChangesAsync(cancellationToken);
         }
+
         protected IQueryable<TEntity> AddSorting(IQueryable<TEntity> query, string sortDirection, string propertyName)
         {
             var param = Expression.Parameter(typeof(TEntity));
@@ -69,6 +70,9 @@ namespace Repository.Repositories
                     sortMethod = () => ((IOrderedQueryable<TEntity>)query).ThenByDescending<TEntity, object>(k => null);
                     break;
                 case "Descending":
+                    sortMethod = () => query.OrderByDescending<TEntity, object>(k => null);
+                    break;
+                default:
                     sortMethod = () => query.OrderByDescending<TEntity, object>(k => null);
                     break;
             }

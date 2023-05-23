@@ -44,7 +44,6 @@ namespace Client.Pages.Authentification
                 Workshop workshopDetail = new(_registerInfo.Name, null, _registerInfo.Email, _registerInfo.UserName, workshopPasswordHash, workshopSalt);
 
                 await WorkshopWorker.WorkshopRepository.Add(workshopDetail, ComponentDisposed);
-                await WorkshopWorker.Completed(ComponentDisposed);
 
                 (bool success, _registerError) = await AuthenticationManager.StartSession(workshopDetail.Email, _registerInfo.Password);
 

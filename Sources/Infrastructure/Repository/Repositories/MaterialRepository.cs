@@ -1,6 +1,7 @@
 ﻿using Domain.Interfaces;
 using Domain.Models.MainDomain;
 using Microsoft.EntityFrameworkCore;
+using Repository.Extensions;
 
 namespace Repository.Repositories
 {
@@ -15,7 +16,7 @@ namespace Repository.Repositories
             return await Context.Materials
                 .Include(m => m.ProductMaterial)
                 .Where(p => p.Type == type)
-                .ToListAsync(cancellationToken);
+                .ToListAsyncWait(cancellationToken);
         }
 
         public async Task<(IEnumerable<Material>, int)> GetAllWithPaging(MaterialType type, int pageNumber, int pageSize, string sortByName, string sortDirection, CancellationToken cancellationToken = default)
@@ -25,12 +26,13 @@ namespace Repository.Repositories
             if (sortDirection != "None")
                 query = AddSorting(query, sortDirection, sortByName);
 
-            int total = await query.CountAsync(cancellationToken);
+            int total = await query.CountAsyncWait(cancellationToken);
+
             var result = await query
                 .Include(m => m.ProductMaterial)
                 .Skip(pageNumber * pageSize)
                 .Take(pageSize)
-                .ToListAsync(cancellationToken);
+                .ToListAsyncWait(cancellationToken);
 
             return (result, total);
         }
@@ -39,7 +41,8 @@ namespace Repository.Repositories
         public async Task UpdateAllMaterialCost(int idMat, CancellationToken cancellationToken = default)
         {
             var matToUpdate = await Context.Materials
-                .Include(p => p.ProductMaterial).SingleAsync(m => m.Id == idMat, cancellationToken);
+                .Include(p => p.ProductMaterial)
+                .SingleAsyncWait(m => m.Id == idMat, cancellationToken);
 
             foreach (var item in matToUpdate.ProductMaterial)
             {

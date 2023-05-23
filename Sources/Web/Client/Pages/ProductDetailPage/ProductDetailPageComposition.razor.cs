@@ -37,14 +37,15 @@ namespace Client.Pages.ProductDetailPage
         {
             if (mat == null) return;
 
-            await _autocompleteBox.Clear();
 
-            var pMat = new ProductMaterial(mat.Id, ProductDetail.Id, 0, mat.Cost) { Material = mat };
-
+            var pMat = new ProductMaterial(mat.Id, ProductDetail.Id, 0, mat.Cost);
+            await ProductWorker.ProductRepository.AddMaterial(pMat, ComponentDisposed);
+            pMat.Material = mat;
             MaterialsVm.Add(new MaterialViewModel(pMat));
             ProductDetail.ProductMaterial.Add(pMat);
-            await ProductWorker.Completed(ComponentDisposed);
-
+            
+    
+            await _autocompleteBox.Clear();
             StateHasChanged();
         }
 
@@ -94,9 +95,8 @@ namespace Client.Pages.ProductDetailPage
         private void DeleteMat(MaterialViewModel materialVm)
         {
             ProductDetail.ProductMaterial.Remove(materialVm.PMat);
-            ProductWorker.ProductRepository.Update(ProductDetail);
-            ProductWorker.Completed(ComponentDisposed);
-
+            // ProductWorker.ProductRepository.Update(ProductDetail);
+            ProductWorker.ProductRepository.SaveChangeAsync();
             MaterialsVm.Remove(materialVm);
             StateHasChanged();
         }

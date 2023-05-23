@@ -44,7 +44,6 @@ namespace Client.Pages.ProductDetailPage
 
             FiringsVm.Add(new FiringViewModel(pFire));
             ProductDetail.ProductFiring.Add(pFire);
-            await ProductWorker.Completed(ComponentDisposed);
 
             StateHasChanged();
         }
@@ -77,7 +76,6 @@ namespace Client.Pages.ProductDetailPage
         {
             ProductDetail.ProductFiring.Remove(firingVm.ProductFire);
             ProductWorker.ProductRepository.Update(ProductDetail);
-            ProductWorker.Completed(ComponentDisposed);
 
             FiringsVm.Remove(firingVm);
             StateHasChanged();

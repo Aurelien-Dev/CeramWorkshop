@@ -34,7 +34,6 @@ namespace Client.Pages.FiringDetailPage.Dialogs
                 else
                     await ProductWorker.FiringRepository.Update(FiringDetail);
                 ComponentDisposed.ThrowIfCancellationRequested();
-                await ProductWorker.Completed(ComponentDisposed);
 
                 StateHasChanged();
                 MudDialog.Close(DialogResult.Ok(FiringDetail));
@@ -43,7 +42,6 @@ namespace Client.Pages.FiringDetailPage.Dialogs
 
         private void Cancel()
         {
-            ProductWorker.Rollback();
             StateHasChanged();
             MudDialog.Cancel();
             

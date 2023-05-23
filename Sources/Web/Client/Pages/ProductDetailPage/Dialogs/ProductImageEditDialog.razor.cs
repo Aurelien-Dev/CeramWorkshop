@@ -27,7 +27,6 @@ namespace Client.Pages.ProductDetailPage.Dialogs
         private void OnValidSubmit()
         {
             ProductWorker.ProductRepository.Update(ProductDetail);
-            ProductWorker.Completed(ComponentDisposed);
 
             StateHasChanged();
             MudDialog.Close(DialogResult.Ok(true));

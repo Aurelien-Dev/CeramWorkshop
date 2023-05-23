@@ -41,8 +41,6 @@ namespace Client.Pages.MaterialDetailPage.Dialogs
                         await ProductWorker.MaterialRepository.UpdateAllMaterialCost(MaterialDetail.Id, ComponentDisposed);
                 }
 
-                _ = await ProductWorker.Completed(ComponentDisposed);
-
                 StateHasChanged();
                 MudDialog.Close(DialogResult.Ok(MaterialDetail));
             }
@@ -50,7 +48,6 @@ namespace Client.Pages.MaterialDetailPage.Dialogs
         
         private void Cancel()
         {
-            ProductWorker.Rollback();
             StateHasChanged();
             MudDialog.Cancel();
         }

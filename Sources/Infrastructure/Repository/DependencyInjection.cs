@@ -26,12 +26,12 @@ namespace Repository
             services.AddTransient<IApiWorker, ApiWorker>();
 
             //DbContext
-            services.AddDbContextFactory<ApplicationDbContext>(options =>
+            services.AddDbContext<ApplicationDbContext>(options =>
             {
                 var cs = $"Host=192.168.1.19;Username=postgres;Password={Environment.GetEnvironmentVariable("PG_PASSWD")};Database={Environment.GetEnvironmentVariable("PG_DB_NAME")}";
                 options.UseNpgsql(new NpgsqlConnection(cs));
                 options.UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole()));
-            }, ServiceLifetime.Transient);
+            });
 
             return services;
         }

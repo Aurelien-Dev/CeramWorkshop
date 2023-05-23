@@ -1,12 +1,12 @@
-using MudExtensions.Services;
+using System.Globalization;
 using Client;
 using Client.Utils.Logger;
 using Client.Utils.Middlewares;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using MudExtensions.Services;
 using Repository;
-using System.Globalization;
 using Utils.Singletons;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,7 +28,6 @@ builder.Services.AddRepository();
 builder.Services.AddClientServices();
 builder.Services.AddMudExtensions();
 
-
 //Authentication
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
@@ -44,7 +43,7 @@ builder.Services.AddAuthorization();
 builder.Services.Configure<CookiePolicyOptions>(options =>
 {
     options.CheckConsentNeeded = context => true;
-    options.MinimumSameSitePolicy = Microsoft.AspNetCore.Http.SameSiteMode.None;
+    options.MinimumSameSitePolicy = SameSiteMode.None;
 });
 
 //Logging services

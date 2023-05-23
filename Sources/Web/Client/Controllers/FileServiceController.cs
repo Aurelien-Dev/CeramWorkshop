@@ -53,8 +53,7 @@ namespace Client.Controllers
                         item.Url = WebPathHelper.Combine(directory, Path.GetFileName(localMedium));
                         item.FileLocation = Location.ImgBb;
 
-                        ApiWorker.ImageInstructionRepository.Update(item);
-                        await ApiWorker.Completed();
+                        await ApiWorker.ImageInstructionRepository.Update(item);
 
                         LoadFileFromInputFile.RemoveFileInput(path);
                     }
@@ -69,7 +68,6 @@ namespace Client.Controllers
             }
             catch (Exception ex)
             {
-                ApiWorker.Rollback();
                 return new JsonResult(new { sucess = false, error = ex.Message, stacktrace = ex.StackTrace });
             }
         }

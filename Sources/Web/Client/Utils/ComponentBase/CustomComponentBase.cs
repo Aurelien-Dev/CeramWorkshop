@@ -21,7 +21,7 @@ namespace Client.Utils.ComponentBase
 
         protected CultureInfo CurrentCultur => CultureInfo.CreateSpecificCulture(CurrentSession.Workshop.Culture);
 
-        public DialogOptions CommonOptionDialog { get; set; } = new DialogOptions
+        public DialogOptions CommonOptionDialog { get; } = new()
         {
             CloseOnEscapeKey = false,
             DisableBackdropClick = true
@@ -32,8 +32,12 @@ namespace Client.Utils.ComponentBase
 
         public virtual void Dispose()
         {
-            _cancellationTokenSource?.Cancel();
-            _cancellationTokenSource?.Dispose();
+            if (_cancellationTokenSource != null)
+            {
+                _cancellationTokenSource.Cancel();
+                _cancellationTokenSource.Dispose();
+                _cancellationTokenSource = null;
+            }
         }
     }
 }

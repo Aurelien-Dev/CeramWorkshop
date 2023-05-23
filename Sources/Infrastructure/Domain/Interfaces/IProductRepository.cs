@@ -55,5 +55,7 @@ namespace Domain.Interfaces
         /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
         /// <remarks>If the provided ProductFiring object is null, the method will not perform any action.</remarks>
         Task UpdateProductFiring(ProductFiring productFiring, CancellationToken cancellationToken = default);
+        
+        Task AddMaterial(ProductMaterial pMat, CancellationToken cancellationToken = default);
     }
 }

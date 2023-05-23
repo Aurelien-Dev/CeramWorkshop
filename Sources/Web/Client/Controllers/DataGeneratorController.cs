@@ -11,40 +11,42 @@ namespace Client.Controllers;
 [Authorize]
 public class DataGeneratorController
 {
-    public IProductWorker ProductWorker { get; set; }
-    private CancellationTokenSource _cancellationTokenSource;
-    private LipsumGenerator lipsum { get; set; } = new();
+    public IProductWorker ProductWorker { get; }
+    private LipsumGenerator Lipsum { get; } = new();
+    private static readonly Random Random = new();
 
     public DataGeneratorController(IProductWorker productWorker)
     {
         ProductWorker = productWorker;
     }
 
+
     [HttpGet]
     [Route("AddData")]
-    public async Task<ActionResult> AddData()
+    public async Task<ActionResult> AddData(CancellationToken cancellationToken)
     {
-        _cancellationTokenSource = new CancellationTokenSource();
+        cancellationToken.ThrowIfCancellationRequested();
+
 
         try
         {
             //Material 
             for (int i = 0; i < 2000; i++)
             {
-                MaterialType mt = (MaterialType)random.Next(0, 4);
+                MaterialType mt = (MaterialType)Random.Next(0, 4);
                 if (mt == MaterialType.Engobe) continue;
-                
+
                 await ProductWorker.MaterialRepository.Add(new()
                 {
-                    Reference = RandomString(random.Next(2, 6)),
-                    Name = RandomString(random.Next(7, 22), true),
-                    Comment = lipsum.GenerateLipsum(random.Next(2, 3), Features.Sentences, string.Empty),
+                    Reference = RandomString(Random.Next(2, 6)),
+                    Name = RandomString(Random.Next(7, 22), true),
+                    Comment = Lipsum.GenerateLipsum(Random.Next(2, 3), Features.Sentences, string.Empty),
                     Type = mt,
-                    Cost = random.Next(1, 300),
-                    Quantity = random.Next(1, 20),
-                    UniteMesure = (MaterialUnite)random.Next(0, 2),
+                    Cost = Random.Next(1, 300),
+                    Quantity = Random.Next(1, 20),
+                    UniteMesure = (MaterialUnite)Random.Next(0, 2),
                     IsHomeMade = false
-                }, _cancellationTokenSource.Token);
+                }, cancellationToken);
             }
 
 
@@ -64,21 +66,18 @@ public class DataGeneratorController
             //         Status = (ProductStatus)random.Next(0, 4),
             //         ShrinkingCoeficient = random.Next(1, 20),
             //         IdWorkshop = 6
-            //     }, _cancellationTokenSource.Token);
+            //     }, cancellationToken);
             // }
 
-            // await ProductWorker.Completed(_cancellationTokenSource.Token);
 
             return new JsonResult(new { sucess = true });
         }
         catch (Exception ex)
         {
-            ProductWorker.Rollback();
             return new JsonResult(new { sucess = false, error = ex.Message, stacktrace = ex.StackTrace });
         }
     }
 
-    private static Random random = new();
 
     public static string RandomString(int length, bool withSpace = false)
     {
@@ -86,6 +85,6 @@ public class DataGeneratorController
         if (withSpace) chars += "                  ";
 
         return new string(Enumerable.Repeat(chars, length)
-            .Select(s => s[random.Next(s.Length)]).ToArray());
+            .Select(s => s[Random.Next(s.Length)]).ToArray());
     }
 }

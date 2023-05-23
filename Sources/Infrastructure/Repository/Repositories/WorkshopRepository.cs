@@ -1,6 +1,6 @@
 ﻿using Domain.Interfaces;
 using Domain.Models.WorkshopDomaine;
-using Microsoft.EntityFrameworkCore;
+using Repository.Extensions;
 
 namespace Repository.Repositories
 {
@@ -10,7 +10,8 @@ namespace Repository.Repositories
 
         public async  Task<(Workshop?, bool)> GetWorkshopInformationForLogin(string email, CancellationToken cancellationToken = default)
         {
-            Workshop workshop = await Context.Workshops.FirstOrDefaultAsync(w => w.Email == email, cancellationToken);
+            Workshop workshop = await Context.Workshops.FirstOrDefaultAsyncWait(w => w.Email == email, cancellationToken);
+            
             bool mailExist = workshop != null && email == workshop.Email;
 
             return (workshop, mailExist);
@@ -18,7 +19,7 @@ namespace Repository.Repositories
 
         public async Task<bool> CheckIfEmailExists(string email, CancellationToken cancellationToken = default)
         {
-            return await Context.Workshops.AnyAsync(w => w.Email == email, cancellationToken);
+            return await Context.Workshops.AnyAsyncWait(w => w.Email == email, cancellationToken);
         }
     }
 }

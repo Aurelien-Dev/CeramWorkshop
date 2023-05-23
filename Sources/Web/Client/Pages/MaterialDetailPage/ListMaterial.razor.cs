@@ -30,7 +30,6 @@ namespace Client.Pages.MaterialDetailPage
             if (!result.HasValue) return;
 
             await ProductWorker.MaterialRepository.Delete(material, ComponentDisposed);
-            await ProductWorker.Completed(ComponentDisposed);
 
             Materials.Remove(material);
             StateHasChanged();

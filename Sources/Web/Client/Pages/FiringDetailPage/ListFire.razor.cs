@@ -33,8 +33,7 @@ namespace Client.Pages.FiringDetailPage
 
             if (!result.HasValue) return;
 
-            ProductWorker.FiringRepository.Delete(firing);
-            await ProductWorker.Completed(ComponentDisposed);
+            await ProductWorker.FiringRepository.Delete(firing);
 
             Firings.Remove(firing);
             StateHasChanged();

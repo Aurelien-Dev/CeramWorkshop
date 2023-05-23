@@ -51,7 +51,6 @@ namespace Client.Pages.ProductDetailPage.Dialogs
 
             ProductDetail.ImageInstructions.Add(ImageInstruction);
             ProductWorker.ProductRepository.Update(ProductDetail);
-            ProductWorker.Completed(ComponentDisposed);
 
             StateHasChanged();
             MudDialog.Close(DialogResult.Ok(true));

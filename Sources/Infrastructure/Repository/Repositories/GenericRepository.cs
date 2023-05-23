@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 using Domain.Interfaces;
-using Microsoft.EntityFrameworkCore;
+using Repository.Extensions;
 
 namespace Repository.Repositories
 {
@@ -13,13 +13,22 @@ namespace Repository.Repositories
             Context = context;
         }
 
-        public virtual async Task<TEntity> Get(TId id, CancellationToken cancellationToken = default) => await Context.Set<TEntity>().FindAsync(id, cancellationToken);
+        public virtual async Task<TEntity> Get(TId id, CancellationToken cancellationToken = default)
+        {
+            return await Context.Set<TEntity>()
+                .FindAsync(id, cancellationToken)
+                .ConfigureAwait(false);
+        }
 
-        public virtual async Task<ICollection<TEntity>> GetAll(CancellationToken cancellationToken = default) => await Context.Set<TEntity>().ToListAsync(cancellationToken);
+        public virtual async Task<ICollection<TEntity>> GetAll(CancellationToken cancellationToken = default)
+        {
+            return await Context.Set<TEntity>()
+                .ToListAsyncWait(cancellationToken);
+        }
 
         public async Task Add(TEntity entity, CancellationToken cancellationToken = default)
         {
-            await Context.Set<TEntity>().AddAsync(entity, cancellationToken);
+            await Context.Set<TEntity>().AddAsync(entity, cancellationToken).ConfigureAwait(false);
             await Context.SaveChangesAsync(cancellationToken);
         }
 
@@ -34,8 +43,12 @@ namespace Repository.Repositories
             Context.Set<TEntity>().Remove(entity);
             await Context.SaveChangesAsync(cancellationToken);
         }
-        
-        
+
+
+        public async Task<int> SaveChangeAsync(CancellationToken cancellationToken = default)
+        {
+          return   await Context.SaveChangesAsync(cancellationToken);
+        }
         protected IQueryable<TEntity> AddSorting(IQueryable<TEntity> query, string sortDirection, string propertyName)
         {
             var param = Expression.Parameter(typeof(TEntity));

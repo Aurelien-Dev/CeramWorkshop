@@ -42,7 +42,6 @@ namespace Client.Pages.ProductDetailPage.Dialogs
                 }
 
                 StateHasChanged();
-                _ = await ProductWorker.Completed(ComponentDisposed);
 
                 MudDialog.Close(DialogResult.Ok(ProductDetail.Id));
             }
@@ -52,7 +51,6 @@ namespace Client.Pages.ProductDetailPage.Dialogs
 
         private void Cancel()
         {
-            ProductWorker.Rollback();
             MudDialog.Cancel();
 
             ProductDetail.Reference = OriginalProductDetail.Reference;

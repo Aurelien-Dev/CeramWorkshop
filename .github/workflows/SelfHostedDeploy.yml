@@ -14,4 +14,4 @@ jobs:
       - name: Deploy
         shell: powershell
         run: |
-          .\BuildAndCopy.ps1
+          C:\actions-runner\_workshop\BuildAndCopy.ps1

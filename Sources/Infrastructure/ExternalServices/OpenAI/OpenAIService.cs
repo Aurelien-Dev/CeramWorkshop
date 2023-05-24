@@ -12,9 +12,11 @@ public class OpenAIService : IOpenAIService
 
     public OpenAIService(string apiKey)
     {
+        string _apiUrl = EnvironementSingleton.GetEnvironmentVariable("OPENAI_API_URL");
+        _apiKey = EnvironementSingleton.GetEnvironmentVariable("OPENAI_API_KEY");
+
         _httpClient = new HttpClient();
-        _httpClient.BaseAddress = new Uri("https://api.openai.com/v1/");
-        _apiKey = EnvironementSingleton.GetEnvironmentVariable("OPENAI_API)KEY");
+        _httpClient.BaseAddress = new Uri(_apiUrl);
     }
 
     public async Task<string> GetCompletionAsync(string prompt, string model, int maxTokens)

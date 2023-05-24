@@ -15,7 +15,8 @@
       "applicationUrl": "https://localhost:7271;http://localhost:5271",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "IMGBB_URL": "https://api.imgbb.com/1/upload?key=0af3e3c59b7662210b79f354f8556d38"
+        "IMGBB_URL": "https://api.imgbb.com/1/upload?key=0af3e3c59b7662210b79f354f8556d38",
+        "OPENAI_API_URL": "https://api.openai.com/v1/"
       }
     },
     "IIS Express": {

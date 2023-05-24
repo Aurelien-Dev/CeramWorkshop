@@ -73,11 +73,12 @@ namespace Client.Pages.ProductDetailPage
                 .Where(x => x.Name.Contains(value, StringComparison.InvariantCultureIgnoreCase) );
         }
 
-        private void DeleteFire(FiringViewModel firingVm)
+        private async Task DeleteFire(FiringViewModel firingVm)
         {
             ProductDetail.ProductFiring.Remove(firingVm.ProductFire);
-            ProductWorker.ProductRepository.Update(ProductDetail);
-
+            await ProductWorker.ProductRepository.Update(ProductDetail);
+            await ProductWorker.Completed();
+            
             FiringsVm.Remove(firingVm);
             StateHasChanged();
         }

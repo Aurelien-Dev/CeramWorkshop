@@ -49,6 +49,8 @@ public class DataGeneratorController
                 }, cancellationToken);
             }
 
+            await ProductWorker.Completed(cancellationToken);
+
 
             // for (int i = 0; i < 1; i++)
             // {

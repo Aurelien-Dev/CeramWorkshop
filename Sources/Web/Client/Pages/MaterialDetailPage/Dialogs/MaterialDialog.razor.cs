@@ -41,9 +41,11 @@ namespace Client.Pages.MaterialDetailPage.Dialogs
                         await ProductWorker.MaterialRepository.UpdateAllMaterialCost(MaterialDetail.Id, ComponentDisposed);
                 }
 
+                await ProductWorker.Completed();
                 StateHasChanged();
                 MudDialog.Close(DialogResult.Ok(MaterialDetail));
             }
+            
         }
         
         private void Cancel()

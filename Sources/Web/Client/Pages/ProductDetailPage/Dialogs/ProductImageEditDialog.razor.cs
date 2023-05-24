@@ -24,10 +24,11 @@ namespace Client.Pages.ProductDetailPage.Dialogs
             }
         }
 
-        private void OnValidSubmit()
+        private async Task OnValidSubmit()
         {
-            ProductWorker.ProductRepository.Update(ProductDetail);
-
+            await ProductWorker.ProductRepository.Update(ProductDetail);
+            await ProductWorker.Completed();
+            
             StateHasChanged();
             MudDialog.Close(DialogResult.Ok(true));
         }

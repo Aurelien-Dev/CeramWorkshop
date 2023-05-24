@@ -35,6 +35,7 @@ namespace Client.Pages.FiringDetailPage.Dialogs
                     await ProductWorker.FiringRepository.Update(FiringDetail);
                 ComponentDisposed.ThrowIfCancellationRequested();
 
+                await ProductWorker.Completed();
                 StateHasChanged();
                 MudDialog.Close(DialogResult.Ok(FiringDetail));
             }

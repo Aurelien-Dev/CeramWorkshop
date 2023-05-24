@@ -48,8 +48,6 @@ namespace Repository.Repositories
             {
                 item.Cost = matToUpdate.Cost;
             }
-
-            await Context.SaveChangesAsync(cancellationToken);
         }
     }
 }

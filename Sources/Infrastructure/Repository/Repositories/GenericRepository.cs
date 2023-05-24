@@ -29,19 +29,16 @@ namespace Repository.Repositories
         public async Task Add(TEntity entity, CancellationToken cancellationToken = default)
         {
             await Context.Set<TEntity>().AddAsync(entity, cancellationToken).ConfigureAwait(false);
-            await Context.SaveChangesAsync(cancellationToken);
         }
 
         public async Task Update(TEntity entity, CancellationToken cancellationToken = default)
         {
             Context.Set<TEntity>().Update(entity);
-            await Context.SaveChangesAsync(cancellationToken);
         }
 
         public async Task Delete(TEntity entity, CancellationToken cancellationToken = default)
         {
             Context.Set<TEntity>().Remove(entity);
-            await Context.SaveChangesAsync(cancellationToken);
         }
 
 

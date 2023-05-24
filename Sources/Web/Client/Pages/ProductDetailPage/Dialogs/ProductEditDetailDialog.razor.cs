@@ -41,8 +41,8 @@ namespace Client.Pages.ProductDetailPage.Dialogs
                     await ProductWorker.ProductRepository.Update(ProductDetail, ComponentDisposed);
                 }
 
+                await ProductWorker.Completed();
                 StateHasChanged();
-
                 MudDialog.Close(DialogResult.Ok(ProductDetail.Id));
             }
 

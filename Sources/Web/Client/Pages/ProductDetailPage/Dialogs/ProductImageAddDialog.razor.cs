@@ -45,13 +45,14 @@ namespace Client.Pages.ProductDetailPage.Dialogs
             }
         }
 
-        private void OnValidSubmit()
+        private async Task OnValidSubmit()
         {
             if (string.IsNullOrEmpty(ImageInstruction.Url)) return;
 
             ProductDetail.ImageInstructions.Add(ImageInstruction);
-            ProductWorker.ProductRepository.Update(ProductDetail);
+            await ProductWorker.ProductRepository.Update(ProductDetail);
 
+            await ProductWorker.Completed();
             StateHasChanged();
             MudDialog.Close(DialogResult.Ok(true));
         }

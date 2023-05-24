@@ -9,11 +9,10 @@ public class OpenAIService : IOpenAIService
 {
     private readonly HttpClient _httpClient;
     private readonly string _apiKey;
-    private readonly string _apiUrl;
 
     public OpenAIService(string apiKey)
     {
-        _apiUrl = EnvironementSingleton.GetEnvironmentVariable("OPENAI_API_URL");
+        string _apiUrl = EnvironementSingleton.GetEnvironmentVariable("OPENAI_API_URL");
         _apiKey = EnvironementSingleton.GetEnvironmentVariable("OPENAI_API_KEY");
 
         _httpClient = new HttpClient();

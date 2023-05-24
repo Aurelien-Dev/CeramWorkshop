@@ -63,11 +63,5 @@ namespace Repository.Repositories
 
             await Context.SaveChangesAsync(cancellationToken);
         }
-
-        public async Task AddMaterial(ProductMaterial productMaterial, CancellationToken cancellationToken = default)
-        {
-            await Context.ProductMaterials.AddAsync(productMaterial, cancellationToken);
-            await Context.SaveChangesAsync(cancellationToken);
-        }
     }
 }

@@ -37,14 +37,13 @@ namespace Client.Pages.ProductDetailPage
         {
             if (mat == null) return;
 
-
             var pMat = new ProductMaterial(mat.Id, ProductDetail.Id, 0, mat.Cost);
-            await ProductWorker.ProductRepository.AddMaterial(pMat, ComponentDisposed);
             pMat.Material = mat;
             MaterialsVm.Add(new MaterialViewModel(pMat));
             ProductDetail.ProductMaterial.Add(pMat);
+
+            await ProductWorker.Completed();
             
-    
             await _autocompleteBox.Clear();
             StateHasChanged();
         }

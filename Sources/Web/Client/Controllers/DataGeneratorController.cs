@@ -23,11 +23,10 @@ public class DataGeneratorController
 
     [HttpGet]
     [Route("AddData")]
-    public async Task<ActionResult> AddData(CancellationToken cancellationToken)
+    public async Task<ActionResult> AddDataAsync(CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
-
-
+        
         try
         {
             //Material 

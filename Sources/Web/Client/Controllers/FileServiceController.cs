@@ -30,20 +30,32 @@ namespace Client.Controllers
         /// <returns>success = truc if OK</returns>
         [HttpGet]
         [Route("SynchroImageFile")]
-        public async Task<ActionResult> SynchroImageFile()
+        public async Task<ActionResult> SynchroImageFileAsync(CancellationToken cancellationToken)
         {
             try
             {
-                IEnumerable<ImageInstruction> imagesNotExported = await ApiWorker.ImageInstructionRepository.GetAllNonExported();
+                IEnumerable<ImageInstruction> imagesNotExported = await ApiWorker.ImageInstructionRepository.GetAllNonExported(cancellationToken);
                 StringBuilder errors = new StringBuilder();
 
+                int filesTraited = 0;
                 foreach (var item in imagesNotExported)
                 {
+                    if (cancellationToken.IsCancellationRequested)
+                    {
+                        errors.AppendLine("Cancellation requested.");
+                        break;
+                    }
+
                     try
                     {
                         string path = Path.Combine(EnvironementSingleton.WebRootPath, item.Url);
-                        (_, string medium, _) = await ImgBbService.UploadFile(path);
-                        string localMedium = await ImgBbService.DownloadFile(medium, path);
+                        (string full, string thumb, string medium) = await ImgBbService.UploadFile(path);
+
+                        string localMedium = string.Empty;
+                        if (!string.IsNullOrEmpty(medium))
+                            localMedium = await ImgBbService.DownloadFile(medium, path);
+                        else
+                            localMedium = await ImgBbService.DownloadFile(full, path);
 
                         string directory = WebPathHelper.GetDirectoryName(item.Url);
 
@@ -53,9 +65,11 @@ namespace Client.Controllers
                         item.Url = WebPathHelper.Combine(directory, Path.GetFileName(localMedium));
                         item.FileLocation = Location.ImgBb;
 
-                        await ApiWorker.ImageInstructionRepository.Update(item);
-                        await ApiWorker.Completed();
+                        await ApiWorker.ImageInstructionRepository.Update(item, cancellationToken);
+                        await ApiWorker.Completed(cancellationToken);
                         LoadFileFromInputFile.RemoveFileInput(path);
+
+                        ++filesTraited;
                     }
                     catch (Exception ex)
                     {
@@ -64,7 +78,7 @@ namespace Client.Controllers
                     }
                 }
 
-                return new JsonResult(new { sucess = true, errors = errors.ToString() });
+                return new JsonResult(new { sucess = true, numberFiles = filesTraited, errors = errors.ToString() });
             }
             catch (Exception ex)
             {

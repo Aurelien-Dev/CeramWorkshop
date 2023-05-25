@@ -37,7 +37,7 @@ namespace ExternalServices.ServicesUploadImage
         /// <returns>Return image object with all URL</returns>
         /// <exception cref="UploadFileException">Exception when not able to convert image to base64 string</exception>
         /// <exception cref="ApiCallErrorException">Exception after calling API, depending status</exception>
-        public async Task<(string, string, string)> UploadFile(string? filePath)
+        public async Task<(string?, string?, string?)> UploadFile(string? filePath)
         {
             if (string.IsNullOrEmpty(filePath))
                 throw new ArgumentNullException(nameof(filePath), "File path cannot be null or empty.");
@@ -61,17 +61,17 @@ namespace ExternalServices.ServicesUploadImage
             if (apiResponse == null) throw new ClientException("Unable to deserialize result");
             if (!apiResponse.success) throw new ApiCallErrorException($"Erreur au résultat de l'API : {apiResponse.status}");
 
-            return (apiResponse.data.image.url, apiResponse.data.thumb.url, apiResponse.data.medium.url);
+            return (apiResponse.data.image?.url, apiResponse.data.thumb?.url, apiResponse.data.medium?.url);
         }
 
-        public async Task<string> DownloadFile(string urlMedium, string path)
+        public async Task<string> DownloadFile(string url, string path)
         {
             if (string.IsNullOrEmpty(path))
                 throw new ArgumentException($"{nameof(path)} Is Null Or Empty : {path}");
 
-            byte[] dataMedium = await new RestClient().DownloadDataAsync(new RestRequest(urlMedium, Method.Get));
+            byte[] dataMedium = await new RestClient().DownloadDataAsync(new RestRequest(url, Method.Get));
             if (dataMedium == null)
-                throw new InvalidOperationException($"Cannot download file: {urlMedium}");
+                throw new InvalidOperationException($"Cannot download file: {url}");
 
             string directory = Path.GetDirectoryName(path);
             if (!Directory.Exists(directory))

@@ -98,7 +98,7 @@ namespace Client.Pages.ProductDetailPage
             ProductDetail.ImageInstructions.Remove(image);
             await ProductWorker.ProductRepository.Update(ProductDetail);
             await ProductWorker.Completed();
-            
+
             if (ProductDetail.ImageInstructions.Any())
                 CarouselSelectedIndex = ProductDetail.ImageInstructions.Count - 1;
 
@@ -106,10 +106,12 @@ namespace Client.Pages.ProductDetailPage
             RefreshCarouselInfo();
         }
 
-        private void OnToggledFavoriteChanged(bool toggled, ImageInstruction image)
+        private void OnToggledFavoriteChanged()
         {
-            ProductWorker.ImageInstructionRepository.SetNewFavorite(toggled, image.Id, ProductDetail.Id, ComponentDisposed);
-            image.IsFavoriteImage = toggled;
+            ImageInstruction image = ProductDetail.ImageInstructions.ElementAt(CarouselSelectedIndex);
+            image.IsFavoriteImage = !image.IsFavoriteImage;
+            
+            ProductWorker.ImageInstructionRepository.SetNewFavorite(image.IsFavoriteImage, image.Id, ProductDetail.Id, ComponentDisposed);
         }
 
         #endregion
@@ -124,7 +126,7 @@ namespace Client.Pages.ProductDetailPage
 
             await ProductWorker.ProductRepository.Delete(ProductDetail);
             await ProductWorker.Completed();
-            
+
             NavigationManager.NavigateTo($"/");
         }
 

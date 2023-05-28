@@ -11,7 +11,7 @@
                 <MudPaper Width="100%" Elevation="0">
                     <MudStack Row="true" Justify="Justify.SpaceBetween">
                         <MudText Typo="Typo.h5">#@ProductDetail.Reference - @ProductDetail.Name</MudText>
-                        <ProductStatusChip Status="@ProductDetail.Status" />
+                        <ProductStatusChip Status="@ProductDetail.Status"/>
                     </MudStack>
                 </MudPaper>
             </MudCardHeader>
@@ -27,7 +27,7 @@
 
                         <MudText Typo="Typo.subtitle2" Class="mt-4" GutterBottom="true">@Localizer["Text_GlazingInstructions"]</MudText>
                         <MudText Typo="Typo.body2">@ProductDetail.GlazingInstruction</MudText>
-    
+
                         <MudText Typo="Typo.subtitle2" Class="mt-4" GutterBottom="true">@Localizer["Text_Dimensions"]</MudText>
                         <MudStack Row="true" Class="mt-3" AlignItems="AlignItems.Center" Justify="Justify.SpaceAround">
                             <MudImage Src="/assets/img/sizing.png" Height="65" Class="ms-3"/>
@@ -58,10 +58,7 @@
                             @foreach (var item in ProductDetail.ImageInstructions)
                             {
                                 <MudCarouselItem Transition="Transition.Slide">
-                                    <MudToggleIconButton Toggled="@item.IsFavoriteImage" ToggledChanged="@((t) => OnToggledFavoriteChanged(t, item))"
-                                                         Icon="@Icons.Material.Outlined.StarBorder" Size="Size.Small" Color="@Color.Dark" Title="Off"
-                                                         ToggledIcon="@Icons.Material.Outlined.Star" ToggledSize="Size.Small" ToggledColor="@Color.Secondary" ToggledTitle="On"
-                                                         Style="position:absolute; top:5%; left:10%;"/>
+
                                     <MudStack AlignItems="AlignItems.Center">
                                         <MudImage Src="@item.Url" ObjectFit="ObjectFit.Contain" ObjectPosition="ObjectPosition.Center"
                                                   Height="400" Width="500" Class="rounded-lg"/>
@@ -73,11 +70,25 @@
 
                         <MudItem Class="d-flex justify-center flex-grow-1 gap-4" Style="height:40px;">
                             <MudFab Color="Color.Tertiary" Class="mt-2" StartIcon="@Icons.Material.Filled.AddAPhoto"
-                                    Size="Size.Small" OnClick="OpenAddImageProductDialog" />
+                                    Size="Size.Small" OnClick="OpenAddImageProductDialog"/>
                             <MudFab Color="Color.Tertiary" Class="mt-2" StartIcon="@Icons.Material.Filled.Edit"
-                                    Size="Size.Small" OnClick="OpenEditImageProductDialog" />
+                                    Size="Size.Small" OnClick="OpenEditImageProductDialog"/>
                             <MudFab Color="Color.Error" Class="mt-2" StartIcon="@Icons.Material.Filled.Delete"
-                                    Size="Size.Small" OnClick="OpenDeleteImageProductDialog" />
+                                    Size="Size.Small" OnClick="OpenDeleteImageProductDialog"/>
+
+                            @if (ProductDetail.ImageInstructions != null && ProductDetail.ImageInstructions.Any())
+                            {
+                                if (ProductDetail.ImageInstructions.ElementAt(CarouselSelectedIndex).IsFavoriteImage)
+                                {
+                                    <MudFab Class="mt-2" StartIcon="@Icons.Material.Outlined.Star" Color="@Color.Secondary"
+                                            Size="Size.Small" OnClick="OnToggledFavoriteChanged"/>
+                                }
+                                else
+                                {
+                                    <MudFab Class="mt-2" StartIcon="@Icons.Material.Outlined.StarBorder" Color="@Color.Dark"
+                                            Size="Size.Small" OnClick="OnToggledFavoriteChanged"/>
+                                }
+                            }
                         </MudItem>
                     </MudItem>
                 </MudGrid>

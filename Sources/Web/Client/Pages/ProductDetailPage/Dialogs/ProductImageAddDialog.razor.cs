@@ -34,7 +34,9 @@ namespace Client.Pages.ProductDetailPage.Dialogs
                 string filePathLoaded = await LoadFileFromInputFile.LoadFileInput(e, Session.WorkshopFolderName);
                 filePathLoaded = filePathLoaded.Replace(@"\", "/");
 
-                ImageInstruction.Url = filePathLoaded;
+                ImageInstruction.UrlSmall = filePathLoaded;
+                ImageInstruction.UrlMedium = filePathLoaded;
+                ImageInstruction.UrlLarge = filePathLoaded;
                 _loading = false;
                 StateHasChanged();
             }
@@ -47,7 +49,7 @@ namespace Client.Pages.ProductDetailPage.Dialogs
 
         private async Task OnValidSubmit()
         {
-            if (string.IsNullOrEmpty(ImageInstruction.Url)) return;
+            if (string.IsNullOrEmpty(ImageInstruction.UrlSmall)) return;
 
             ProductDetail.ImageInstructions.Add(ImageInstruction);
             await ProductWorker.ProductRepository.Update(ProductDetail);
@@ -69,7 +71,7 @@ namespace Client.Pages.ProductDetailPage.Dialogs
 
         private void Cancel()
         {
-            LoadFileFromInputFile.RemoveFileInput(ImageInstruction.Url);
+            LoadFileFromInputFile.RemoveFileInput(ImageInstruction.UrlSmall);
             ImageInstruction = default!;
             MudDialog.Cancel();
         }

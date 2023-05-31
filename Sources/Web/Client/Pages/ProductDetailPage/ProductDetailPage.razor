@@ -30,7 +30,7 @@
 
                         <MudText Typo="Typo.subtitle2" Class="mt-4" GutterBottom="true">@Localizer["Text_Dimensions"]</MudText>
                         <MudStack Row="true" Class="mt-3" AlignItems="AlignItems.Center" Justify="Justify.SpaceAround">
-                            <MudImage Src="/assets/img/sizing.png" Height="65" Class="ms-3"/>
+                            <MudImage Src="/assets/img/sizing.png?w=100" Height="65" Class="ms-3"/>
                             <MudText Typo="Typo.body2"><b>@Localizer["Text_TopDiameter"] :</b> @ProductDetail.TopDiameter cm</MudText>
                             <MudText Typo="Typo.body2"><b>@Localizer["Text_BottomDiameter"] :</b> @ProductDetail.BottomDiameter cm</MudText>
                             <MudText Typo="Typo.body2"><b>@Localizer["Text_Height"] :</b> @ProductDetail.Height cm</MudText>
@@ -60,7 +60,7 @@
                                 <MudCarouselItem Transition="Transition.Slide">
 
                                     <MudStack AlignItems="AlignItems.Center">
-                                        <MudImage Src="@item.Url" ObjectFit="ObjectFit.Contain" ObjectPosition="ObjectPosition.Center"
+                                        <MudImage Src="@item.UrlSmall" ObjectFit="ObjectFit.Contain" ObjectPosition="ObjectPosition.Center"
                                                   Height="400" Width="500" Class="rounded-lg"/>
                                         <MudText Typo="Typo.caption">@item.Comment</MudText>
                                     </MudStack>

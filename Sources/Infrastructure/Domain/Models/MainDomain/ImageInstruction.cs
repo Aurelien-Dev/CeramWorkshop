@@ -8,7 +8,7 @@ namespace Domain.Models.MainDomain
     public enum Location
     {
         Server,
-        ImgBb
+        ServerResized
     }
 
     /// <summary>
@@ -32,7 +32,19 @@ namespace Domain.Models.MainDomain
         /// Gets or sets the URL of the image file.
         /// </summary>
         [CeramRequired]
-        public string Url { get; set; }
+        public string UrlSmall { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the URL of the image file.
+        /// </summary>
+        [CeramRequired]
+        public string UrlMedium { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the URL of the image file.
+        /// </summary>
+        [CeramRequired]
+        public string UrlLarge { get; set; }
 
         /// <summary>
         /// Gets or sets the comment associated with the image instruction.

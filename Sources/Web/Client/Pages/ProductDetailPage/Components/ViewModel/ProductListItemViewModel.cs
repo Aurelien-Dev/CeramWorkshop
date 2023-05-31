@@ -17,6 +17,6 @@ public class ProductListItemViewModel
         Name = product.Name;
         Status = product.Status;
         if (product.FavoriteImage != null)
-            Image = product.FavoriteImage.Url;
+            Image = product.FavoriteImage.UrlSmall;
     }
 }

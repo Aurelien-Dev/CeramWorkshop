@@ -1,6 +1,13 @@
-﻿using Domain.InterfacesWorker;
+﻿using System.Text;
+using Client.Services;
+using Client.Utils;
+using Domain.InterfacesWorker;
+using Domain.Models.MainDomain;
 using ExternalServices.ServicesUploadImage;
 using Microsoft.AspNetCore.Mvc;
+using SkiaSharp;
+using Utils.Helpers;
+using Utils.Singletons;
 
 namespace Client.Controllers
 {
@@ -34,92 +41,56 @@ namespace Client.Controllers
         [Route("SynchroImageFile")]
         public async Task<ActionResult> SynchroImageFileAsync(CancellationToken cancellationToken)
         {
-            // try
-            // {
-            //     IEnumerable<ImageInstruction> imagesNotExported = await ApiWorker.ImageInstructionRepository.GetAllNonExported(cancellationToken);
-            //     StringBuilder errors = new StringBuilder();
-            //
-            //     int filesTraited = 0;
-            //     foreach (ImageInstruction item in imagesNotExported)
-            //     {
-            //         if (cancellationToken.IsCancellationRequested)
-            //         {
-            //             errors.AppendLine("Cancellation requested.");
-            //             break;
-            //         }
-            //
-            //         try
-            //         {
-            //             string path = Path.Combine(EnvironementSingleton.WebRootPath, item.UrlSmall);
-            //             string webDirectory = WebPathHelper.GetDirectoryName(item.UrlSmall);
-            //
-            //             // SKBitmap original = SKBitmap.Decode(path);
-            //             // SKBitmap resized = new SKBitmap(912, 912);
-            //             // var dd = original.ScalePixels(resized.PeekPixels(), SKFilterQuality.Low);
-            //             //
-            //             // // Encodez l'image en un format spécifique (par exemple, en format PNG)
-            //             // SKData encoded = resized.Encode(SKEncodedImageFormat.Png, 5);
-            //             //
-            //             // string newPathLarge = Path.Combine(Path.GetDirectoryName(path), $"{Path.GetFileNameWithoutExtension(path)}_large{Path.GetExtension(path)}");
-            //             //
-            //             // using (FileStream stream = new FileStream(newPathLarge, FileMode.OpenOrCreate))
-            //             // {
-            //             //     encoded.SaveTo(stream);
-            //             // }
-            //
-            //
-            //             SKBitmap bitmap = SKBitmap.Decode("file.png");
-            //             var scaled = bitmap.Resize(new SKImageInfo(912, 912), SKBitmapResizeMethod.Lanczos3);
-            //             
-            //             SKImage image = SKImage.FromBitmap(bitmap);
-            //             SKData png = image.Encode(SKImageEncodeFormat.Png, 100);
-            //             using (var filestream = File.OpenWrite("image.png")) {
-            //                 png.SaveTo(filestream);
-            //             }
-            //             
-            //
-            //             // await using (FileStream stream = new FileStream(path, FileMode.Open))
-            //             // {
-            //             //     using (Image image = await Image.LoadAsync(stream, cancellationToken))
-            //             //     {
-            //             //         // string newPathLarge = Path.Combine(Path.GetDirectoryName(path), $"{Path.GetFileNameWithoutExtension(path)}_large{Path.GetExtension(path)}");
-            //             //         // image.Mutate(x => x.Resize(912, 912));
-            //             //         // image.Save(newPathLarge, new PngEncoder()); //Remplacer l'encodeur Png par le format de fichier de votre choix
-            //             //         // item.UrlLarge = WebPathHelper.Combine(webDirectory, Path.GetFileName(newPathLarge));
-            //             //         //
-            //             //         // string newPathMedium = Path.Combine(Path.GetDirectoryName(path), $"{Path.GetFileNameWithoutExtension(path)}_medium{Path.GetExtension(path)}");
-            //             //         // image.Mutate(x => x.Resize(640, 640));
-            //             //         // image.Save(newPathMedium, new PngEncoder()); //Remplacer l'encodeur Png par le format de fichier de votre choix
-            //             //         // item.UrlMedium = WebPathHelper.Combine(webDirectory, Path.GetFileName(newPathMedium));
-            //             //         //
-            //             //         // string newPath = Path.Combine(Path.GetDirectoryName(path), $"{Path.GetFileNameWithoutExtension(path)}_small{Path.GetExtension(path)}");
-            //             //         // image.Mutate(x => x.Resize(180, 180));
-            //             //         // image.Save(newPath, new PngEncoder()); //Remplacer l'encodeur Png par le format de fichier de votre choix
-            //             //         // item.UrlSmall = WebPathHelper.Combine(webDirectory, Path.GetFileName(newPath));
-            //             //     }
-            //             // }
-            //
-            //             // item.FileLocation = Location.ServerResized;
-            //
-            //             // await ApiWorker.ImageInstructionRepository.Update(item, cancellationToken);
-            //             // await ApiWorker.Completed(cancellationToken);
-            //             // LoadFileFromInputFile.RemoveFileInput(path);
-            //
-            //             ++filesTraited;
-            //         }
-            //         catch (Exception ex)
-            //         {
-            //             errors.AppendLine($"Error no file : {item.UrlSmall}");
-            //             errors.AppendLine(ex.Message);
-            //         }
-            //     }
-            //
-            //     return new JsonResult(new { sucess = true, numberFiles = filesTraited, errors = errors.ToString() });
-            // }
-            // catch (Exception ex)
-            // {
-            //     return new JsonResult(new { sucess = false, error = ex.Message, stacktrace = ex.StackTrace });
-            // }
+            try
+            {
+                IEnumerable<ImageInstruction> imagesNotExported = await ApiWorker.ImageInstructionRepository.GetAllNonExported(cancellationToken);
+                StringBuilder errors = new StringBuilder();
+
+                int filesTraited = 0;
+                foreach (ImageInstruction item in imagesNotExported)
+                {
+                    if (cancellationToken.IsCancellationRequested)
+                    {
+                        errors.AppendLine("Cancellation requested.");
+                        break;
+                    }
+
+                    try
+                    {
+                        string webFolder = WebPathHelper.GetDirectoryName(item.Url);
+                        string appFolder = Path.Combine(EnvironementSingleton.WebRootPath, webFolder);
+                        string originalFileName = Path.GetFileName(item.Url);
+
+                        string newFileNameMedium = $"{Path.GetFileNameWithoutExtension(originalFileName)}_medium";
+                        string newFileNameCompressMedium = ImageService.CreateImage(appFolder, originalFileName, newFileNameMedium, 640, SKEncodedImageFormat.Webp);
+                        item.UrlMedium = $"{webFolder}/{newFileNameCompressMedium}";
+
+                        string newFileName = $"{Path.GetFileNameWithoutExtension(originalFileName)}_large";
+                        string newFileNameCompress = ImageService.CreateImage(appFolder, originalFileName, newFileName, 912, SKEncodedImageFormat.Webp);
+                        item.Url = $"{webFolder}/{newFileNameCompress}";
+
+                        item.FileLocation = Location.ServerResized;
+
+                        await ApiWorker.ImageInstructionRepository.Update(item, cancellationToken);
+                        await ApiWorker.Completed(cancellationToken);
+                        
+                        LoadFileFromInputFile.RemoveFileInput(Path.Combine(appFolder, originalFileName));
+
+                        ++filesTraited;
+                    }
+                    catch (Exception ex)
+                    {
+                        errors.AppendLine($"Error no file : {item.Url}");
+                        errors.AppendLine(ex.Message);
+                    }
+                }
+
+                return new JsonResult(new { sucess = true, numberFiles = filesTraited, errors = errors.ToString() });
+            }
+            catch (Exception ex)
+            {
+                return new JsonResult(new { sucess = false, error = ex.Message, stacktrace = ex.StackTrace });
+            }
 
             return new JsonResult(new { sucess = false });
         }

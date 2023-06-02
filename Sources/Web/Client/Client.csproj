@@ -44,5 +44,6 @@
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.5" />
 		<PackageReference Include="NLipsum" Version="1.1.0" />
 		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.0" />
+		<PackageReference Include="SkiaSharp" Version="2.88.3" />
 	</ItemGroup>
 </Project>

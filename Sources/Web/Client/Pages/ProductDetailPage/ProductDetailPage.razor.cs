@@ -93,7 +93,8 @@ namespace Client.Pages.ProductDetailPage
             if (!result.HasValue) return;
 
             var image = ProductDetail.ImageInstructions.ElementAt(CarouselSelectedIndex);
-            LoadFileFromInputFile.RemoveFileInput(image.UrlSmall);
+            LoadFileFromInputFile.RemoveFileInput(image.Url);
+            LoadFileFromInputFile.RemoveFileInput(image.UrlMedium);
 
             ProductDetail.ImageInstructions.Remove(image);
             await ProductWorker.ProductRepository.Update(ProductDetail);

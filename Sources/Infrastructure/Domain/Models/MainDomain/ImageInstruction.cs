@@ -27,12 +27,6 @@ namespace Domain.Models.MainDomain
         /// </summary>
         [CeramRequired]
         public int IdProduct { get; set; }
-
-        /// <summary>
-        /// Gets or sets the URL of the image file.
-        /// </summary>
-        [CeramRequired]
-        public string UrlSmall { get; set; }
         
         /// <summary>
         /// Gets or sets the URL of the image file.
@@ -44,7 +38,7 @@ namespace Domain.Models.MainDomain
         /// Gets or sets the URL of the image file.
         /// </summary>
         [CeramRequired]
-        public string UrlLarge { get; set; }
+        public string Url { get; set; }
 
         /// <summary>
         /// Gets or sets the comment associated with the image instruction.

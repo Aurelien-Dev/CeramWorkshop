@@ -64,7 +64,7 @@ namespace ExternalServices.ServicesUploadImage
             return (apiResponse.data.image?.url, apiResponse.data.thumb?.url, apiResponse.data.medium?.url);
         }
 
-        public async Task<string> DownloadFile(string url, string path)
+        public async Task<string> DownloadFile(string prefix, string url, string path)
         {
             if (string.IsNullOrEmpty(path))
                 throw new ArgumentException($"{nameof(path)} Is Null Or Empty : {path}");
@@ -77,7 +77,7 @@ namespace ExternalServices.ServicesUploadImage
             if (!Directory.Exists(directory))
                 throw new InvalidOperationException($"Directory does not exist : {path}");
 
-            string pathMedium = Path.Combine(directory, $"{Path.GetFileNameWithoutExtension(path)}_medium{Path.GetExtension(path)}");
+            string pathMedium = Path.Combine(directory, $"{Path.GetFileNameWithoutExtension(path)}_{prefix}{Path.GetExtension(path)}");
             if (string.IsNullOrEmpty(pathMedium))
                 throw new ArgumentException($"{nameof(path)} is probably wrong : {path}");
 

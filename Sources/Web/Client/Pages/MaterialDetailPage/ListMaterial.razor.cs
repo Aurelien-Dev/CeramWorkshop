@@ -14,14 +14,10 @@ namespace Client.Pages.MaterialDetailPage
         [Parameter] public string Title { get; set; }
         [Parameter] public MaterialType MaterialType { get; set; }
 
-        public string searchString { get; set; }
+        private MudTable<Material> _table;
+        private string _searchString = string.Empty;
 
         private ICollection<Material> Materials { get; set; } = new List<Material>();
-
-        private async Task LoadDatas()
-        {
-            Materials = await ProductWorker.MaterialRepository.GetAll(MaterialType, ComponentDisposed);
-        }
 
         private async Task DeleteMat(Material material)
         {
@@ -31,8 +27,8 @@ namespace Client.Pages.MaterialDetailPage
 
             await ProductWorker.MaterialRepository.Delete(material, ComponentDisposed);
             await ProductWorker.Completed();
-            
-            Materials.Remove(material);
+
+            await _table.ReloadServerData();
             StateHasChanged();
         }
 
@@ -45,7 +41,7 @@ namespace Client.Pages.MaterialDetailPage
 
             if (result.Canceled) return;
 
-            Materials.Add((Material)result.Data);
+            await _table.ReloadServerData();
         }
 
         private async Task EditMat(Material material)
@@ -54,33 +50,30 @@ namespace Client.Pages.MaterialDetailPage
 
             var dialog = await DialogService.ShowAsync<MaterialDialog>("Ajouter une nouvelle matière", parameters, this.CommonOptionDialog);
             var result = await dialog.Result;
-
-            if (result.Canceled)
-            {
-                await LoadDatas();
-                return;
-            }
-
-            StateHasChanged();
         }
 
 
         #region Datatable management
-
 
         /// <summary>
         /// Here we simulate getting the paged, filtered and ordered data from the server
         /// </summary>
         private async Task<TableData<Material>> ServerReload(TableState state)
         {
-            (IEnumerable<Material> datas, int totalItems) = await ProductWorker.MaterialRepository.GetAllWithPaging(MaterialType, state.Page, state.PageSize,
-                state.SortLabel, state.SortDirection.ToString(), ComponentDisposed);
-            
+            (IEnumerable<Material> datas, int totalItems) = await ProductWorker.MaterialRepository
+                .GetAllWithPaging(MaterialType, _searchString, state.Page, state.PageSize, state.SortLabel, state.SortDirection.ToString(), ComponentDisposed);
+
             await Task.Delay(300);
-            
-            return new TableData<Material>() {TotalItems = totalItems, Items = datas};
+
+            return new TableData<Material>() { TotalItems = totalItems, Items = datas };
         }
 
         #endregion
+
+        private async Task OnSearch(string s)
+        {
+            _searchString = s;
+            await _table.ReloadServerData();
+        }
     }
 }

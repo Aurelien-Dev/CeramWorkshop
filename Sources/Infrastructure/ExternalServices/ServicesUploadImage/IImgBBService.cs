@@ -17,6 +17,6 @@
         /// <param name="url">Url of imgBB image</param>
         /// <param name="path">Path of local file</param>
         /// <returns>New medium file path</returns>
-        Task<string> DownloadFile(string url, string path);
+        Task<string> DownloadFile(string prefix, string url, string path);
     }
 }

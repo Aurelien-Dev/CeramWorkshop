@@ -21,7 +21,17 @@ namespace Repository.Repositories
 
         public async Task<(IEnumerable<Material>, int)> GetAllWithPaging(MaterialType type, int pageNumber, int pageSize, string sortByName, string sortDirection, CancellationToken cancellationToken = default)
         {
-            IQueryable<Material> query = Context.Materials.Where(p => p.Type == type).AsQueryable();
+            return await GetAllWithPaging(type, string.Empty, pageNumber, pageSize, sortByName, sortDirection, cancellationToken);
+        }
+
+        public async Task<(IEnumerable<Material>, int)> GetAllWithPaging(MaterialType type, string textSearch, int pageNumber, int pageSize, string sortByName, string sortDirection, CancellationToken cancellationToken = default)
+        {
+            IQueryable<Material> query = Context.Materials
+                .Where(p => p.Type == type)
+                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(textSearch))
+                query = query.Where(p => EF.Functions.ILike(p.Name + p.Reference, $"%{textSearch}%"));
 
             if (sortDirection != "None")
                 query = AddSorting(query, sortDirection, sortByName);

@@ -21,7 +21,7 @@
 <MudGrid Class="mt-2">
 
     <Virtualize Items="ProductsVm">
-        <ProductListItem ProductListItemVm="context" />
+        <ProductListItem @key="context.Id" ProductListItemVm="context" />
     </Virtualize>
 
     

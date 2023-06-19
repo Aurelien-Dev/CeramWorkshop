@@ -19,8 +19,10 @@
     </MudToolBar>
 </MudPaper>
 <MudGrid Class="mt-2">
-    @foreach (var item in ProductsVm)
-    {
-        <ProductListItem ProductListItemVm="item"/>
-    }
+
+    <Virtualize Items="ProductsVm">
+        <ProductListItem ProductListItemVm="context" />
+    </Virtualize>
+
+    
 </MudGrid>

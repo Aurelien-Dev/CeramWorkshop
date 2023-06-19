@@ -7,13 +7,11 @@
         <MudCardHeader>
             @if (string.IsNullOrEmpty(ProductListItemVm.Image))
             {
-                <MudImage Src="assets/img/bg-empty.png" Style="opacity:0.05" Height="200" loading="lazy"/>
-                //<MudCardMedia Image="assets/img/bg-empty.png" Style="opacity:0.05" Height="200" loading="lazy" />
+                <MudCardMedia Image="assets/img/bg-empty.png" Style="opacity:0.05" Height="200" loading="lazy" />
             }
             else
             {
-                <MudImage Src="@ProductListItemVm.Image" Height="200" loading="lazy" />
-                //<MudCardMedia Image="@ProductListItemVm.Image" Height="200" loading="lazy" />
+                <MudCardMedia Image="@ProductListItemVm.Image" Height="200" loading="lazy" />
             }
         </MudCardHeader>
         <MudCardContent>

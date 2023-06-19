@@ -6,11 +6,11 @@
     <MudCard Style="height:100%">
         @if (string.IsNullOrEmpty(ProductListItemVm.Image))
         {
-            <MudCardMedia Image="assets/img/bg-empty.png" Style="opacity:0.05" Height="200"/>
+            <MudCardMedia Image="assets/img/bg-empty.png" Style="opacity:0.05" Height="200" loading="lazy" />
         }
         else
         {
-            <MudCardMedia Image="@ProductListItemVm.Image" Height="200"/>
+            <MudCardMedia Image="@ProductListItemVm.Image" Height="200" loading="lazy" />
         }
         <MudCardContent>
             <MudText Typo="Typo.h6">#@ProductListItemVm.Reference - @ProductListItemVm.Name</MudText>

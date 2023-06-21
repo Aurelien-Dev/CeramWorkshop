@@ -18,14 +18,6 @@ namespace Client.Controllers
         private IApiWorker ApiWorker { get; }
         private IImgBbService ImgBbService { get; }
 
-        private ImageSizingConfiguration[] filesTypeSize = new[]
-        {
-            new ImageSizingConfiguration("small", 180, 180),
-            new ImageSizingConfiguration("medium", 640, 640),
-            new ImageSizingConfiguration("large", 912, 912)
-        };
-
-
         public FileServiceController(IApiWorker apiWorker, IImgBbService imgBbService)
         {
             ApiWorker = apiWorker;
@@ -91,8 +83,6 @@ namespace Client.Controllers
             {
                 return new JsonResult(new { sucess = false, error = ex.Message, stacktrace = ex.StackTrace });
             }
-
-            return new JsonResult(new { sucess = false });
         }
 
         /// <summary>

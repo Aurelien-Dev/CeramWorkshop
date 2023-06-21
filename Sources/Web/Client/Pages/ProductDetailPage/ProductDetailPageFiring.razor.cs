@@ -58,8 +58,6 @@ namespace Client.Pages.ProductDetailPage
 
             pfToUpdate.NumberProducts = number;
             ProductWorker.ProductRepository.UpdateProductFiring(pfToUpdate, ComponentDisposed);
-
-            // CalculateTotalCost(pfToUpdate.Id, pfToUpdate);
         }
 
         private async Task<IEnumerable<Firing>> Search(string value)
@@ -82,11 +80,6 @@ namespace Client.Pages.ProductDetailPage
             FiringsVm.Remove(firingVm);
             StateHasChanged();
         }
-
-        // private void CalculateTotalCost(int id, ProductFiring pfToUpdate)
-        // {
-        //     FiringViewModel pmVMToUpdate = FiringsVm.FirstOrDefault(p => p.ProductFire.Id == id);
-        // }
     }
 
     public class FiringViewModel

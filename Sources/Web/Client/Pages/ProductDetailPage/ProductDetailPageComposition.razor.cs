@@ -94,7 +94,6 @@ namespace Client.Pages.ProductDetailPage
         private void DeleteMat(MaterialViewModel materialVm)
         {
             ProductDetail.ProductMaterial.Remove(materialVm.PMat);
-            // ProductWorker.ProductRepository.Update(ProductDetail);
             ProductWorker.ProductRepository.SaveChangeAsync();
             MaterialsVm.Remove(materialVm);
             StateHasChanged();

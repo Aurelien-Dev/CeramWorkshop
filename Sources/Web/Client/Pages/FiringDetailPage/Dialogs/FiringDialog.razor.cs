@@ -32,7 +32,7 @@ namespace Client.Pages.FiringDetailPage.Dialogs
                 if (InsertMode.HasValue && InsertMode.Value)
                     await ProductWorker.FiringRepository.Add(FiringDetail, ComponentDisposed);
                 else
-                    await ProductWorker.FiringRepository.Update(FiringDetail);
+                    ProductWorker.FiringRepository.Update(FiringDetail);
                 ComponentDisposed.ThrowIfCancellationRequested();
 
                 await ProductWorker.Completed();

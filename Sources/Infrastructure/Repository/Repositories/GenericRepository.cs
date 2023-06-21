@@ -31,12 +31,12 @@ namespace Repository.Repositories
             await Context.Set<TEntity>().AddAsync(entity, cancellationToken).ConfigureAwait(false);
         }
 
-        public async Task Update(TEntity entity, CancellationToken cancellationToken = default)
+        public void Update(TEntity entity)
         {
-            Context.Set<TEntity>().Update(entity);
+            Context.Set<TEntity>().Update(entity );
         }
 
-        public async Task Delete(TEntity entity, CancellationToken cancellationToken = default)
+        public void Delete(TEntity entity)
         {
             Context.Set<TEntity>().Remove(entity);
         }

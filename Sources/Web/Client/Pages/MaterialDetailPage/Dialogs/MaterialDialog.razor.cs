@@ -35,7 +35,7 @@ namespace Client.Pages.MaterialDetailPage.Dialogs
                     await ProductWorker.MaterialRepository.Add(MaterialDetail, ComponentDisposed);
                 else
                 {
-                    await ProductWorker.MaterialRepository.Update(MaterialDetail);
+                    ProductWorker.MaterialRepository.Update(MaterialDetail);
 
                     if (updateAllProductsMat)
                         await ProductWorker.MaterialRepository.UpdateAllMaterialCost(MaterialDetail.Id, ComponentDisposed);

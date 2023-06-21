@@ -26,7 +26,7 @@ namespace Client.Pages.ProductDetailPage.Dialogs
 
         private async Task OnValidSubmit()
         {
-            await ProductWorker.ProductRepository.Update(ProductDetail);
+            ProductWorker.ProductRepository.Update(ProductDetail);
             await ProductWorker.Completed();
             
             StateHasChanged();

@@ -25,7 +25,7 @@ namespace Client.Pages.MaterialDetailPage
 
             if (!result.HasValue) return;
 
-            await ProductWorker.MaterialRepository.Delete(material, ComponentDisposed);
+            ProductWorker.MaterialRepository.Delete(material);
             await ProductWorker.Completed();
 
             await _table.ReloadServerData();

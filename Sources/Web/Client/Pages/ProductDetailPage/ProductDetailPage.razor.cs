@@ -97,7 +97,7 @@ namespace Client.Pages.ProductDetailPage
             LoadFileFromInputFile.RemoveFileInput(image.UrlMedium);
 
             ProductDetail.ImageInstructions.Remove(image);
-            await ProductWorker.ProductRepository.Update(ProductDetail);
+            ProductWorker.ProductRepository.Update(ProductDetail);
             await ProductWorker.Completed();
 
             if (ProductDetail.ImageInstructions.Any())
@@ -125,7 +125,7 @@ namespace Client.Pages.ProductDetailPage
 
             if (!result.HasValue) return;
 
-            await ProductWorker.ProductRepository.Delete(ProductDetail);
+            ProductWorker.ProductRepository.Delete(ProductDetail);
             await ProductWorker.Completed();
 
             NavigationManager.NavigateTo($"/");

@@ -71,7 +71,7 @@ namespace Client.Controllers
 
                         item.FileLocation = Location.ServerResized;
 
-                        await ApiWorker.ImageInstructionRepository.Update(item, cancellationToken);
+                        ApiWorker.ImageInstructionRepository.Update(item);
                         await ApiWorker.Completed(cancellationToken);
 
                         LoadFileFromInputFile.RemoveFileInput(Path.Combine(appFolder, originalFileName));
@@ -127,7 +127,7 @@ namespace Client.Controllers
                         item.UrlMedium = WebPathHelper.Combine(directory, Path.GetFileName(localMedium));
                         item.FileLocation = Location.ImgBb;
 
-                        await ApiWorker.ImageInstructionRepository.Update(item, cancellationToken);
+                        ApiWorker.ImageInstructionRepository.Update(item);
                         await ApiWorker.Completed(cancellationToken);
 
                         LoadFileFromInputFile.RemoveFileInput(path);

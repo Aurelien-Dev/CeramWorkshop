@@ -38,7 +38,7 @@ namespace Client.Pages.ProductDetailPage.Dialogs
                     await ProductWorker.ProductRepository.Add(ProductDetail, ComponentDisposed);
                 else
                 {
-                    await ProductWorker.ProductRepository.Update(ProductDetail, ComponentDisposed);
+                    ProductWorker.ProductRepository.Update(ProductDetail);
                 }
 
                 await ProductWorker.Completed();

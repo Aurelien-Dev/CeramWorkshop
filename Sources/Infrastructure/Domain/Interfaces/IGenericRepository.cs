@@ -30,14 +30,14 @@
         /// </summary>
         /// <param name="entity">The entity to update.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
-        Task Update(T entity, CancellationToken cancellationToken = default);
+        void Update(T entity);
 
         /// <summary>
         /// Deletes the specified entity from the context.
         /// </summary>
         /// <param name="entity">The entity to delete.</param>
         /// <param name="cancellationToken">A <see cref="CancellationToken" /> to observe while waiting for the task to complete.</param>
-        Task Delete(T entity, CancellationToken cancellationToken = default);
+        void Delete(T entity);
 
         Task<int> SaveChangeAsync(CancellationToken cancellationToken = default);
     }

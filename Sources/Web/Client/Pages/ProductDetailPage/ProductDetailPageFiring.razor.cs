@@ -76,7 +76,7 @@ namespace Client.Pages.ProductDetailPage
         private async Task DeleteFire(FiringViewModel firingVm)
         {
             ProductDetail.ProductFiring.Remove(firingVm.ProductFire);
-            await ProductWorker.ProductRepository.Update(ProductDetail);
+            ProductWorker.ProductRepository.Update(ProductDetail);
             await ProductWorker.Completed();
             
             FiringsVm.Remove(firingVm);

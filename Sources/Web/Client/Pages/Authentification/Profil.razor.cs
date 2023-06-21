@@ -43,7 +43,7 @@ namespace Client.Pages.Authentification
                 CookieRequestCultureProvider.MakeCookieValue(RegisterInfo.Culture), 365
             });
 
-            await WorkshopWorker.WorkshopRepository.Update(workshop);
+            WorkshopWorker.WorkshopRepository.Update(workshop);
             await WorkshopWorker.Completed();
             
             Snackbar.Add("Modification effectuée", Severity.Success);

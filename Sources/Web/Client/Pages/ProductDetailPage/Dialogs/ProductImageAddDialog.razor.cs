@@ -51,7 +51,7 @@ namespace Client.Pages.ProductDetailPage.Dialogs
             if (string.IsNullOrEmpty(ImageInstruction.Url)) return;
 
             ProductDetail.ImageInstructions.Add(ImageInstruction);
-            await ProductWorker.ProductRepository.Update(ProductDetail);
+            ProductWorker.ProductRepository.Update(ProductDetail);
 
             await ProductWorker.Completed();
             StateHasChanged();

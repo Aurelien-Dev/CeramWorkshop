@@ -51,17 +51,17 @@ public static class EfCoreExtension
         return source.AnyAsync(predicate, cancellationToken).WaitAsync(cancellationToken).ConfigureAwait(false);
     }
 
+    public static ConfiguredTaskAwaitable<List<TSource>> ToListAsyncWait<TSource>(this IQueryable<TSource> source, CancellationToken cancellationToken = default)
+    {
+        return source.ToListAsync(cancellationToken).WaitAsync(cancellationToken).ConfigureAwait(false);
+    }
+
     public static ConfiguredTaskAwaitable<TSource?> FirstOrDefaultAsyncWait<TSource>(
         this IQueryable<TSource> source,
         Expression<Func<TSource, bool>> predicate,
         CancellationToken cancellationToken = default)
     {
         return source.FirstOrDefaultAsync(predicate, cancellationToken).WaitAsync(cancellationToken).ConfigureAwait(false);
-    }
-
-    public static ConfiguredTaskAwaitable<List<TSource>> ToListAsyncWait<TSource>(this IQueryable<TSource> source, CancellationToken cancellationToken = default)
-    {
-        return source.ToListAsync(cancellationToken).WaitAsync(cancellationToken).ConfigureAwait(false);
     }
 
     public static ConfiguredTaskAwaitable<TSource?> FirstOrDefaultAsyncWait<TSource>(this IQueryable<TSource> source, CancellationToken cancellationToken = default)

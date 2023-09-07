@@ -16,7 +16,7 @@ namespace Repository.Repositories
         public virtual async Task<TEntity> Get(TId id, CancellationToken cancellationToken = default)
         {
             return await Context.Set<TEntity>()
-                .FindAsync(id, cancellationToken)
+                .FindAsync(new object?[] { id, cancellationToken }, cancellationToken: cancellationToken)
                 .ConfigureAwait(false);
         }
 
